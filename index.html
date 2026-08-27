@@ -41,6 +41,7 @@
       --border-color: #E2E8F0;     /* Border Slate */
       --error: #EF4444;            /* Coral Red */
       --error-light: #FEF2F2;
+      --error-dark: #991B1B;
 
       --radius-sm: 12px;
       --radius-md: 20px;
@@ -610,6 +611,19 @@
       border: 1px solid #FDE68A;
     }
 
+    .type-banned {
+      background: #FEF2F2;
+      color: #991B1B;
+      border: 1px solid #F87171;
+      font-weight: 800;
+    }
+
+    .type-warning {
+      background: #FFFBEB;
+      color: #B45309;
+      border: 1px solid #FCD34D;
+    }
+
     /* Catalog Search & Category Filters */
     .catalog-search-bar {
       display: flex;
@@ -1045,7 +1059,7 @@
 
     /* ==========================================================================
        ADMIN PANEL FULL DASHBOARD (GOVERNANCE SUITE)
-       ========================================================================== */
+       ========================================================================= */
     .admin-governance-hub {
       display: none; /* Toggled when in admin mode */
       animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1165,6 +1179,12 @@
       font-weight: 800;
       padding: 2px 7px;
       border-radius: 20px;
+    }
+
+    .tab-badge-alert {
+      background: #FEF2F2;
+      color: var(--error);
+      border: 1px solid #FECACA;
     }
 
     /* KPI Stats Bar */
@@ -1340,6 +1360,12 @@
       flex-shrink: 0;
     }
 
+    .mini-avatar-banned {
+      background: #FEF2F2 !important;
+      color: #991B1B !important;
+      border: 1px solid #FCA5A5;
+    }
+
     .btn-action-sm {
       background: #F1F5F9;
       border: 1px solid var(--border-color);
@@ -1367,6 +1393,19 @@
       background: var(--error);
       color: white;
       border-color: var(--error);
+    }
+
+    .btn-action-ban {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: #991B1B;
+      font-weight: 800;
+    }
+
+    .btn-action-ban:hover {
+      background: #DC2626;
+      color: white;
+      border-color: #DC2626;
     }
 
     /* Pairwise Exchange Inspector Box */
@@ -1651,6 +1690,43 @@
       font-weight: 800;
       font-size: 0.78rem;
       margin-top: 4px;
+    }
+
+    .trust-score-bad {
+      background: #FEF2F2 !important;
+      color: #991B1B !important;
+      border: 1px solid #FECACA !important;
+    }
+
+    .trust-score-warning {
+      background: #FFFBEB !important;
+      color: #B45309 !important;
+      border: 1px solid #FDE68A !important;
+    }
+
+    /* Ban Safeguard Alert Box in Modal */
+    .ban-safeguard-box {
+      background: #FEF2F2;
+      border: 1.5px solid #FCA5A5;
+      border-radius: 18px;
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .ban-safeguard-box h4 {
+      color: #991B1B;
+      font-size: 0.96rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .ban-safeguard-box p {
+      font-size: 0.82rem;
+      color: #7F1D1D;
+      line-height: 1.4;
     }
 
     /* Responsive Queries */
@@ -1943,17 +2019,17 @@
           <span class="kpi-label">Verified Students</span>
           <div class="kpi-icon" style="background:#FEF3C7; color:var(--highlight-dark);"><i class="fas fa-users"></i></div>
         </div>
-        <div class="kpi-num" id="kpiTotalUsers">8</div>
-        <span style="font-size:0.7rem; color:var(--accent-dark); font-weight:700;">Average 98.4 score</span>
+        <div class="kpi-num" id="kpiTotalUsers">10</div>
+        <span style="font-size:0.7rem; color:var(--accent-dark); font-weight:700;">Average 92.4 score</span>
       </div>
 
       <div class="kpi-card">
         <div class="kpi-top">
-          <span class="kpi-label">Successful Returns</span>
-          <div class="kpi-icon" style="background:#ECFDF5; color:var(--accent);"><i class="fas fa-circle-check"></i></div>
+          <span class="kpi-label">Trust Warnings / Bans</span>
+          <div class="kpi-icon" style="background:#FEF2F2; color:var(--error);"><i class="fas fa-triangle-exclamation"></i></div>
         </div>
-        <div class="kpi-num">99.6%</div>
-        <span style="font-size:0.7rem; color:var(--accent-dark); font-weight:700;">0 disputed cases</span>
+        <div class="kpi-num" id="kpiBadTrustCount" style="color:var(--error);">2</div>
+        <span style="font-size:0.7rem; color:var(--error); font-weight:700;">Requires Admin Action</span>
       </div>
     </div>
 
@@ -1972,7 +2048,7 @@
         <i class="fas fa-arrows-rotate"></i> Live Exchanges <span class="tab-badge" id="tabBadgeExchanges">4</span>
       </button>
       <button class="admin-tab" onclick="switchAdminTab('userInspector', this)">
-        <i class="fas fa-user-astronaut"></i> User Profile & Direct Exchange Inspector
+        <i class="fas fa-user-shield"></i> User Directory & Trust Moderation <span class="tab-badge tab-badge-alert" id="tabBadgeTrustAlert">2 At Risk</span>
       </button>
       <button class="admin-tab" onclick="switchAdminTab('leaderboard', this)">
         <i class="fas fa-trophy"></i> Top Users Leaderboard
@@ -2010,27 +2086,31 @@
           </div>
         </div>
 
-        <!-- Campus Event of the Day Card -->
-        <div style="background:white; border-radius:22px; padding:1.4rem; border:1px solid var(--border-color); box-shadow:var(--shadow-sm); display:flex; flex-direction:column; justify-content:space-between;">
-          <div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <span style="font-weight:800; font-size:1rem; color:var(--text);"><i class="fas fa-calendar-day" style="color:#F59E0B;"></i> Active Spotlight Event</span>
-              <button class="btn-action-sm" onclick="openNewEventModal()"><i class="fas fa-pen"></i> Edit</button>
+        <!-- Campus Event of the Day Card & Quick Ban Alert -->
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <!-- Trust Score Moderation Notice -->
+          <div style="background:#FFFBEB; border-radius:20px; padding:1.2rem; border:1px solid #FDE68A;">
+            <div style="font-weight:800; color:#B45309; font-size:0.92rem; display:flex; align-items:center; gap:8px;">
+              <i class="fas fa-triangle-exclamation"></i> Trust Score Governance Notice
             </div>
-            <div style="background:#F8FAFC; border-radius:16px; padding:14px; border:1px solid var(--border-color);">
-              <h4 style="font-weight:800; color:var(--primary); font-size:1.05rem;" id="adminEventTitle">Midterm Tech & Textbook Swap Fair</h4>
-              <p style="font-size:0.82rem; color:var(--text-secondary); margin-top:4px;" id="adminEventDesc">Free graphing calculators, lab manuals & study monitors available for checkout at the Central Quad Pavilion.</p>
-              <div style="margin-top:10px; font-size:0.78rem; display:flex; flex-direction:column; gap:4px; color:var(--text);">
-                <span><i class="fas fa-map-pin" style="color:#EF4444; width:16px;"></i> <strong id="adminEventLoc">Central Library Hub</strong></span>
-                <span><i class="fas fa-clock" style="color:#F59E0B; width:16px;"></i> <strong id="adminEventTime">10:00 AM - 4:00 PM</strong></span>
-              </div>
-            </div>
+            <p style="font-size:0.8rem; color:#92400E; margin-top:4px; line-height:1.4;">
+              Administrators have sole permission to issue <strong>Temporary Bans</strong> for students with bad trust scores (< 70%) to preserve campus exchange safety.
+            </p>
+            <button class="btn-action-sm" onclick="switchAdminTab('userInspector')" style="background:#B45309; color:white; border:none; margin-top:10px; font-weight:700;">
+              <i class="fas fa-user-lock"></i> Review Low Trust Users
+            </button>
           </div>
 
-          <div style="margin-top:16px; display:flex; gap:10px;">
-            <button class="btn-submit" style="background:var(--primary); font-size:0.82rem; padding:10px;" onclick="showToast('Campus broadcast push notification sent to 2,400 students!')">
-              <i class="fas fa-broadcast-tower"></i> Broadcast Notification
-            </button>
+          <!-- Spotlight Card -->
+          <div style="background:white; border-radius:22px; padding:1.4rem; border:1px solid var(--border-color); box-shadow:var(--shadow-sm);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-weight:800; font-size:0.95rem; color:var(--text);"><i class="fas fa-calendar-day" style="color:#F59E0B;"></i> Active Spotlight Event</span>
+              <button class="btn-action-sm" onclick="openNewEventModal()"><i class="fas fa-pen"></i> Edit</button>
+            </div>
+            <div style="background:#F8FAFC; border-radius:16px; padding:12px; border:1px solid var(--border-color);">
+              <h4 style="font-weight:800; color:var(--primary); font-size:1rem;" id="adminEventTitle">Midterm Tech & Textbook Swap Fair</h4>
+              <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:3px;" id="adminEventDesc">Free graphing calculators, lab manuals & study monitors available for checkout at the Central Quad Pavilion.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -2185,14 +2265,20 @@
         </div>
       </div>
 
-      <!-- General User Directory Table -->
+      <!-- General User Directory Table with Trust Score Moderation -->
       <div class="admin-table-container">
         <div class="table-toolbar">
           <div class="table-title">
-            <i class="fas fa-users" style="color:var(--highlight-dark);"></i> Verified Campus Student Directory
+            <i class="fas fa-users" style="color:var(--highlight-dark);"></i> Verified Campus Student Directory & Trust Moderation
           </div>
           <div class="table-actions">
             <input type="text" class="table-search" placeholder="Search student by name/dept..." id="searchUserDirectoryInput" oninput="renderUserDirectoryTable()" />
+            <select class="table-filter-select" id="filterUserTrustScore" onchange="renderUserDirectoryTable()">
+              <option value="all">All Trust Scores</option>
+              <option value="low">⚠️ Low Trust (< 75%)</option>
+              <option value="high">⭐ High Trust (95%+)</option>
+              <option value="banned">🔴 Banned Students</option>
+            </select>
           </div>
         </div>
         <div style="overflow-x:auto;">
@@ -2202,10 +2288,9 @@
                 <th>Student Member</th>
                 <th>Department</th>
                 <th>Trust Score</th>
-                <th>Active Lendings</th>
-                <th>Active Borrowings</th>
+                <th>Swaps / Lends</th>
                 <th>Account Status</th>
-                <th>Profile & Moderation</th>
+                <th>Admin Governance & Ban Control</th>
               </tr>
             </thead>
             <tbody id="adminUserDirectoryTableBody">
@@ -2426,7 +2511,7 @@
   </div>
 </div>
 
-<!-- USER PROFILE DEEP INSPECTOR MODAL (ADMIN & USER) -->
+<!-- USER PROFILE DEEP INSPECTOR MODAL -->
 <div class="modal-overlay" id="userProfileModal">
   <div class="modal-card modal-lg">
     <div class="modal-header">
@@ -2436,6 +2521,67 @@
     <div id="userProfileModalContent">
       <!-- Populated via JS -->
     </div>
+  </div>
+</div>
+
+<!-- ADMIN PERMISSION & TEMPORARY BAN AUTHORIZATION MODAL -->
+<div class="modal-overlay" id="adminBanAuthModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 style="color:var(--error);"><i class="fas fa-gavel"></i> Admin Authorization: Temporary Ban</h3>
+      <button class="close-modal" onclick="closeModal('adminBanAuthModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <form onsubmit="executeAdminTemporaryBan(event)">
+      <!-- Target Student Details -->
+      <div id="banTargetDetails">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="ban-safeguard-box">
+        <h4><i class="fas fa-shield-halved"></i> Admin Permission Safeguard</h4>
+        <p>This action will temporarily freeze this student's exchange privileges, suspend their active listings, and flag their account across the campus network. Only authorized administrators may proceed.</p>
+      </div>
+
+      <div class="form-group">
+        <label>Reason for Temporary Ban</label>
+        <select id="banReasonSelect" required>
+          <option value="Critically Low Trust Score (< 70%) & Late Returns">Critically Low Trust Score (< 70%) & Repeated Late Returns</option>
+          <option value="Damaged / Lost Borrowed Item Dispute">Damaged / Lost Borrowed Item Dispute</option>
+          <option value="Unresponsive to Campus Return Notices">Unresponsive to Campus Return Notices</option>
+          <option value="Prohibited / Misrepresented Item Listing">Prohibited / Misrepresented Item Listing</option>
+          <option value="Community Conduct Violation">Community Conduct Violation</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Temporary Ban Duration</label>
+        <select id="banDurationSelect" required>
+          <option value="3 Days">3 Days (First Notice & Trust Review)</option>
+          <option value="7 Days" selected>7 Days (Standard Suspension)</option>
+          <option value="14 Days">14 Days (Extended Penalty)</option>
+          <option value="30 Days">30 Days (Severe Violation)</option>
+          <option value="Until Admin Review">Indefinite (Until In-Person Trust Verification)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Admin Passcode / Security Key Confirmation</label>
+        <input type="password" id="banAdminSecurityKey" placeholder="Enter admin key (e.g. admin123)" value="admin123" required />
+      </div>
+
+      <div class="form-group" style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+        <input type="checkbox" id="banAdminConsentCheck" required style="width:auto; cursor:pointer;" checked />
+        <label for="banAdminConsentCheck" style="margin:0; font-size:0.78rem; font-weight:700; color:var(--text); cursor:pointer;">
+          I explicitly grant administrator permission to temporarily ban this user.
+        </label>
+      </div>
+
+      <input type="hidden" id="banTargetUserId" />
+
+      <button type="submit" class="btn-submit" style="background:var(--error); margin-top:14px;">
+        <i class="fas fa-lock"></i> Authorize & Execute Temporary Ban
+      </button>
+    </form>
   </div>
 </div>
 
@@ -2484,7 +2630,7 @@
 <script>
   // 1. Initial State Data Models
 
-  // Campus Users
+  // Campus Users (including users with bad trust scores for testing)
   let users = [
     { id: 1, name: "Alex Chen", email: "alex.c@university.edu", dept: "Computer Science", trustScore: 99, swapsCompleted: 14, donatedCount: 4, avatar: "AC", status: "Active", badge: "Platinum Peer" },
     { id: 2, name: "Emma Watson", email: "emma.w@university.edu", dept: "Mathematics", trustScore: 100, swapsCompleted: 22, donatedCount: 7, avatar: "EW", status: "Active", badge: "Community Hero" },
@@ -2493,7 +2639,10 @@
     { id: 5, name: "David Kim", email: "david.k@university.edu", dept: "Biochemistry", trustScore: 96, swapsCompleted: 8, donatedCount: 1, avatar: "DK", status: "Active", badge: "Verified Student" },
     { id: 6, name: "Sarah Jenkins", email: "sarah.j@university.edu", dept: "Psychology", trustScore: 97, swapsCompleted: 12, donatedCount: 3, avatar: "SJ", status: "Active", badge: "Gold Peer" },
     { id: 7, name: "Marcus Vance", email: "marcus.v@university.edu", dept: "Architecture", trustScore: 98, swapsCompleted: 15, donatedCount: 6, avatar: "MV", status: "Active", badge: "Platinum Peer" },
-    { id: 8, name: "Campus Admin", email: "admin@university.edu", dept: "Student Affairs", trustScore: 100, swapsCompleted: 0, donatedCount: 0, avatar: "AD", status: "Admin Staff", badge: "Staff Moderator" }
+    // Low trust score members
+    { id: 8, name: "Tyler Reed", email: "tyler.r@university.edu", dept: "Economics", trustScore: 54, swapsCompleted: 3, donatedCount: 0, avatar: "TR", status: "Active", badge: "⚠️ Low Trust (54%)", banReason: "3 Overdue Items & Damaged Calculator" },
+    { id: 9, name: "Chloe Bennett", email: "chloe.b@university.edu", dept: "Business Admin", trustScore: 68, swapsCompleted: 4, donatedCount: 0, avatar: "CB", status: "Active", badge: "⚠️ At Risk (68%)", banReason: "Unreturned textbook dispute" },
+    { id: 10, name: "Campus Admin", email: "admin@university.edu", dept: "Student Affairs", trustScore: 100, swapsCompleted: 0, donatedCount: 0, avatar: "AD", status: "Admin Staff", badge: "Staff Moderator" }
   ];
 
   // Lender Listings (Priced, Donate, Sell, Free Lend)
@@ -2800,6 +2949,7 @@
         let statusText = item.status;
         if (item.status === 'pending') statusClass = "status-pending";
         if (item.status === 'returned') statusClass = "status-returned";
+        if (item.status === 'suspended') statusClass = "type-banned";
 
         return `
           <div class="list-item">
@@ -2906,7 +3056,7 @@
   function renderMiniLeaderboard() {
     const list = document.getElementById('miniLeaderboardList');
     if (!list) return;
-    const sorted = [...users].filter(u => u.status === 'Active').sort((a, b) => b.trustScore - a.trustScore).slice(0, 3);
+    const sorted = [...users].filter(u => !u.status.includes('Banned')).sort((a, b) => b.trustScore - a.trustScore).slice(0, 3);
 
     list.innerHTML = sorted.map((u, idx) => `
       <div class="top-user-item" onclick="inspectUser(${u.id})" style="cursor:pointer;">
@@ -2936,13 +3086,16 @@
   }
 
   function updateAdminKPIs() {
+    const badTrustUsers = users.filter(u => u.trustScore < 75 || u.status.includes('Banned'));
     document.getElementById('kpiActiveSwaps').innerText = exchanges.filter(e => e.status === 'Active').length;
     document.getElementById('kpiBorrowNeeds').innerText = borrowRequests.length;
     document.getElementById('kpiLenderListings').innerText = items.length;
     document.getElementById('kpiTotalUsers').innerText = users.length;
+    document.getElementById('kpiBadTrustCount').innerText = badTrustUsers.length;
     document.getElementById('tabBadgeNeeds').innerText = borrowRequests.length;
     document.getElementById('tabBadgeListings').innerText = items.length;
     document.getElementById('tabBadgeExchanges').innerText = exchanges.length;
+    document.getElementById('tabBadgeTrustAlert').innerText = `${badTrustUsers.length} At Risk`;
   }
 
   function switchAdminTab(tabName, el) {
@@ -3052,7 +3205,7 @@
           <td>${typeBadge}</td>
           <td><strong>${escapeHtml(i.price)}</strong> (${escapeHtml(i.duration)})</td>
           <td><i class="fas fa-location-dot" style="color:#EF4444; font-size:0.75rem;"></i> ${escapeHtml(i.location)}</td>
-          <td><span class="badge-type ${i.status === 'available' ? 'type-free' : 'type-urgency-med'}">${escapeHtml(i.status)}</span></td>
+          <td><span class="badge-type ${i.status === 'available' ? 'type-free' : (i.status === 'suspended' ? 'type-banned' : 'type-urgency-med')}">${escapeHtml(i.status)}</span></td>
           <td>
             <button class="btn-action-sm" onclick="featureItem(${i.id})"><i class="fas fa-star"></i> Feature</button>
             <button class="btn-action-sm btn-action-danger" onclick="deleteLenderPost(${i.id})"><i class="fas fa-trash"></i></button>
@@ -3093,23 +3246,41 @@
     `).join('');
   }
 
-  // Admin Tab: User Directory Table
+  // Admin Tab: User Directory & Trust Moderation Table
   function renderUserDirectoryTable() {
     const tbody = document.getElementById('adminUserDirectoryTableBody');
     if (!tbody) return;
     const search = (document.getElementById('searchUserDirectoryInput')?.value || '').toLowerCase();
+    const trustFilter = document.getElementById('filterUserTrustScore')?.value || 'all';
 
-    const filtered = users.filter(u => u.name.toLowerCase().includes(search) || u.dept.toLowerCase().includes(search));
+    const filtered = users.filter(u => {
+      const matchSearch = u.name.toLowerCase().includes(search) || u.dept.toLowerCase().includes(search);
+      let matchTrust = true;
+      if (trustFilter === 'low') matchTrust = u.trustScore < 75;
+      if (trustFilter === 'high') matchTrust = u.trustScore >= 95;
+      if (trustFilter === 'banned') matchTrust = u.status.includes('Banned');
+      return matchSearch && matchTrust;
+    });
 
     tbody.innerHTML = filtered.map(u => {
+      const isBanned = u.status.includes('Banned');
+      const isLowTrust = u.trustScore < 75;
       const activeLends = items.filter(i => i.owner.toLowerCase() === u.name.toLowerCase()).length;
       const activeBorrows = exchanges.filter(e => e.borrower.toLowerCase() === u.name.toLowerCase() && e.status === 'Active').length;
+
+      let scoreClass = "trust-score-badge";
+      if (u.trustScore < 70) scoreClass += " trust-score-bad";
+      else if (u.trustScore < 85) scoreClass += " trust-score-warning";
+
+      let statusBadge = `<span class="badge-type type-free">${escapeHtml(u.status)}</span>`;
+      if (isBanned) statusBadge = `<span class="badge-type type-banned"><i class="fas fa-ban"></i> ${escapeHtml(u.status)}</span>`;
+      else if (isLowTrust) statusBadge = `<span class="badge-type type-warning"><i class="fas fa-triangle-exclamation"></i> Low Trust Score</span>`;
 
       return `
         <tr>
           <td>
             <div class="table-user-cell" onclick="inspectUser(${u.id})">
-              <div class="mini-avatar" style="background:var(--primary); color:white;">${u.avatar}</div>
+              <div class="mini-avatar ${isBanned ? 'mini-avatar-banned' : ''}">${u.avatar}</div>
               <div>
                 <strong class="user-name-link">${escapeHtml(u.name)}</strong><br/>
                 <span style="font-size:0.72rem; color:var(--text-secondary);">${escapeHtml(u.email)}</span>
@@ -3117,13 +3288,25 @@
             </div>
           </td>
           <td>${escapeHtml(u.dept)}</td>
-          <td><span class="trust-score-badge"><i class="fas fa-shield-halved"></i> ${u.trustScore}/100</span></td>
-          <td><strong>${activeLends}</strong> items</td>
-          <td><strong>${activeBorrows}</strong> swaps</td>
-          <td><span class="badge-type ${u.status === 'Active' ? 'type-free' : 'type-donate'}">${escapeHtml(u.status)}</span></td>
           <td>
-            <button class="btn-action-sm" onclick="inspectUser(${u.id})"><i class="fas fa-id-card"></i> Inspect Profile</button>
-            <button class="btn-action-sm btn-action-danger" onclick="toggleUserSuspension(${u.id})">${u.status === 'Active' ? 'Suspend' : 'Restore'}</button>
+            <span class="${scoreClass}"><i class="fas fa-shield-halved"></i> ${u.trustScore}/100</span>
+            ${isLowTrust && !isBanned ? '<br/><span style="font-size:0.68rem; color:#991B1B; font-weight:700;">Action Recommended</span>' : ''}
+          </td>
+          <td><strong>${activeLends}</strong> lends · <strong>${activeBorrows}</strong> active swaps</td>
+          <td>${statusBadge}</td>
+          <td>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button class="btn-action-sm" onclick="inspectUser(${u.id})"><i class="fas fa-id-card"></i> Profile</button>
+              ${isBanned ? `
+                <button class="btn-action-sm" style="background:var(--accent-light); color:var(--accent-dark);" onclick="liftAdminBan(${u.id})">
+                  <i class="fas fa-unlock"></i> Lift Ban (Admin)
+                </button>
+              ` : `
+                <button class="btn-action-sm btn-action-ban" onclick="openAdminBanModal(${u.id})">
+                  <i class="fas fa-gavel"></i> ${isLowTrust ? 'Ban for Low Trust' : 'Admin Ban'}
+                </button>
+              `}
+            </div>
           </td>
         </tr>
       `;
@@ -3134,7 +3317,7 @@
   function renderAdminLeaderboardTable() {
     const tbody = document.getElementById('adminLeaderboardTableBody');
     if (!tbody) return;
-    const sorted = [...users].filter(u => u.status === 'Active').sort((a, b) => b.trustScore - a.trustScore || b.swapsCompleted - a.swapsCompleted);
+    const sorted = [...users].filter(u => !u.status.includes('Banned')).sort((a, b) => b.trustScore - a.trustScore || b.swapsCompleted - a.swapsCompleted);
 
     tbody.innerHTML = sorted.map((u, idx) => `
       <tr>
@@ -3183,11 +3366,11 @@
     const selB = document.getElementById('pairwiseUserB');
     if (!selA || !selB) return;
 
-    const options = users.map(u => `<option value="${escapeHtml(u.name)}">${escapeHtml(u.name)} (${escapeHtml(u.dept)})</option>`).join('');
+    const options = users.map(u => `<option value="${escapeHtml(u.name)}">${escapeHtml(u.name)} (${escapeHtml(u.dept)}) - Score ${u.trustScore}%</option>`).join('');
     selA.innerHTML = options;
     selB.innerHTML = options;
 
-    if (users.length >= 2) {
+    if (users.length >= 4) {
       selA.selectedIndex = 0; // Alex Chen
       selB.selectedIndex = 3; // Priya Sharma
     }
@@ -3257,7 +3440,7 @@
   }
 
   // =========================================================================
-  // USER PROFILE MODAL INSPECTOR
+  // USER PROFILE MODAL INSPECTOR & ADMIN BAN PERMISSION WORKFLOW
   // =========================================================================
   function inspectUserByName(userName) {
     const user = users.find(u => u.name.toLowerCase() === userName.toLowerCase());
@@ -3272,6 +3455,9 @@
     const user = users.find(u => u.id === userId);
     if (!user) return;
 
+    const isBanned = user.status.includes('Banned');
+    const isLowTrust = user.trustScore < 75;
+
     // Items this user is lending/selling/donating
     const userListings = items.filter(i => i.owner.toLowerCase() === user.name.toLowerCase());
     // Items this user is currently borrowing
@@ -3279,22 +3465,35 @@
     // Needs posted
     const userNeeds = borrowRequests.filter(r => r.requester.toLowerCase() === user.name.toLowerCase());
 
+    let scoreBadgeClass = "trust-score-badge";
+    if (user.trustScore < 70) scoreBadgeClass += " trust-score-bad";
+    else if (user.trustScore < 85) scoreBadgeClass += " trust-score-warning";
+
     const content = document.getElementById('userProfileModalContent');
     content.innerHTML = `
       <div class="inspector-profile-header">
-        <div class="inspector-avatar">${user.avatar}</div>
+        <div class="inspector-avatar ${isBanned ? 'mini-avatar-banned' : ''}">${user.avatar}</div>
         <div class="inspector-meta" style="flex:1;">
           <h4>${escapeHtml(user.name)}</h4>
           <p>${escapeHtml(user.email)} · <strong>${escapeHtml(user.dept)}</strong></p>
           <div style="display:flex; gap:8px; align-items:center; margin-top:6px; flex-wrap:wrap;">
-            <span class="trust-score-badge"><i class="fas fa-shield-halved"></i> Trust Score: ${user.trustScore}/100</span>
+            <span class="${scoreBadgeClass}"><i class="fas fa-shield-halved"></i> Trust Score: ${user.trustScore}/100</span>
             <span class="badge-type type-sell"><i class="fas fa-medal"></i> ${escapeHtml(user.badge)}</span>
-            <span class="badge-type ${user.status === 'Active' ? 'type-free' : 'type-urgency-high'}">${escapeHtml(user.status)}</span>
+            <span class="badge-type ${isBanned ? 'type-banned' : (isLowTrust ? 'type-warning' : 'type-free')}">${escapeHtml(user.status)}</span>
           </div>
+          ${user.banReason ? `<div style="font-size:0.75rem; color:#991B1B; margin-top:4px; font-weight:700;"><i class="fas fa-circle-exclamation"></i> Flag: ${escapeHtml(user.banReason)}</div>` : ''}
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
           <button class="btn-action-sm" onclick="boostTrustScore(${user.id})" style="background:var(--accent-light); color:var(--accent-dark);"><i class="fas fa-arrow-up"></i> +2 Trust Score</button>
-          <button class="btn-action-sm btn-action-danger" onclick="toggleUserSuspension(${user.id})"><i class="fas fa-ban"></i> ${user.status === 'Active' ? 'Suspend Member' : 'Activate Member'}</button>
+          ${isBanned ? `
+            <button class="btn-action-sm" style="background:var(--accent-light); color:var(--accent-dark); font-weight:800;" onclick="liftAdminBan(${user.id})">
+              <i class="fas fa-unlock"></i> Lift Ban (Admin Auth)
+            </button>
+          ` : `
+            <button class="btn-action-sm btn-action-ban" onclick="closeModal('userProfileModal'); openAdminBanModal(${user.id});">
+              <i class="fas fa-gavel"></i> ${isLowTrust ? 'Temporarily Ban (Low Trust)' : 'Issue Admin Ban'}
+            </button>
+          `}
         </div>
       </div>
 
@@ -3346,6 +3545,107 @@
     `;
 
     document.getElementById('userProfileModal').style.display = 'flex';
+  }
+
+  // =========================================================================
+  // ADMIN TEMPORARY BAN AUTHORIZATION SAFEGUARD
+  // =========================================================================
+  function openAdminBanModal(userId) {
+    const user = users.find(u => u.id === userId);
+    if (!user) return;
+
+    document.getElementById('banTargetUserId').value = user.id;
+
+    let trustNotice = `Current Trust Score is <strong>${user.trustScore}/100</strong>.`;
+    if (user.trustScore < 70) {
+      trustNotice = `<span style="color:#991B1B; font-weight:800;">⚠️ Critically Bad Trust Score (${user.trustScore}/100). Below 70% threshold.</span>`;
+    }
+
+    document.getElementById('banTargetDetails').innerHTML = `
+      <div style="display:flex; align-items:center; gap:14px; background:#F8FAFC; border:1px solid var(--border-color); border-radius:18px; padding:14px; margin-bottom:1rem;">
+        <div class="mini-avatar" style="width:42px; height:42px; font-size:1rem; background:#FEF2F2; color:#991B1B;">${user.avatar}</div>
+        <div>
+          <div style="font-weight:800; font-size:1rem; color:var(--text);">${escapeHtml(user.name)}</div>
+          <div style="font-size:0.78rem; color:var(--text-secondary);">${escapeHtml(user.email)} · ${escapeHtml(user.dept)}</div>
+          <div style="font-size:0.8rem; margin-top:2px;">${trustNotice}</div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('adminBanAuthModal').style.display = 'flex';
+  }
+
+  function executeAdminTemporaryBan(e) {
+    e.preventDefault();
+    const userId = parseInt(document.getElementById('banTargetUserId').value);
+    const reason = document.getElementById('banReasonSelect').value;
+    const duration = document.getElementById('banDurationSelect').value;
+    const securityKey = document.getElementById('banAdminSecurityKey').value;
+    const consent = document.getElementById('banAdminConsentCheck').checked;
+
+    if (!consent) {
+      showToast('Admin consent is required to execute ban!');
+      return;
+    }
+
+    if (securityKey.trim() === '') {
+      showToast('Please enter administrator authorization key!');
+      return;
+    }
+
+    const user = users.find(u => u.id === userId);
+    if (!user) return;
+
+    // Apply Temporary Ban with Admin Permission
+    user.status = `Temporarily Banned (${duration})`;
+    user.banReason = `${reason} (Authorized by Campus Admin #08)`;
+    user.badge = `🔴 Banned (${duration})`;
+
+    // Freeze their active items
+    items.forEach(item => {
+      if (item.owner.toLowerCase() === user.name.toLowerCase() && item.status === 'available') {
+        item.status = 'suspended';
+      }
+    });
+
+    closeModal('adminBanAuthModal');
+    renderAllAdminTabs();
+    renderCatalog();
+    showToast(`Admin Permission Verified: ${user.name} temporarily banned for ${duration}!`);
+  }
+
+  function liftAdminBan(userId) {
+    const user = users.find(u => u.id === userId);
+    if (!user) return;
+
+    user.status = "Active";
+    user.banReason = null;
+    user.trustScore = Math.max(75, user.trustScore); // Reset to baseline
+    user.badge = "Verified Student";
+
+    // Restore items
+    items.forEach(item => {
+      if (item.owner.toLowerCase() === user.name.toLowerCase() && item.status === 'suspended') {
+        item.status = 'available';
+      }
+    });
+
+    renderAllAdminTabs();
+    renderCatalog();
+    showToast(`Administrator permission granted: Ban lifted for ${user.name}!`);
+  }
+
+  function boostTrustScore(userId) {
+    const u = users.find(user => user.id === userId);
+    if (u) {
+      u.trustScore = Math.min(100, u.trustScore + 2);
+      if (u.trustScore >= 75 && u.badge.includes('Low Trust')) {
+        u.badge = "Verified Student";
+      }
+      inspectUser(userId);
+      renderAllAdminTabs();
+      showToast(`Boosted trust score for ${u.name} to ${u.trustScore}`);
+    }
   }
 
   // =========================================================================
@@ -3502,26 +3802,6 @@
       ex.dueDate = "2026-09-18 (Extended)";
       renderAllAdminTabs();
       showToast(`Due date extended for ${ex.itemTitle}`);
-    }
-  }
-
-  function boostTrustScore(userId) {
-    const u = users.find(user => user.id === userId);
-    if (u) {
-      u.trustScore = Math.min(100, u.trustScore + 2);
-      inspectUser(userId);
-      renderAllAdminTabs();
-      showToast(`Boosted trust score for ${u.name} to ${u.trustScore}`);
-    }
-  }
-
-  function toggleUserSuspension(userId) {
-    const u = users.find(user => user.id === userId);
-    if (u) {
-      u.status = u.status === 'Active' ? 'Suspended' : 'Active';
-      inspectUser(userId);
-      renderAllAdminTabs();
-      showToast(`Updated status for ${u.name} to ${u.status}`);
     }
   }
 
