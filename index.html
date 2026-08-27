@@ -1033,15 +1033,21 @@
       </div>
     </div>
 
-    <!-- Admin Nav Tabs -->
-    <div class="admin-nav-tabs">
-      <button class="admin-tab active" onclick="switchAdminTab('overview', this)"><i class="fas fa-chart-pie"></i> Overview</button>
-      <button class="admin-tab" onclick="switchAdminTab('borrowNeeds', this)"><i class="fas fa-bullhorn"></i> Needs Queue (<span id="adminBadgeNeeds">3</span>)</button>
-      <button class="admin-tab" onclick="switchAdminTab('lenderPosts', this)"><i class="fas fa-box"></i> Listing Approvals (<span id="adminBadgeListings">6</span>)</button>
-      <button class="admin-tab" onclick="switchAdminTab('exchanges', this)"><i class="fas fa-arrows-rotate"></i> Lifecycle Monitor (<span id="adminBadgeExchanges">4</span>)</button>
-      <button class="admin-tab" onclick="switchAdminTab('disputes', this)"><i class="fas fa-triangle-exclamation"></i> Damage & Settlement Disputes (<span id="adminBadgeDisputes" style="color:var(--error); font-weight:800;">1</span>)</button>
-      <button class="admin-tab" onclick="switchAdminTab('userInspector', this)"><i class="fas fa-user-shield"></i> Trust Moderation & Bans</button>
-      <button class="admin-tab" onclick="switchAdminTab('events', this)"><i class="fas fa-calendar-days"></i> Event Spotlight Studio</button>
+    <!-- Admin Nav Tabs with Exchange ID Search Bar -->
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #E2E8F0; margin-bottom: 1.5rem; flex-wrap:wrap; gap:10px;">
+      <div class="admin-nav-tabs" style="border-bottom:none; margin-bottom:0;">
+        <button class="admin-tab active" onclick="switchAdminTab('overview', this)"><i class="fas fa-chart-pie"></i> Overview</button>
+        <button class="admin-tab" onclick="switchAdminTab('borrowNeeds', this)"><i class="fas fa-bullhorn"></i> Needs Queue (<span id="adminBadgeNeeds">3</span>)</button>
+        <button class="admin-tab" onclick="switchAdminTab('lenderPosts', this)"><i class="fas fa-box"></i> Listing Approvals (<span id="adminBadgeListings">6</span>)</button>
+        <button class="admin-tab" onclick="switchAdminTab('exchanges', this)"><i class="fas fa-arrows-rotate"></i> Lifecycle Monitor (<span id="adminBadgeExchanges">4</span>)</button>
+        <button class="admin-tab" onclick="switchAdminTab('disputes', this)"><i class="fas fa-triangle-exclamation"></i> Damage & Settlement Disputes (<span id="adminBadgeDisputes" style="color:var(--error); font-weight:800;">1</span>)</button>
+        <button class="admin-tab" onclick="switchAdminTab('userInspector', this)"><i class="fas fa-user-shield"></i> Trust Moderation & Bans</button>
+        <button class="admin-tab" onclick="switchAdminTab('events', this)"><i class="fas fa-calendar-days"></i> Event Spotlight Studio</button>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; padding-bottom:6px;">
+        <i class="fas fa-search" style="color:var(--text-secondary); font-size:0.85rem;"></i>
+        <input type="text" id="adminExchangeSearch" placeholder="Search Exchange ID..." oninput="renderAllAdminTabs()" style="padding:6px 12px; border-radius:8px; border:1px solid var(--border-color); font-size:0.8rem; outline:none; width:180px;" />
+      </div>
     </div>
 
     <!-- TAB 1: OVERVIEW -->
@@ -2198,9 +2204,30 @@
     document.getElementById('adminBadgeDisputes').innerText = disputes.filter(d => d.status.includes('Pending')).length;
   }
 
+  // Helper to mask email for standard users
+  function displayEmail(email) {
+    if (currentUser && currentUser.role === 'Admin') {
+      return email;
+    }
+    if (!email) return '';
+    const parts = email.split('@');
+    if (parts.length !== 2) return '***';
+    const name = parts[0];
+    const domain = parts[1];
+    const maskedName = name.length > 2 ? name[0] + '***' + name[name.length - 1] : '***';
+    return `${maskedName}@${domain[0]}***.${domain.split('.').slice(1).join('.')}`;
+  }
+
   function renderOverviewTab() {
     const tbody = document.getElementById('overviewExchangesTableBody');
-    tbody.innerHTML = exchanges.slice(0, 4).map(ex => `
+    const searchVal = document.getElementById('adminExchangeSearch') ? document.getElementById('adminExchangeSearch').value.trim().toUpperCase() : '';
+    
+    let filtered = exchanges;
+    if (searchVal) {
+      filtered = exchanges.filter(ex => ex.id.toUpperCase().includes(searchVal));
+    }
+    
+    tbody.innerHTML = filtered.map(ex => `
       <tr>
         <td><code>${ex.id}</code></td>
         <td><strong>${escapeHtml(ex.itemTitle)}</strong></td>
@@ -2245,7 +2272,14 @@
 
   function renderAdminExchangesTab() {
     const tbody = document.getElementById('adminExchangesTableBody');
-    tbody.innerHTML = exchanges.map(ex => {
+    const searchVal = document.getElementById('adminExchangeSearch') ? document.getElementById('adminExchangeSearch').value.trim().toUpperCase() : '';
+    
+    let filtered = exchanges;
+    if (searchVal) {
+      filtered = exchanges.filter(ex => ex.id.toUpperCase().includes(searchVal));
+    }
+
+    tbody.innerHTML = filtered.map(ex => {
       // visual stepper component embed
       let stepper = `
         <div style="font-size:0.7rem; display:flex; gap:3px; flex-wrap:wrap;">
@@ -2315,7 +2349,7 @@
       const isBanned = u.status.includes('Banned');
       return `
         <tr>
-          <td><strong>${escapeHtml(u.name)}</strong><br/><span style="font-size:0.7rem; color:var(--text-secondary);">${escapeHtml(u.email)}</span></td>
+          <td><strong>${escapeHtml(u.name)}</strong><br/><span style="font-size:0.7rem; color:var(--text-secondary);">${escapeHtml(displayEmail(u.email))}</span></td>
           <td>${escapeHtml(u.dept)}</td>
           <td><span style="font-weight:800; color:${u.trustScore < 70 ? 'var(--error)' : 'var(--accent-dark)'};">${u.trustScore}%</span></td>
           <td>${escapeHtml(u.status)}</td>
@@ -2462,6 +2496,7 @@
         <div style="background:white; border:1px solid var(--border-color); border-radius:12px; padding:8px; font-size:0.75rem;">
           <div style="font-weight:700; color:var(--primary);">${escapeHtml(ex.itemTitle)}</div>
           <div style="color:var(--text-secondary); margin-top:2px;">
+            <strong>Exchange ID:</strong> <code>${ex.id}</code><br/>
             ${roleLabel} ${isLender ? 'to' : 'from'} <strong>${escapeHtml(oppParty)}</strong><br/>
             Current Phase: <strong>${STAGES[ex.lifecycleStage]}</strong>
           </div>
@@ -2483,7 +2518,7 @@
     document.getElementById('banTargetUserId').value = user.id;
     document.getElementById('banTargetDetails').innerHTML = `
       <div style="font-size:0.8rem; background:#FEF2F2; padding:10px; border-radius:8px; margin-bottom:8px;">
-        Student Target: <strong>${escapeHtml(user.name)}</strong> (${escapeHtml(user.email)})
+        Student Target: <strong>${escapeHtml(user.name)}</strong> (${escapeHtml(displayEmail(user.email))})
       </div>
     `;
     document.getElementById('adminBanAuthModal').style.display = 'flex';
@@ -2518,7 +2553,7 @@
     document.getElementById('unbanTargetUserId').value = user.id;
     document.getElementById('unbanTargetDetails').innerHTML = `
       <div style="font-size:0.8rem; background:#ECFDF5; padding:10px; border-radius:8px; margin-bottom:8px;">
-        Restoring Student: <strong>${escapeHtml(user.name)}</strong> (${escapeHtml(user.email)})
+        Restoring Student: <strong>${escapeHtml(user.name)}</strong> (${escapeHtml(displayEmail(user.email))})
       </div>
     `;
     document.getElementById('adminUnbanAuthModal').style.display = 'flex';
