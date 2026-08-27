@@ -5603,6 +5603,358 @@ window.addEventListener('DOMContentLoaded', () => {
   if (typeof renderAllAdminTabs === 'function') renderAllAdminTabs();
 });
 
+
+
+// DISCORD-STYLE COMMUNITIES HUB FULL LOGIC & DATA
+  let joinedCommunities = [
+    { name: "Engineering & Tech Hub", tag: "ENG", icon: "⚙️" },
+    { name: "Med & Bio Sciences Guild", tag: "MED", icon: "🩺" },
+    { name: "Design, Arts & Media Collective", tag: "ART", icon: "🎨" }
+  ];
+
+  let pendingJoinTarget = null;
+  let activeCommunity = "Engineering & Tech Hub";
+  let activeChannel = "general";
+  // cart declared
+  // currentUser declared
+  // currentCategory declared
+
+  // Switch Page
+  function switchPage(page) {
+    document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
+    document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+
+    if (page === 'marketplace') {
+      document.getElementById('marketplaceView').classList.add('active-view');
+      document.getElementById('viewBtnMarketplace').classList.add('active');
+    } else {
+      document.getElementById('communityView').classList.add('active-view');
+      document.getElementById('viewBtnCommunity').classList.add('active');
+      renderJoinedServerSidebar();
+    }
+  }
+
+  // Discord Sidebar Joined Server Rendering
+  function renderJoinedServerSidebar() {
+    const container = document.getElementById('joinedServerIconsContainer');
+    document.getElementById('joinedCountBadge').innerText = `${joinedCommunities.length} Joined`;
+
+    container.innerHTML = joinedCommunities.map(comm => {
+      const isActive = comm.name === activeCommunity;
+      return `
+        <div class="server-icon ${isActive ? 'active' : ''}" onclick="openDiscordServer('${comm.name}')" title="${escapeHtml(comm.name)}">
+          ${comm.icon}
+          <span class="server-badge-count">●</span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Open Discord Server / Switch Community
+  function openDiscordServer(name) {
+    const discoverIcon = document.getElementById('serverIconDiscover');
+    
+    if (name === 'discover') {
+      discoverIcon.classList.add('active');
+      document.getElementById('discordDiscoveryView').style.display = 'block';
+      document.getElementById('discordActiveRoomView').style.display = 'none';
+      document.getElementById('sidebarCommTitle').innerText = "Discover Hubs";
+      renderJoinedServerSidebar();
+      return;
+    }
+
+    discoverIcon.classList.remove('active');
+    activeCommunity = name;
+    renderJoinedServerSidebar();
+
+    document.getElementById('discordDiscoveryView').style.display = 'none';
+    document.getElementById('discordActiveRoomView').style.display = 'block';
+
+    document.getElementById('sidebarCommTitle').innerText = name;
+    document.getElementById('specializedCommName').innerText = name;
+    
+    switchChannel('general');
+  }
+
+  const communityChatsData = {
+    "Engineering & Tech Hub": {
+      "general": [
+        { name: "Jordan Smith", tag: "Junior · Electrical", avatar: "JS", text: "Hey everyone! Anyone got an Arduino Uno & breadboard I can borrow for the weekend lab project? Will return by Monday morning!" },
+        { name: "Alex Chen", tag: "Lender", avatar: "AC", text: "I have an extra Arduino starter kit available! Just listed it in the specialized marketplace tab above." },
+        { name: "Maya Lin", tag: "Senior · CS", avatar: "ML", text: "Does anyone have a spare USB-C 96W MacBook charger near the engineering library?" }
+      ],
+      "requests": [
+        { name: "Ethan Hunt", tag: "Sophomore", avatar: "EH", text: "REQUEST: Need a TI-84 Plus CE Calculator for the Physics II exam tomorrow at 2 PM!" },
+        { name: "Sophia Zhang", tag: "Junior", avatar: "SZ", text: "REQUEST: Looking for a Hakko soldering iron for 3 hours to fix a PCB." }
+      ],
+      "lending": [
+        { name: "Marcus Vance", tag: "Graduate Student", avatar: "MV", text: "OFFER: Free lending Sony Alpha DSLR Camera for media/project work. DM me!" },
+        { name: "David Kim", tag: "Senior", avatar: "DK", text: "OFFER: Raspberry Pi 4 (8GB RAM) available for 1-week loan." }
+      ]
+    },
+    "Med & Bio Sciences Guild": {
+      "general": [
+        { name: "Dr. Maya Lin", tag: "Med Student · Year 2", avatar: "ML", text: "Welcome Med & Bio folks! Remember to disinfect all shared stethoscopes and bio kits before return." },
+        { name: "Camila Allen", tag: "Pre-Med", avatar: "CA", text: "Anyone currently studying for MCAT? Want to share prep books or flashcards?" }
+      ],
+      "requests": [
+        { name: "Alexander Young", tag: "Bio Major", avatar: "AY", text: "REQUEST: In urgent need of a unisex Large White Lab Coat for today's 3 PM Anatomy lab!" }
+      ],
+      "lending": [
+        { name: "Isabella Cruz", tag: "Senior Bio", avatar: "IC", text: "OFFER: Campbell Biology 12th Ed Hardcover available for semester loan!" }
+      ]
+    },
+    "Design, Arts & Media Collective": {
+      "general": [
+        { name: "Leo Rivera", tag: "Graphic Design", avatar: "LR", text: "Hey artists! If anyone needs a Wacom tablet or camera tripod for shoot week, check the catalog." },
+        { name: "Chloe Turner", tag: "Film Major", avatar: "CT", text: "Looking for a boom mic for a 2-day short film shoot on quad!" }
+      ],
+      "requests": [
+        { name: "Evelyn White", tag: "Arts Junior", avatar: "EW", text: "REQUEST: Heavy Duty Camera Tripod needed for sunset photography assignment." }
+      ],
+      "lending": [
+        { name: "Hazel Morris", tag: "Design Lead", avatar: "HM", text: "OFFER: Fujifilm Instax Mini camera available! Just bring your own instant film." }
+      ]
+    },
+    "Business & Economics Forum": {
+      "general": [
+        { name: "Benjamin Taylor", tag: "Finance · Senior", avatar: "BT", text: "Welcome to Biz & Econ! Great place to swap financial calculators and case study textbooks." },
+        { name: "Sophia Zhang", tag: "Econ Junior", avatar: "SZ", text: "Anyone have HP 10bII+ Financial Calculator for the Corporate Finance midterm?" }
+      ],
+      "requests": [
+        { name: "Liam Nelson", tag: "Accounting", avatar: "LN", text: "REQUEST: Microeconomics Mankiw 9th Ed textbook for weekend homework." }
+      ],
+      "lending": [
+        { name: "Audrey Cox", tag: "MBA Candidate", avatar: "AC", text: "OFFER: TI BA II Plus Professional Financial Calculator listed in marketplace." }
+      ]
+    },
+    "Gaming & Dorm Life Society": {
+      "general": [
+        { name: "Aria Gonzalez", tag: "Dorm Rep · Quad", avatar: "AG", text: "Gaming night in dorm lounge tonight at 8 PM! We're swapping Switch games & VR headsets." },
+        { name: "Matthew Nelson", tag: "Junior", avatar: "MN", text: "Who has an extra PS5 DualSense controller for FIFA tournament?" }
+      ],
+      "requests": [
+        { name: "Daniel Baker", tag: "Dorm 3B", avatar: "DB", text: "REQUEST: Mini projector for outdoor movie night behind North Quad." }
+      ],
+      "lending": [
+        { name: "Abigail King", tag: "Sophomore", avatar: "AK", text: "OFFER: Meta Quest 2 VR Headset available for weekend loan." }
+      ]
+    }
+  };
+
+  function renderCommunityChats(commName, channel) {
+    const list = document.getElementById('chatMessageList');
+    if (!list) return;
+
+    const commData = communityChatsData[commName] || communityChatsData["Engineering & Tech Hub"];
+    const msgs = commData[channel] || commData["general"] || [];
+
+    list.innerHTML = msgs.map(m => `
+      <div class="chat-msg-row">
+        <div class="chat-avatar">${m.avatar}</div>
+        <div class="chat-bubble">
+          <div class="chat-user-name">
+            <span>${escapeHtml(m.name)} <span class="chat-user-tag">${escapeHtml(m.tag)}</span></span>
+            <button class="btn-report-chat" onclick="openReportModal('${escapeHtml(m.name)}', '${escapeHtml(m.text)}')" title="Report message"><i class="far fa-flag"></i> Report</button>
+          </div>
+          <div class="chat-text">${escapeHtml(m.text)}</div>
+        </div>
+      </div>
+    `).join('');
+
+    list.scrollTop = list.scrollHeight;
+  }
+
+  // Discord Channel Switcher
+  function switchChannel(channel) {
+    activeChannel = channel;
+
+    // Switch out of Discovery View into Active Room View
+    const discView = document.getElementById('discordDiscoveryView');
+    const roomView = document.getElementById('discordActiveRoomView');
+    const discIcon = document.getElementById('serverIconDiscover');
+
+    if (discView) discView.style.display = 'none';
+    if (roomView) roomView.style.display = 'block';
+    if (discIcon) discIcon.classList.remove('active');
+
+    document.querySelectorAll('.channel-item').forEach(el => el.classList.remove('active'));
+
+    const chanKey = channel.charAt(0).toUpperCase() + channel.slice(1);
+    const targetEl = document.getElementById(`chan${chanKey}`);
+    if (targetEl) targetEl.classList.add('active');
+
+    const titleEl = document.getElementById('discordRoomTitle');
+    const topicEl = document.getElementById('discordRoomTopic');
+    const chatStage = document.getElementById('discordChatStage');
+    const marketStage = document.getElementById('discordMarketStage');
+
+    if (channel === 'market') {
+      if (chatStage) chatStage.style.display = 'none';
+      if (marketStage) marketStage.style.display = 'block';
+      if (titleEl) titleEl.innerHTML = `<i class="fas fa-store"></i> #specialized-catalog · ${activeCommunity}`;
+      if (topicEl) topicEl.innerText = `Exclusive items listed by verified ${activeCommunity} members.`;
+      renderSpecializedMarketplace(activeCommunity);
+    } else {
+      if (chatStage) chatStage.style.display = 'block';
+      if (marketStage) marketStage.style.display = 'none';
+      if (titleEl) titleEl.innerHTML = `<i class="fas fa-hashtag"></i> #${channel}-chat · ${activeCommunity}`;
+      if (topicEl) topicEl.innerText = `Official ${channel} channel for ${activeCommunity}. Ask for gear or chat with peers.`;
+      renderCommunityChats(activeCommunity, channel);
+    }
+  }
+
+  // Search Communities in Discovery
+  function filterCommunitiesDiscovery() {
+    const val = document.getElementById('commSearchInput').value.toLowerCase();
+    const items = document.querySelectorAll('#hoverExpandList .hover-expand-item');
+
+    items.forEach(item => {
+      const name = item.getAttribute('data-name').toLowerCase();
+      const desc = item.getAttribute('data-desc').toLowerCase();
+      if (name.includes(val) || desc.includes(val)) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  function focusCommunitySearch() {
+    openDiscordServer('discover');
+    document.getElementById('commSearchInput').focus();
+  }
+
+  // Rules & Regulations Join Prompt
+  function promptJoinCommunity(name, tag) {
+    const exists = joinedCommunities.some(c => c.name === name);
+    if (exists) {
+      openDiscordServer(name);
+      showToast(`Switched to ${name}`);
+      return;
+    }
+
+    pendingJoinTarget = { 
+      name: name, 
+      tag: tag || 'CAMPUS', 
+      icon: name.includes('Eng') ? '⚙️' : (name.includes('Med') ? '🩺' : (name.includes('Art') ? '🎨' : (name.includes('Biz') ? '📈' : '🎮'))) 
+    };
+
+    joinedCommunities.push(pendingJoinTarget);
+    document.getElementById('rulesCommName').innerText = name;
+    document.getElementById('rulesModal').style.display = 'flex';
+    openDiscordServer(name);
+    showToast(`Joined ${name}! 🎉 Review rules & guidelines.`);
+  }
+
+  function confirmAcceptRules() {
+    if (!pendingJoinTarget && joinedCommunities.length > 0) {
+      pendingJoinTarget = joinedCommunities[joinedCommunities.length - 1];
+    }
+    const targetName = pendingJoinTarget ? pendingJoinTarget.name : activeCommunity;
+    pendingJoinTarget = null;
+    closeModal('rulesModal');
+    showToast(`Rules accepted! Welcome to ${targetName} 🎉`);
+    openDiscordServer(targetName);
+  }
+
+  // Share Community Feature
+  function shareActiveCommunity() {
+    const url = window.location.href;
+    const shareText = `Join the ${activeCommunity} on swap campus to borrow and lend gear! ${url}#community=${encodeURIComponent(activeCommunity)}`;
+    
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText);
+    }
+    showToast(`🔗 Community invite link copied to clipboard! Share with your classmates.`);
+  }
+
+  // Leave Community Feature
+  function leaveActiveCommunity() {
+    if (!activeCommunity) return;
+    const target = activeCommunity;
+    joinedCommunities = joinedCommunities.filter(c => c.name !== target);
+    showToast(`You left ${target}`);
+    openDiscordServer('discover');
+  }
+
+  // Report Chat Message Feature
+  let reportingTarget = null;
+  function openReportModal(username, text) {
+    reportingTarget = { username, text };
+    document.getElementById('reportTargetText').innerText = `Report message by ${username}: "${text}"`;
+    document.getElementById('reportModal').style.display = 'flex';
+  }
+
+  function submitChatReport(e) {
+    if(e) e.preventDefault();
+    const reason = document.getElementById('reportReasonSelect').value;
+    closeModal('reportModal');
+    showToast(`🚩 Report submitted to Campus Governance Admins (${reason}). Thank you!`);
+    reportingTarget = null;
+  }
+
+  // Post Chat Message
+  function postChatMessage(e) {
+    e.preventDefault();
+    const input = document.getElementById('chatInputText');
+    const val = input.value.trim();
+    if (!val) return;
+
+    const authorName = currentUser ? currentUser.name : 'Guest Student';
+    const list = document.getElementById('chatMessageList');
+    const msgHtml = `
+      <div class="chat-msg-row">
+        <div class="chat-avatar">${currentUser ? currentUser.avatar : 'ME'}</div>
+        <div class="chat-bubble">
+          <div class="chat-user-name">
+            <span>${authorName} <span class="chat-user-tag">Member</span></span>
+            <button class="btn-report-chat" onclick="openReportModal('${authorName}', '${escapeHtml(val)}')" title="Report message"><i class="far fa-flag"></i> Report</button>
+          </div>
+          <div class="chat-text">${escapeHtml(val)}</div>
+        </div>
+      </div>
+    `;
+    list.insertAdjacentHTML('beforeend', msgHtml);
+    list.scrollTop = list.scrollHeight;
+    input.value = '';
+    showToast('Message sent in community channel!');
+  }
+
+  // Render Specialized Marketplace
+  function renderSpecializedMarketplace(commName) {
+    const list = document.getElementById('specializedItemList');
+    const commItems = items.filter(i => i.community === commName || i.category === 'Electronics');
+
+    if (commItems.length === 0) {
+      list.innerHTML = `<div style="padding:1.5rem; text-align:center; color:var(--text-secondary);">No specialized items listed in this community yet. Be the first to lend!</div>`;
+      return;
+    }
+
+    list.innerHTML = commItems.map(item => `
+      <div class="list-item">
+        <div class="item-info">
+          <div class="item-avatar"><i class="fas ${item.icon}"></i></div>
+          <div class="item-details">
+            <div class="title">${escapeHtml(item.title)}</div>
+            <div class="sub">${escapeHtml(item.subText)} · Verified Member Item</div>
+          </div>
+        </div>
+        <button class="btn-add-cart" onclick="addToCart(${item.id})"><i class="fas fa-plus"></i> Borrow Item</button>
+      </div>
+    `).join('');
+  }
+
+  // Master Initialization
+  window.addEventListener('DOMContentLoaded', () => {
+    if (typeof typeEffect === 'function') typeEffect();
+    if (typeof renderCatalog === 'function') renderCatalog();
+    if (typeof renderItems === 'function') renderItems();
+    if (typeof renderOrbitalCarousel === 'function') renderOrbitalCarousel();
+    if (typeof openDiscordServer === 'function') openDiscordServer('discover');
+    if (typeof renderAllAdminTabs === 'function') renderAllAdminTabs();
+  });
+
 </script>
 </body>
 </html>
