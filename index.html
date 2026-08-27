@@ -153,7 +153,7 @@
     /* GLOBAL NAVIGATION NAVBAR                                 */
     /* ======================================================== */
     .navbar {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       position: sticky;
@@ -199,12 +199,12 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 1.8rem;
+      gap: 1.6rem;
       list-style: none;
     }
 
     .nav-link {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 500;
       color: var(--text-muted);
       cursor: pointer;
@@ -223,23 +223,49 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.8rem;
+    }
+
+    /* 85. DEMO ROLE SWITCHER PILL */
+    .demo-role-pill {
+      background: #F1F5F9;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 3px 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+    .role-btn {
+      padding: 3px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .role-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+      font-weight: 700;
     }
 
     .user-pill {
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: #F1F5F9;
-      padding: 4px 12px 4px 5px;
+      gap: 8px;
+      background: white;
+      padding: 4px 10px 4px 5px;
       border-radius: 50px;
       border: 1px solid var(--border);
       cursor: pointer;
     }
 
     .user-avatar {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       background: var(--primary);
       color: white;
       border-radius: 50%;
@@ -247,20 +273,6 @@
       align-items: center;
       justify-content: center;
       font-size: 0.8rem;
-      font-weight: 700;
-    }
-
-    .user-name {
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .user-trust-tag {
-      font-size: 0.72rem;
-      color: var(--success-dark);
-      background: var(--success-light);
-      padding: 2px 6px;
-      border-radius: 10px;
       font-weight: 700;
     }
 
@@ -312,7 +324,7 @@
     /* ======================================================== */
     .hero-container {
       text-align: center;
-      padding: 2.5rem 0 1.5rem 0;
+      padding: 2rem 0 1.2rem 0;
     }
 
     .hero-title {
@@ -324,10 +336,10 @@
     }
 
     .hero-subtitle {
-      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
       color: var(--text-muted);
       max-width: 620px;
-      margin: 0 auto 2.5rem auto;
+      margin: 0 auto 2rem auto;
     }
 
     /* Curved Carousel Container */
@@ -460,6 +472,29 @@
       color: var(--primary);
     }
 
+    /* 82 & 83. HOW CAMPUS CIRCULAR WORKS WORKFLOW */
+    .how-it-works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1.2rem;
+      margin: 2.5rem 0 3.5rem 0;
+    }
+
+    .step-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .step-num {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
     /* ======================================================== */
     /* 7. MAIN AI SEARCH & AI ANALYSIS                          */
     /* ======================================================== */
@@ -490,7 +525,7 @@
     .ai-textarea {
       width: 100%;
       height: 100px;
-      padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+      padding: 1.2rem;
       border-radius: var(--radius-md);
       border: 1.5px solid var(--border);
       font-family: inherit;
@@ -589,6 +624,79 @@
       padding: 3px 10px;
       border-radius: 20px;
       border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    /* ======================================================== */
+    /* 56. USER DASHBOARD / PERSONAL INSIGHTS                   */
+    /* ======================================================== */
+    .dash-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .dash-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dash-card .val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-top: 4px;
+    }
+
+    .dash-card .trend {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--success-dark);
+      margin-top: 4px;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .chart-box {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    /* Bar/Line Visualizer Simulation */
+    .bar-chart-visual {
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+      height: 140px;
+      margin-top: 1.2rem;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .bar-col {
+      flex: 1;
+      background: var(--primary);
+      border-radius: 6px 6px 0 0;
+      position: relative;
+      transition: height 0.3s;
+    }
+    .bar-col:hover { opacity: 0.85; }
+    .bar-col label {
+      position: absolute;
+      bottom: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.72rem;
+      color: var(--text-muted);
     }
 
     /* ======================================================== */
@@ -873,9 +981,94 @@
       color: var(--dark);
     }
 
-    /* ======================================================== */
-    /* MODALS & OVERLAYS                                        */
-    /* ======================================================== */
+    /* 63. FLOATING AI ASSISTANT WIDGET */
+    .ai-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+      cursor: pointer;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s;
+    }
+    .ai-fab:hover { transform: scale(1.05); }
+
+    /* AI Chat Widget Drawer Panel */
+    .ai-chat-drawer {
+      display: none;
+      position: fixed;
+      bottom: 84px;
+      right: 24px;
+      width: 360px;
+      height: 480px;
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      z-index: 950;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modalPop 0.25s ease-out;
+    }
+
+    .ai-chat-head {
+      background: var(--ai-purple);
+      color: white;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ai-chat-body {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      background: #F8FAFC;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-bubble {
+      max-width: 82%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .chat-bubble.ai {
+      background: white;
+      border: 1px solid var(--border);
+      align-self: flex-start;
+      color: var(--dark);
+      border-bottom-left-radius: 4px;
+    }
+    .chat-bubble.user {
+      background: var(--primary);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .ai-chat-input-bar {
+      padding: 10px;
+      background: white;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+    }
+
+    /* MODALS & OVERLAYS */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -926,9 +1119,7 @@
     .close-modal:hover { color: var(--dark); }
 
     /* Form Elements */
-    .form-group {
-      margin-bottom: 1.2rem;
-    }
+    .form-group { margin-bottom: 1.2rem; }
     .form-group label {
       display: block;
       font-size: 0.82rem;
@@ -945,9 +1136,7 @@
       font-size: 0.9rem;
       outline: none;
     }
-    .form-control:focus {
-      border-color: var(--primary);
-    }
+    .form-control:focus { border-color: var(--primary); }
 
     /* Price Breakdown Box */
     .price-breakdown-box {
@@ -978,7 +1167,7 @@
     .toast {
       position: fixed;
       bottom: 24px;
-      right: 24px;
+      left: 24px;
       background: var(--dark);
       color: white;
       padding: 12px 20px;
@@ -994,10 +1183,7 @@
       opacity: 0;
       transition: all 0.3s ease;
     }
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    .toast.show { transform: translateY(0); opacity: 1; }
 
     /* Responsiveness */
     @media (max-width: 768px) {
@@ -1005,6 +1191,7 @@
       .mobile-bottom-nav { display: block; }
       .carousel-wrapper { height: 340px; }
       .page-view { padding-bottom: 5rem; }
+      .ai-chat-drawer { width: 90%; right: 5%; bottom: 80px; }
     }
   </style>
 </head>
@@ -1025,20 +1212,32 @@
       <ul class="nav-links">
         <li><a class="nav-link active" id="nLinkHome" onclick="switchView('home')"><i class="fas fa-house"></i> Home</a></li>
         <li><a class="nav-link" id="nLinkExplore" onclick="switchView('explore')"><i class="fas fa-compass"></i> Explore</a></li>
+        <li><a class="nav-link" id="nLinkDashboard" onclick="switchView('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
         <li><a class="nav-link" id="nLinkCommunities" onclick="switchView('communities')"><i class="fas fa-users"></i> Communities</a></li>
         <li><a class="nav-link" id="nLinkBorrowings" onclick="switchView('borrowings')"><i class="fas fa-box-open"></i> My Borrowings</a></li>
         <li><a class="nav-link" id="nLinkAdmin" onclick="switchView('admin')"><i class="fas fa-shield-halved"></i> Admin</a></li>
       </ul>
 
       <div class="nav-right">
-        <button class="btn btn-primary btn-sm" onclick="openShareModal()">
-          <i class="fas fa-plus"></i> Share Resource
+        <!-- 81. Global Command Palette Trigger -->
+        <button class="btn btn-secondary btn-sm" onclick="openCmdPalette()" title="Global Command Search (Ctrl+K)">
+          <i class="fas fa-magnifying-glass"></i> <span style="font-size:0.75rem; color:var(--text-muted);">Ctrl+K</span>
         </button>
 
-        <div class="user-pill" onclick="showToast('Signed in as Rahul (Trust Score: 94)')">
-          <div class="user-avatar">R</div>
-          <span class="user-name">Rahul</span>
-          <span class="user-trust-tag">⭐ 94</span>
+        <!-- 85. Demo Role Switcher Pill -->
+        <div class="demo-role-pill">
+          <span class="role-btn active" id="roleBtnStudent" onclick="switchDemoRole('Student')">Student</span>
+          <span class="role-btn" id="roleBtnLender" onclick="switchDemoRole('Lender')">Lender</span>
+          <span class="role-btn" id="roleBtnAdmin" onclick="switchDemoRole('Admin')">Admin</span>
+        </div>
+
+        <button class="btn btn-primary btn-sm" onclick="openShareModal()">
+          <i class="fas fa-plus"></i> Share
+        </button>
+
+        <div class="user-pill" onclick="switchView('dashboard')">
+          <div class="user-avatar" id="navAvatar">R</div>
+          <span class="user-name" id="navUserName">Rahul</span>
         </div>
       </div>
     </div>
@@ -1049,7 +1248,7 @@
     <div class="mobile-nav-items">
       <a class="mobile-nav-item active" onclick="switchView('home')"><i class="fas fa-house"></i><span>Home</span></a>
       <a class="mobile-nav-item" onclick="switchView('explore')"><i class="fas fa-compass"></i><span>Explore</span></a>
-      <a class="mobile-nav-item" onclick="switchView('communities')"><i class="fas fa-users"></i><span>Communities</span></a>
+      <a class="mobile-nav-item" onclick="switchView('dashboard')"><i class="fas fa-chart-pie"></i><span>Insights</span></a>
       <a class="mobile-nav-item" onclick="switchView('borrowings')"><i class="fas fa-box-open"></i><span>Activity</span></a>
       <a class="mobile-nav-item" onclick="switchView('admin')"><i class="fas fa-shield-halved"></i><span>Admin</span></a>
     </div>
@@ -1155,6 +1354,42 @@
         </div>
       </div>
 
+      <!-- 82 & 83. HOW CAMPUS CIRCULAR WORKS WORKFLOW -->
+      <section style="margin-top: 3rem;">
+        <div class="section-title-area">
+          <h2>How Campus Circular Works</h2>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Simple, transparent, and secure peer borrowing flow</p>
+        </div>
+
+        <div class="how-it-works-grid">
+          <div class="step-card">
+            <div class="step-num">Step 01</div>
+            <h4 style="font-size:0.95rem; margin-bottom:4px;">Tell us your need</h4>
+            <p style="font-size:0.82rem; color:var(--text-muted);">Describe your requirement in natural language.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">Step 02</div>
+            <h4 style="font-size:0.95rem; margin-bottom:4px;">AI Smart Match</h4>
+            <p style="font-size:0.82rem; color:var(--text-muted);">Compares availability, distance, condition & trust.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">Step 03</div>
+            <h4 style="font-size:0.95rem; margin-bottom:4px;">Secure Approval</h4>
+            <p style="font-size:0.82rem; color:var(--text-muted);">Lender accepts and Admin approves exchange.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">Step 04</div>
+            <h4 style="font-size:0.95rem; margin-bottom:4px;">1-to-1 Chat & Borrow</h4>
+            <p style="font-size:0.82rem; color:var(--text-muted);">Coordinate pickup and enjoy borrowing.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">Step 05</div>
+            <h4 style="font-size:0.95rem; margin-bottom:4px;">Return & Settle</h4>
+            <p style="font-size:0.82rem; color:var(--text-muted);">Compare condition and receive deposit refund.</p>
+          </div>
+        </div>
+      </section>
+
     </div>
 
     <!-- ======================================================== -->
@@ -1166,10 +1401,6 @@
           <h2>Explore Campus Resources</h2>
           <p style="color:var(--text-muted); font-size:0.9rem;">Browse verified equipment shared by trusted students nearby</p>
         </div>
-
-        <button class="btn btn-secondary btn-sm" onclick="showToast('Filters updated!')">
-          <i class="fas fa-sliders"></i> Filter & Sort
-        </button>
       </div>
 
       <div class="filter-bar">
@@ -1188,7 +1419,107 @@
     </div>
 
     <!-- ======================================================== -->
-    <!-- VIEW 3: COMMUNITIES                                      -->
+    <!-- VIEW 3: USER DASHBOARD & PERSONAL INSIGHTS               -->
+    <!-- ======================================================== -->
+    <div class="page-view" id="dashboardView">
+      <div class="section-title-area">
+        <div>
+          <h2>Your Campus Circular</h2>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Your sharing, borrowing and campus impact at a glance</p>
+        </div>
+        <span class="badge badge-success">⭐ Trust Score: 94/100</span>
+      </div>
+
+      <!-- 56. TOP SUMMARY CARDS -->
+      <div class="dash-summary-grid">
+        <div class="dash-card">
+          <div style="font-size:0.8rem; color:var(--text-muted);">Resources Borrowed</div>
+          <div class="val">12</div>
+          <div class="trend">↑ 2 this month</div>
+        </div>
+        <div class="dash-card">
+          <div style="font-size:0.8rem; color:var(--text-muted);">Resources Shared</div>
+          <div class="val">7</div>
+          <div class="trend">↑ 1 new listing</div>
+        </div>
+        <div class="dash-card">
+          <div style="font-size:0.8rem; color:var(--text-muted);">Money Saved</div>
+          <div class="val" style="color:var(--success-dark);">₹4,850</div>
+          <div class="trend">↑ 18% this month</div>
+        </div>
+        <div class="dash-card">
+          <div style="font-size:0.8rem; color:var(--text-muted);">Successful Exchanges</div>
+          <div class="val">18</div>
+          <div class="trend">100% completed</div>
+        </div>
+        <div class="dash-card">
+          <div style="font-size:0.8rem; color:var(--text-muted);">On-Time Returns</div>
+          <div class="val" style="color:var(--primary);">96%</div>
+          <div class="trend">Verified punctual</div>
+        </div>
+      </div>
+
+      <!-- 57. CHARTS GRID -->
+      <div class="charts-grid">
+        <!-- Chart 1: Borrowing Activity -->
+        <div class="chart-box">
+          <h4 style="font-size:0.95rem; margin-bottom:4px;">Borrowing Activity Over Time</h4>
+          <p style="font-size:0.78rem; color:var(--text-muted);">Monthly exchanges completed on campus</p>
+
+          <div class="bar-chart-visual">
+            <div class="bar-col" style="height:40%;"><label>Jun</label></div>
+            <div class="bar-col" style="height:65%;"><label>Jul</label></div>
+            <div class="bar-col" style="height:90%;"><label>Aug</label></div>
+            <div class="bar-col" style="height:75%;"><label>Sep</label></div>
+          </div>
+        </div>
+
+        <!-- Chart 2: Spending vs Money Saved -->
+        <div class="chart-box">
+          <h4 style="font-size:0.95rem; margin-bottom:4px;">Buying vs Borrowing Comparison</h4>
+          <p style="font-size:0.78rem; color:var(--text-muted);">Access instead of ownership value breakdown</p>
+
+          <div style="margin-top:1.2rem;">
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px;">
+              <span>Buying Equivalent Items:</span>
+              <strong>₹8,500</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px;">
+              <span>Borrowing Cost Paid:</span>
+              <strong style="color:var(--primary);">₹3,650</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:0.95rem; font-weight:800; border-top:1px solid var(--border); padding-top:8px; margin-top:8px;">
+              <span>Total Money Saved:</span>
+              <strong style="color:var(--success-dark);">₹4,850</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 62. YOUR CIRCULAR IMPACT -->
+      <div class="ai-search-card">
+        <h3 style="margin-bottom:6px;"><i class="fas fa-leaf" style="color:var(--success);"></i> Your Circular Campus Impact</h3>
+        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.2rem;">You are helping make your campus more sustainable and community-driven.</p>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:1rem; text-align:center;">
+          <div style="background:#F8FAFC; padding:1rem; border-radius:12px; border:1px solid var(--border);">
+            <div style="font-size:1.4rem; font-weight:800; color:var(--primary);">24</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Students Helped</div>
+          </div>
+          <div style="background:#F8FAFC; padding:1rem; border-radius:12px; border:1px solid var(--border);">
+            <div style="font-size:1.4rem; font-weight:800; color:var(--success-dark);">14 kg</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">E-Waste Avoided</div>
+          </div>
+          <div style="background:#F8FAFC; padding:1rem; border-radius:12px; border:1px solid var(--border);">
+            <div style="font-size:1.4rem; font-weight:800; color:var(--ai-purple);">98%</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">Lender Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 4: COMMUNITIES                                      -->
     <!-- ======================================================== -->
     <div class="page-view" id="communitiesView">
       <div class="section-title-area">
@@ -1211,7 +1542,7 @@
           <p style="color:var(--text-muted); font-size:0.9rem;" id="commDetailMeta">1,248 members · 342 shared resources</p>
         </div>
         <div style="display:flex; gap:10px;">
-          <button class="btn btn-secondary btn-sm" onclick="showToast('Invite link copied to clipboard! 📋')"><i class="fas fa-share-nodes"></i> Invite</button>
+          <button class="btn btn-secondary btn-sm" onclick="showToast('Invite link copied! 📋')"><i class="fas fa-share-nodes"></i> Invite</button>
           <button class="btn btn-primary btn-sm"><i class="fas fa-check"></i> Joined</button>
         </div>
       </div>
@@ -1222,7 +1553,6 @@
       </div>
 
       <div id="commTabDiscussion">
-        <!-- Resource-Aware Discussion Post -->
         <div class="discussion-post">
           <div class="owner-row">
             <div class="owner-avatar">SK</div>
@@ -1231,9 +1561,8 @@
               <div style="font-size:0.75rem; color:var(--text-muted);">Posted 2 hours ago in Photography</div>
             </div>
           </div>
-          <p style="margin-top:8px; font-size:0.95rem;">Does anyone have a professional camera tripod available for tomorrow evening's college cultural festival? Need it for ~4 hours!</p>
+          <p style="margin-top:8px; font-size:0.95rem;">Does anyone have a professional camera tripod available for tomorrow evening's college cultural festival?</p>
           
-          <!-- Resource Bridge -->
           <div class="resource-bridge-box">
             <div>
               <span style="font-size:0.82rem; font-weight:700; color:var(--primary);"><i class="fas fa-sparkles"></i> 3 matching tripods available in Photography Marketplace</span>
@@ -1241,38 +1570,25 @@
             <button class="btn btn-primary btn-sm" onclick="switchCommTab('marketplace', document.querySelectorAll('.comm-tab')[1])">View Resources</button>
           </div>
         </div>
-
-        <div class="discussion-post">
-          <div class="owner-row">
-            <div class="owner-avatar">AD</div>
-            <div>
-              <div style="font-weight:700; font-size:0.9rem;">Arjun Das</div>
-              <div style="font-size:0.75rem; color:var(--text-muted);">Posted yesterday in Photography</div>
-            </div>
-          </div>
-          <p style="margin-top:8px; font-size:0.95rem;">Just listed my Sony Alpha A7 III 4K camera for peer borrowing! Clean condition, comes with battery and carrying case.</p>
-        </div>
       </div>
 
       <div id="commTabMarketplace" style="display:none;">
-        <div class="resource-grid" id="commMarketplaceGrid">
-          <!-- Dynamically populated -->
-        </div>
+        <div class="resource-grid" id="commMarketplaceGrid"></div>
       </div>
     </div>
 
     <!-- ======================================================== -->
-    <!-- VIEW 4: MY BORROWINGS & LIFECYCLE                         -->
+    <!-- VIEW 5: MY BORROWINGS & 69. ONE-TO-ONE SECURE CHAT        -->
     <!-- ======================================================== -->
     <div class="page-view" id="borrowingsView">
       <div class="section-title-area">
         <div>
           <h2>My Borrowing Activity</h2>
-          <p style="color:var(--text-muted); font-size:0.9rem;">Track your active exchanges, return timelines, and deposits</p>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Track active exchanges, return timelines, and 1-to-1 secure lender chat</p>
         </div>
       </div>
 
-      <!-- Active Borrowing Card -->
+      <!-- Active Borrowing Card with Access-Controlled Chat Button -->
       <div class="ai-search-card">
         <div style="display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
           <div>
@@ -1288,34 +1604,44 @@
           </div>
         </div>
 
+        <!-- 69 & 70. SECURE CHAT ACCESS STATE BADGE -->
+        <div style="background:#ECFDF5; border:1px solid #A7F3D0; padding:1rem; border-radius:12px; margin-bottom:1.2rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <span class="badge badge-success">🟢 Chat Available</span>
+            <div style="font-size:0.85rem; font-weight:600; color:var(--success-dark); margin-top:2px;">Exchange approved by Admin! You can now privately coordinate handover with Rahul.</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openP2pChat('Rahul', 'Sony Alpha A7 III Camera')">
+            <i class="fas fa-comments"></i> Open Chat with Lender
+          </button>
+        </div>
+
         <!-- 23. Visual Borrowing Lifecycle -->
         <h5 style="font-size:0.78rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">Borrowing Lifecycle Timeline</h5>
         <div style="display:flex; justify-content:space-between; align-items:center; background:#F8FAFC; padding:12px; border-radius:12px; border:1px solid var(--border); flex-wrap:wrap; gap:8px;">
           <span style="font-size:0.76rem; font-weight:700; color:var(--success-dark);">✓ Requested</span>
           <span style="font-size:0.76rem; font-weight:700; color:var(--success-dark);">✓ Agreed</span>
-          <span style="font-size:0.76rem; font-weight:700; color:var(--success-dark);">✓ Handover</span>
-          <span style="font-size:0.76rem; font-weight:800; color:var(--primary); background:white; padding:4px 10px; border-radius:20px; border:1px solid var(--primary);">🔵 Borrowed (Active)</span>
+          <span style="font-size:0.76rem; font-weight:700; color:var(--success-dark);">✓ Approved</span>
+          <span style="font-size:0.76rem; font-weight:800; color:var(--primary); background:white; padding:4px 10px; border-radius:20px; border:1px solid var(--primary);">🟢 Borrowed (Active)</span>
           <span style="font-size:0.76rem; color:var(--text-muted);">○ Return Due</span>
-          <span style="font-size:0.76rem; color:var(--text-muted);">○ Inspection</span>
           <span style="font-size:0.76rem; color:var(--text-muted);">○ Settlement</span>
         </div>
 
         <div style="display:flex; gap:12px; margin-top:1.5rem; flex-wrap:wrap;">
-          <button class="btn btn-primary" onclick="openReturnModal()"><i class="fas fa-rotate-left"></i> Mark as Returned</button>
-          <button class="btn btn-secondary" onclick="openConditionModal()"><i class="fas fa-clipboard-check"></i> View Handover Condition</button>
-          <button class="btn btn-secondary" onclick="openDisputeModal()"><i class="fas fa-triangle-exclamation" style="color:var(--danger);"></i> Report Issue</button>
+          <button class="btn btn-primary" onclick="showToast('Return marked! Waiting for lender inspection.')"><i class="fas fa-rotate-left"></i> Mark as Returned</button>
+          <button class="btn btn-secondary" onclick="showToast('Handover Condition: Excellent')"><i class="fas fa-clipboard-check"></i> View Handover Condition</button>
+          <button class="btn btn-secondary" onclick="showToast('Dispute ticket opened.')"><i class="fas fa-triangle-exclamation" style="color:var(--danger);"></i> Report Issue</button>
         </div>
       </div>
     </div>
 
     <!-- ======================================================== -->
-    <!-- VIEW 5: ADMIN GOVERNANCE PANEL                           -->
+    <!-- VIEW 6: ADMIN GOVERNANCE PANEL                           -->
     <!-- ======================================================== -->
     <div class="page-view" id="adminView">
       <div class="section-title-area">
         <div>
           <h2>Admin Governance & Impact Dashboard</h2>
-          <p style="color:var(--text-muted); font-size:0.9rem;">Platform oversight, trust score moderation, disputes, & campus sustainability metrics</p>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Platform oversight, trust score moderation, disputes, & live campus feed</p>
         </div>
         <span class="badge badge-info">🛡️ Admin Verified</span>
       </div>
@@ -1335,13 +1661,23 @@
           <div class="val">726</div>
         </div>
         <div class="admin-kpi-card">
-          <h5>Money Saved</h5>
-          <div class="val" style="color:var(--success-dark);">₹1.84L</div>
+          <h5>Platform Revenue</h5>
+          <div class="val" style="color:var(--success-dark);">₹42,580</div>
+        </div>
+      </div>
+
+      <!-- 79. LIVE CAMPUS ACTIVITY FEED -->
+      <div class="ai-search-card" style="padding:1.4rem; margin-bottom:2rem;">
+        <h4 style="font-size:0.95rem; margin-bottom:10px;"><i class="fas fa-bolt" style="color:var(--warning);"></i> Live Campus Activity Stream</h4>
+        <div style="display:flex; flex-direction:column; gap:8px; font-size:0.85rem;">
+          <div><span class="badge badge-success">🟢 Borrowed</span> Sony Camera borrowed by Alex from Rahul (0.8 km)</div>
+          <div><span class="badge badge-info">🔵 Joined</span> Photography community reached 1,248 members</div>
+          <div><span class="badge badge-warning">🟡 Return Due</span> TI-84 Calculator return due in 2 hours</div>
         </div>
       </div>
 
       <!-- Data Table: User Trust Moderation -->
-      <h3 style="margin-bottom:1rem; font-size:1.1rem;">User Trust Moderation & Directory</h3>
+      <h3 style="margin-bottom:1rem; font-size:1.1rem;">User Moderation Directory</h3>
       <div class="data-table-container">
         <table class="data-table">
           <thead>
@@ -1369,7 +1705,7 @@
               <td><span class="badge badge-warning">⭐ 68 / 100</span></td>
               <td>8 exchanges (1 dispute)</td>
               <td><span class="badge badge-warning">Under Review</span></td>
-              <td><button class="btn btn-secondary btn-sm" onclick="openUnbanModal('Vikram Patel')">Manage Privileges</button></td>
+              <td><button class="btn btn-secondary btn-sm" onclick="showToast('Managing user privileges for Vikram')">Manage Privileges</button></td>
             </tr>
           </tbody>
         </table>
@@ -1379,8 +1715,84 @@
   </main>
 
   <!-- ======================================================== -->
-  <!-- MODALS & OVERLAYS                                        -->
+  <!-- 63. FLOATING AI ASSISTANT CHAT WIDGET                    -->
   <!-- ======================================================== -->
+  <div class="ai-fab" onclick="toggleAiDrawer()">
+    <i class="fas fa-sparkles"></i> ✨ Ask Circular AI
+  </div>
+
+  <div class="ai-chat-drawer" id="aiChatDrawer">
+    <div class="ai-chat-head">
+      <div style="font-weight:700; font-size:0.9rem;"><i class="fas fa-sparkles"></i> Circular AI Assistant</div>
+      <button style="background:transparent; border:none; color:white; cursor:pointer;" onclick="toggleAiDrawer()"><i class="fas fa-xmark"></i></button>
+    </div>
+
+    <div class="ai-chat-body" id="aiChatBody">
+      <div class="chat-bubble ai">
+        Hi! What are you looking for on campus today? Ask me anything about resources, borrowings, or fees!
+      </div>
+    </div>
+
+    <!-- Quick Prompt Chips -->
+    <div style="padding:6px 10px; background:white; display:flex; gap:6px; overflow-x:auto; border-top:1px solid var(--border);">
+      <span class="prompt-chip" onclick="sendAiChatMessage('Find camera under ₹200')">Camera</span>
+      <span class="prompt-chip" onclick="sendAiChatMessage('When is my return due?')">Return Due?</span>
+      <span class="prompt-chip" onclick="sendAiChatMessage('Explain security deposit')">Deposit?</span>
+    </div>
+
+    <div class="ai-chat-input-bar">
+      <input type="text" class="form-control" id="aiChatInput" placeholder="Ask AI assistant..." onkeydown="if(event.key==='Enter') sendAiChatMessage()" />
+      <button class="btn btn-ai btn-sm" onclick="sendAiChatMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 71. SECURE 1-TO-1 P2P CHAT MODAL                         -->
+  <!-- ======================================================== -->
+  <div class="modal-overlay" id="p2pChatModal">
+    <div class="modal-card" style="max-width:520px; padding:0; overflow:hidden;">
+      <div style="background:var(--dark); color:white; padding:1rem 1.4rem; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:700; font-size:1rem;" id="p2pLenderName">Chat with Rahul</div>
+          <div style="font-size:0.75rem; color:#94A3B8;" id="p2pItemSub">Sony Alpha A7 III Camera · 🟢 Approved</div>
+        </div>
+        <button class="close-modal" style="color:white;" onclick="closeModal('p2pChatModal')"><i class="fas fa-xmark"></i></button>
+      </div>
+
+      <div style="height:320px; padding:1rem; background:#F8FAFC; overflow-y:auto; display:flex; flex-direction:column; gap:10px;" id="p2pMessages">
+        <div style="text-align:center; font-size:0.72rem; color:var(--text-muted); margin-bottom:6px;">🔒 Keep communication within Campus Circular for a safer experience.</div>
+        <div class="chat-bubble ai">Hi! I saw your borrow request for the Sony Camera. You can collect it outside the campus library after 4 PM today!</div>
+        <div class="chat-bubble user">Perfect! I'll meet you at 4:15 PM outside the main entrance.</div>
+      </div>
+
+      <div style="padding:10px; background:white; border-top:1px solid var(--border); display:flex; gap:8px;">
+        <input type="text" class="form-control" id="p2pInput" placeholder="Type pickup message..." onkeydown="if(event.key==='Enter') sendP2pMessage()" />
+        <button class="btn btn-primary btn-sm" onclick="sendP2pMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 81. GLOBAL COMMAND PALETTE (CTRL+K) MODAL -->
+  <div class="modal-overlay" id="cmdPaletteModal">
+    <div class="modal-card" style="max-width:480px; padding:1.2rem;">
+      <div style="display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:1rem;">
+        <i class="fas fa-magnifying-glass" style="color:var(--primary);"></i>
+        <input type="text" class="form-control" style="border:none; font-size:1rem;" placeholder="Search resources, pages, commands... (Ctrl+K)" oninput="filterCmdPalette(this.value)" />
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:6px;" id="cmdList">
+        <div class="prompt-chip" style="padding:10px; border-radius:8px; display:flex; justify-content:space-between;" onclick="closeModal('cmdPaletteModal'); switchView('explore');">
+          <span><i class="fas fa-compass"></i> Explore All Resources</span><span style="color:var(--text-muted);">Page</span>
+        </div>
+        <div class="prompt-chip" style="padding:10px; border-radius:8px; display:flex; justify-content:space-between;" onclick="closeModal('cmdPaletteModal'); switchView('dashboard');">
+          <span><i class="fas fa-chart-pie"></i> View Personal Insights</span><span style="color:var(--text-muted);">Dashboard</span>
+        </div>
+        <div class="prompt-chip" style="padding:10px; border-radius:8px; display:flex; justify-content:space-between;" onclick="closeModal('cmdPaletteModal'); toggleAiDrawer();">
+          <span><i class="fas fa-sparkles"></i> Ask Circular AI Assistant</span><span style="color:var(--ai-purple);">AI</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Resource Detail Modal -->
   <div class="modal-overlay" id="resourceModal">
@@ -1389,13 +1801,11 @@
         <h3 id="modalResourceTitle">Resource Details</h3>
         <button class="close-modal" onclick="closeModal('resourceModal')"><i class="fas fa-xmark"></i></button>
       </div>
-      <div id="modalResourceContent">
-        <!-- Rendered dynamically -->
-      </div>
+      <div id="modalResourceContent"></div>
     </div>
   </div>
 
-  <!-- 21. Borrowing Agreement Modal -->
+  <!-- Borrowing Agreement Modal -->
   <div class="modal-overlay" id="agreementModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -1417,7 +1827,6 @@
           <div class="price-line"><span>Refundable Security Deposit</span><span>₹500</span></div>
           <div class="price-line total"><span>Total Transaction Amount</span><span>₹670</span></div>
         </div>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;">* Note: Borrowing fee (₹150) ≠ Security deposit. The ₹500 security deposit is 100% refundable upon safe return.</p>
 
         <div style="margin-bottom:1.5rem;">
           <label style="display:flex; align-items:center; gap:8px; font-size:0.85rem; font-weight:600; cursor:pointer;">
@@ -1430,7 +1839,7 @@
     </div>
   </div>
 
-  <!-- Why This Match Breakdown Modal -->
+  <!-- Match Breakdown Modal -->
   <div class="modal-overlay" id="matchBreakdownModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -1442,23 +1851,17 @@
           <div style="font-size:2.5rem; font-weight:800; color:var(--ai-purple);">96%</div>
           <div style="font-size:0.88rem; font-weight:700;">Match Score</div>
         </div>
-
         <div class="price-breakdown-box">
           <div class="price-line"><span>Availability</span><span style="font-weight:700; color:var(--success-dark);">100%</span></div>
           <div class="price-line"><span>Distance (0.8 km)</span><span style="font-weight:700; color:var(--success-dark);">94%</span></div>
           <div class="price-line"><span>Item Condition</span><span style="font-weight:700; color:var(--success-dark);">96%</span></div>
           <div class="price-line"><span>Lender Trust Score</span><span style="font-weight:700; color:var(--success-dark);">94%</span></div>
-          <div class="price-line"><span>Borrowing Fee</span><span style="font-weight:700; color:var(--success-dark);">88%</span></div>
         </div>
-
-        <p style="font-size:0.85rem; background:var(--ai-purple-light); padding:1rem; border-radius:12px; color:var(--ai-purple); border:1px solid rgba(139, 92, 246, 0.2);">
-          💡 <strong>AI Reason:</strong> Recommended because it is available for tomorrow, located only 0.8 km away in CS Dept, has excellent condition, and belongs to a verified student with a 94/100 trust rating.
-        </p>
       </div>
     </div>
   </div>
 
-  <!-- Share / Lend Resource Modal -->
+  <!-- Share Resource Modal -->
   <div class="modal-overlay" id="shareModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -1491,10 +1894,8 @@
             <input type="number" class="form-control" id="shareDeposit" required placeholder="500" />
           </div>
         </div>
-
         <div style="display:flex; gap:10px; margin-top:1.5rem;">
           <button type="submit" class="btn btn-primary" style="flex:1;">Publish Resource</button>
-          <button type="button" class="btn btn-secondary" onclick="handleDonateSubmit()">Donate Instead</button>
         </div>
       </form>
     </div>
@@ -1527,11 +1928,11 @@
       { id: 4, name: "💻 Coding & Robotics", members: 2100, resources: 410, discussions: 160, desc: "Arduino kits, raspberry pi, adapters & hardware." }
     ];
 
-    // LocalStorage State Management
     let resources = JSON.parse(localStorage.getItem('campus_resources')) || initialResources;
     let selectedResource = null;
+    let currentRole = 'Student';
 
-    // View Navigation Router
+    // View Router
     function switchView(viewName) {
       document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-view'));
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -1540,7 +1941,7 @@
       const targetView = document.getElementById(viewName + 'View');
       if (targetView) targetView.classList.add('active-view');
 
-      const linkMap = { home: 'nLinkHome', explore: 'nLinkExplore', communities: 'nLinkCommunities', borrowings: 'nLinkBorrowings', admin: 'nLinkAdmin' };
+      const linkMap = { home: 'nLinkHome', explore: 'nLinkExplore', dashboard: 'nLinkDashboard', communities: 'nLinkCommunities', borrowings: 'nLinkBorrowings', admin: 'nLinkAdmin' };
       if (linkMap[viewName]) {
         const linkEl = document.getElementById(linkMap[viewName]);
         if (linkEl) linkEl.classList.add('active');
@@ -1549,10 +1950,34 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 6. 30-40-30 CURVED CAROUSEL HOVER STEERING LOGIC
+    // 85. DEMO ROLE SWITCHER
+    function switchDemoRole(role) {
+      currentRole = role;
+      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('roleBtn' + role).classList.add('active');
+
+      const nameEl = document.getElementById('navUserName');
+      const avatarEl = document.getElementById('navAvatar');
+
+      if (role === 'Student') {
+        nameEl.innerText = 'Rahul';
+        avatarEl.innerText = 'R';
+        showToast('Switched role to Student / Borrower');
+      } else if (role === 'Lender') {
+        nameEl.innerText = 'Sneha (Lender)';
+        avatarEl.innerText = 'S';
+        showToast('Switched role to Lender');
+      } else if (role === 'Admin') {
+        nameEl.innerText = 'Campus Admin';
+        avatarEl.innerText = 'A';
+        showToast('Switched role to Admin Manager');
+        switchView('admin');
+      }
+    }
+
+    // 6. CURVED CAROUSEL HOVER STEERING
     let carouselAngle = 0;
     let carouselTargetAngle = 0;
-    let isDragging = false;
 
     function renderCurvedCarousel() {
       const track = document.getElementById('carouselTrack');
@@ -1583,19 +2008,14 @@
       if (!wrapper || !track) return;
 
       wrapper.addEventListener('mousemove', (e) => {
-        if (isDragging) return;
         const rect = wrapper.getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const ratio = mouseX / rect.width;
 
         if (ratio < 0.3) {
-          // Left 30% -> Smooth Left
-          const intensity = (0.3 - ratio) / 0.3;
-          carouselTargetAngle += 0.04 * intensity;
+          carouselTargetAngle += 0.04 * ((0.3 - ratio) / 0.3);
         } else if (ratio > 0.7) {
-          // Right 30% -> Smooth Right
-          const intensity = (ratio - 0.7) / 0.3;
-          carouselTargetAngle -= 0.04 * intensity;
+          carouselTargetAngle -= 0.04 * ((ratio - 0.7) / 0.3);
         }
       });
 
@@ -1632,24 +2052,17 @@
       requestAnimationFrame(updateCarouselLoop);
     }
 
-    function stepCarousel(dir) {
-      carouselTargetAngle -= dir * 0.4;
-    }
+    function stepCarousel(dir) { carouselTargetAngle -= dir * 0.4; }
 
-    // 7 & 8. AI REQUIREMENT ANALYSIS & SEARCH SIMULATION
+    // AI Analysis
     function runAiAnalysis() {
       const input = document.getElementById('aiSearchInput').value.trim();
-      if (!input) {
-        showToast('Please type your borrowing requirement first!');
-        return;
-      }
+      if (!input) { showToast('Please enter your requirement!'); return; }
 
-      const box = document.getElementById('aiAnalysisBox');
+      document.getElementById('aiAnalysisBox').style.display = 'block';
       const resultsSec = document.getElementById('aiMatchResultsSection');
-      box.style.display = 'block';
 
       showToast('✨ AI analyzing requirement...');
-
       setTimeout(() => {
         resultsSec.style.display = 'block';
         renderAiMatches();
@@ -1662,34 +2075,27 @@
       runAiAnalysis();
     }
 
-    // 45. SMART MATCHING ALGORITHM
     function renderAiMatches() {
       const grid = document.getElementById('aiMatchGrid');
       const sorted = [...resources].sort((a, b) => b.matchScore - a.matchScore);
 
-      grid.innerHTML = sorted.slice(0, 3).map((r, i) => `
+      grid.innerHTML = sorted.slice(0, 3).map(r => `
         <div class="resource-card">
           <div class="card-head">
-            <img src="${r.img}" alt="${escapeHtml(r.title)}" />
+            <img src="${r.img}" />
             <span class="match-badge">✨ ${r.matchScore}% Match</span>
           </div>
           <div class="card-content">
             <div class="owner-row">
               <div class="owner-avatar">${r.owner.charAt(0)}</div>
-              <span class="owner-name">${r.owner} · ⭐ ${r.trust}/100 Trust</span>
+              <span class="owner-name">${r.owner} · Trust ${r.trust}/100</span>
             </div>
-            <h4 style="font-size:1rem; margin-bottom:4px;">${escapeHtml(r.title)}</h4>
-            <span class="badge badge-success" style="align-self:flex-start;">🟢 Available Tomorrow</span>
-
-            <div style="margin-top:10px; font-size:0.78rem; color:var(--ai-purple); cursor:pointer; font-weight:700;" onclick="openMatchBreakdown()">
+            <h4>${escapeHtml(r.title)}</h4>
+            <div style="font-size:0.78rem; color:var(--ai-purple); cursor:pointer; font-weight:700; margin-top:6px;" onclick="openMatchBreakdown()">
               <i class="fas fa-circle-info"></i> Why this match?
             </div>
-
             <div class="price-row">
-              <div>
-                <div class="price-val">₹${r.fee}<span>/day</span></div>
-                <div style="font-size:0.72rem; color:var(--text-muted);">Deposit: ₹${r.deposit}</div>
-              </div>
+              <div class="price-val">₹${r.fee}<span>/day</span></div>
               <button class="btn btn-primary btn-sm" onclick="openResourceModal(${r.id})">Request</button>
             </div>
           </div>
@@ -1697,32 +2103,19 @@
       `).join('');
     }
 
-    // Render Explore Grid
     function renderExploreGrid(filterCat = 'All') {
       const grid = document.getElementById('exploreResourceGrid');
       let filtered = resources;
-      if (filterCat !== 'All') {
-        filtered = resources.filter(r => r.category === filterCat);
-      }
+      if (filterCat !== 'All') filtered = resources.filter(r => r.category === filterCat);
 
       grid.innerHTML = filtered.map(r => `
         <div class="resource-card">
-          <div class="card-head">
-            <img src="${r.img}" alt="${escapeHtml(r.title)}" />
-          </div>
+          <div class="card-head"><img src="${r.img}" /></div>
           <div class="card-content">
-            <div class="owner-row">
-              <div class="owner-avatar">${r.owner.charAt(0)}</div>
-              <span class="owner-name">${r.owner} · Trust ${r.trust}/100</span>
-            </div>
-            <h4 style="font-size:0.95rem; margin-bottom:4px;">${escapeHtml(r.title)}</h4>
-            <div style="font-size:0.76rem; color:var(--text-muted);">📍 ${r.distance} · ⭐ ${r.rating}</div>
-
+            <div class="owner-row"><div class="owner-avatar">${r.owner.charAt(0)}</div><span class="owner-name">${r.owner}</span></div>
+            <h4>${escapeHtml(r.title)}</h4>
             <div class="price-row">
-              <div>
-                <div class="price-val">₹${r.fee}<span>/day</span></div>
-                <div style="font-size:0.72rem; color:var(--text-muted);">Refundable Deposit: ₹${r.deposit}</div>
-              </div>
+              <div class="price-val">₹${r.fee}<span>/day</span></div>
               <button class="btn btn-primary btn-sm" onclick="openResourceModal(${r.id})">Borrow</button>
             </div>
           </div>
@@ -1736,7 +2129,6 @@
       renderExploreGrid(cat);
     }
 
-    // Render Communities
     function renderCommunities() {
       const grid = document.getElementById('communityGrid');
       grid.innerHTML = initialCommunities.map(c => `
@@ -1744,7 +2136,6 @@
           <div class="comm-icon">${c.name.split(' ')[0]}</div>
           <h4>${c.name}</h4>
           <p style="font-size:0.84rem; color:var(--text-muted); margin:6px 0 12px 0;">${c.desc}</p>
-          <div style="font-size:0.76rem; color:var(--text-muted); margin-bottom:1rem;">${c.members} members · ${c.resources} resources</div>
           <button class="btn btn-secondary btn-sm" style="width:100%;" onclick="openCommunityDetail('${escapeHtml(c.name)}')">View Community</button>
         </div>
       `).join('');
@@ -1753,101 +2144,46 @@
     function openCommunityDetail(name) {
       document.getElementById('commDetailName').innerText = name;
       switchView('communityDetail');
-      renderCommMarketplace();
     }
 
     function switchCommTab(tab, el) {
       document.querySelectorAll('.comm-tab').forEach(t => t.classList.remove('active'));
       if (el) el.classList.add('active');
-
       document.getElementById('commTabDiscussion').style.display = tab === 'discussion' ? 'block' : 'none';
       document.getElementById('commTabMarketplace').style.display = tab === 'marketplace' ? 'block' : 'none';
     }
 
-    function renderCommMarketplace() {
-      const grid = document.getElementById('commMarketplaceGrid');
-      grid.innerHTML = resources.slice(0, 4).map(r => `
-        <div class="resource-card">
-          <div class="card-head"><img src="${r.img}" /></div>
-          <div class="card-content">
-            <h4>${escapeHtml(r.title)}</h4>
-            <div class="price-row">
-              <div class="price-val">₹${r.fee}<span>/day</span></div>
-              <button class="btn btn-primary btn-sm" onclick="openResourceModal(${r.id})">Request</button>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // 12. RESOURCE DETAIL MODAL
     function openResourceModal(id) {
       selectedResource = resources.find(r => r.id === id);
       if (!selectedResource) return;
 
-      const content = document.getElementById('modalResourceContent');
-      content.innerHTML = `
-        <img src="${selectedResource.img}" style="width:100%; height:220px; object-fit:cover; border-radius:14px; margin-bottom:1rem;" />
-        <span class="badge badge-success">🟢 Available</span>
-        <h2 style="margin-top:6px;">${escapeHtml(selectedResource.title)}</h2>
-        <p style="color:var(--text-muted); font-size:0.88rem;">📍 ${selectedResource.distance} away · ⭐ ${selectedResource.rating} rating</p>
-
-        <div style="background:#F8FAFC; padding:1rem; border-radius:12px; margin:1rem 0; border:1px solid var(--border);">
-          <div class="owner-row">
-            <div class="owner-avatar">${selectedResource.owner.charAt(0)}</div>
-            <div>
-              <div style="font-weight:700; font-size:0.9rem;">${selectedResource.owner}</div>
-              <div style="font-size:0.75rem; color:var(--success-dark); font-weight:700;">✓ College Verified Student</div>
-            </div>
-          </div>
-          <div style="font-size:0.8rem; color:var(--text-muted); margin-top:8px;">Trust Score: <strong>${selectedResource.trust}/100</strong> · 27 successful exchanges</div>
-        </div>
-
-        <h5>Included Accessories</h5>
-        <div class="checklist-pills" style="margin-bottom:1rem;">
-          <span class="check-pill">✓ Carrying Case</span>
-          <span class="check-pill">✓ Power Cable</span>
-          <span class="check-pill">✓ Safety Box</span>
-        </div>
-
+      document.getElementById('modalResourceContent').innerHTML = `
+        <img src="${selectedResource.img}" style="width:100%; height:200px; object-fit:cover; border-radius:12px; margin-bottom:1rem;" />
+        <h2>${escapeHtml(selectedResource.title)}</h2>
+        <p style="color:var(--text-muted);">Lender: ${selectedResource.owner} · Trust ${selectedResource.trust}/100</p>
         <div class="price-breakdown-box">
           <div class="price-line"><span>Borrowing Fee</span><span>₹${selectedResource.fee}/day</span></div>
-          <div class="price-line"><span>Platform Service Fee</span><span>₹20</span></div>
+          <div class="price-line"><span>Platform Fee</span><span>₹20</span></div>
           <div class="price-line"><span>Refundable Security Deposit</span><span>₹${selectedResource.deposit}</span></div>
           <div class="price-line total"><span>Total Transaction Amount</span><span>₹${selectedResource.fee + 20 + selectedResource.deposit}</span></div>
         </div>
-
-        <button class="btn btn-primary" style="width:100%; margin-top:1rem;" onclick="closeModal('resourceModal'); openAgreementModal();">
-          Request to Borrow
-        </button>
+        <button class="btn btn-primary" style="width:100%;" onclick="closeModal('resourceModal'); openAgreementModal();">Request to Borrow</button>
       `;
 
       document.getElementById('resourceModal').style.display = 'flex';
     }
 
-    function openAgreementModal() {
-      if (!selectedResource) return;
-      document.getElementById('agrItemTitle').innerText = selectedResource.title;
-      document.getElementById('agreementModal').style.display = 'flex';
-    }
+    function openAgreementModal() { document.getElementById('agreementModal').style.display = 'flex'; }
 
     function confirmAgreement() {
-      if (!document.getElementById('termsCheck').checked) {
-        showToast('Please accept the borrowing terms checklist!');
-        return;
-      }
+      if (!document.getElementById('termsCheck').checked) { showToast('Please accept terms!'); return; }
       closeModal('agreementModal');
       showToast('Borrowing request confirmed! 🎉');
       switchView('borrowings');
     }
 
-    function openMatchBreakdown() {
-      document.getElementById('matchBreakdownModal').style.display = 'flex';
-    }
-
-    function openShareModal() {
-      document.getElementById('shareModal').style.display = 'flex';
-    }
+    function openMatchBreakdown() { document.getElementById('matchBreakdownModal').style.display = 'flex'; }
+    function openShareModal() { document.getElementById('shareModal').style.display = 'flex'; }
 
     function handleShareSubmit(e) {
       e.preventDefault();
@@ -1856,25 +2192,69 @@
       const fee = parseInt(document.getElementById('shareFee').value) || 100;
       const deposit = parseInt(document.getElementById('shareDeposit').value) || 300;
 
-      const newRes = { id: Date.now(), title, category, fee, deposit, owner: "You (Rahul)", trust: 94, distance: "0.1 km", rating: 5.0, img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop", condition: "Excellent", matchScore: 95 };
-      resources.unshift(newRes);
+      resources.unshift({ id: Date.now(), title, category, fee, deposit, owner: "You", trust: 94, distance: "0.1 km", rating: 5.0, img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop", condition: "Excellent", matchScore: 95 });
       localStorage.setItem('campus_resources', JSON.stringify(resources));
 
       closeModal('shareModal');
-      showToast(`Successfully listed ${title}! 🎉`);
+      showToast(`Published ${title}! 🎉`);
       renderExploreGrid();
-      renderCurvedCarousel();
     }
 
-    function handleDonateSubmit() {
-      closeModal('shareModal');
-      showToast('Resource donated to campus pool! Thank you! 🌿');
+    // 63. FLOATING AI ASSISTANT CHAT WIDGET
+    function toggleAiDrawer() {
+      const drawer = document.getElementById('aiChatDrawer');
+      drawer.style.display = drawer.style.display === 'flex' ? 'none' : 'flex';
     }
 
-    function openReturnModal() { showToast('Return requested! Waiting for lender inspection.'); }
-    function openConditionModal() { showToast('Handover Condition: Excellent (No visible scratch)'); }
-    function openDisputeModal() { showToast('Dispute ticket #D1024 opened for review.'); }
-    function openUnbanModal(name) { showToast(`Inspecting moderation status for ${name}`); }
+    function sendAiChatMessage(presetText) {
+      const input = document.getElementById('aiChatInput');
+      const text = presetText || input.value.trim();
+      if (!text) return;
+
+      const body = document.getElementById('aiChatBody');
+      body.innerHTML += `<div class="chat-bubble user">${escapeHtml(text)}</div>`;
+      if (!presetText) input.value = '';
+
+      setTimeout(() => {
+        let reply = "I found 3 verified resources matching your query nearby! Would you like me to reserve one for you?";
+        if (text.toLowerCase().includes('return')) reply = "Your active borrowing (Sony Camera) is due tomorrow at 6:00 PM.";
+        if (text.toLowerCase().includes('deposit')) reply = "Security deposits are 100% refundable once the lender inspects and confirms condition upon return!";
+
+        body.innerHTML += `<div class="chat-bubble ai">✨ ${reply}</div>`;
+        body.scrollTop = body.scrollHeight;
+      }, 500);
+    }
+
+    // 71. SECURE 1-TO-1 CHAT MODAL
+    function openP2pChat(name, item) {
+      document.getElementById('p2pLenderName').innerText = `Chat with ${name}`;
+      document.getElementById('p2pItemSub').innerText = `${item} · 🟢 Approved`;
+      document.getElementById('p2pChatModal').style.display = 'flex';
+    }
+
+    function sendP2pMessage() {
+      const input = document.getElementById('p2pInput');
+      const txt = input.value.trim();
+      if (!txt) return;
+
+      const container = document.getElementById('p2pMessages');
+      container.innerHTML += `<div class="chat-bubble user">${escapeHtml(txt)}</div>`;
+      input.value = '';
+
+      setTimeout(() => {
+        container.innerHTML += `<div class="chat-bubble ai">Sounds great! I'll bring the original carrying case as well. See you then!</div>`;
+        container.scrollTop = container.scrollHeight;
+      }, 600);
+    }
+
+    // 81. GLOBAL COMMAND PALETTE (CTRL+K)
+    function openCmdPalette() { document.getElementById('cmdPaletteModal').style.display = 'flex'; }
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openCmdPalette();
+      }
+    });
 
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function showToast(msg) {
@@ -1883,12 +2263,13 @@
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2800);
     }
+
     function escapeHtml(str) {
       if (!str) return '';
       return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    // DOM LOAD INITIALIZATION
+    // DOM INITIALIZATION
     window.addEventListener('DOMContentLoaded', () => {
       renderCurvedCarousel();
       renderExploreGrid();
