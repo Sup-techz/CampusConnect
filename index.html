@@ -1927,10 +1927,21 @@
   // Discord Channel Switcher
   function switchChannel(channel) {
     activeChannel = channel;
+
+    // Switch out of Discovery View into Active Room View
+    const discView = document.getElementById('discordDiscoveryView');
+    const roomView = document.getElementById('discordActiveRoomView');
+    const discIcon = document.getElementById('serverIconDiscover');
+
+    if (discView) discView.style.display = 'none';
+    if (roomView) roomView.style.display = 'block';
+    if (discIcon) discIcon.classList.remove('active');
+
     document.querySelectorAll('.channel-item').forEach(el => el.classList.remove('active'));
 
-    const targetEl = document.getElementById(`chan${channel.charAt(0).toUpperCase() + channel.slice(1)}`);
-    if(targetEl) targetEl.classList.add('active');
+    const chanKey = channel.charAt(0).toUpperCase() + channel.slice(1);
+    const targetEl = document.getElementById(`chan${chanKey}`);
+    if (targetEl) targetEl.classList.add('active');
 
     const titleEl = document.getElementById('discordRoomTitle');
     const topicEl = document.getElementById('discordRoomTopic');
@@ -1938,16 +1949,16 @@
     const marketStage = document.getElementById('discordMarketStage');
 
     if (channel === 'market') {
-      chatStage.style.display = 'none';
-      marketStage.style.display = 'block';
-      titleEl.innerHTML = `<i class="fas fa-store"></i> #specialized-catalog · ${activeCommunity}`;
-      topicEl.innerText = `Exclusive items listed by verified ${activeCommunity} members.`;
+      if (chatStage) chatStage.style.display = 'none';
+      if (marketStage) marketStage.style.display = 'block';
+      if (titleEl) titleEl.innerHTML = `<i class="fas fa-store"></i> #specialized-catalog · ${activeCommunity}`;
+      if (topicEl) topicEl.innerText = `Exclusive items listed by verified ${activeCommunity} members.`;
       renderSpecializedMarketplace(activeCommunity);
     } else {
-      chatStage.style.display = 'block';
-      marketStage.style.display = 'none';
-      titleEl.innerHTML = `<i class="fas fa-hashtag"></i> #${channel}-chat · ${activeCommunity}`;
-      topicEl.innerText = `Official ${channel} channel for ${activeCommunity}. Ask for gear or chat with peers.`;
+      if (chatStage) chatStage.style.display = 'block';
+      if (marketStage) marketStage.style.display = 'none';
+      if (titleEl) titleEl.innerHTML = `<i class="fas fa-hashtag"></i> #${channel}-chat · ${activeCommunity}`;
+      if (topicEl) topicEl.innerText = `Official ${channel} channel for ${activeCommunity}. Ask for gear or chat with peers.`;
     }
   }
 
@@ -1981,20 +1992,28 @@
       return;
     }
 
-    pendingJoinTarget = { name, tag, icon: name.includes('Eng') ? '⚙️' : (name.includes('Med') ? '🩺' : (name.includes('Art') ? '🎨' : (name.includes('Biz') ? '📈' : '🎮'))) };
+    pendingJoinTarget = { 
+      name: name, 
+      tag: tag || 'CAMPUS', 
+      icon: name.includes('Eng') ? '⚙️' : (name.includes('Med') ? '🩺' : (name.includes('Art') ? '🎨' : (name.includes('Biz') ? '📈' : '🎮'))) 
+    };
+
+    joinedCommunities.push(pendingJoinTarget);
     document.getElementById('rulesCommName').innerText = name;
     document.getElementById('rulesModal').style.display = 'flex';
+    openDiscordServer(name);
+    showToast(`Joined ${name}! 🎉 Review rules & guidelines.`);
   }
 
   function confirmAcceptRules() {
-    if (pendingJoinTarget) {
-      joinedCommunities.push(pendingJoinTarget);
-      const targetName = pendingJoinTarget.name;
-      pendingJoinTarget = null;
-      closeModal('rulesModal');
-      showToast(`Welcome! You joined ${targetName} 🎉`);
-      openDiscordServer(targetName);
+    if (!pendingJoinTarget && joinedCommunities.length > 0) {
+      pendingJoinTarget = joinedCommunities[joinedCommunities.length - 1];
     }
+    const targetName = pendingJoinTarget ? pendingJoinTarget.name : activeCommunity;
+    pendingJoinTarget = null;
+    closeModal('rulesModal');
+    showToast(`Rules accepted! Welcome to ${targetName} 🎉`);
+    openDiscordServer(targetName);
   }
 
   // Share Community Feature
