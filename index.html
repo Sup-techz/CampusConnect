@@ -1924,6 +1924,95 @@
     switchChannel('general');
   }
 
+  const communityChatsData = {
+    "Engineering & Tech Hub": {
+      "general": [
+        { name: "Jordan Smith", tag: "Junior · Electrical", avatar: "JS", text: "Hey everyone! Anyone got an Arduino Uno & breadboard I can borrow for the weekend lab project? Will return by Monday morning!" },
+        { name: "Alex Chen", tag: "Lender", avatar: "AC", text: "I have an extra Arduino starter kit available! Just listed it in the specialized marketplace tab above." },
+        { name: "Maya Lin", tag: "Senior · CS", avatar: "ML", text: "Does anyone have a spare USB-C 96W MacBook charger near the engineering library?" }
+      ],
+      "requests": [
+        { name: "Ethan Hunt", tag: "Sophomore", avatar: "EH", text: "REQUEST: Need a TI-84 Plus CE Calculator for the Physics II exam tomorrow at 2 PM!" },
+        { name: "Sophia Zhang", tag: "Junior", avatar: "SZ", text: "REQUEST: Looking for a Hakko soldering iron for 3 hours to fix a PCB." }
+      ],
+      "lending": [
+        { name: "Marcus Vance", tag: "Graduate Student", avatar: "MV", text: "OFFER: Free lending Sony Alpha DSLR Camera for media/project work. DM me!" },
+        { name: "David Kim", tag: "Senior", avatar: "DK", text: "OFFER: Raspberry Pi 4 (8GB RAM) available for 1-week loan." }
+      ]
+    },
+    "Med & Bio Sciences Guild": {
+      "general": [
+        { name: "Dr. Maya Lin", tag: "Med Student · Year 2", avatar: "ML", text: "Welcome Med & Bio folks! Remember to disinfect all shared stethoscopes and bio kits before return." },
+        { name: "Camila Allen", tag: "Pre-Med", avatar: "CA", text: "Anyone currently studying for MCAT? Want to share prep books or flashcards?" }
+      ],
+      "requests": [
+        { name: "Alexander Young", tag: "Bio Major", avatar: "AY", text: "REQUEST: In urgent need of a unisex Large White Lab Coat for today's 3 PM Anatomy lab!" }
+      ],
+      "lending": [
+        { name: "Isabella Cruz", tag: "Senior Bio", avatar: "IC", text: "OFFER: Campbell Biology 12th Ed Hardcover available for semester loan!" }
+      ]
+    },
+    "Design, Arts & Media Collective": {
+      "general": [
+        { name: "Leo Rivera", tag: "Graphic Design", avatar: "LR", text: "Hey artists! If anyone needs a Wacom tablet or camera tripod for shoot week, check the catalog." },
+        { name: "Chloe Turner", tag: "Film Major", avatar: "CT", text: "Looking for a boom mic for a 2-day short film shoot on quad!" }
+      ],
+      "requests": [
+        { name: "Evelyn White", tag: "Arts Junior", avatar: "EW", text: "REQUEST: Heavy Duty Camera Tripod needed for sunset photography assignment." }
+      ],
+      "lending": [
+        { name: "Hazel Morris", tag: "Design Lead", avatar: "HM", text: "OFFER: Fujifilm Instax Mini camera available! Just bring your own instant film." }
+      ]
+    },
+    "Business & Economics Forum": {
+      "general": [
+        { name: "Benjamin Taylor", tag: "Finance · Senior", avatar: "BT", text: "Welcome to Biz & Econ! Great place to swap financial calculators and case study textbooks." },
+        { name: "Sophia Zhang", tag: "Econ Junior", avatar: "SZ", text: "Anyone have HP 10bII+ Financial Calculator for the Corporate Finance midterm?" }
+      ],
+      "requests": [
+        { name: "Liam Nelson", tag: "Accounting", avatar: "LN", text: "REQUEST: Microeconomics Mankiw 9th Ed textbook for weekend homework." }
+      ],
+      "lending": [
+        { name: "Audrey Cox", tag: "MBA Candidate", avatar: "AC", text: "OFFER: TI BA II Plus Professional Financial Calculator listed in marketplace." }
+      ]
+    },
+    "Gaming & Dorm Life Society": {
+      "general": [
+        { name: "Aria Gonzalez", tag: "Dorm Rep · Quad", avatar: "AG", text: "Gaming night in dorm lounge tonight at 8 PM! We're swapping Switch games & VR headsets." },
+        { name: "Matthew Nelson", tag: "Junior", avatar: "MN", text: "Who has an extra PS5 DualSense controller for FIFA tournament?" }
+      ],
+      "requests": [
+        { name: "Daniel Baker", tag: "Dorm 3B", avatar: "DB", text: "REQUEST: Mini projector for outdoor movie night behind North Quad." }
+      ],
+      "lending": [
+        { name: "Abigail King", tag: "Sophomore", avatar: "AK", text: "OFFER: Meta Quest 2 VR Headset available for weekend loan." }
+      ]
+    }
+  };
+
+  function renderCommunityChats(commName, channel) {
+    const list = document.getElementById('chatMessageList');
+    if (!list) return;
+
+    const commData = communityChatsData[commName] || communityChatsData["Engineering & Tech Hub"];
+    const msgs = commData[channel] || commData["general"] || [];
+
+    list.innerHTML = msgs.map(m => `
+      <div class="chat-msg-row">
+        <div class="chat-avatar">${m.avatar}</div>
+        <div class="chat-bubble">
+          <div class="chat-user-name">
+            <span>${escapeHtml(m.name)} <span class="chat-user-tag">${escapeHtml(m.tag)}</span></span>
+            <button class="btn-report-chat" onclick="openReportModal('${escapeHtml(m.name)}', '${escapeHtml(m.text)}')" title="Report message"><i class="far fa-flag"></i> Report</button>
+          </div>
+          <div class="chat-text">${escapeHtml(m.text)}</div>
+        </div>
+      </div>
+    `).join('');
+
+    list.scrollTop = list.scrollHeight;
+  }
+
   // Discord Channel Switcher
   function switchChannel(channel) {
     activeChannel = channel;
@@ -1959,6 +2048,7 @@
       if (marketStage) marketStage.style.display = 'none';
       if (titleEl) titleEl.innerHTML = `<i class="fas fa-hashtag"></i> #${channel}-chat · ${activeCommunity}`;
       if (topicEl) topicEl.innerText = `Official ${channel} channel for ${activeCommunity}. Ask for gear or chat with peers.`;
+      renderCommunityChats(activeCommunity, channel);
     }
   }
 
