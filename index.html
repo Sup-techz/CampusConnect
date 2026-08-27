@@ -624,6 +624,12 @@
       border: 1px solid #FCD34D;
     }
 
+    .type-restored {
+      background: #ECFDF5;
+      color: #047857;
+      border: 1px solid #6EE7B7;
+    }
+
     /* Catalog Search & Category Filters */
     .catalog-search-bar {
       display: flex;
@@ -1059,7 +1065,7 @@
 
     /* ==========================================================================
        ADMIN PANEL FULL DASHBOARD (GOVERNANCE SUITE)
-       ========================================================================= */
+       ========================================================================== */
     .admin-governance-hub {
       display: none; /* Toggled when in admin mode */
       animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1408,6 +1414,19 @@
       border-color: #DC2626;
     }
 
+    .btn-action-unban {
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      color: #047857;
+      font-weight: 800;
+    }
+
+    .btn-action-unban:hover {
+      background: #047857;
+      color: white;
+      border-color: #047857;
+    }
+
     /* Pairwise Exchange Inspector Box */
     .pairwise-inspector-card {
       background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
@@ -1704,7 +1723,7 @@
       border: 1px solid #FDE68A !important;
     }
 
-    /* Ban Safeguard Alert Box in Modal */
+    /* Ban & Unban Safeguard Alert Boxes in Modal */
     .ban-safeguard-box {
       background: #FEF2F2;
       border: 1.5px solid #FCA5A5;
@@ -1726,6 +1745,30 @@
     .ban-safeguard-box p {
       font-size: 0.82rem;
       color: #7F1D1D;
+      line-height: 1.4;
+    }
+
+    .unban-safeguard-box {
+      background: #ECFDF5;
+      border: 1.5px solid #A7F3D0;
+      border-radius: 18px;
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .unban-safeguard-box h4 {
+      color: #047857;
+      font-size: 0.96rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .unban-safeguard-box p {
+      font-size: 0.82rem;
+      color: #065F46;
       line-height: 1.4;
     }
 
@@ -1970,7 +2013,7 @@
     <div class="admin-top-banner">
       <div class="admin-title-area">
         <h2><i class="fas fa-shield-halved" style="color:#F59E0B;"></i> Campus Governance & Admin Suite</h2>
-        <p>Comprehensive monitoring of student borrow requests, lender listings, peer exchanges, reputation scores & campus events.</p>
+        <p>Comprehensive monitoring of student borrow requests, lender listings, peer exchanges, reputation scores, ban controls & campus events.</p>
       </div>
       <div class="admin-header-actions">
         <button class="admin-action-btn" onclick="openNewEventModal()">
@@ -2025,11 +2068,11 @@
 
       <div class="kpi-card">
         <div class="kpi-top">
-          <span class="kpi-label">Trust Warnings / Bans</span>
+          <span class="kpi-label">Trust Warnings & Bans</span>
           <div class="kpi-icon" style="background:#FEF2F2; color:var(--error);"><i class="fas fa-triangle-exclamation"></i></div>
         </div>
         <div class="kpi-num" id="kpiBadTrustCount" style="color:var(--error);">2</div>
-        <span style="font-size:0.7rem; color:var(--error); font-weight:700;">Requires Admin Action</span>
+        <span style="font-size:0.7rem; color:var(--error); font-weight:700;">Admin Moderation Active</span>
       </div>
     </div>
 
@@ -2086,7 +2129,7 @@
           </div>
         </div>
 
-        <!-- Campus Event of the Day Card & Quick Ban Alert -->
+        <!-- Campus Event of the Day Card & Ban/Unban Notice -->
         <div style="display:flex; flex-direction:column; gap:16px;">
           <!-- Trust Score Moderation Notice -->
           <div style="background:#FFFBEB; border-radius:20px; padding:1.2rem; border:1px solid #FDE68A;">
@@ -2094,11 +2137,13 @@
               <i class="fas fa-triangle-exclamation"></i> Trust Score Governance Notice
             </div>
             <p style="font-size:0.8rem; color:#92400E; margin-top:4px; line-height:1.4;">
-              Administrators have sole permission to issue <strong>Temporary Bans</strong> for students with bad trust scores (< 70%) to preserve campus exchange safety.
+              Administrators have sole permission to <strong>Temporarily Ban</strong> users with bad trust scores or <strong>Unban & Restore</strong> users after review.
             </p>
-            <button class="btn-action-sm" onclick="switchAdminTab('userInspector')" style="background:#B45309; color:white; border:none; margin-top:10px; font-weight:700;">
-              <i class="fas fa-user-lock"></i> Review Low Trust Users
-            </button>
+            <div style="display:flex; gap:8px; margin-top:10px;">
+              <button class="btn-action-sm" onclick="switchAdminTab('userInspector')" style="background:#B45309; color:white; border:none; font-weight:700;">
+                <i class="fas fa-user-lock"></i> Review At-Risk Users
+              </button>
+            </div>
           </div>
 
           <!-- Spotlight Card -->
@@ -2265,19 +2310,19 @@
         </div>
       </div>
 
-      <!-- General User Directory Table with Trust Score Moderation -->
+      <!-- General User Directory Table with Trust Score Moderation (Ban & Unban) -->
       <div class="admin-table-container">
         <div class="table-toolbar">
           <div class="table-title">
-            <i class="fas fa-users" style="color:var(--highlight-dark);"></i> Verified Campus Student Directory & Trust Moderation
+            <i class="fas fa-users" style="color:var(--highlight-dark);"></i> Verified Campus Student Directory & Ban / Unban Governance
           </div>
           <div class="table-actions">
             <input type="text" class="table-search" placeholder="Search student by name/dept..." id="searchUserDirectoryInput" oninput="renderUserDirectoryTable()" />
             <select class="table-filter-select" id="filterUserTrustScore" onchange="renderUserDirectoryTable()">
-              <option value="all">All Trust Scores</option>
-              <option value="low">⚠️ Low Trust (< 75%)</option>
+              <option value="all">All Student Statuses</option>
+              <option value="low">⚠️ Low Trust Score (< 75%)</option>
+              <option value="banned">🔴 Banned Students (Ready to Unban)</option>
               <option value="high">⭐ High Trust (95%+)</option>
-              <option value="banned">🔴 Banned Students</option>
             </select>
           </div>
         </div>
@@ -2290,7 +2335,7 @@
                 <th>Trust Score</th>
                 <th>Swaps / Lends</th>
                 <th>Account Status</th>
-                <th>Admin Governance & Ban Control</th>
+                <th>Admin Ban & Unban Controls</th>
               </tr>
             </thead>
             <tbody id="adminUserDirectoryTableBody">
@@ -2585,6 +2630,65 @@
   </div>
 </div>
 
+<!-- ADMIN PERMISSION & UNBAN / RESTORE USER MODAL -->
+<div class="modal-overlay" id="adminUnbanAuthModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 style="color:var(--accent-dark);"><i class="fas fa-unlock-keyhole"></i> Admin Authorization: Unban / Restore User</h3>
+      <button class="close-modal" onclick="closeModal('adminUnbanAuthModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <form onsubmit="executeAdminUnban(event)">
+      <!-- Target Student Details -->
+      <div id="unbanTargetDetails">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="unban-safeguard-box">
+        <h4><i class="fas fa-circle-check"></i> Reinstatement of Privileges</h4>
+        <p>Lifting this ban will reactivate the student's account, restore their suspended listings back to active, and allow them to borrow and lend across the campus network under administrator authorization.</p>
+      </div>
+
+      <div class="form-group">
+        <label>Reason for Unbanning / Reinstatement</label>
+        <select id="unbanReasonSelect" required>
+          <option value="Dispute Resolved & Overdue Item Safely Returned">Dispute Resolved & Overdue Item Safely Returned</option>
+          <option value="First-Time Offense Appeal Approved by Admin">First-Time Offense Appeal Approved by Admin</option>
+          <option value="Trust Counseling & Terms Agreement Completed">Trust Counseling & Terms Agreement Completed</option>
+          <option value="Penalty Duration Completed">Penalty Duration Completed</option>
+          <option value="Administrative Error / Flag Rectified">Administrative Error / Flag Rectified</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Restored Trust Score Baseline</label>
+        <select id="unbanTrustScoreSelect" required>
+          <option value="75" selected>Reset to Baseline Safe Score (75%)</option>
+          <option value="85">Reset to Good Standing (85%)</option>
+          <option value="keep">Keep Current Score (Probationary Review)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Admin Security Passcode Confirmation</label>
+        <input type="password" id="unbanAdminSecurityKey" placeholder="Enter admin key (e.g. admin123)" value="admin123" required />
+      </div>
+
+      <div class="form-group" style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+        <input type="checkbox" id="unbanAdminConsentCheck" required style="width:auto; cursor:pointer;" checked />
+        <label for="unbanAdminConsentCheck" style="margin:0; font-size:0.78rem; font-weight:700; color:var(--text); cursor:pointer;">
+          I explicitly authorize lifting the ban and restoring campus swap privileges.
+        </label>
+      </div>
+
+      <input type="hidden" id="unbanTargetUserId" />
+
+      <button type="submit" class="btn-submit" style="background:var(--accent-dark); margin-top:14px;">
+        <i class="fas fa-unlock"></i> Authorize & Lift Ban
+      </button>
+    </form>
+  </div>
+</div>
+
 <!-- EVENT OF THE DAY MODAL / EDITOR -->
 <div class="modal-overlay" id="eventModal">
   <div class="modal-card">
@@ -2630,7 +2734,7 @@
 <script>
   // 1. Initial State Data Models
 
-  // Campus Users (including users with bad trust scores for testing)
+  // Campus Users (including users with bad trust scores and a currently banned user for testing unban)
   let users = [
     { id: 1, name: "Alex Chen", email: "alex.c@university.edu", dept: "Computer Science", trustScore: 99, swapsCompleted: 14, donatedCount: 4, avatar: "AC", status: "Active", badge: "Platinum Peer" },
     { id: 2, name: "Emma Watson", email: "emma.w@university.edu", dept: "Mathematics", trustScore: 100, swapsCompleted: 22, donatedCount: 7, avatar: "EW", status: "Active", badge: "Community Hero" },
@@ -2639,9 +2743,9 @@
     { id: 5, name: "David Kim", email: "david.k@university.edu", dept: "Biochemistry", trustScore: 96, swapsCompleted: 8, donatedCount: 1, avatar: "DK", status: "Active", badge: "Verified Student" },
     { id: 6, name: "Sarah Jenkins", email: "sarah.j@university.edu", dept: "Psychology", trustScore: 97, swapsCompleted: 12, donatedCount: 3, avatar: "SJ", status: "Active", badge: "Gold Peer" },
     { id: 7, name: "Marcus Vance", email: "marcus.v@university.edu", dept: "Architecture", trustScore: 98, swapsCompleted: 15, donatedCount: 6, avatar: "MV", status: "Active", badge: "Platinum Peer" },
-    // Low trust score members
-    { id: 8, name: "Tyler Reed", email: "tyler.r@university.edu", dept: "Economics", trustScore: 54, swapsCompleted: 3, donatedCount: 0, avatar: "TR", status: "Active", badge: "⚠️ Low Trust (54%)", banReason: "3 Overdue Items & Damaged Calculator" },
-    { id: 9, name: "Chloe Bennett", email: "chloe.b@university.edu", dept: "Business Admin", trustScore: 68, swapsCompleted: 4, donatedCount: 0, avatar: "CB", status: "Active", badge: "⚠️ At Risk (68%)", banReason: "Unreturned textbook dispute" },
+    // Low trust score members & demo banned member
+    { id: 8, name: "Tyler Reed", email: "tyler.r@university.edu", dept: "Economics", trustScore: 54, swapsCompleted: 3, donatedCount: 0, avatar: "TR", status: "Temporarily Banned (7 Days)", badge: "🔴 Banned (7 Days)", banReason: "Critically Low Trust Score (54%) & 3 Overdue Items (Authorized by Campus Admin #08)" },
+    { id: 9, name: "Chloe Bennett", email: "chloe.b@university.edu", dept: "Business Admin", trustScore: 68, swapsCompleted: 4, donatedCount: 0, avatar: "CB", status: "Active", badge: "⚠️ At Risk (68%)", banReason: "Unreturned textbook dispute pending review" },
     { id: 10, name: "Campus Admin", email: "admin@university.edu", dept: "Student Affairs", trustScore: 100, swapsCompleted: 0, donatedCount: 0, avatar: "AD", status: "Admin Staff", badge: "Staff Moderator" }
   ];
 
@@ -2736,6 +2840,21 @@
       status: "available",
       icon: "fa-lightbulb",
       subText: "Lend by Marcus · $2/wk"
+    },
+    {
+      id: 107,
+      title: "Macroeconomics Principles 10th Ed",
+      owner: "Tyler Reed",
+      ownerId: 8,
+      category: "Textbooks",
+      type: "lend_price",
+      price: "$2 / day",
+      duration: "1 week",
+      location: "Economics Dept Locker",
+      time: "4d ago",
+      status: "suspended", // Suspended due to Tyler's temporary ban
+      icon: "fa-book",
+      subText: "Lend by Tyler · [Suspended]"
     }
   ];
 
@@ -2923,7 +3042,7 @@
         return matchCat && matchSearch;
       });
 
-      document.getElementById('listingsCountBadge').innerText = items.length;
+      document.getElementById('listingsCountBadge').innerText = items.filter(i => i.status !== 'suspended').length;
       document.getElementById('needsCountBadge').innerText = borrowRequests.length;
       document.getElementById('activeItemsSummary').innerText = `${items.filter(i => i.status === 'available').length} items available · ${borrowRequests.length} requests open`;
 
@@ -3246,7 +3365,7 @@
     `).join('');
   }
 
-  // Admin Tab: User Directory & Trust Moderation Table
+  // Admin Tab: User Directory & Trust Moderation Table (with Ban & Unban buttons)
   function renderUserDirectoryTable() {
     const tbody = document.getElementById('adminUserDirectoryTableBody');
     if (!tbody) return;
@@ -3256,7 +3375,7 @@
     const filtered = users.filter(u => {
       const matchSearch = u.name.toLowerCase().includes(search) || u.dept.toLowerCase().includes(search);
       let matchTrust = true;
-      if (trustFilter === 'low') matchTrust = u.trustScore < 75;
+      if (trustFilter === 'low') matchTrust = u.trustScore < 75 && !u.status.includes('Banned');
       if (trustFilter === 'high') matchTrust = u.trustScore >= 95;
       if (trustFilter === 'banned') matchTrust = u.status.includes('Banned');
       return matchSearch && matchTrust;
@@ -3298,11 +3417,11 @@
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
               <button class="btn-action-sm" onclick="inspectUser(${u.id})"><i class="fas fa-id-card"></i> Profile</button>
               ${isBanned ? `
-                <button class="btn-action-sm" style="background:var(--accent-light); color:var(--accent-dark);" onclick="liftAdminBan(${u.id})">
-                  <i class="fas fa-unlock"></i> Lift Ban (Admin)
+                <button class="btn-action-sm btn-action-unban" onclick="openAdminUnbanModal(${u.id})" title="Open Admin Authorization to Unban">
+                  <i class="fas fa-unlock"></i> Unban User (Admin)
                 </button>
               ` : `
-                <button class="btn-action-sm btn-action-ban" onclick="openAdminBanModal(${u.id})">
+                <button class="btn-action-sm btn-action-ban" onclick="openAdminBanModal(${u.id})" title="Open Admin Authorization to Ban">
                   <i class="fas fa-gavel"></i> ${isLowTrust ? 'Ban for Low Trust' : 'Admin Ban'}
                 </button>
               `}
@@ -3440,7 +3559,7 @@
   }
 
   // =========================================================================
-  // USER PROFILE MODAL INSPECTOR & ADMIN BAN PERMISSION WORKFLOW
+  // USER PROFILE MODAL INSPECTOR & ADMIN BAN/UNBAN PERMISSION WORKFLOW
   // =========================================================================
   function inspectUserByName(userName) {
     const user = users.find(u => u.name.toLowerCase() === userName.toLowerCase());
@@ -3486,8 +3605,8 @@
         <div style="display:flex; flex-direction:column; gap:6px;">
           <button class="btn-action-sm" onclick="boostTrustScore(${user.id})" style="background:var(--accent-light); color:var(--accent-dark);"><i class="fas fa-arrow-up"></i> +2 Trust Score</button>
           ${isBanned ? `
-            <button class="btn-action-sm" style="background:var(--accent-light); color:var(--accent-dark); font-weight:800;" onclick="liftAdminBan(${user.id})">
-              <i class="fas fa-unlock"></i> Lift Ban (Admin Auth)
+            <button class="btn-action-sm btn-action-unban" onclick="closeModal('userProfileModal'); openAdminUnbanModal(${user.id});">
+              <i class="fas fa-unlock"></i> Unban User (Admin Auth)
             </button>
           ` : `
             <button class="btn-action-sm btn-action-ban" onclick="closeModal('userProfileModal'); openAdminBanModal(${user.id});">
@@ -3508,7 +3627,7 @@
               ${userListings.map(item => `
                 <li style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dashed #E2E8F0;">
                   <span>${escapeHtml(item.title)}</span>
-                  <span class="badge-type type-price" style="font-size:0.65rem;">${escapeHtml(item.price)}</span>
+                  <span class="badge-type ${item.status === 'suspended' ? 'type-banned' : 'type-price'}" style="font-size:0.65rem;">${item.status === 'suspended' ? 'Suspended' : escapeHtml(item.price)}</span>
                 </li>
               `).join('')}
             </ul>
@@ -3614,25 +3733,72 @@
     showToast(`Admin Permission Verified: ${user.name} temporarily banned for ${duration}!`);
   }
 
-  function liftAdminBan(userId) {
+  // =========================================================================
+  // ADMIN UNBAN / RESTORE AUTHORIZATION SAFEGUARD
+  // =========================================================================
+  function openAdminUnbanModal(userId) {
     const user = users.find(u => u.id === userId);
     if (!user) return;
 
+    document.getElementById('unbanTargetUserId').value = user.id;
+
+    document.getElementById('unbanTargetDetails').innerHTML = `
+      <div style="display:flex; align-items:center; gap:14px; background:#F8FAFC; border:1px solid var(--border-color); border-radius:18px; padding:14px; margin-bottom:1rem;">
+        <div class="mini-avatar mini-avatar-banned" style="width:42px; height:42px; font-size:1rem;">${user.avatar}</div>
+        <div>
+          <div style="font-weight:800; font-size:1rem; color:var(--text);">${escapeHtml(user.name)}</div>
+          <div style="font-size:0.78rem; color:var(--text-secondary);">${escapeHtml(user.email)} · ${escapeHtml(user.dept)}</div>
+          <div style="font-size:0.78rem; color:#991B1B; font-weight:700; margin-top:2px;">
+            Current Status: ${escapeHtml(user.status)}<br/>
+            Flag Reason: ${escapeHtml(user.banReason || 'Bad Trust Score')}
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('adminUnbanAuthModal').style.display = 'flex';
+  }
+
+  function executeAdminUnban(e) {
+    e.preventDefault();
+    const userId = parseInt(document.getElementById('unbanTargetUserId').value);
+    const reason = document.getElementById('unbanReasonSelect').value;
+    const scoreChoice = document.getElementById('unbanTrustScoreSelect').value;
+    const securityKey = document.getElementById('unbanAdminSecurityKey').value;
+    const consent = document.getElementById('unbanAdminConsentCheck').checked;
+
+    if (!consent) {
+      showToast('Admin authorization consent is required to lift ban!');
+      return;
+    }
+
+    if (securityKey.trim() === '') {
+      showToast('Please enter administrator authorization key!');
+      return;
+    }
+
+    const user = users.find(u => u.id === userId);
+    if (!user) return;
+
+    // Apply Unban with Admin Authorization
     user.status = "Active";
     user.banReason = null;
-    user.trustScore = Math.max(75, user.trustScore); // Reset to baseline
-    user.badge = "Verified Student";
+    if (scoreChoice === '75') user.trustScore = Math.max(75, user.trustScore);
+    else if (scoreChoice === '85') user.trustScore = Math.max(85, user.trustScore);
 
-    // Restore items
+    user.badge = user.trustScore >= 95 ? "Gold Peer" : "Verified Student";
+
+    // Restore suspended items
     items.forEach(item => {
       if (item.owner.toLowerCase() === user.name.toLowerCase() && item.status === 'suspended') {
         item.status = 'available';
       }
     });
 
+    closeModal('adminUnbanAuthModal');
     renderAllAdminTabs();
     renderCatalog();
-    showToast(`Administrator permission granted: Ban lifted for ${user.name}!`);
+    showToast(`Administrator Permission Granted: Ban lifted for ${user.name} (${reason})!`);
   }
 
   function boostTrustScore(userId) {
