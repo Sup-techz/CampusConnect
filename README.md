@@ -1,0 +1,3 @@
+# CampusConnect
+
+Welcome to CampusConnect!
