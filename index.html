@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>swap · campus borrow, lend & communities</title>
+  <title>swap · campus borrow, lend & discord-style communities</title>
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -93,13 +93,13 @@
 
     /* Main Container Card */
     .app {
-      max-width: 1320px;
+      max-width: 1360px;
       width: 100%;
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-lg);
       border: 1px solid rgba(226, 232, 240, 0.85);
-      padding: 2.5rem 3rem;
+      padding: 2.2rem 2.6rem;
       position: relative;
       z-index: 1;
       backdrop-filter: blur(12px);
@@ -111,7 +111,7 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 2rem;
+      margin-bottom: 1.8rem;
       gap: 1.2rem;
     }
 
@@ -154,7 +154,7 @@
       color: var(--text-secondary);
     }
 
-    /* Main View Navigation Switcher (Marketplace vs Communities) */
+    /* Main View Switcher */
     .view-switcher {
       display: flex;
       gap: 6px;
@@ -186,17 +186,12 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .view-btn:hover:not(.active) {
-      color: var(--text);
-    }
-
     .nav-actions {
       display: flex;
       align-items: center;
       gap: 14px;
     }
 
-    /* Cart Button */
     .btn-cart {
       background: #EFF6FF;
       color: var(--secondary);
@@ -260,7 +255,7 @@
       box-shadow: 0 4px 14px var(--primary-glow);
     }
 
-    /* Profile Badge */
+    /* User Profile Pill */
     .user-profile-pill {
       display: none;
       align-items: center;
@@ -295,15 +290,9 @@
 
     .btn-logout:hover { color: var(--error); }
 
-    /* VIEW SECTIONS */
-    .page-view {
-      display: none;
-    }
-
-    .page-view.active-view {
-      display: block;
-      animation: fadeIn 0.3s ease-out;
-    }
+    /* Page View Toggle */
+    .page-view { display: none; }
+    .page-view.active-view { display: block; animation: fadeIn 0.3s ease-out; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
@@ -314,11 +303,10 @@
     .hero-section {
       background: linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 50%, #EFF6FF 100%);
       border-radius: 28px;
-      padding: 2.2rem 2.5rem;
+      padding: 2rem 2.2rem;
       border: 1px solid #E0E7FF;
-      margin-bottom: 2.2rem;
+      margin-bottom: 2rem;
       position: relative;
-      overflow: hidden;
       box-shadow: var(--shadow-sm);
     }
 
@@ -333,28 +321,27 @@
       font-weight: 700;
       color: var(--primary);
       border: 1px solid #C7D2FE;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
 
     .hero-title {
-      font-size: 2.1rem;
+      font-size: 2rem;
       font-weight: 800;
       letter-spacing: -0.03em;
       color: var(--text);
-      margin-bottom: 0.6rem;
-      line-height: 1.25;
+      margin-bottom: 0.5rem;
     }
 
     .hero-title span { color: var(--primary); }
 
     .typewriter-container {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 600;
       color: var(--secondary);
       display: flex;
       align-items: center;
       gap: 6px;
-      min-height: 38px;
+      min-height: 36px;
     }
 
     .typewriter-text {
@@ -369,14 +356,7 @@
       50% { border-color: var(--secondary); }
     }
 
-    .hero-sub {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      margin-top: 0.8rem;
-      line-height: 1.45;
-    }
-
-    /* What Can You Get Showcase */
+    /* Showcase Section */
     .showcase-header {
       font-size: 1.1rem;
       font-weight: 700;
@@ -411,37 +391,14 @@
       box-shadow: var(--shadow-md);
     }
 
-    .showcase-icon {
-      font-size: 1.6rem;
-      margin-bottom: 0.4rem;
-      display: block;
-    }
-
+    .showcase-icon { font-size: 1.6rem; margin-bottom: 0.4rem; display: block; }
     .showcase-name { font-weight: 700; font-size: 0.85rem; color: var(--text); }
-    .showcase-desc { font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px; }
 
     /* Dashboard Layout */
     .dashboard-grid {
       display: grid;
       grid-template-columns: 1.35fr 0.9fr;
       gap: 2.5rem;
-    }
-
-    .action-section h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 2rem;
     }
 
     .action-card {
@@ -473,9 +430,6 @@
     .borrow-card .icon-bg { background: #EFF6FF; color: var(--secondary); }
     .lend-card .icon-bg { background: var(--accent-light); color: var(--accent); }
 
-    .action-card h3 { font-weight: 700; font-size: 1.25rem; margin-bottom: 0.35rem; color: var(--text); }
-    .action-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 1.2rem; }
-
     .card-tag {
       display: inline-flex;
       align-items: center;
@@ -490,7 +444,6 @@
     .borrow-card .card-tag { background: #EFF6FF; color: var(--secondary); border: 1px solid #BFDBFE; }
     .lend-card .card-tag { background: var(--accent-light); color: var(--accent-dark); border: 1px solid #A7F3D0; }
 
-    /* Catalog Filters */
     .catalog-search-bar {
       display: flex;
       gap: 12px;
@@ -528,12 +481,7 @@
       color: var(--text);
     }
 
-    .category-pills {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
+    .category-pills { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
 
     .cat-pill {
       background: #F1F5F9;
@@ -545,7 +493,6 @@
       color: var(--text-secondary);
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s ease;
     }
 
     .cat-pill.active, .cat-pill:hover {
@@ -554,22 +501,12 @@
       border-color: var(--primary);
     }
 
-    /* Catalog List */
     .recent-list {
       background: var(--card-bg);
       border-radius: 28px;
       padding: 1.6rem;
       border: 1px solid var(--border-color);
     }
-
-    .recent-list .list-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.2rem;
-    }
-
-    .recent-list .list-header h4 { font-weight: 700; font-size: 1rem; color: var(--text); }
 
     .list-item {
       display: flex;
@@ -578,7 +515,6 @@
       padding: 0.95rem 0.8rem;
       border-bottom: 1px solid #F1F5F9;
       border-radius: 16px;
-      transition: all 0.2s ease;
       gap: 12px;
     }
 
@@ -601,9 +537,6 @@
       flex-shrink: 0;
     }
 
-    .item-details .title { font-weight: 700; font-size: 0.96rem; color: var(--text); }
-    .item-details .sub { font-size: 0.78rem; color: var(--text-secondary); }
-
     .btn-add-cart {
       background: #EEF2FF;
       color: var(--primary);
@@ -613,7 +546,6 @@
       font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s ease;
       font-family: inherit;
     }
 
@@ -634,51 +566,11 @@
     .status-returned { background: #F1F5F9; color: var(--text-secondary); border: 1px solid var(--border-color); }
 
     /* Login Panel */
-    .login-panel {
-      background: #FAFCFF;
-      border-radius: 32px;
-      padding: 2rem;
-      border: 1px solid var(--border-color);
-    }
-
-    .login-panel .panel-title {
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: var(--text);
-      margin-bottom: 0.35rem;
-    }
-
-    .login-panel .subhead {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-bottom: 1.6rem;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.9rem;
-    }
-
-    .login-options { display: flex; flex-direction: column; gap: 22px; }
-
-    .login-card {
-      background: var(--card-bg);
-      border-radius: 26px;
-      padding: 1.6rem 1.4rem;
-      border: 1px solid var(--border-color);
-    }
-
+    .login-panel { background: #FAFCFF; border-radius: 32px; padding: 2rem; border: 1px solid var(--border-color); }
+    .login-card { background: var(--card-bg); border-radius: 26px; padding: 1.6rem 1.4rem; border: 1px solid var(--border-color); }
     .login-card.user-card { border-left: 6px solid var(--primary); }
     .login-card.admin-card { border-left: 6px solid var(--highlight); }
-
-    .login-card .login-label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.1rem;
-    }
-
-    .login-card .login-label span { font-weight: 800; font-size: 1.05rem; color: var(--text); }
-
-    .login-input-group { display: flex; flex-direction: column; gap: 12px; margin-top: 6px; }
-
+    
     .login-input-group .input-row {
       display: flex;
       align-items: center;
@@ -728,34 +620,201 @@
       width: 100%;
     }
 
-    .admin-view-panel {
-      display: none;
-      background: #FFFBEB;
+    /* ======================================================== */
+    /* DISCORD-STYLE COMMUNITY LAYOUT                            */
+    /* ======================================================== */
+    .discord-community-container {
+      display: grid;
+      grid-template-columns: 80px 240px 1fr;
+      gap: 1rem;
+      min-height: 600px;
       border-radius: 28px;
-      padding: 1.6rem;
-      border: 1px solid #FDE68A;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
     }
 
-    /* ======================================================== */
-    /* HOVER EXPAND ACCORDION (PROPORTIONAL TO REACT CODE UI)    */
-    /* ======================================================== */
-    .community-intro-head {
-      margin-bottom: 1.8rem;
+    /* Leftmost Server Icon Sidebar (Discord Servers) */
+    .discord-servers-bar {
+      background: #0F172A;
+      padding: 1.2rem 0.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
     }
 
-    .community-intro-head h2 {
-      font-size: 1.8rem;
+    .server-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #1E293B;
+      color: #94A3B8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .server-icon:hover, .server-icon.active {
+      border-radius: 16px;
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 6px 16px var(--primary-glow);
+    }
+
+    .server-icon.active::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      width: 5px;
+      height: 28px;
+      background: white;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .server-badge-count {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: var(--accent);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0F172A;
+    }
+
+    .server-divider {
+      width: 32px;
+      height: 2px;
+      background: #334155;
+      margin: 2px 0;
+    }
+
+    /* Middle Channel & Community Sidebar */
+    .discord-channels-sidebar {
+      background: #F8FAFC;
+      border-right: 1px solid var(--border-color);
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comm-sidebar-header {
+      font-weight: 800;
+      font-size: 1rem;
       color: var(--text);
-      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .community-intro-head p {
-      font-size: 0.92rem;
+    .channel-group-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       color: var(--text-secondary);
-      margin-top: 4px;
+      margin: 1rem 0 0.5rem 0;
     }
 
+    .channel-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .channel-item:hover, .channel-item.active {
+      background: #EEF2FF;
+      color: var(--primary);
+    }
+
+    .channel-item i { font-size: 0.95rem; }
+
+    .btn-share-comm {
+      margin-top: auto;
+      background: #EFF6FF;
+      color: var(--secondary);
+      border: 1px solid #BFDBFE;
+      padding: 9px 14px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-share-comm:hover {
+      background: var(--secondary);
+      color: white;
+    }
+
+    /* Main Right Content Panel */
+    .discord-main-stage {
+      padding: 1.5rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* Search Bar Above HoverExpand Discovery */
+    .comm-search-top-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 10px 20px;
+      margin-bottom: 1.5rem;
+      transition: all 0.2s;
+    }
+
+    .comm-search-top-wrapper:focus-within {
+      background: white;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-glow);
+    }
+
+    .comm-search-top-wrapper i { color: var(--text-secondary); }
+
+    .comm-search-top-wrapper input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 0.92rem;
+      font-family: inherit;
+      color: var(--text);
+    }
+
+    /* HOVER EXPAND ACCORDION (PROPORTIONAL TO REACT CODE SPEC) */
     .hover-expand-container {
       display: flex;
       flex-direction: column;
@@ -774,13 +833,9 @@
       border-bottom: 1px solid rgba(15, 23, 42, 0.15);
     }
 
-    .hover-expand-item:last-child {
-      border-bottom: none;
-    }
+    .hover-expand-item:last-child { border-bottom: none; }
 
-    .hover-expand-container:hover .hover-expand-item {
-      opacity: 0.38;
-    }
+    .hover-expand-container:hover .hover-expand-item { opacity: 0.38; }
 
     .hover-expand-container:hover .hover-expand-item:hover {
       opacity: 1;
@@ -843,27 +898,20 @@
       font-variant-numeric: tabular-nums;
       opacity: 0.4;
       color: currentColor;
-      transition: color 0.2s, opacity 0.2s;
     }
 
-    .hover-expand-item:hover .hover-expand-num {
-      color: #ffffff;
-      opacity: 0.6;
-    }
+    .hover-expand-item:hover .hover-expand-num { color: #ffffff; opacity: 0.6; }
 
     .hover-expand-label {
       font-weight: 700;
-      font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
       letter-spacing: -0.02em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      transition: color 0.2s;
     }
 
-    .hover-expand-item:hover .hover-expand-label {
-      color: #ffffff;
-    }
+    .hover-expand-item:hover .hover-expand-label { color: #ffffff; }
 
     .hover-expand-desc {
       font-size: 0.88rem;
@@ -886,15 +934,10 @@
       font-size: 0.72rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      flex-shrink: 0;
       opacity: 0.45;
-      transition: color 0.2s, opacity 0.2s;
     }
 
-    .hover-expand-item:hover .hover-expand-sublabel {
-      color: rgba(255, 255, 255, 0.75);
-      opacity: 1;
-    }
+    .hover-expand-item:hover .hover-expand-sublabel { color: rgba(255, 255, 255, 0.75); opacity: 1; }
 
     .btn-join-comm {
       position: absolute;
@@ -914,81 +957,18 @@
       z-index: 5;
     }
 
-    .hover-expand-item:hover .btn-join-comm {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .hover-expand-item:hover .btn-join-comm { opacity: 1; transform: translateY(0); }
+    .btn-join-comm:hover { background: var(--primary-hover); }
 
-    .btn-join-comm:hover {
-      background: var(--primary-hover);
-      box-shadow: 0 4px 12px var(--primary-glow);
-    }
-
-    /* COMMUNITY CHAT & MARKETPLACE ROOM */
-    .community-room-header {
-      background: linear-gradient(135deg, var(--primary) 0%, #3730A3 100%);
-      color: white;
-      border-radius: 28px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      box-shadow: var(--shadow-md);
-    }
-
-    .comm-room-title h3 {
-      font-size: 1.7rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .comm-room-title p {
-      font-size: 0.88rem;
-      opacity: 0.85;
-      margin-top: 4px;
-    }
-
-    .comm-tabs {
-      display: flex;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 5px;
-      border-radius: 40px;
-      backdrop-filter: blur(8px);
-    }
-
-    .comm-tab-btn {
-      background: transparent;
-      border: none;
-      color: rgba(255, 255, 255, 0.8);
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 0.84rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: inherit;
-    }
-
-    .comm-tab-btn.active {
-      background: white;
-      color: var(--primary);
-    }
-
-    /* Chatfeed styling */
+    /* Chat Messages Box inside Discord Room */
     .chat-container {
       background: var(--card-bg);
-      border-radius: 28px;
+      border-radius: 20px;
       border: 1px solid var(--border-color);
-      padding: 1.8rem;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
-      height: 480px;
+      height: 440px;
     }
 
     .chat-messages {
@@ -997,15 +977,11 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      padding-right: 8px;
+      padding-right: 6px;
       margin-bottom: 1rem;
     }
 
-    .chat-msg-row {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
+    .chat-msg-row { display: flex; gap: 12px; align-items: flex-start; }
 
     .chat-avatar {
       width: 36px;
@@ -1027,14 +1003,14 @@
       border-radius: 18px;
       border-top-left-radius: 4px;
       padding: 12px 16px;
-      max-width: 80%;
+      max-width: 82%;
     }
 
     .chat-user-name {
       font-weight: 700;
       font-size: 0.78rem;
       color: var(--text);
-      margin-bottom: 2px;
+      margin-bottom: 3px;
       display: flex;
       gap: 8px;
       align-items: center;
@@ -1048,16 +1024,9 @@
       border-radius: 10px;
     }
 
-    .chat-text {
-      font-size: 0.88rem;
-      color: var(--text);
-      line-height: 1.4;
-    }
+    .chat-text { font-size: 0.88rem; color: var(--text); line-height: 1.4; }
 
-    .chat-input-bar {
-      display: flex;
-      gap: 10px;
-    }
+    .chat-input-bar { display: flex; gap: 10px; }
 
     .chat-input-bar input {
       flex: 1;
@@ -1070,10 +1039,7 @@
       font-size: 0.9rem;
     }
 
-    .chat-input-bar input:focus {
-      border-color: var(--primary);
-      background: white;
-    }
+    .chat-input-bar input:focus { border-color: var(--primary); background: white; }
 
     .btn-send-chat {
       background: var(--primary);
@@ -1085,6 +1051,28 @@
       cursor: pointer;
       font-family: inherit;
     }
+
+    /* Rules & Code of Conduct Modal */
+    .rules-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.2rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .rules-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .rules-item:last-child { margin-bottom: 0; }
+    .rules-item i { color: var(--primary); margin-top: 3px; }
 
     /* Modals & Toast */
     .modal-overlay {
@@ -1103,7 +1091,7 @@
       background: white;
       border-radius: 32px;
       width: 100%;
-      max-width: 520px;
+      max-width: 540px;
       padding: 2.2rem;
       box-shadow: var(--shadow-lg);
       position: relative;
@@ -1162,16 +1150,18 @@
 
     /* Responsiveness */
     @media (max-width: 960px) {
-      .app { padding: 2rem 1.4rem; }
-      .dashboard-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+      .app { padding: 2rem 1.2rem; }
+      .discord-community-container { grid-template-columns: 70px 1fr; }
+      .discord-channels-sidebar { display: none; }
     }
 
     @media (max-width: 580px) {
       .navbar { flex-direction: column; align-items: start; }
       .nav-actions { width: 100%; flex-wrap: wrap; }
-      .card-grid { grid-template-columns: 1fr; }
       .view-switcher { width: 100%; }
       .view-btn { flex: 1; justify-content: center; }
+      .discord-community-container { grid-template-columns: 1fr; }
+      .discord-servers-bar { flex-direction: row; width: 100%; overflow-x: auto; padding: 0.8rem; }
     }
   </style>
 </head>
@@ -1192,27 +1182,20 @@
         <i class="fas fa-store"></i> Marketplace
       </button>
       <button class="view-btn" id="viewBtnCommunity" onclick="switchPage('community')">
-        <i class="fas fa-users-rectangle"></i> Communities <span style="background:var(--primary); color:white; font-size:0.65rem; padding:2px 6px; border-radius:10px;" id="userJoinedBadge">NEW</span>
+        <i class="fas fa-comments"></i> Discord Communities <span style="background:var(--primary); color:white; font-size:0.65rem; padding:2px 6px; border-radius:10px;" id="joinedCountBadge">3 Joined</span>
       </button>
     </div>
 
     <div class="nav-actions">
-      <!-- Borrow Cart Button -->
       <button class="btn-cart" onclick="openCartModal()">
         <i class="fas fa-basket-shopping"></i> Borrow Cart <span class="cart-badge" id="cartCountBadge">0</span>
       </button>
 
-      <!-- Login Toggle -->
       <div class="login-toggle" id="loginToggleContainer">
-        <button id="toggleUserBtn" class="active" onclick="switchLoginTab('user')">
-          <i class="fas fa-user"></i> User
-        </button>
-        <button id="toggleAdminBtn" onclick="switchLoginTab('admin')">
-          <i class="fas fa-user-shield"></i> Admin
-        </button>
+        <button id="toggleUserBtn" class="active" onclick="switchLoginTab('user')"><i class="fas fa-user"></i> User</button>
+        <button id="toggleAdminBtn" onclick="switchLoginTab('admin')"><i class="fas fa-user-shield"></i> Admin</button>
       </div>
 
-      <!-- Profile Pill -->
       <div class="user-profile-pill" id="userProfilePill">
         <div class="avatar" id="userAvatar">AC</div>
         <div class="user-info">
@@ -1229,7 +1212,6 @@
   <!-- ======================================================== -->
   <div class="page-view active-view" id="marketplaceView">
 
-    <!-- HERO SECTION -->
     <section class="hero-section">
       <div class="hero-badge">
         <i class="fas fa-bolt" style="color:var(--highlight);"></i> Hey Campus Explorer! 👋 Welcome to swap
@@ -1241,12 +1223,12 @@
         <span class="typewriter-text" id="typewriterText"></span>
       </div>
 
-      <p class="hero-sub">
-        No sign-up required to explore! Browse items, add to your Borrow Cart, or join a specialized campus community.
+      <p class="hero-sub" style="font-size:0.88rem; color:var(--text-secondary); margin-top:0.6rem;">
+        No sign-up required to explore! Browse items, add to your Borrow Cart, or join a specialized campus Discord community.
       </p>
     </section>
 
-    <!-- WHAT CAN YOU GET SHOWCASE -->
+    <!-- Showcase Grid -->
     <div class="showcase-header">
       <i class="fas fa-sparkles" style="color:var(--highlight);"></i> What Can You Get On Campus?
     </div>
@@ -1254,38 +1236,32 @@
       <div class="showcase-card" onclick="setCategoryFilter('Textbooks')">
         <span class="showcase-icon">📚</span>
         <div class="showcase-name">Textbooks</div>
-        <div class="showcase-desc">Calc, Chem, History</div>
       </div>
       <div class="showcase-card" onclick="setCategoryFilter('Electronics')">
         <span class="showcase-icon">💻</span>
         <div class="showcase-name">Tech & Chargers</div>
-        <div class="showcase-desc">Headphones, Cables, Adapters</div>
       </div>
       <div class="showcase-card" onclick="setCategoryFilter('Gear & Supplies')">
         <span class="showcase-icon">🧪</span>
         <div class="showcase-name">Lab & Course Gear</div>
-        <div class="showcase-desc">Calculators, Lab Coats, Kits</div>
       </div>
       <div class="showcase-card" onclick="setCategoryFilter('Gear & Supplies')">
         <span class="showcase-icon">🎮</span>
         <div class="showcase-name">Dorm & Gaming</div>
-        <div class="showcase-desc">Controllers, Lamps, Gear</div>
       </div>
     </div>
 
-    <!-- Main Dashboard Grid -->
+    <!-- Dashboard Grid -->
     <div class="dashboard-grid">
-
-      <!-- Left Column: Actions + Item Catalog -->
       <div class="action-section">
         <h2><i class="fas fa-handshake" style="color:var(--secondary);"></i> borrow · lend</h2>
 
-        <div class="card-grid">
+        <div class="card-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:2rem;">
           <div class="action-card borrow-card" onclick="openBorrowModal()">
             <div class="icon-bg"><i class="fas fa-book-open"></i></div>
             <h3>borrow</h3>
             <p>Textbooks, gear, notes — request directly from campus peers.</p>
-            <span class="card-tag" id="availItemsTag"><i class="far fa-clock"></i> <span id="itemCountNum">6</span> items available</span>
+            <span class="card-tag"><i class="far fa-clock"></i> <span id="itemCountNum">6</span> items available</span>
           </div>
 
           <div class="action-card lend-card" onclick="openLendModal()">
@@ -1296,34 +1272,29 @@
           </div>
         </div>
 
-        <!-- Catalog Search & Category Filters -->
         <div class="catalog-search-bar">
           <div class="search-input-wrapper">
             <i class="fas fa-magnifying-glass"></i>
             <input type="text" id="searchInput" placeholder="Search textbooks, electronics, lab gear..." oninput="filterItems()" />
           </div>
           <div class="category-pills">
-            <span class="cat-pill active" id="pill-all" onclick="setCategoryFilter('all', this)"><i class="fas fa-grid-2"></i> All</span>
-            <span class="cat-pill" id="pill-Textbooks" onclick="setCategoryFilter('Textbooks', this)"><i class="fas fa-book"></i> Textbooks</span>
-            <span class="cat-pill" id="pill-Electronics" onclick="setCategoryFilter('Electronics', this)"><i class="fas fa-laptop"></i> Electronics</span>
-            <span class="cat-pill" id="pill-Gear" onclick="setCategoryFilter('Gear & Supplies', this)"><i class="fas fa-flask"></i> Gear</span>
+            <span class="cat-pill active" id="pill-all" onclick="setCategoryFilter('all', this)">All</span>
+            <span class="cat-pill" id="pill-Textbooks" onclick="setCategoryFilter('Textbooks', this)">Textbooks</span>
+            <span class="cat-pill" id="pill-Electronics" onclick="setCategoryFilter('Electronics', this)">Electronics</span>
+            <span class="cat-pill" id="pill-Gear" onclick="setCategoryFilter('Gear & Supplies', this)">Gear</span>
           </div>
         </div>
 
-        <!-- Item Activity & Catalog -->
         <div class="recent-list">
-          <div class="list-header">
+          <div class="list-header" style="display:flex; justify-content:space-between; margin-bottom:1rem;">
             <h4><i class="fas fa-bolt" style="color:var(--secondary);"></i> campus activity & items</h4>
-            <a href="#" onclick="toggleViewAllItems(event)" id="viewAllBtn">see all (<span id="totalItemsCount">6</span>)</a>
+            <a href="#" onclick="toggleViewAllItems(event)" id="viewAllBtn" style="color:var(--secondary); text-decoration:none; font-weight:700;">see all (<span id="totalItemsCount">6</span>)</a>
           </div>
-
-          <div id="activityContainer">
-            <!-- Rendered dynamically -->
-          </div>
+          <div id="activityContainer"></div>
         </div>
       </div>
 
-      <!-- Right Column: Login Panels -->
+      <!-- Right Login Panel -->
       <div class="login-panel" id="loginPanel">
         <div class="panel-title"><i class="fas fa-key"></i> access · swap</div>
         <div class="subhead"><i class="fas fa-chevron-right" style="font-size:0.6rem; margin-right:6px; color:var(--primary);"></i> user & admin portals separated</div>
@@ -1332,250 +1303,266 @@
           <div class="login-card user-card" id="userLoginCard">
             <div class="login-label">
               <span><i class="fas fa-user-circle" style="color:var(--primary);"></i> student user</span>
-              <span class="login-badge"><i class="fas fa-check-circle"></i> active</span>
+              <span class="login-badge" style="background:#EEF2FF; color:var(--primary); padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700;">active</span>
             </div>
             <form onsubmit="handleUserLogin(event)">
               <div class="login-input-group">
-                <div class="input-row">
-                  <i class="fas fa-envelope"></i>
-                  <input type="email" id="userEmail" placeholder="college@edu" value="alex.c@university.edu" required />
-                </div>
-                <div class="input-row">
-                  <i class="fas fa-lock"></i>
-                  <input type="password" id="userPass" placeholder="password" value="••••••••" required />
-                </div>
+                <div class="input-row"><i class="fas fa-envelope"></i><input type="email" id="userEmail" value="alex.c@university.edu" required /></div>
+                <div class="input-row"><i class="fas fa-lock"></i><input type="password" id="userPass" value="••••••••" required /></div>
                 <button type="submit" class="login-btn"><i class="fas fa-arrow-right-to-bracket"></i> sign in as user</button>
               </div>
             </form>
             <button class="quick-demo-btn" onclick="quickFillUser()"><i class="fas fa-bolt" style="color:var(--primary);"></i> One-Click Demo Student Sign In</button>
           </div>
 
-          <div class="login-divider" id="loginDivider">
-            <hr /> <span>different access</span> <hr />
-          </div>
-
           <div class="login-card admin-card" id="adminLoginCard">
             <div class="login-label">
               <span><i class="fas fa-user-tie" style="color:var(--highlight-dark);"></i> admin</span>
-              <span class="login-badge"><i class="fas fa-shield-alt"></i> staff</span>
+              <span class="login-badge" style="background:var(--highlight-light); color:var(--highlight-dark); padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700;">staff</span>
             </div>
             <form onsubmit="handleAdminLogin(event)">
               <div class="login-input-group">
-                <div class="input-row">
-                  <i class="fas fa-id-badge"></i>
-                  <input type="text" id="adminId" placeholder="admin ID" value="admin · 08" required />
-                </div>
-                <div class="input-row">
-                  <i class="fas fa-lock"></i>
-                  <input type="password" id="adminPass" placeholder="secure key" value="••••••••" required />
-                </div>
+                <div class="input-row"><i class="fas fa-id-badge"></i><input type="text" id="adminId" value="admin · 08" required /></div>
+                <div class="input-row"><i class="fas fa-lock"></i><input type="password" id="adminPass" value="••••••••" required /></div>
                 <button type="submit" class="login-btn"><i class="fas fa-user-shield"></i> admin sign in</button>
               </div>
             </form>
             <button class="quick-demo-btn" onclick="quickFillAdmin()"><i class="fas fa-shield-halved" style="color:var(--highlight);"></i> One-Click Demo Admin Sign In</button>
           </div>
-
-          <div class="admin-view-panel" id="adminDashboardView">
-            <div style="font-weight:800; color:var(--highlight-dark); margin-bottom:1rem;">
-              <i class="fas fa-shield-halved"></i> Campus Governance Dashboard
-            </div>
-            <div class="admin-stat-grid">
-              <div class="stat-card">
-                <div class="num">24</div>
-                <div class="label">Active Swaps</div>
-              </div>
-              <div class="stat-card">
-                <div class="num">99.4%</div>
-                <div class="label">Return Rate</div>
-              </div>
-            </div>
-            <button class="login-btn" style="background:var(--highlight); margin-top:10px;" onclick="showToast('Exporting Swap Audit Log...')">
-              <i class="fas fa-download"></i> Export Swap Audit Log
-            </button>
-          </div>
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- ======================================================== -->
-  <!-- PAGE VIEW 2: COMMUNITIES & HUBS (HOVER EXPAND DISCOVERY)  -->
+  <!-- PAGE VIEW 2: DISCORD-STYLE COMMUNITIES HUB               -->
   <!-- ======================================================== -->
   <div class="page-view" id="communityView">
 
-    <!-- DISCOVERY STAGE (Hover Expand UI) -->
-    <div id="communityDiscoveryStage">
-      <div class="community-intro-head">
-        <h2><i class="fas fa-users-rectangle" style="color:var(--primary);"></i> Campus Communities & Guilds</h2>
-        <p>Join a community of your major or interest to unlock a specialized marketplace, live chat, and instant lending updates.</p>
+    <!-- DISCORD THREE-COLUMN CONTAINER -->
+    <div class="discord-community-container">
+
+      <!-- LEFTMOST COLUMN 1: DISCORD SERVER ICONS SIDEBAR -->
+      <div class="discord-servers-bar">
+        <!-- Discover Icon -->
+        <div class="server-icon active" id="serverIconDiscover" onclick="openDiscordServer('discover')" title="Discover New Communities">
+          <i class="fas fa-compass"></i>
+        </div>
+
+        <div class="server-divider"></div>
+
+        <!-- Joined Server Icons (Dynamic) -->
+        <div id="joinedServerIconsContainer" style="display:flex; flex-direction:column; gap:14px; align-items:center;">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div class="server-divider"></div>
+
+        <!-- Add/Search Community Icon -->
+        <div class="server-icon" onclick="focusCommunitySearch()" title="Explore Communities">
+          <i class="fas fa-plus"></i>
+        </div>
       </div>
 
-      <!-- Hover Expand Accordion Container -->
-      <div class="hover-expand-container">
-
-        <!-- Item 01: Engineering & Tech Hub -->
-        <div class="hover-expand-item" onclick="enterCommunity('Engineering & Tech Hub', 'ENG', 'Calculators, Arduinos, Lab Kits, MacBooks, CAD Software')">
-          <div class="hover-expand-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop" alt="Engineering" />
-            <div class="hover-expand-overlay"></div>
-          </div>
-          <button class="btn-join-comm" onclick="event.stopPropagation(); joinCommunity('Engineering & Tech Hub')"><i class="fas fa-plus"></i> Join Community</button>
-          <div class="hover-expand-content">
-            <div class="hover-expand-row">
-              <div class="hover-expand-left">
-                <span class="hover-expand-num">01</span>
-                <span class="hover-expand-label">Engineering & Tech Hub</span>
-                <span class="hover-expand-desc">— Calculators, Arduinos, Lab Kits, MacBooks, CAD Software</span>
-              </div>
-              <span class="hover-expand-sublabel">ENG · 1.2K MEMBERS</span>
-            </div>
-          </div>
+      <!-- MIDDLE COLUMN 2: COMMUNITY CHANNELS SIDEBAR -->
+      <div class="discord-channels-sidebar">
+        <div class="comm-sidebar-header">
+          <span id="sidebarCommTitle">Engineering & Tech</span>
+          <i class="fas fa-chevron-down" style="font-size:0.8rem; color:var(--text-secondary);"></i>
         </div>
 
-        <!-- Item 02: Med & Bio Sciences Guild -->
-        <div class="hover-expand-item" onclick="enterCommunity('Med & Bio Sciences Guild', 'MED', 'Stethoscopes, Bio Kits, Lab Coats, Anatomy Models')">
-          <div class="hover-expand-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1200&auto=format&fit=crop" alt="Medical Science" />
-            <div class="hover-expand-overlay"></div>
-          </div>
-          <button class="btn-join-comm" onclick="event.stopPropagation(); joinCommunity('Med & Bio Sciences Guild')"><i class="fas fa-plus"></i> Join Community</button>
-          <div class="hover-expand-content">
-            <div class="hover-expand-row">
-              <div class="hover-expand-left">
-                <span class="hover-expand-num">02</span>
-                <span class="hover-expand-label">Med & Bio Sciences Guild</span>
-                <span class="hover-expand-desc">— Stethoscopes, Bio Kits, Lab Coats, Anatomy Models</span>
-              </div>
-              <span class="hover-expand-sublabel">MED · 850 MEMBERS</span>
-            </div>
-          </div>
+        <!-- Channels List -->
+        <div class="channel-group-title">Text Channels</div>
+        <div class="channel-item active" id="chanGeneral" onclick="switchChannel('general')">
+          <i class="fas fa-hashtag"></i> general-chat
+        </div>
+        <div class="channel-item" id="chanRequests" onclick="switchChannel('requests')">
+          <i class="fas fa-hashtag"></i> gear-requests
+        </div>
+        <div class="channel-item" id="chanLending" onclick="switchChannel('lending')">
+          <i class="fas fa-hashtag"></i> lending-offers
         </div>
 
-        <!-- Item 03: Design, Arts & Media Collective -->
-        <div class="hover-expand-item" onclick="enterCommunity('Design, Arts & Media Collective', 'ART', 'DSLR Cameras, Drawing Tablets, Microphones, Tripods')">
-          <div class="hover-expand-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1200&auto=format&fit=crop" alt="Design Arts" />
-            <div class="hover-expand-overlay"></div>
-          </div>
-          <button class="btn-join-comm" onclick="event.stopPropagation(); joinCommunity('Design, Arts & Media Collective')"><i class="fas fa-plus"></i> Join Community</button>
-          <div class="hover-expand-content">
-            <div class="hover-expand-row">
-              <div class="hover-expand-left">
-                <span class="hover-expand-num">03</span>
-                <span class="hover-expand-label">Design, Arts & Media Collective</span>
-                <span class="hover-expand-desc">— DSLR Cameras, Drawing Tablets, Microphones, Tripods</span>
-              </div>
-              <span class="hover-expand-sublabel">ART · 640 MEMBERS</span>
-            </div>
-          </div>
+        <div class="channel-group-title">Marketplace</div>
+        <div class="channel-item" id="chanMarket" onclick="switchChannel('market')">
+          <i class="fas fa-store"></i> specialized-catalog
         </div>
 
-        <!-- Item 04: Business & Economics Forum -->
-        <div class="hover-expand-item" onclick="enterCommunity('Business & Economics Forum', 'BIZ', 'Financial Calculators, Case Studies, Suit/Attire for Interviews')">
-          <div class="hover-expand-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" alt="Business Economics" />
-            <div class="hover-expand-overlay"></div>
-          </div>
-          <button class="btn-join-comm" onclick="event.stopPropagation(); joinCommunity('Business & Economics Forum')"><i class="fas fa-plus"></i> Join Community</button>
-          <div class="hover-expand-content">
-            <div class="hover-expand-row">
-              <div class="hover-expand-left">
-                <span class="hover-expand-num">04</span>
-                <span class="hover-expand-label">Business & Economics Forum</span>
-                <span class="hover-expand-desc">— Financial Calculators, Case Studies, Suit/Attire for Interviews</span>
-              </div>
-              <span class="hover-expand-sublabel">BIZ · 910 MEMBERS</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 05: Gaming & Dorm Life Society -->
-        <div class="hover-expand-item" onclick="enterCommunity('Gaming & Dorm Life Society', 'DORM', 'Console Controllers, VR Headsets, Mini Fridges, Projectors')">
-          <div class="hover-expand-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1200&auto=format&fit=crop" alt="Gaming Dorm" />
-            <div class="hover-expand-overlay"></div>
-          </div>
-          <button class="btn-join-comm" onclick="event.stopPropagation(); joinCommunity('Gaming & Dorm Life Society')"><i class="fas fa-plus"></i> Join Community</button>
-          <div class="hover-expand-content">
-            <div class="hover-expand-row">
-              <div class="hover-expand-left">
-                <span class="hover-expand-num">05</span>
-                <span class="hover-expand-label">Gaming & Dorm Life Society</span>
-                <span class="hover-expand-desc">— Console Controllers, VR Headsets, Mini Fridges, Projectors</span>
-              </div>
-              <span class="hover-expand-sublabel">DORM · 1.5K MEMBERS</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- DEDICATED JOINED COMMUNITY ROOM (CHAT & SPECIALIZED MARKETPLACE) -->
-    <div id="communityRoomStage" style="display:none;">
-      
-      <div style="margin-bottom:1rem;">
-        <button onclick="backToCommunityList()" style="background:transparent; border:none; color:var(--primary); font-weight:700; cursor:pointer; font-size:0.9rem;">
-          <i class="fas fa-arrow-left"></i> Back to All Communities
+        <!-- Share Community Button -->
+        <button class="btn-share-comm" onclick="shareActiveCommunity()">
+          <i class="fas fa-share-nodes"></i> Share Community Link
         </button>
       </div>
 
-      <div class="community-room-header">
-        <div class="comm-room-title">
-          <h3 id="roomTitle"><i class="fas fa-microchip"></i> Engineering & Tech Hub</h3>
-          <p id="roomSub">Specialized Marketplace & Peer Discussion Channel · 1,240 Members</p>
+      <!-- RIGHT COLUMN 3: MAIN DISCOVERY OR DISCORD CHAT FEED -->
+      <div class="discord-main-stage">
+
+        <!-- SEARCH BAR ABOVE DISCOVERY ACCORDION -->
+        <div class="comm-search-top-wrapper">
+          <i class="fas fa-magnifying-glass"></i>
+          <input type="text" id="commSearchInput" placeholder="Search communities by major, interest, or gear..." oninput="filterCommunitiesDiscovery()" />
         </div>
 
-        <div class="comm-tabs">
-          <button class="comm-tab-btn active" id="tabChatBtn" onclick="switchCommRoomTab('chat')">
-            <i class="fas fa-comments"></i> Community Chat
-          </button>
-          <button class="comm-tab-btn" id="tabMarketBtn" onclick="switchCommRoomTab('market')">
-            <i class="fas fa-bag-shopping"></i> Specialized Marketplace
-          </button>
-        </div>
-      </div>
+        <!-- STAGE A: COMMUNITY DISCOVERY HOVER-EXPAND ACCORDION -->
+        <div id="discordDiscoveryView">
+          <div style="margin-bottom:1rem;">
+            <h3 style="font-size:1.4rem; font-weight:800; color:var(--text);">Discover Campus Communities</h3>
+            <p style="font-size:0.86rem; color:var(--text-secondary);">Hover to expand community details and click to preview or join!</p>
+          </div>
 
-      <!-- Tab 1: Community Chatroom -->
-      <div id="commRoomChatView">
-        <div class="chat-container">
-          <div class="chat-messages" id="chatMessageList">
-            <!-- Sample messages -->
-            <div class="chat-msg-row">
-              <div class="chat-avatar">JS</div>
-              <div class="chat-bubble">
-                <div class="chat-user-name">Jordan Smith <span class="chat-user-tag">Junior · Electrical</span></div>
-                <div class="chat-text">Hey everyone! Anyone got an Arduino Uno & breadboard I can borrow for the weekend lab project? Will return by Monday morning!</div>
+          <!-- Hover Expand Accordion Container -->
+          <div class="hover-expand-container" id="hoverExpandList">
+
+            <!-- Item 01: Engineering & Tech Hub -->
+            <div class="hover-expand-item" data-name="Engineering & Tech Hub" data-desc="Calculators, Arduinos, Lab Kits, MacBooks, CAD Software" onclick="promptJoinCommunity('Engineering & Tech Hub', 'ENG', 'Calculators, Arduinos, Lab Kits, MacBooks')">
+              <div class="hover-expand-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop" alt="Engineering" />
+                <div class="hover-expand-overlay"></div>
+              </div>
+              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Engineering & Tech Hub', 'ENG')"><i class="fas fa-plus"></i> Join Community</button>
+              <div class="hover-expand-content">
+                <div class="hover-expand-row">
+                  <div class="hover-expand-left">
+                    <span class="hover-expand-num">01</span>
+                    <span class="hover-expand-label">Engineering & Tech Hub</span>
+                    <span class="hover-expand-desc">— Calculators, Arduinos, Lab Kits, MacBooks, CAD Software</span>
+                  </div>
+                  <span class="hover-expand-sublabel">ENG · 1.2K MEMBERS</span>
+                </div>
               </div>
             </div>
 
-            <div class="chat-msg-row">
-              <div class="chat-avatar">AC</div>
-              <div class="chat-bubble">
-                <div class="chat-user-name">Alex Chen <span class="chat-user-tag">Lender</span></div>
-                <div class="chat-text">I have an extra Arduino starter kit available! Just added it to the specialized marketplace below or DM me.</div>
+            <!-- Item 02: Med & Bio Sciences Guild -->
+            <div class="hover-expand-item" data-name="Med & Bio Sciences Guild" data-desc="Stethoscopes, Bio Kits, Lab Coats, Anatomy Models" onclick="promptJoinCommunity('Med & Bio Sciences Guild', 'MED', 'Stethoscopes, Bio Kits, Lab Coats')">
+              <div class="hover-expand-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1200&auto=format&fit=crop" alt="Medical Science" />
+                <div class="hover-expand-overlay"></div>
               </div>
+              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Med & Bio Sciences Guild', 'MED')"><i class="fas fa-plus"></i> Join Community</button>
+              <div class="hover-expand-content">
+                <div class="hover-expand-row">
+                  <div class="hover-expand-left">
+                    <span class="hover-expand-num">02</span>
+                    <span class="hover-expand-label">Med & Bio Sciences Guild</span>
+                    <span class="hover-expand-desc">— Stethoscopes, Bio Kits, Lab Coats, Anatomy Models</span>
+                  </div>
+                  <span class="hover-expand-sublabel">MED · 850 MEMBERS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 03: Design, Arts & Media Collective -->
+            <div class="hover-expand-item" data-name="Design, Arts & Media Collective" data-desc="DSLR Cameras, Drawing Tablets, Microphones, Tripods" onclick="promptJoinCommunity('Design, Arts & Media Collective', 'ART', 'DSLR Cameras, Drawing Tablets')">
+              <div class="hover-expand-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1200&auto=format&fit=crop" alt="Design Arts" />
+                <div class="hover-expand-overlay"></div>
+              </div>
+              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Design, Arts & Media Collective', 'ART')"><i class="fas fa-plus"></i> Join Community</button>
+              <div class="hover-expand-content">
+                <div class="hover-expand-row">
+                  <div class="hover-expand-left">
+                    <span class="hover-expand-num">03</span>
+                    <span class="hover-expand-label">Design, Arts & Media Collective</span>
+                    <span class="hover-expand-desc">— DSLR Cameras, Drawing Tablets, Microphones, Tripods</span>
+                  </div>
+                  <span class="hover-expand-sublabel">ART · 640 MEMBERS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 04: Business & Economics Forum -->
+            <div class="hover-expand-item" data-name="Business & Economics Forum" data-desc="Financial Calculators, Case Studies, Suit/Attire for Interviews" onclick="promptJoinCommunity('Business & Economics Forum', 'BIZ', 'Financial Calculators')">
+              <div class="hover-expand-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" alt="Business Economics" />
+                <div class="hover-expand-overlay"></div>
+              </div>
+              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Business & Economics Forum', 'BIZ')"><i class="fas fa-plus"></i> Join Community</button>
+              <div class="hover-expand-content">
+                <div class="hover-expand-row">
+                  <div class="hover-expand-left">
+                    <span class="hover-expand-num">04</span>
+                    <span class="hover-expand-label">Business & Economics Forum</span>
+                    <span class="hover-expand-desc">— Financial Calculators, Case Studies, Suit/Attire for Interviews</span>
+                  </div>
+                  <span class="hover-expand-sublabel">BIZ · 910 MEMBERS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 05: Gaming & Dorm Life Society -->
+            <div class="hover-expand-item" data-name="Gaming & Dorm Life Society" data-desc="Console Controllers, VR Headsets, Mini Fridges, Projectors" onclick="promptJoinCommunity('Gaming & Dorm Life Society', 'DORM', 'Console Controllers, VR Headsets')">
+              <div class="hover-expand-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1200&auto=format&fit=crop" alt="Gaming Dorm" />
+                <div class="hover-expand-overlay"></div>
+              </div>
+              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Gaming & Dorm Life Society', 'DORM')"><i class="fas fa-plus"></i> Join Community</button>
+              <div class="hover-expand-content">
+                <div class="hover-expand-row">
+                  <div class="hover-expand-left">
+                    <span class="hover-expand-num">05</span>
+                    <span class="hover-expand-label">Gaming & Dorm Life Society</span>
+                    <span class="hover-expand-desc">— Console Controllers, VR Headsets, Mini Fridges, Projectors</span>
+                  </div>
+                  <span class="hover-expand-sublabel">DORM · 1.5K MEMBERS</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- STAGE B: ACTIVE COMMUNITY DISCORD CHAT & MARKETPLACE VIEW -->
+        <div id="discordActiveRoomView" style="display:none;">
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <div>
+              <h3 style="font-size:1.3rem; font-weight:800; color:var(--text);" id="discordRoomTitle">#general-chat · Engineering & Tech Hub</h3>
+              <p style="font-size:0.8rem; color:var(--text-secondary);" id="discordRoomTopic">Welcome to the official Engineering channel. Discuss equipment requests and peer lending.</p>
+            </div>
+            <button onclick="shareActiveCommunity()" style="background:#EFF6FF; color:var(--secondary); border:1px solid #BFDBFE; padding:7px 16px; border-radius:30px; font-weight:700; font-size:0.8rem; cursor:pointer;">
+              <i class="fas fa-share-nodes"></i> Share Link
+            </button>
+          </div>
+
+          <!-- Chat Stage -->
+          <div id="discordChatStage">
+            <div class="chat-container">
+              <div class="chat-messages" id="chatMessageList">
+                <div class="chat-msg-row">
+                  <div class="chat-avatar">JS</div>
+                  <div class="chat-bubble">
+                    <div class="chat-user-name">Jordan Smith <span class="chat-user-tag">Junior · Electrical</span></div>
+                    <div class="chat-text">Hey everyone! Anyone got an Arduino Uno & breadboard I can borrow for the weekend lab project? Will return by Monday morning!</div>
+                  </div>
+                </div>
+                <div class="chat-msg-row">
+                  <div class="chat-avatar">AC</div>
+                  <div class="chat-bubble">
+                    <div class="chat-user-name">Alex Chen <span class="chat-user-tag">Lender</span></div>
+                    <div class="chat-text">I have an extra Arduino starter kit available! Just listed it in the specialized marketplace tab above.</div>
+                  </div>
+                </div>
+              </div>
+
+              <form onsubmit="postChatMessage(event)" class="chat-input-bar">
+                <input type="text" id="chatInputText" placeholder="Send message in #general-chat..." required />
+                <button type="submit" class="btn-send-chat"><i class="fas fa-paper-plane"></i> Send</button>
+              </form>
             </div>
           </div>
 
-          <form onsubmit="postChatMessage(event)" class="chat-input-bar">
-            <input type="text" id="chatInputText" placeholder="Post a request or lend offer to community members..." required />
-            <button type="submit" class="btn-send-chat"><i class="fas fa-paper-plane"></i> Send</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- Tab 2: Specialized Marketplace for this Community -->
-      <div id="commRoomMarketView" style="display:none;">
-        <div class="showcase-header">
-          <i class="fas fa-tag" style="color:var(--primary);"></i> Specialized Gear Listed in <span id="specializedCommName">Engineering & Tech Hub</span>
-        </div>
-        <div class="recent-list">
-          <div id="specializedItemList">
-            <!-- Filtered items -->
+          <!-- Specialized Marketplace Stage -->
+          <div id="discordMarketStage" style="display:none;">
+            <div class="showcase-header">
+              <i class="fas fa-tag" style="color:var(--primary);"></i> Specialized Gear in <span id="specializedCommName">Engineering & Tech Hub</span>
+            </div>
+            <div class="recent-list">
+              <div id="specializedItemList"></div>
+            </div>
           </div>
+
         </div>
+
       </div>
 
     </div>
@@ -1589,6 +1576,37 @@
   </div>
 </div>
 
+<!-- COMMUNITY RULES & CODE OF CONDUCT MODAL -->
+<div class="modal-overlay" id="rulesModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="rulesModalTitle"><i class="fas fa-shield-halved" style="color:var(--primary);"></i> Community Rules & Guidelines</h3>
+      <button class="close-modal" onclick="closeModal('rulesModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    
+    <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:1.2rem; line-height:1.45;">
+      Before joining <strong id="rulesCommName">Engineering & Tech Hub</strong>, please read and agree to our student trust & safety code:
+    </p>
+
+    <div class="rules-box">
+      <div class="rules-item">
+        <i class="fas fa-circle-check"></i>
+        <div><strong>Care & Integrity:</strong> Treat all peer gear, textbooks, and lab equipment with extreme care.</div>
+      </div>
+      <div class="rules-item">
+        <i class="fas fa-circle-check"></i>
+        <div><strong>Punctual Returns:</strong> Always agree on return dates before pickup and return gear on time.</div>
+      </div>
+      <div class="rules-item">
+        <i class="fas fa-circle-check"></i>
+        <div><strong>Verified Campus Identity:</strong> Maintain respectful communication and honor your university trust rating.</div>
+      </div>
+    </div>
+
+    <button class="btn-submit" onclick="confirmAcceptRules()"><i class="fas fa-check"></i> Agree & Join Community</button>
+  </div>
+</div>
+
 <!-- LEND MODAL -->
 <div class="modal-overlay" id="lendModal">
   <div class="modal-card">
@@ -1597,22 +1615,17 @@
       <button class="close-modal" onclick="closeModal('lendModal')"><i class="fas fa-xmark"></i></button>
     </div>
     <form onsubmit="handleLendSubmit(event)">
-      <div class="form-group">
-        <label>Item Name</label>
-        <input type="text" id="lendTitle" placeholder="e.g. TI-84 Plus CE Calculator" required />
+      <div class="form-group" style="margin-bottom:1.2rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px;">Item Name</label>
+        <input type="text" id="lendTitle" placeholder="e.g. TI-84 Plus CE Calculator" required style="width:100%; padding:12px; border-radius:14px; border:1px solid #ddd;" />
       </div>
-      <div class="form-group">
-        <label>Category</label>
-        <select id="lendCategory" required>
+      <div class="form-group" style="margin-bottom:1.2rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px;">Category</label>
+        <select id="lendCategory" required style="width:100%; padding:12px; border-radius:14px; border:1px solid #ddd;">
           <option value="Textbooks">Textbooks</option>
           <option value="Electronics">Electronics</option>
           <option value="Gear & Supplies">Gear & Supplies</option>
-          <option value="Other">Other</option>
         </select>
-      </div>
-      <div class="form-group">
-        <label>Max Lending Duration</label>
-        <input type="text" id="lendDuration" placeholder="e.g. 7 days / 1 semester" required />
       </div>
       <button type="submit" class="btn-submit" style="background:var(--accent);">Publish Listing</button>
     </form>
@@ -1657,14 +1670,20 @@
     { id: 6, title: "Sony Alpha DSLR Camera", owner: "Marcus", time: "2d ago", status: "available", category: "Electronics", icon: "fa-camera", subText: "lent by Marcus · 2d ago", community: "Design, Arts & Media Collective" }
   ];
 
-  let cart = [];
-  let currentUser = null; 
-  let currentCategory = 'all';
-  let showAll = false;
-  let activeCommunity = "Engineering & Tech Hub";
-  let joinedCommunities = ["Engineering & Tech Hub"];
+  let joinedCommunities = [
+    { name: "Engineering & Tech Hub", tag: "ENG", icon: "⚙️" },
+    { name: "Med & Bio Sciences Guild", tag: "MED", icon: "🩺" },
+    { name: "Design, Arts & Media Collective", tag: "ART", icon: "🎨" }
+  ];
 
-  // Page Switcher (Marketplace vs Communities)
+  let pendingJoinTarget = null;
+  let activeCommunity = "Engineering & Tech Hub";
+  let activeChannel = "general";
+  let cart = [];
+  let currentUser = null;
+  let currentCategory = 'all';
+
+  // Switch Page
   function switchPage(page) {
     document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
     document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
@@ -1675,216 +1694,141 @@
     } else {
       document.getElementById('communityView').classList.add('active-view');
       document.getElementById('viewBtnCommunity').classList.add('active');
+      renderJoinedServerSidebar();
     }
   }
 
-  // Typewriter
-  const typewriterPhrases = [
-    "TI-84 Graphing Calculator for Calculus?",
-    "Sony Noise-Canceling Headset for Finals?",
-    "MacBook USB-C Charger for 2 hours?",
-    "Organic Chemistry Model Kit?",
-    "Lab Coat & Goggles for Chem 101?"
-  ];
-  let phraseIdx = 0, charIdx = 0, isDeleting = false;
-  const typewriterEl = document.getElementById('typewriterText');
+  // Discord Sidebar Joined Server Rendering
+  function renderJoinedServerSidebar() {
+    const container = document.getElementById('joinedServerIconsContainer');
+    document.getElementById('joinedCountBadge').innerText = `${joinedCommunities.length} Joined`;
 
-  function typeEffect() {
-    if (!typewriterEl) return;
-    const currentPhrase = typewriterPhrases[phraseIdx];
-    if (isDeleting) {
-      charIdx--;
-      typewriterEl.innerText = currentPhrase.substring(0, charIdx);
-    } else {
-      charIdx++;
-      typewriterEl.innerText = currentPhrase.substring(0, charIdx);
-    }
-    let typeSpeed = isDeleting ? 40 : 80;
-    if (!isDeleting && charIdx === currentPhrase.length) {
-      typeSpeed = 2000;
-      isDeleting = true;
-    } else if (isDeleting && charIdx === 0) {
-      isDeleting = false;
-      phraseIdx = (phraseIdx + 1) % typewriterPhrases.length;
-      typeSpeed = 400;
-    }
-    setTimeout(typeEffect, typeSpeed);
-  }
-
-  // Render Marketplace Catalog
-  function renderItems() {
-    const container = document.getElementById('activityContainer');
-    const searchVal = document.getElementById('searchInput').value.toLowerCase();
-
-    let filtered = items.filter(item => {
-      const matchCat = currentCategory === 'all' || item.category === currentCategory;
-      const matchSearch = item.title.toLowerCase().includes(searchVal) || item.owner.toLowerCase().includes(searchVal);
-      return matchCat && matchSearch;
-    });
-
-    const displayItems = showAll ? filtered : filtered.slice(0, 4);
-
-    document.getElementById('itemCountNum').innerText = items.filter(i => i.status === 'available').length;
-    document.getElementById('totalItemsCount').innerText = items.length;
-
-    if (displayItems.length === 0) {
-      container.innerHTML = `<div style="text-align:center; padding:2rem; color:var(--text-secondary);">No items match search.</div>`;
-      return;
-    }
-
-    container.innerHTML = displayItems.map(item => {
-      let statusClass = "status-available";
-      if (item.status === 'pending') statusClass = "status-pending";
-      if (item.status === 'returned') statusClass = "status-returned";
-
-      const inCart = cart.some(c => c.id === item.id);
-
+    container.innerHTML = joinedCommunities.map(comm => {
+      const isActive = comm.name === activeCommunity;
       return `
-        <div class="list-item">
-          <div class="item-info">
-            <div class="item-avatar"><i class="fas ${item.icon}"></i></div>
-            <div class="item-details">
-              <div class="title">${escapeHtml(item.title)}</div>
-              <div class="sub">${escapeHtml(item.subText)}</div>
-            </div>
-          </div>
-          <div class="item-actions">
-            ${item.status === 'available' ? `
-              <button class="btn-add-cart" onclick="addToCart(${item.id})">
-                <i class="fas ${inCart ? 'fa-check' : 'fa-plus'}"></i> ${inCart ? 'In Cart' : 'Add to Cart'}
-              </button>
-            ` : ''}
-            <button class="item-status ${statusClass}" onclick="handleItemClick(${item.id})">
-              ${escapeHtml(item.status)}
-            </button>
-          </div>
+        <div class="server-icon ${isActive ? 'active' : ''}" onclick="openDiscordServer('${comm.name}')" title="${escapeHtml(comm.name)}">
+          ${comm.icon}
+          <span class="server-badge-count">●</span>
         </div>
       `;
     }).join('');
   }
 
-  function escapeHtml(str) { return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-
-  function filterItems() { renderItems(); }
-
-  function setCategoryFilter(category, el) {
-    currentCategory = category;
-    document.querySelectorAll('.cat-pill').forEach(pill => pill.classList.remove('active'));
-    if (el) el.classList.add('active');
-    renderItems();
-  }
-
-  function toggleViewAllItems(e) {
-    if(e) e.preventDefault();
-    showAll = !showAll;
-    document.getElementById('viewAllBtn').innerText = showAll ? "show top" : `see all (${items.length})`;
-    renderItems();
-  }
-
-  // Cart Functions
-  function addToCart(id) {
-    const item = items.find(i => i.id === id);
-    if (!item) return;
-    if (!cart.some(c => c.id === item.id)) {
-      cart.push(item);
-      updateCartBadge();
-      renderItems();
-      showToast(`Added ${item.title} to Borrow Cart! 🛒`);
-    } else {
-      showToast(`${item.title} is already in your cart!`);
-    }
-  }
-
-  function updateCartBadge() { document.getElementById('cartCountBadge').innerText = cart.length; }
-
-  function openCartModal() {
-    renderCartModal();
-    document.getElementById('cartModal').style.display = 'flex';
-  }
-
-  function renderCartModal() {
-    const content = document.getElementById('cartModalContent');
-    if (cart.length === 0) {
-      content.innerHTML = `<div style="text-align:center; padding:2rem; color:var(--text-secondary);">Your Borrow Cart is empty right now.</div>`;
+  // Open Discord Server / Switch Community
+  function openDiscordServer(name) {
+    const discoverIcon = document.getElementById('serverIconDiscover');
+    
+    if (name === 'discover') {
+      discoverIcon.classList.add('active');
+      document.getElementById('discordDiscoveryView').style.display = 'block';
+      document.getElementById('discordActiveRoomView').style.display = 'none';
+      document.getElementById('sidebarCommTitle').innerText = "Discover Hubs";
+      renderJoinedServerSidebar();
       return;
     }
-    content.innerHTML = `
-      <div style="margin-bottom:1rem;">
-        ${cart.map(item => `
-          <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;">
-            <div><strong>${escapeHtml(item.title)}</strong><br/><small>Lender: ${escapeHtml(item.owner)}</small></div>
-            <button onclick="removeFromCart(${item.id})" style="background:transparent; border:none; color:var(--error); cursor:pointer;"><i class="fas fa-trash"></i></button>
-          </div>
-        `).join('')}
-      </div>
-      <button class="btn-submit" onclick="proceedCartCheckout()"><i class="fas fa-check-circle"></i> Confirm Borrow Request</button>
-    `;
-  }
 
-  function removeFromCart(id) {
-    cart = cart.filter(c => c.id !== id);
-    updateCartBadge();
-    renderCartModal();
-    renderItems();
-  }
-
-  function proceedCartCheckout() {
-    if (!currentUser) {
-      closeModal('cartModal');
-      showToast('⚠️ Please sign in to complete your borrow request!');
-      return;
-    }
-    cart.forEach(item => { item.status = 'pending'; item.subText = `borrowed by ${currentUser.name} · pending`; });
-    cart = [];
-    updateCartBadge();
-    closeModal('cartModal');
-    renderItems();
-    showToast(`🎉 Borrow request submitted!`);
-  }
-
-  // Community Room & Hover Expand Interactions
-  function joinCommunity(name) {
-    if (!joinedCommunities.includes(name)) {
-      joinedCommunities.push(name);
-      showToast(`Joined ${name}! Specialized Marketplace unlocked.`);
-    }
-    enterCommunity(name);
-  }
-
-  function enterCommunity(name, sub, desc) {
+    discoverIcon.classList.remove('active');
     activeCommunity = name;
-    document.getElementById('communityDiscoveryStage').style.display = 'none';
-    document.getElementById('communityRoomStage').style.display = 'block';
+    renderJoinedServerSidebar();
 
-    document.getElementById('roomTitle').innerHTML = `<i class="fas fa-users"></i> ${name}`;
+    document.getElementById('discordDiscoveryView').style.display = 'none';
+    document.getElementById('discordActiveRoomView').style.display = 'block';
+
+    document.getElementById('sidebarCommTitle').innerText = name;
     document.getElementById('specializedCommName').innerText = name;
     
-    renderSpecializedMarketplace(name);
+    switchChannel('general');
   }
 
-  function backToCommunityList() {
-    document.getElementById('communityDiscoveryStage').style.display = 'block';
-    document.getElementById('communityRoomStage').style.display = 'none';
-  }
+  // Discord Channel Switcher
+  function switchChannel(channel) {
+    activeChannel = channel;
+    document.querySelectorAll('.channel-item').forEach(el => el.classList.remove('active'));
 
-  function switchCommRoomTab(tab) {
-    if (tab === 'chat') {
-      document.getElementById('commRoomChatView').style.display = 'block';
-      document.getElementById('commRoomMarketView').style.display = 'none';
-      document.getElementById('tabChatBtn').classList.add('active');
-      document.getElementById('tabMarketBtn').classList.remove('active');
+    const targetEl = document.getElementById(`chan${channel.charAt(0).toUpperCase() + channel.slice(1)}`);
+    if(targetEl) targetEl.classList.add('active');
+
+    const titleEl = document.getElementById('discordRoomTitle');
+    const topicEl = document.getElementById('discordRoomTopic');
+    const chatStage = document.getElementById('discordChatStage');
+    const marketStage = document.getElementById('discordMarketStage');
+
+    if (channel === 'market') {
+      chatStage.style.display = 'none';
+      marketStage.style.display = 'block';
+      titleEl.innerHTML = `<i class="fas fa-store"></i> #specialized-catalog · ${activeCommunity}`;
+      topicEl.innerText = `Exclusive items listed by verified ${activeCommunity} members.`;
+      renderSpecializedMarketplace(activeCommunity);
     } else {
-      document.getElementById('commRoomChatView').style.display = 'none';
-      document.getElementById('commRoomMarketView').style.display = 'block';
-      document.getElementById('tabMarketBtn').classList.add('active');
-      document.getElementById('tabChatBtn').classList.remove('active');
+      chatStage.style.display = 'block';
+      marketStage.style.display = 'none';
+      titleEl.innerHTML = `<i class="fas fa-hashtag"></i> #${channel}-chat · ${activeCommunity}`;
+      topicEl.innerText = `Official ${channel} channel for ${activeCommunity}. Ask for gear or chat with peers.`;
     }
   }
 
+  // Search Communities in Discovery
+  function filterCommunitiesDiscovery() {
+    const val = document.getElementById('commSearchInput').value.toLowerCase();
+    const items = document.querySelectorAll('#hoverExpandList .hover-expand-item');
+
+    items.forEach(item => {
+      const name = item.getAttribute('data-name').toLowerCase();
+      const desc = item.getAttribute('data-desc').toLowerCase();
+      if (name.includes(val) || desc.includes(val)) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  function focusCommunitySearch() {
+    openDiscordServer('discover');
+    document.getElementById('commSearchInput').focus();
+  }
+
+  // Rules & Regulations Join Prompt
+  function promptJoinCommunity(name, tag) {
+    const exists = joinedCommunities.some(c => c.name === name);
+    if (exists) {
+      openDiscordServer(name);
+      showToast(`Switched to ${name}`);
+      return;
+    }
+
+    pendingJoinTarget = { name, tag, icon: name.includes('Eng') ? '⚙️' : (name.includes('Med') ? '🩺' : (name.includes('Art') ? '🎨' : (name.includes('Biz') ? '📈' : '🎮'))) };
+    document.getElementById('rulesCommName').innerText = name;
+    document.getElementById('rulesModal').style.display = 'flex';
+  }
+
+  function confirmAcceptRules() {
+    if (pendingJoinTarget) {
+      joinedCommunities.push(pendingJoinTarget);
+      const targetName = pendingJoinTarget.name;
+      pendingJoinTarget = null;
+      closeModal('rulesModal');
+      showToast(`Welcome! You joined ${targetName} 🎉`);
+      openDiscordServer(targetName);
+    }
+  }
+
+  // Share Community Feature
+  function shareActiveCommunity() {
+    const url = window.location.href;
+    const shareText = `Join the ${activeCommunity} on swap campus to borrow and lend gear! ${url}#community=${encodeURIComponent(activeCommunity)}`;
+    
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText);
+    }
+    showToast(`🔗 Community invite link copied to clipboard! Share with your classmates.`);
+  }
+
+  // Post Chat Message
   function postChatMessage(e) {
     e.preventDefault();
-    const textInput = document.getElementById('chatInputText');
-    const val = textInput.value.trim();
+    const input = document.getElementById('chatInputText');
+    const val = input.value.trim();
     if (!val) return;
 
     const list = document.getElementById('chatMessageList');
@@ -1899,10 +1843,11 @@
     `;
     list.insertAdjacentHTML('beforeend', msgHtml);
     list.scrollTop = list.scrollHeight;
-    textInput.value = '';
-    showToast('Message posted to community discussion!');
+    input.value = '';
+    showToast('Message sent in community channel!');
   }
 
+  // Render Specialized Marketplace
   function renderSpecializedMarketplace(commName) {
     const list = document.getElementById('specializedItemList');
     const commItems = items.filter(i => i.community === commName || i.category === 'Electronics');
@@ -1924,6 +1869,74 @@
         <button class="btn-add-cart" onclick="addToCart(${item.id})"><i class="fas fa-plus"></i> Borrow Item</button>
       </div>
     `).join('');
+  }
+
+  // Typewriter
+  const typewriterPhrases = ["TI-84 Graphing Calculator?", "Sony Noise-Canceling Headphones?", "MacBook USB-C Charger?", "Organic Chemistry Model Kit?"];
+  let phraseIdx = 0, charIdx = 0, isDeleting = false;
+  const typewriterEl = document.getElementById('typewriterText');
+
+  function typeEffect() {
+    if (!typewriterEl) return;
+    const currentPhrase = typewriterPhrases[phraseIdx];
+    if (isDeleting) { charIdx--; typewriterEl.innerText = currentPhrase.substring(0, charIdx); }
+    else { charIdx++; typewriterEl.innerText = currentPhrase.substring(0, charIdx); }
+    let typeSpeed = isDeleting ? 40 : 80;
+    if (!isDeleting && charIdx === currentPhrase.length) { typeSpeed = 2000; isDeleting = true; }
+    else if (isDeleting && charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % typewriterPhrases.length; typeSpeed = 400; }
+    setTimeout(typeEffect, typeSpeed);
+  }
+
+  // Render Marketplace Catalog
+  function renderItems() {
+    const container = document.getElementById('activityContainer');
+    const searchVal = document.getElementById('searchInput').value.toLowerCase();
+
+    let filtered = items.filter(item => {
+      const matchCat = currentCategory === 'all' || item.category === currentCategory;
+      const matchSearch = item.title.toLowerCase().includes(searchVal) || item.owner.toLowerCase().includes(searchVal);
+      return matchCat && matchSearch;
+    });
+
+    document.getElementById('itemCountNum').innerText = items.filter(i => i.status === 'available').length;
+    document.getElementById('totalItemsCount').innerText = items.length;
+
+    container.innerHTML = filtered.map(item => `
+      <div class="list-item">
+        <div class="item-info">
+          <div class="item-avatar"><i class="fas ${item.icon}"></i></div>
+          <div class="item-details">
+            <div class="title">${escapeHtml(item.title)}</div>
+            <div class="sub">${escapeHtml(item.subText)}</div>
+          </div>
+        </div>
+        <button class="btn-add-cart" onclick="addToCart(${item.id})"><i class="fas fa-plus"></i> Add to Cart</button>
+      </div>
+    `).join('');
+  }
+
+  function escapeHtml(str) { return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function filterItems() { renderItems(); }
+  function setCategoryFilter(category, el) {
+    currentCategory = category;
+    document.querySelectorAll('.cat-pill').forEach(pill => pill.classList.remove('active'));
+    if (el) el.classList.add('active');
+    renderItems();
+  }
+
+  function addToCart(id) {
+    const item = items.find(i => i.id === id);
+    if (item && !cart.some(c => c.id === item.id)) {
+      cart.push(item);
+      document.getElementById('cartCountBadge').innerText = cart.length;
+      showToast(`Added ${item.title} to Borrow Cart! 🛒`);
+    }
+  }
+
+  function openCartModal() {
+    const content = document.getElementById('cartModalContent');
+    content.innerHTML = cart.length === 0 ? `<p style="padding:1.5rem; text-align:center;">Cart is empty!</p>` : cart.map(i => `<p>● ${escapeHtml(i.title)}</p>`).join('') + `<button class="btn-submit" onclick="closeModal('cartModal'); showToast('Borrow request confirmed!');" style="margin-top:1rem;">Submit Request</button>`;
+    document.getElementById('cartModal').style.display = 'flex';
   }
 
   // Auth logic
@@ -1965,7 +1978,6 @@
   function logout() { currentUser = null; updateAuthUI(); showToast('Signed out'); }
   function openLendModal() { if (!currentUser) { showToast('⚠️ Please sign in to list an item!'); return; } document.getElementById('lendModal').style.display = 'flex'; }
   function openBorrowModal() { switchPage('marketplace'); }
-  function handleItemClick(id) { addToCart(id); }
   function handleLendSubmit(e) {
     e.preventDefault();
     const title = document.getElementById('lendTitle').value, category = document.getElementById('lendCategory').value;
@@ -1985,6 +1997,7 @@
 
   typeEffect();
   renderItems();
+  openDiscordServer('discover');
 </script>
 </body>
 </html>
