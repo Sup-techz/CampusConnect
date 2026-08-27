@@ -1052,6 +1052,7 @@
 
     <!-- TAB 1: OVERVIEW -->
     <div id="adminTabOverview" class="admin-tab-content">
+      <div id="adminSearchInspectorBox" style="display:none; margin-bottom:1rem;"></div>
       <div style="display:grid; grid-template-columns: 1.3fr 0.8fr; gap:16px;">
         <div class="admin-table-container">
           <div class="table-toolbar">
@@ -2225,6 +2226,46 @@
     let filtered = exchanges;
     if (searchVal) {
       filtered = exchanges.filter(ex => ex.id.toUpperCase().includes(searchVal));
+    }
+
+    const inspectorBox = document.getElementById('adminSearchInspectorBox');
+    if (searchVal && filtered.length > 0) {
+      inspectorBox.style.display = 'block';
+      const match = filtered[0]; // best match
+      inspectorBox.innerHTML = `
+        <div style="background:linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 100%); border:1.5px solid var(--primary); border-radius:18px; padding:15px; margin-bottom:15px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:0.75rem; font-weight:800; color:var(--primary); text-transform:uppercase; letter-spacing:0.04em;"><i class="fas fa-search-dollar"></i> Exchange Inspector</span>
+            <span style="font-size:0.8rem; font-weight:800; background:var(--primary); color:white; padding:2px 8px; border-radius:30px;">ID: ${match.id}</span>
+          </div>
+          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text); margin-bottom:4px;">Resource: ${escapeHtml(match.itemTitle)}</h4>
+          
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.78rem; margin:10px 0; background:white; padding:10px; border-radius:12px; border:1px solid var(--border-color);">
+            <div>
+              <strong>Lender (Owner):</strong> ${escapeHtml(match.lender)}<br/>
+              <strong>Borrower (Peer):</strong> ${escapeHtml(match.borrower)}<br/>
+              <strong>Designated Pickup Hub:</strong> ${escapeHtml(match.hub)}
+            </div>
+            <div>
+              <strong>Dates:</strong> ${match.startDate} &rarr; ${match.dueDate}<br/>
+              <strong>Financials:</strong> Fee: $${match.baseRate * match.durationDays} · Deposit: $${match.securityDeposit} · Platform Fee (2%): $${match.platformFee}<br/>
+              <strong>Escrow Hold Total:</strong> <span style="font-weight:800; color:var(--primary);">$${match.escrowTotal}</span>
+            </div>
+          </div>
+
+          <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:var(--text-secondary); margin-bottom:4px;">Lifecycle Stepper Phase:</div>
+          <div style="font-size:0.7rem; display:flex; gap:3px; flex-wrap:wrap; background:white; padding:8px; border-radius:10px; border:1px solid var(--border-color);">
+            ${STAGES.map((s, idx) => `
+              <span style="background:${idx === match.lifecycleStage ? 'var(--primary)' : '#E2E8F0'}; color:${idx === match.lifecycleStage ? 'white' : 'var(--text-secondary)'}; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.62rem;">
+                ${s}
+              </span>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else {
+      inspectorBox.style.display = 'none';
+      inspectorBox.innerHTML = '';
     }
     
     tbody.innerHTML = filtered.map(ex => `
