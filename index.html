@@ -597,7 +597,7 @@
     .orbital-wrapper {
       position: relative;
       width: 100%;
-      height: 420px;
+      height: 440px;
       border-radius: 32px;
       background: linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 100%);
       border: 1px solid var(--border-color);
@@ -608,36 +608,41 @@
       cursor: grab;
       user-select: none;
       box-shadow: var(--shadow-sm);
-      perspective: 1200px;
     }
 
     .orbital-wrapper:active {
       cursor: grabbing;
     }
 
-    .orbital-wheel-container {
+    .orbital-track-3d {
       position: absolute;
-      left: 50%;
-      bottom: -620px;
-      width: 1240px;
-      height: 1240px;
-      transform: translateX(-50%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      transform-style: preserve-3d;
     }
 
     .orbital-card {
       position: absolute;
-      left: 50%;
-      top: 50%;
+      top: 0;
+      left: 0;
       width: 220px;
       height: 310px;
+      margin-left: -110px;
+      margin-top: -155px;
       background: white;
       border-radius: 22px;
       border: 1px solid var(--border-color);
       box-shadow: 0 14px 28px -4px rgba(15, 23, 42, 0.09);
       overflow: hidden;
       display: flex;
+      flex-direction: column;
+      pointer-events: auto;
+      will-change: transform, filter, opacity;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
       flex-direction: column;
       pointer-events: auto;
       will-change: transform, filter, opacity;
@@ -1509,7 +1514,7 @@
           </div>
 
           <div class="orbital-wrapper" id="orbitalWrapper">
-            <div class="orbital-wheel-container" id="orbitalWheel">
+            <div class="orbital-track-3d" id="orbitalWheel">
               <!-- Dynamically rendered 3D curved arch cards -->
             </div>
             <div class="orbital-caption-bar" id="orbitalCaption">
@@ -2510,24 +2515,31 @@
     function updateWheelLoop() {
       orbitalAngle += (orbitalTargetAngle - orbitalAngle) * 0.08;
 
+      const wrapperW = wrapper.clientWidth || 1000;
+      const centerX = wrapperW / 2;
+      const centerY = 640;
+      const R = 480;
+
       let closestDist = Infinity;
       let activeTitle = "";
 
       cards.forEach((card, i) => {
-        const baseAngle = topAnchor + (i - (total - 1) / 2) * arcSpread;
-        const theta = baseAngle + orbitalAngle;
+        const angle = (i - (total - 1) / 2) * 0.26 + orbitalAngle;
 
-        const x = Math.cos(theta) * radius;
-        const y = Math.sin(theta) * radius;
+        const x = Math.sin(angle) * R;
+        const y = -Math.cos(angle) * R;
+
+        const posX = centerX + x;
+        const posY = centerY + y;
 
         const distFromCenter = Math.abs(x);
-        const normDist = Math.min(distFromCenter / (radius * 0.65), 1);
+        const normDist = Math.min(distFromCenter / (wrapperW * 0.45), 1);
 
-        const tilt = (x / radius) * 22;
-        const scale = 1 - normDist * 0.16;
-        const blur = normDist * 4;
-        const brightness = 100 - normDist * 38;
-        const opacity = 1 - Math.pow(normDist, 2.2) * 0.65;
+        const tilt = (x / R) * 24;
+        const scale = 1 - normDist * 0.15;
+        const blur = normDist * 3.5;
+        const brightness = 100 - normDist * 35;
+        const opacity = 1 - Math.pow(normDist, 2.5) * 0.7;
         const zIndex = Math.round(100 - normDist * 50);
 
         if (distFromCenter < closestDist) {
@@ -2535,7 +2547,7 @@
           activeTitle = recentProducts[i] ? recentProducts[i].title : "";
         }
 
-        card.style.transform = `translate3d(${x}px, ${y}px, 0px) translate(-50%, -50%) rotate(${tilt}deg) scale(${scale})`;
+        card.style.transform = `translate3d(${posX}px, ${posY}px, 0px) rotate(${tilt}deg) scale(${scale})`;
         card.style.filter = `blur(${blur}px) brightness(${brightness}%)`;
         card.style.opacity = opacity;
         card.style.zIndex = zIndex;
