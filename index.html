@@ -397,8 +397,30 @@
     /* Dashboard Layout */
     .dashboard-grid {
       display: grid;
-      grid-template-columns: 1.35fr 0.9fr;
-      gap: 2.5rem;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .btn-nav-login {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .btn-nav-login:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
     }
 
     .action-card {
@@ -1390,10 +1412,10 @@
         <i class="fas fa-basket-shopping"></i> Borrow Cart <span class="cart-badge" id="cartCountBadge">0</span>
       </button>
 
-      <div class="login-toggle" id="loginToggleContainer">
-        <button id="toggleUserBtn" class="active" onclick="switchLoginTab('user')"><i class="fas fa-user"></i> User</button>
-        <button id="toggleAdminBtn" onclick="switchLoginTab('admin')"><i class="fas fa-user-shield"></i> Admin</button>
-      </div>
+      <!-- Navbar Sign In Button -->
+      <button class="btn-nav-login" id="navLoginBtn" onclick="openAuthModal()">
+        <i class="fas fa-arrow-right-to-bracket"></i> Sign In / Portal
+      </button>
 
       <div class="user-profile-pill" id="userProfilePill">
         <div class="avatar" id="userAvatar">AC</div>
@@ -1487,44 +1509,6 @@
             <a href="#" onclick="toggleViewAllItems(event)" id="viewAllBtn" style="color:var(--secondary); text-decoration:none; font-weight:700;">see all (<span id="totalItemsCount">6</span>)</a>
           </div>
           <div id="activityContainer"></div>
-        </div>
-      </div>
-
-      <!-- Right Login Panel -->
-      <div class="login-panel" id="loginPanel">
-        <div class="panel-title"><i class="fas fa-key"></i> access · swap</div>
-        <div class="subhead"><i class="fas fa-chevron-right" style="font-size:0.6rem; margin-right:6px; color:var(--primary);"></i> user & admin portals separated</div>
-
-        <div class="login-options">
-          <div class="login-card user-card" id="userLoginCard">
-            <div class="login-label">
-              <span><i class="fas fa-user-circle" style="color:var(--primary);"></i> student user</span>
-              <span class="login-badge" style="background:#EEF2FF; color:var(--primary); padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700;">active</span>
-            </div>
-            <form onsubmit="handleUserLogin(event)">
-              <div class="login-input-group">
-                <div class="input-row"><i class="fas fa-envelope"></i><input type="email" id="userEmail" value="alex.c@university.edu" required /></div>
-                <div class="input-row"><i class="fas fa-lock"></i><input type="password" id="userPass" value="••••••••" required /></div>
-                <button type="submit" class="login-btn"><i class="fas fa-arrow-right-to-bracket"></i> sign in as user</button>
-              </div>
-            </form>
-            <button class="quick-demo-btn" onclick="quickFillUser()"><i class="fas fa-bolt" style="color:var(--primary);"></i> One-Click Demo Student Sign In</button>
-          </div>
-
-          <div class="login-card admin-card" id="adminLoginCard">
-            <div class="login-label">
-              <span><i class="fas fa-user-tie" style="color:var(--highlight-dark);"></i> admin</span>
-              <span class="login-badge" style="background:var(--highlight-light); color:var(--highlight-dark); padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700;">staff</span>
-            </div>
-            <form onsubmit="handleAdminLogin(event)">
-              <div class="login-input-group">
-                <div class="input-row"><i class="fas fa-id-badge"></i><input type="text" id="adminId" value="admin · 08" required /></div>
-                <div class="input-row"><i class="fas fa-lock"></i><input type="password" id="adminPass" value="••••••••" required /></div>
-                <button type="submit" class="login-btn"><i class="fas fa-user-shield"></i> admin sign in</button>
-              </div>
-            </form>
-            <button class="quick-demo-btn" onclick="quickFillAdmin()"><i class="fas fa-shield-halved" style="color:var(--highlight);"></i> One-Click Demo Admin Sign In</button>
-          </div>
         </div>
       </div>
     </div>
@@ -1780,6 +1764,46 @@
   <div class="campus-note">
     <i class="fas fa-rotate-left"></i> 4000+ items shared · serial#8-301 · rev.a
     <span style="margin-left:12px; letter-spacing:1px; font-weight:400; opacity:0.7;">01001000</span>
+  </div>
+</div>
+
+<!-- AUTH / LOGIN MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3><i class="fas fa-key" style="color:var(--primary);"></i> Access Campus Portal</h3>
+      <button class="close-modal" onclick="closeModal('authModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+
+    <!-- Login Mode Switcher -->
+    <div class="login-toggle" style="margin-bottom:1.2rem; width:100%;">
+      <button id="toggleUserBtn" class="active" onclick="switchLoginTab('user')" style="flex:1; justify-content:center;"><i class="fas fa-user"></i> Student User</button>
+      <button id="toggleAdminBtn" onclick="switchLoginTab('admin')" style="flex:1; justify-content:center;"><i class="fas fa-user-shield"></i> Admin Staff</button>
+    </div>
+
+    <!-- Student Form -->
+    <div id="modalUserCard">
+      <form onsubmit="handleUserLogin(event)">
+        <div class="login-input-group">
+          <div class="input-row"><i class="fas fa-envelope"></i><input type="email" id="userEmail" value="alex.c@university.edu" required /></div>
+          <div class="input-row"><i class="fas fa-lock"></i><input type="password" id="userPass" value="••••••••" required /></div>
+          <button type="submit" class="login-btn" style="background:var(--primary);"><i class="fas fa-arrow-right-to-bracket"></i> Sign In as Student</button>
+        </div>
+      </form>
+      <button class="quick-demo-btn" onclick="quickFillUser()"><i class="fas fa-bolt" style="color:var(--primary);"></i> One-Click Demo Student Sign In</button>
+    </div>
+
+    <!-- Admin Form -->
+    <div id="modalAdminCard" style="display:none;">
+      <form onsubmit="handleAdminLogin(event)">
+        <div class="login-input-group">
+          <div class="input-row"><i class="fas fa-id-badge"></i><input type="text" id="adminId" value="admin · 08" required /></div>
+          <div class="input-row"><i class="fas fa-lock"></i><input type="password" id="adminPass" value="••••••••" required /></div>
+          <button type="submit" class="login-btn" style="background:var(--highlight);"><i class="fas fa-user-shield"></i> Sign In as Admin</button>
+        </div>
+      </form>
+      <button class="quick-demo-btn" onclick="quickFillAdmin()"><i class="fas fa-shield-halved" style="color:var(--highlight);"></i> One-Click Demo Admin Sign In</button>
+    </div>
   </div>
 </div>
 
@@ -2204,11 +2228,21 @@
     document.getElementById('cartModal').style.display = 'flex';
   }
 
-  // Auth logic
+  // Auth Modal & Logic
+  function openAuthModal() {
+    document.getElementById('authModal').style.display = 'flex';
+  }
+
   function switchLoginTab(type) {
     const userBtn = document.getElementById('toggleUserBtn'), adminBtn = document.getElementById('toggleAdminBtn');
-    if (type === 'user') { userBtn.classList.add('active'); adminBtn.classList.remove('active'); }
-    else { adminBtn.classList.add('active'); userBtn.classList.remove('active'); }
+    const userCard = document.getElementById('modalUserCard'), adminCard = document.getElementById('modalAdminCard');
+    if (type === 'user') {
+      userBtn.classList.add('active'); adminBtn.classList.remove('active');
+      userCard.style.display = 'block'; adminCard.style.display = 'none';
+    } else {
+      adminBtn.classList.add('active'); userBtn.classList.remove('active');
+      adminCard.style.display = 'block'; userCard.style.display = 'none';
+    }
   }
 
   function handleUserLogin(e) {
@@ -2229,14 +2263,16 @@
   function quickFillAdmin() { document.getElementById('adminId').value = "admin · 08"; handleAdminLogin(); }
 
   function updateAuthUI() {
-    const userProfilePill = document.getElementById('userProfilePill'), loginToggleContainer = document.getElementById('loginToggleContainer');
+    const userProfilePill = document.getElementById('userProfilePill');
+    const navLoginBtn = document.getElementById('navLoginBtn');
     if (currentUser) {
-      loginToggleContainer.style.display = 'none';
-      userProfilePill.style.display = 'flex';
+      if (navLoginBtn) navLoginBtn.style.display = 'none';
+      if (userProfilePill) userProfilePill.style.display = 'flex';
       document.getElementById('userName').innerText = currentUser.name;
+      closeModal('authModal');
     } else {
-      loginToggleContainer.style.display = 'flex';
-      userProfilePill.style.display = 'none';
+      if (navLoginBtn) navLoginBtn.style.display = 'flex';
+      if (userProfilePill) userProfilePill.style.display = 'none';
     }
   }
 
