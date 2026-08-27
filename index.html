@@ -11,38 +11,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-    /* Strict Color Palette & Design Tokens */
+    /* User Custom Minimalist Palette: Aqua (#71e7e0), Pink (#ff8bda), Blue Grotto (#43a9dd), Fuchsia (#f12e90) */
     :root {
-      --primary: #4F46E5;          /* Deep Indigo */
-      --primary-hover: #4338CA;
-      --primary-glow: rgba(79, 70, 229, 0.25);
+      --primary: #43a9dd;          /* Blue Grotto */
+      --primary-hover: #3194c7;
+      --primary-glow: rgba(67, 169, 221, 0.28);
       
-      --secondary: #2563EB;        /* Electric Blue */
-      --secondary-hover: #1D4ED8;
-      --secondary-glow: rgba(37, 99, 235, 0.2);
+      --secondary: #f12e90;        /* Fuchsia */
+      --secondary-hover: #d61f7a;
+      --secondary-glow: rgba(241, 46, 144, 0.25);
 
-      --accent: #10B981;           /* Mint Green */
-      --accent-light: #ECFDF5;
-      --accent-dark: #047857;
-      --accent-glow: rgba(16, 185, 129, 0.25);
+      --accent: #71e7e0;           /* Aqua */
+      --accent-light: #EBFBFB;
+      --accent-dark: #0D948D;
+      --accent-glow: rgba(113, 231, 224, 0.35);
 
-      --highlight: #F59E0B;        /* Amber */
-      --highlight-light: #FEF3C7;
-      --highlight-dark: #B45309;
+      --highlight: #ff8bda;        /* Pink */
+      --highlight-light: #FFF0FA;
+      --highlight-dark: #D439A7;
 
-      --bg: #F8FAFC;               /* Soft White */
-      --card-bg: #FFFFFF;          /* White */
-      --text: #0F172A;             /* Dark Navy */
-      --text-secondary: #64748B;   /* Slate */
-      --border-color: #E2E8F0;     /* Border Slate */
-      --error: #EF4444;            /* Coral Red */
+      --bg: #F5F8FC;               /* Crisp Minimal Light Slate */
+      --card-bg: #FFFFFF;
+      --text: #0F172A;             /* Slate Navy */
+      --text-secondary: #64748B;
+      --border-color: #E2E8F0;
+      --error: #f12e90;
 
       --radius-sm: 12px;
       --radius-md: 20px;
       --radius-lg: 32px;
-      --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.03);
-      --shadow-md: 0 12px 32px -8px rgba(15, 23, 42, 0.08);
-      --shadow-lg: 0 24px 48px -12px rgba(15, 23, 42, 0.12);
+      --shadow-sm: 0 4px 14px rgba(67, 169, 221, 0.06);
+      --shadow-md: 0 12px 32px -8px rgba(67, 169, 221, 0.14);
+      --shadow-lg: 0 24px 50px -12px rgba(15, 23, 42, 0.08);
     }
 
     * {
@@ -70,9 +70,9 @@
       position: fixed;
       top: -10%;
       left: -5%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, rgba(248, 250, 252, 0) 70%);
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(113, 231, 224, 0.18) 0%, rgba(245, 248, 252, 0) 70%);
       border-radius: 50%;
       z-index: 0;
       pointer-events: none;
@@ -83,9 +83,9 @@
       position: fixed;
       bottom: -10%;
       right: -5%;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.07) 0%, rgba(248, 250, 252, 0) 70%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(255, 139, 218, 0.15) 0%, rgba(245, 248, 252, 0) 70%);
       border-radius: 50%;
       z-index: 0;
       pointer-events: none;
@@ -124,7 +124,7 @@
     }
 
     .logo-icon {
-      background: linear-gradient(135deg, var(--primary) 0%, #3730A3 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: white;
       width: 46px;
       height: 46px;
@@ -134,7 +134,7 @@
       justify-content: center;
       font-weight: 700;
       font-size: 1.35rem;
-      box-shadow: 0 8px 20px -4px var(--primary-glow);
+      box-shadow: 0 8px 20px -4px var(--secondary-glow);
       transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
@@ -301,10 +301,10 @@
 
     /* HERO SECTION */
     .hero-section {
-      background: linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 50%, #EFF6FF 100%);
+      background: linear-gradient(135deg, rgba(113, 231, 224, 0.12) 0%, #FFFFFF 50%, rgba(255, 139, 218, 0.12) 100%);
       border-radius: 28px;
       padding: 2rem 2.2rem;
-      border: 1px solid #E0E7FF;
+      border: 1px solid rgba(113, 231, 224, 0.3);
       margin-bottom: 2rem;
       position: relative;
       box-shadow: var(--shadow-sm);
@@ -319,8 +319,8 @@
       border-radius: 30px;
       font-size: 0.8rem;
       font-weight: 700;
-      color: var(--primary);
-      border: 1px solid #C7D2FE;
+      color: var(--secondary);
+      border: 1px solid rgba(241, 46, 144, 0.28);
       margin-bottom: 0.8rem;
     }
 
@@ -599,8 +599,8 @@
       width: 100%;
       height: 440px;
       border-radius: 32px;
-      background: linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 100%);
-      border: 1px solid var(--border-color);
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(113, 231, 224, 0.1) 50%, rgba(255, 139, 218, 0.08) 100%);
+      border: 1px solid rgba(67, 169, 221, 0.25);
       overflow: hidden;
       display: flex;
       align-items: center;
