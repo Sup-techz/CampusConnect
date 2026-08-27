@@ -1425,6 +1425,2278 @@
       .view-switcher { width: 100%; }
       .view-btn { flex: 1; justify-content: center; }
     }
+  
+/* Extra Governance & Admin Styles */
+
+    /* Premium Color Palette & Design System */
+    :root {
+      --primary: var(--primary);          /* Deep Indigo */
+      --primary-hover: var(--primary-hover);
+      --primary-glow: rgba(79, 70, 229, 0.18);
+      
+      --secondary: var(--secondary);        /* Electric Blue */
+      --secondary-hover: var(--secondary-hover);
+      --secondary-glow: rgba(37, 99, 235, 0.15);
+
+      --accent: var(--accent);           /* Mint Green */
+      --accent-light: #ECFDF5;
+      --accent-dark: var(--accent-dark);
+      --accent-glow: rgba(16, 185, 129, 0.15);
+
+      --highlight: var(--highlight);        /* Amber */
+      --highlight-light: #FEF3C7;
+      --highlight-dark: var(--highlight-dark);
+
+      --purple: var(--secondary);
+      --purple-light: #F5F3FF;
+      --purple-dark: var(--secondary-hover);
+
+      --bg: #F8FAFC;               /* Soft White */
+      --card-bg: #FFFFFF;          /* White */
+      --text: #0F172A;             /* Dark Navy */
+      --text-secondary: #64748B;   /* Slate */
+      --border-color: #E2E8F0;     /* Border Slate */
+      --error: #EF4444;            /* Coral Red */
+      --error-light: #FEF2F2;
+      --error-dark: #991B1B;
+
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 26px;
+      --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.03);
+      --shadow-md: 0 12px 32px -8px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 24px 48px -12px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1rem 1rem 3rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background blooms */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -10%;
+      left: -5%;
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.06) 0%, rgba(248, 250, 252, 0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -10%;
+      right: -5%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, rgba(248, 250, 252, 0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .app {
+      max-width: 1380px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      padding: 1.8rem 2.2rem;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    /* Top Announcement Bar */
+    .campus-ticker-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(90deg, #EEF2FF 0%, #EFF6FF 50%, #F5F3FF 100%);
+      border: 1px solid #C7D2FE;
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pulse-dot {
+      width: 9px;
+      height: 9px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Event Announcement Spotlight Banner */
+    .event-spotlight-card {
+      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, var(--primary-hover) 100%);
+      color: white;
+      border-radius: 22px;
+      padding: 1.2rem 1.6rem;
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 25px -5px rgba(67, 56, 202, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-tag {
+      background: rgba(245, 158, 11, 0.25);
+      color: #FDE68A;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .event-details h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .event-details p {
+      font-size: 0.84rem;
+      color: #E0E7FF;
+      margin-top: 4px;
+    }
+
+    .event-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: #CBD5E1;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.8rem;
+      gap: 1rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, var(--primary) 0%, #3730A3 100%);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      box-shadow: 0 8px 20px -4px var(--primary-glow);
+    }
+
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.65rem;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .logo-text span {
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-admin-portal {
+      background: linear-gradient(135deg, var(--highlight) 0%, #D97706 100%);
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+      transition: all 0.2s;
+    }
+
+    .btn-admin-portal.active-portal {
+      background: var(--text);
+      color: white;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+    }
+
+    .login-toggle {
+      display: flex;
+      gap: 4px;
+      background: #F1F5F9;
+      padding: 4px;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+    }
+
+    .login-toggle button {
+      border: none;
+      background: transparent;
+      padding: 7px 16px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .login-toggle button.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .user-profile-pill {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: #EEF2FF;
+      padding: 4px 14px 4px 4px;
+      border-radius: 50px;
+      border: 1px solid #C7D2FE;
+    }
+
+    .user-profile-pill .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .user-profile-pill .user-name {
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    /* Views Layout */
+    .student-dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.85fr;
+      gap: 2.2rem;
+    }
+
+    .action-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 1.3rem 1.1rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.22s ease-out;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-card:hover {
+      border-color: rgba(79, 70, 229, 0.35);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .action-card .icon-bg {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .borrow-card .icon-bg { background: #EFF6FF; color: var(--secondary); }
+    .lend-card .icon-bg { background: var(--accent-light); color: var(--accent); }
+    .request-card .icon-bg { background: var(--purple-light); color: var(--purple); }
+
+    .action-card h3 {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .action-card p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.35;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Stepper Lifecycle Style */
+    .lifecycle-stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1.5rem 0;
+      position: relative;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+
+    .lifecycle-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      flex: 1;
+      min-width: 65px;
+      z-index: 2;
+    }
+
+    .step-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      color: var(--text-secondary);
+      font-weight: 800;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid white;
+      transition: all 0.2s;
+    }
+
+    .step-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .lifecycle-step.active .step-circle {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 0 0 4px var(--primary-glow);
+    }
+
+    .lifecycle-step.active .step-label {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .lifecycle-step.completed .step-circle {
+      background: var(--accent);
+      color: white;
+    }
+
+    .lifecycle-step.completed .step-label {
+      color: var(--accent-dark);
+    }
+
+    .lifecycle-progress-line {
+      position: absolute;
+      top: 24px;
+      left: 30px;
+      right: 30px;
+      height: 3px;
+      background: #E2E8F0;
+      z-index: 1;
+    }
+
+    /* Badges & Pill Tags */
+    .badge-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .type-free { background: #ECFDF5; color: var(--accent-dark); border: 1px solid #A7F3D0; }
+    .type-price { background: #EFF6FF; color: var(--secondary-hover); border: 1px solid #BFDBFE; }
+    .type-donate { background: #FEF3C7; color: var(--highlight-dark); border: 1px solid #FDE68A; }
+    .type-sell { background: #F5F3FF; color: var(--secondary-hover); border: 1px solid #DDD6FE; }
+    .type-banned { background: #FEF2F2; color: #991B1B; border: 1px solid #FCA5A5; }
+    .type-warning { background: #FFFBEB; color: var(--highlight-dark); border: 1px solid #FCD34D; }
+
+    /* Smart Match Alternative Card */
+    .smart-alternatives-card {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+      border: 1px dashed var(--secondary);
+      border-radius: 18px;
+      padding: 1.2rem;
+      margin: 1rem 0;
+    }
+
+    /* Resource Comparison Grid */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 1.2rem 0;
+    }
+
+    .comparison-column {
+      background: #F8FAFC;
+      border: 1.5px solid var(--border-color);
+      border-radius: 14px;
+      padding: 10px;
+      font-size: 0.78rem;
+    }
+
+    .comparison-column.highlighted {
+      border-color: var(--primary);
+      background: #EEF2FF;
+    }
+
+    .comparison-header {
+      font-weight: 800;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    /* Condition Inspection Checklist */
+    .inspection-checklist {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .checklist-item.verified {
+      color: var(--accent-dark);
+      font-weight: 600;
+    }
+
+    /* Modern Layout Widgets */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .kpi-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .kpi-num {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-top: 4px;
+    }
+
+    .kpi-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* Campus Impact Sustainability Stats */
+    .impact-dashboard-box {
+      background: linear-gradient(135deg, #111827 0%, #1F2937 100%);
+      color: white;
+      border-radius: 20px;
+      padding: 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .impact-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .impact-stat-item {
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 5px;
+    }
+
+    .impact-stat-item:last-child {
+      border-right: none;
+    }
+
+    .impact-val {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #34D399;
+    }
+
+    .impact-lbl {
+      font-size: 0.68rem;
+      color: #9CA3AF;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* Modal Overlay & Modal Style */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 22px;
+      width: 100%;
+      max-width: 550px;
+      padding: 1.8rem;
+      box-shadow: var(--shadow-lg);
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-card.modal-lg {
+      max-width: 820px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-header h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .close-modal {
+      background: #F1F5F9;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: #F8FAFC;
+      font-size: 0.84rem;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+      background: white;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px var(--primary-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Escrow Breakdown Box */
+    .escrow-breakdown-box {
+      background: #EEF2FF;
+      border: 1px solid #C7D2FE;
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 0.8rem;
+      margin: 10px 0;
+    }
+
+    .escrow-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      color: var(--text-secondary);
+    }
+
+    .escrow-row.total {
+      font-weight: 800;
+      color: var(--primary);
+      border-top: 1.5px solid #C7D2FE;
+      padding-top: 6px;
+      margin-top: 4px;
+      font-size: 0.88rem;
+    }
+
+    /* Tab Layout Admin */
+    .admin-nav-tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 2px solid #E2E8F0;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .admin-tab {
+      background: transparent;
+      border: none;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .admin-tab.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+      font-weight: 800;
+    }
+
+    .admin-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    .admin-data-table th {
+      background: #F1F5F9;
+      color: var(--text-secondary);
+      font-weight: 700;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .admin-data-table td {
+      padding: 10px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .admin-data-table tr:hover td {
+      background: #F8FAFC;
+    }
+  
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Navbar Header -->
+  <nav class="navbar">
+    <div class="logo-area" onclick="showToast('swap · campus peer borrow & lend network')">
+      <div class="logo-icon"><i class="fas fa-arrows-rotate"></i></div>
+      <div class="logo-text">swap<span> · campus</span></div>
+    </div>
+
+    <!-- Main View Switcher -->
+    <div class="view-switcher">
+      <button class="view-btn active" id="viewBtnMarketplace" onclick="switchPage('marketplace')">
+        <i class="fas fa-store"></i> Marketplace
+      </button>
+      <button class="view-btn" id="viewBtnCommunity" onclick="switchPage('community')">
+        <i class="fas fa-users"></i> Communities <span style="background:var(--secondary); color:white; font-size:0.65rem; padding:2px 6px; border-radius:10px;" id="joinedCountBadge">3 Joined</span>
+      </button>
+      <button class="view-btn" id="viewBtnAdmin" onclick="switchPage('admin')">
+        <i class="fas fa-shield-halved"></i> Admin Portal
+      </button>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn-cart" onclick="openLendModal()" style="background:var(--accent-light); color:var(--accent-dark); border:1px solid rgba(113, 231, 224, 0.4);">
+        <i class="fas fa-plus"></i> Lend Item
+      </button>
+      <button class="btn-cart" onclick="openCartModal()">
+        <i class="fas fa-basket-shopping"></i> Borrow Cart <span class="cart-badge" id="cartCountBadge">0</span>
+      </button>
+
+      <!-- Navbar Sign In Button -->
+      <button class="btn-nav-login" id="navLoginBtn" onclick="openAuthModal()">
+        <i class="fas fa-arrow-right-to-bracket"></i> Sign In / Portal
+      </button>
+
+      <div class="user-profile-pill" id="userProfilePill">
+        <div class="avatar" id="userAvatar">AC</div>
+        <div class="user-info">
+          <span class="user-name" id="userName">Alex Chen</span>
+          <span class="user-role" id="userRole">Student · verified</span>
+        </div>
+        <button class="btn-logout" onclick="logout()" title="Sign Out"><i class="fas fa-right-from-bracket"></i></button>
+      </div>
+    </div>
+  </nav>
+tml>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>swap · campus borrow, lend & discord-style communities</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* User Custom Minimalist Palette: Aqua (#71e7e0), Pink (#ff8bda), Blue Grotto (#43a9dd), Fuchsia (#f12e90) */
+    :root {
+      --primary: #43a9dd;          /* Blue Grotto */
+      --primary-hover: #3194c7;
+      --primary-glow: rgba(67, 169, 221, 0.28);
+      
+      --secondary: #f12e90;        /* Fuchsia */
+      --secondary-hover: #d61f7a;
+      --secondary-glow: rgba(241, 46, 144, 0.25);
+
+      --accent: #71e7e0;           /* Aqua */
+      --accent-light: #EBFBFB;
+      --accent-dark: #0D948D;
+      --accent-glow: rgba(113, 231, 224, 0.35);
+
+      --highlight: #ff8bda;        /* Pink */
+      --highlight-light: #FFF0FA;
+      --highlight-dark: #D439A7;
+
+      --bg: #F5F8FC;               /* Crisp Minimal Light Slate */
+      --card-bg: #FFFFFF;
+      --text: #0F172A;             /* Slate Navy */
+      --text-secondary: #64748B;
+      --border-color: #E2E8F0;
+      --error: #f12e90;
+
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      --shadow-sm: 0 4px 14px rgba(67, 169, 221, 0.06);
+      --shadow-md: 0 12px 32px -8px rgba(67, 169, 221, 0.14);
+      --shadow-lg: 0 24px 50px -12px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.8rem 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Background Blobs */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -10%;
+      left: -5%;
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(113, 231, 224, 0.18) 0%, rgba(245, 248, 252, 0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -10%;
+      right: -5%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(255, 139, 218, 0.15) 0%, rgba(245, 248, 252, 0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Main Container Card */
+    .app {
+      max-width: 1360px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      padding: 2.2rem 2.6rem;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(12px);
+    }
+
+    /* Navbar Header */
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.8rem;
+      gap: 1.2rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.35rem;
+      box-shadow: 0 8px 20px -4px var(--secondary-glow);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .logo-area:hover .logo-icon {
+      transform: rotate(-8deg) scale(1.05);
+    }
+
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .logo-text span {
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    /* Main View Switcher */
+    .view-switcher {
+      display: flex;
+      gap: 6px;
+      background: #F1F5F9;
+      padding: 6px;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+    }
+
+    .view-btn {
+      border: none;
+      background: transparent;
+      padding: 9px 22px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .view-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-cart {
+      background: #EFF6FF;
+      color: var(--secondary);
+      border: 1px solid #BFDBFE;
+      padding: 9px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-cart:hover {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .cart-badge {
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    /* Login Toggle Pill */
+    .login-toggle {
+      display: flex;
+      gap: 4px;
+      background: #F1F5F9;
+      padding: 5px;
+      border-radius: 50px;
+      border: 1px solid var(--border-color);
+    }
+
+    .login-toggle button {
+      border: none;
+      background: transparent;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .login-toggle button.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    /* User Profile Pill */
+    .user-profile-pill {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      background: #EEF2FF;
+      padding: 6px 18px 6px 8px;
+      border-radius: 50px;
+      border: 1px solid #C7D2FE;
+    }
+
+    .user-profile-pill .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.95rem;
+      padding: 4px;
+    }
+
+    .btn-logout:hover { color: var(--error); }
+
+    /* Page View Toggle */
+    .page-view { display: none; }
+    .page-view.active-view { display: block; animation: fadeIn 0.3s ease-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+      background: linear-gradient(135deg, rgba(113, 231, 224, 0.12) 0%, #FFFFFF 50%, rgba(255, 139, 218, 0.12) 100%);
+      border-radius: 28px;
+      padding: 2rem 2.2rem;
+      border: 1px solid rgba(113, 231, 224, 0.3);
+      margin-bottom: 2rem;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--secondary);
+      border: 1px solid rgba(241, 46, 144, 0.28);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title span { color: var(--primary); }
+
+    .typewriter-container {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 36px;
+    }
+
+    .typewriter-text {
+      border-right: 3px solid var(--secondary);
+      padding-right: 4px;
+      animation: blinkCursor 0.75s step-end infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes blinkCursor {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--secondary); }
+    }
+
+    /* Showcase Section */
+    .showcase-header {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      margin-bottom: 2.2rem;
+    }
+
+    .showcase-card {
+      background: var(--bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 1rem 0.9rem;
+      text-align: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .showcase-card:hover {
+      background: white;
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .showcase-icon { font-size: 1.6rem; margin-bottom: 0.4rem; display: block; }
+    .showcase-name { font-weight: 700; font-size: 0.85rem; color: var(--text); }
+
+    /* Dashboard Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .btn-nav-login {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .btn-nav-login:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .action-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 1.6rem 1.4rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .action-card:hover {
+      border-color: rgba(79, 70, 229, 0.3);
+      box-shadow: 0 16px 32px -10px rgba(15, 23, 42, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .action-card .icon-bg {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .borrow-card .icon-bg { background: #EFF6FF; color: var(--secondary); }
+    .lend-card .icon-bg { background: var(--accent-light); color: var(--accent); }
+
+    .card-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 40px;
+    }
+
+    .borrow-card .card-tag { background: #EFF6FF; color: var(--secondary); border: 1px solid #BFDBFE; }
+    .lend-card .card-tag { background: var(--accent-light); color: var(--accent-dark); border: 1px solid #A7F3D0; }
+
+    .catalog-search-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 1.4rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrapper {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      align-items: center;
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 10px 20px;
+      transition: all 0.2s ease;
+    }
+
+    .search-input-wrapper:focus-within {
+      background: white;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-glow);
+    }
+
+    .search-input-wrapper i { color: var(--text-secondary); margin-right: 12px; }
+
+    .search-input-wrapper input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: var(--text);
+    }
+
+    .category-pills { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+
+    .cat-pill {
+      background: #F1F5F9;
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .cat-pill.active, .cat-pill:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .recent-list {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 1.6rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.95rem 0.8rem;
+      border-bottom: 1px solid #F1F5F9;
+      border-radius: 16px;
+      gap: 12px;
+    }
+
+    .list-item:hover { background: #F8FAFC; }
+    .list-item:last-child { border-bottom: none; }
+
+    .item-info { display: flex; align-items: center; gap: 14px; flex: 1; }
+
+    .item-avatar {
+      width: 44px;
+      height: 44px;
+      background: #EFF6FF;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--secondary);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .btn-add-cart {
+      background: #EEF2FF;
+      color: var(--primary);
+      border: 1px solid #C7D2FE;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-add-cart:hover { background: var(--primary); color: white; }
+
+    .item-status {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 60px;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    .status-available { background: var(--accent-light); color: var(--accent-dark); border: 1px solid #A7F3D0; }
+    .status-pending { background: var(--highlight-light); color: var(--highlight-dark); border: 1px solid #FDE68A; }
+    .status-returned { background: #F1F5F9; color: var(--text-secondary); border: 1px solid var(--border-color); }
+
+    /* 3D Curved Arch Orbital Carousel */
+    .orbital-carousel-section {
+      margin-top: 1.4rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .orbital-wrapper {
+      position: relative;
+      width: 100%;
+      height: 440px;
+      border-radius: 32px;
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(113, 231, 224, 0.1) 50%, rgba(255, 139, 218, 0.08) 100%);
+      border: 1px solid rgba(67, 169, 221, 0.25);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      user-select: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .orbital-wrapper:active {
+      cursor: grabbing;
+    }
+
+    .orbital-track-3d {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .orbital-card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 310px;
+      margin-left: -110px;
+      margin-top: -155px;
+      background: white;
+      border-radius: 22px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 14px 28px -4px rgba(15, 23, 42, 0.09);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      pointer-events: auto;
+      will-change: transform, filter, opacity;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+      flex-direction: column;
+      pointer-events: auto;
+      will-change: transform, filter, opacity;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .orbital-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 22px 44px -10px var(--primary-glow);
+    }
+
+    .orbital-img {
+      height: 185px;
+      width: 100%;
+      object-fit: cover;
+      background: #F1F5F9;
+    }
+
+    .orbital-card-body {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      background: white;
+    }
+
+    .orbital-card-title {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .orbital-card-sub {
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .btn-orbital-borrow {
+      background: #EEF2FF;
+      color: var(--primary);
+      border: 1px solid #C7D2FE;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-orbital-borrow:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .orbital-caption-bar {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      padding: 7px 20px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text);
+      pointer-events: none;
+      z-index: 20;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .orbital-card:hover {
+      transform: scale(1.05) translateY(-6px);
+      border-color: var(--primary);
+      box-shadow: 0 16px 32px -8px var(--primary-glow);
+    }
+
+    .orbital-img {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+      background: #F1F5F9;
+    }
+
+    .orbital-card-body {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .orbital-card-title {
+      font-weight: 700;
+      font-size: 0.84rem;
+      color: var(--text);
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .orbital-card-sub {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .btn-orbital-borrow {
+      background: #EEF2FF;
+      color: var(--primary);
+      border: 1px solid #C7D2FE;
+      border-radius: 20px;
+      padding: 5px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 6px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-orbital-borrow:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Login Panel */
+    .login-panel { background: #FAFCFF; border-radius: 32px; padding: 2rem; border: 1px solid var(--border-color); }
+    .login-card { background: var(--card-bg); border-radius: 26px; padding: 1.6rem 1.4rem; border: 1px solid var(--border-color); }
+    .login-card.user-card { border-left: 6px solid var(--primary); }
+    .login-card.admin-card { border-left: 6px solid var(--highlight); }
+    
+    .login-input-group .input-row {
+      display: flex;
+      align-items: center;
+      background: #F8FAFC;
+      border-radius: 50px;
+      padding: 3px 8px 3px 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .login-input-group .input-row input {
+      border: none;
+      background: transparent;
+      padding: 12px 0;
+      font-size: 0.9rem;
+      width: 100%;
+      outline: none;
+      font-family: inherit;
+      color: var(--text);
+    }
+
+    .login-btn {
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 14px 0;
+      border-radius: 50px;
+      margin-top: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      width: 100%;
+    }
+
+    .user-card .login-btn { background: var(--primary); }
+    .admin-card .login-btn { background: var(--highlight); }
+
+    .quick-demo-btn {
+      background: transparent;
+      border: 1px dashed var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    /* ======================================================== */
+    /* DISCORD-STYLE COMMUNITY LAYOUT                            */
+    /* ======================================================== */
+    .discord-community-container {
+      display: grid;
+      grid-template-columns: 74px 230px 1fr;
+      gap: 0;
+      min-height: 620px;
+      min-width: 820px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Leftmost Server Icon Sidebar (Discord Servers) */
+    .discord-servers-bar {
+      background: #0F172A;
+      padding: 1.2rem 0.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .server-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #1E293B;
+      color: #94A3B8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .server-icon:hover, .server-icon.active {
+      border-radius: 16px;
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 6px 16px var(--primary-glow);
+    }
+
+    .server-icon.active::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      width: 5px;
+      height: 28px;
+      background: white;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .server-badge-count {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: var(--accent);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0F172A;
+    }
+
+    .server-divider {
+      width: 32px;
+      height: 2px;
+      background: #334155;
+      margin: 2px 0;
+    }
+
+    /* Middle Channel & Community Sidebar */
+    .discord-channels-sidebar {
+      background: #F8FAFC;
+      border-right: 1px solid var(--border-color);
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .comm-sidebar-header {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .channel-group-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      margin: 1rem 0 0.5rem 0;
+    }
+
+    .channel-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .channel-item:hover, .channel-item.active {
+      background: #EEF2FF;
+      color: var(--primary);
+    }
+
+    .channel-item i { font-size: 0.95rem; }
+
+    .btn-share-comm {
+      margin-top: auto;
+      background: #EFF6FF;
+      color: var(--secondary);
+      border: 1px solid #BFDBFE;
+      padding: 9px 14px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-share-comm:hover {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .btn-leave-comm {
+      margin-top: 8px;
+      background: #FEF2F2;
+      color: var(--error);
+      border: 1px solid #FCA5A5;
+      padding: 9px 14px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-leave-comm:hover {
+      background: var(--error);
+      color: white;
+    }
+
+    .btn-report-chat {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.74rem;
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: all 0.15s;
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-report-chat:hover {
+      color: var(--error);
+      background: #FEF2F2;
+    }
+
+    /* Main Right Content Panel */
+    .discord-main-stage {
+      padding: 1.5rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    /* Search Bar Above HoverExpand Discovery */
+    .comm-search-top-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 10px 20px;
+      margin-bottom: 1.5rem;
+      transition: all 0.2s;
+    }
+
+    .comm-search-top-wrapper:focus-within {
+      background: white;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-glow);
+    }
+
+    .comm-search-top-wrapper i { color: var(--text-secondary); }
+
+    .comm-search-top-wrapper input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 0.92rem;
+      font-family: inherit;
+      color: var(--text);
+    }
+
+    /* HOVER EXPAND ACCORDION (PROPORTIONAL TO REACT CODE SPEC) */
+    .hover-expand-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border-top: 1px solid rgba(15, 23, 42, 0.15);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.15);
+    }
+
+    .hover-expand-item {
+      position: relative;
+      width: 100%;
+      height: 68px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: height 0.35s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.22s ease-out;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.15);
+    }
+
+    .hover-expand-item:last-child { border-bottom: none; }
+
+    .hover-expand-container:hover .hover-expand-item { opacity: 0.38; }
+
+    .hover-expand-container:hover .hover-expand-item:hover {
+      opacity: 1;
+      height: 320px;
+    }
+
+    .hover-expand-img-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 0.45s cubic-bezier(0.23, 1, 0.32, 1), transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .hover-expand-item:hover .hover-expand-img-wrapper {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hover-expand-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hover-expand-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.35) 50%, rgba(0, 0, 0, 0.15) 100%);
+    }
+
+    .hover-expand-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem 1.4rem;
+      z-index: 2;
+    }
+
+    .hover-expand-row {
+      display: flex;
+      width: 100%;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .hover-expand-left {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .hover-expand-num {
+      font-size: 0.85rem;
+      font-variant-numeric: tabular-nums;
+      opacity: 0.4;
+      color: currentColor;
+    }
+
+    .hover-expand-item:hover .hover-expand-num { color: #ffffff; opacity: 0.6; }
+
+    .hover-expand-label {
+      font-weight: 700;
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hover-expand-item:hover .hover-expand-label { color: #ffffff; }
+
+    .hover-expand-desc {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.85);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .hover-expand-item:hover .hover-expand-desc {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.1s;
+    }
+
+    .hover-expand-sublabel {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.45;
+    }
+
+    .hover-expand-item:hover .hover-expand-sublabel { color: rgba(255, 255, 255, 0.75); opacity: 1; }
+
+    .btn-join-comm {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: all 0.25s ease;
+      z-index: 5;
+    }
+
+    .hover-expand-item:hover .btn-join-comm { opacity: 1; transform: translateY(0); }
+    .btn-join-comm:hover { background: var(--primary-hover); }
+
+    /* Chat Messages Box inside Discord Room */
+    .chat-container {
+      background: var(--card-bg);
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      height: 440px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-right: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .chat-msg-row { display: flex; gap: 12px; align-items: flex-start; }
+
+    .chat-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #EEF2FF;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .chat-bubble {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      border-top-left-radius: 4px;
+      padding: 12px 16px;
+      max-width: 82%;
+    }
+
+    .chat-user-name {
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--text);
+      margin-bottom: 3px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .chat-user-tag {
+      font-size: 0.65rem;
+      background: #EEF2FF;
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .chat-text { font-size: 0.88rem; color: var(--text); line-height: 1.4; }
+
+    .chat-input-bar { display: flex; gap: 10px; }
+
+    .chat-input-bar input {
+      flex: 1;
+      padding: 12px 18px;
+      border-radius: 40px;
+      border: 1px solid var(--border-color);
+      background: #F8FAFC;
+      outline: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .chat-input-bar input:focus { border-color: var(--primary); background: white; }
+
+    .btn-send-chat {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0 22px;
+      border-radius: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* Rules & Code of Conduct Modal */
+    .rules-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.2rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .rules-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .rules-item:last-child { margin-bottom: 0; }
+    .rules-item i { color: var(--primary); margin-top: 3px; }
+
+    /* Modals & Toast */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 32px;
+      width: 100%;
+      max-width: 540px;
+      padding: 2.2rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    .close-modal { background: #F1F5F9; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: var(--text-secondary); }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--text);
+      color: white;
+      padding: 14px 26px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.25);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.35s ease;
+      z-index: 2000;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* Footer */
+    .campus-note {
+      margin-top: 2.2rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1.5rem;
+    }
+
+    /* Responsiveness */
+    #communityView {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 960px) {
+      .app { padding: 1.6rem 1.2rem; }
+    }
+
+    @media (max-width: 580px) {
+      .navbar { flex-direction: column; align-items: start; }
+      .nav-actions { width: 100%; flex-wrap: wrap; }
+      .view-switcher { width: 100%; }
+      .view-btn { flex: 1; justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -1475,477 +3747,1703 @@
   <!-- ======================================================== -->
   <!-- PAGE VIEW 1: MARKETPLACE                                  -->
   <!-- ======================================================== -->
-  <div class="page-view active-view" id="marketplaceView">
-
-    <section class="hero-section">
-      <div class="hero-badge">
-        <i class="fas fa-bolt" style="color:var(--highlight);"></i> Hey Campus Explorer! 👋 Welcome to swap
-      </div>
-      <h1 class="hero-title">Borrow what you need. <span>Lend what you don't.</span></h1>
-      
-      <div class="typewriter-container">
-        <span>Looking to get:</span>
-        <span class="typewriter-text" id="typewriterText"></span>
-      </div>
-
-      <p class="hero-sub" style="font-size:0.88rem; color:var(--text-secondary); margin-top:0.6rem;">
-        No sign-up required to explore! Browse items, add to your Borrow Cart, or join a specialized campus community.
-      </p>
-    </section>
-
-    <!-- Dashboard Grid -->
-    <div class="dashboard-grid">
-      <div class="action-section">
-        <div class="catalog-search-bar">
-          <div class="search-input-wrapper">
-            <i class="fas fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="Search textbooks, electronics, lab gear..." oninput="filterItems()" />
-          </div>
-          <div class="category-pills">
-            <span class="cat-pill active" id="pill-all" onclick="setCategoryFilter('all', this)">All</span>
-            <span class="cat-pill" id="pill-Textbooks" onclick="setCategoryFilter('Textbooks', this)">Textbooks</span>
-            <span class="cat-pill" id="pill-Electronics" onclick="setCategoryFilter('Electronics', this)">Electronics</span>
-            <span class="cat-pill" id="pill-Gear" onclick="setCategoryFilter('Gear & Supplies', this)">Gear</span>
-          </div>
-        </div>
-
-        <!-- RECENTLY ADDED PRODUCTS 3D CURVED ORBITAL WHEEL -->
-        <div class="orbital-carousel-section">
-          <div class="showcase-header">
-            <span><i class="fas fa-sparkles" style="color:var(--primary);"></i> Recently Added Products</span>
-          </div>
-
-          <div class="orbital-wrapper" id="orbitalWrapper">
-            <div class="orbital-track-3d" id="orbitalWheel">
-              <!-- Dynamically rendered 3D curved arch cards -->
-            </div>
-            <div class="orbital-caption-bar" id="orbitalCaption">
-              <i class="fas fa-compass" style="color:var(--primary); margin-right:6px;"></i> <span id="orbitalActiveTitle">TI-84 Plus CE Graphing Calculator</span>
-            </div>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- ======================================================== -->
-  <!-- PAGE VIEW 2: DISCORD-STYLE COMMUNITIES HUB               -->
+  <!-- PAGE VIEW 3: ADMIN GOVERNANCE & OVERVIEW SUITE           -->
   <!-- ======================================================== -->
-  <div class="page-view" id="communityView">
-
-    <!-- DISCORD THREE-COLUMN CONTAINER -->
-    <div class="discord-community-container">
-
-      <!-- LEFTMOST COLUMN 1: DISCORD SERVER ICONS SIDEBAR -->
-      <div class="discord-servers-bar">
-        <!-- Discover Icon -->
-        <div class="server-icon active" id="serverIconDiscover" onclick="openDiscordServer('discover')" title="Discover New Communities">
-          <i class="fas fa-compass"></i>
-        </div>
-
-        <div class="server-divider"></div>
-
-        <!-- Joined Server Icons (Dynamic) -->
-        <div id="joinedServerIconsContainer" style="display:flex; flex-direction:column; gap:14px; align-items:center;">
-          <!-- Dynamically populated -->
-        </div>
-
-        <div class="server-divider"></div>
-
-        <!-- Add/Search Community Icon -->
-        <div class="server-icon" onclick="focusCommunitySearch()" title="Explore Communities">
-          <i class="fas fa-plus"></i>
-        </div>
+  <div class="page-view" id="adminView">
+    <!-- Admin KPI Stats Grid -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Active Exchanges</div>
+        <div class="kpi-num" id="kpiActiveSwaps">4</div>
       </div>
-
-      <!-- MIDDLE COLUMN 2: COMMUNITY CHANNELS SIDEBAR -->
-      <div class="discord-channels-sidebar">
-        <div class="comm-sidebar-header">
-          <span id="sidebarCommTitle">Engineering & Tech</span>
-          <i class="fas fa-chevron-down" style="font-size:0.8rem; color:var(--text-secondary);"></i>
-        </div>
-
-        <!-- Channels List -->
-        <div class="channel-group-title">Text Channels</div>
-        <div class="channel-item active" id="chanGeneral" onclick="switchChannel('general')">
-          <i class="fas fa-hashtag"></i> general-chat
-        </div>
-        <div class="channel-item" id="chanRequests" onclick="switchChannel('requests')">
-          <i class="fas fa-hashtag"></i> gear-requests
-        </div>
-        <div class="channel-item" id="chanLending" onclick="switchChannel('lending')">
-          <i class="fas fa-hashtag"></i> lending-offers
-        </div>
-
-        <div class="channel-group-title">Marketplace</div>
-        <div class="channel-item" id="chanMarket" onclick="switchChannel('market')">
-          <i class="fas fa-store"></i> specialized-catalog
-        </div>
-
-        <!-- Share Community Button -->
-        <button class="btn-share-comm" onclick="shareActiveCommunity()">
-          <i class="fas fa-share-nodes"></i> Share Community Link
-        </button>
-
-        <!-- Leave Community Button -->
-        <button class="btn-leave-comm" onclick="leaveActiveCommunity()">
-          <i class="fas fa-right-from-bracket"></i> Leave Community
-        </button>
+      <div class="kpi-card">
+        <div class="kpi-label">Borrow Needs</div>
+        <div class="kpi-num" id="kpiBorrowNeeds">3</div>
       </div>
-
-      <!-- RIGHT COLUMN 3: MAIN DISCOVERY OR DISCORD CHAT FEED -->
-      <div class="discord-main-stage">
-
-        <!-- SEARCH BAR ABOVE DISCOVERY ACCORDION -->
-        <div class="comm-search-top-wrapper">
-          <i class="fas fa-magnifying-glass"></i>
-          <input type="text" id="commSearchInput" placeholder="Search communities by major, interest, or gear..." oninput="filterCommunitiesDiscovery()" />
-        </div>
-
-        <!-- STAGE A: COMMUNITY DISCOVERY HOVER-EXPAND ACCORDION -->
-        <div id="discordDiscoveryView">
-          <div style="margin-bottom:1rem;">
-            <h3 style="font-size:1.4rem; font-weight:800; color:var(--text);">Discover Campus Communities</h3>
-            <p style="font-size:0.86rem; color:var(--text-secondary);">Hover to expand community details and click to preview or join!</p>
-          </div>
-
-          <!-- Hover Expand Accordion Container -->
-          <div class="hover-expand-container" id="hoverExpandList">
-
-            <!-- Item 01: Engineering & Tech Hub -->
-            <div class="hover-expand-item" data-name="Engineering & Tech Hub" data-desc="Calculators, Arduinos, Lab Kits, MacBooks, CAD Software" onclick="promptJoinCommunity('Engineering & Tech Hub', 'ENG', 'Calculators, Arduinos, Lab Kits, MacBooks')">
-              <div class="hover-expand-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop" alt="Engineering" />
-                <div class="hover-expand-overlay"></div>
-              </div>
-              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Engineering & Tech Hub', 'ENG')"><i class="fas fa-plus"></i> Join Community</button>
-              <div class="hover-expand-content">
-                <div class="hover-expand-row">
-                  <div class="hover-expand-left">
-                    <span class="hover-expand-num">01</span>
-                    <span class="hover-expand-label">Engineering & Tech Hub</span>
-                    <span class="hover-expand-desc">— Calculators, Arduinos, Lab Kits, MacBooks, CAD Software</span>
-                  </div>
-                  <span class="hover-expand-sublabel">ENG · 1.2K MEMBERS</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 02: Med & Bio Sciences Guild -->
-            <div class="hover-expand-item" data-name="Med & Bio Sciences Guild" data-desc="Stethoscopes, Bio Kits, Lab Coats, Anatomy Models" onclick="promptJoinCommunity('Med & Bio Sciences Guild', 'MED', 'Stethoscopes, Bio Kits, Lab Coats')">
-              <div class="hover-expand-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1200&auto=format&fit=crop" alt="Medical Science" />
-                <div class="hover-expand-overlay"></div>
-              </div>
-              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Med & Bio Sciences Guild', 'MED')"><i class="fas fa-plus"></i> Join Community</button>
-              <div class="hover-expand-content">
-                <div class="hover-expand-row">
-                  <div class="hover-expand-left">
-                    <span class="hover-expand-num">02</span>
-                    <span class="hover-expand-label">Med & Bio Sciences Guild</span>
-                    <span class="hover-expand-desc">— Stethoscopes, Bio Kits, Lab Coats, Anatomy Models</span>
-                  </div>
-                  <span class="hover-expand-sublabel">MED · 850 MEMBERS</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 03: Design, Arts & Media Collective -->
-            <div class="hover-expand-item" data-name="Design, Arts & Media Collective" data-desc="DSLR Cameras, Drawing Tablets, Microphones, Tripods" onclick="promptJoinCommunity('Design, Arts & Media Collective', 'ART', 'DSLR Cameras, Drawing Tablets')">
-              <div class="hover-expand-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1200&auto=format&fit=crop" alt="Design Arts" />
-                <div class="hover-expand-overlay"></div>
-              </div>
-              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Design, Arts & Media Collective', 'ART')"><i class="fas fa-plus"></i> Join Community</button>
-              <div class="hover-expand-content">
-                <div class="hover-expand-row">
-                  <div class="hover-expand-left">
-                    <span class="hover-expand-num">03</span>
-                    <span class="hover-expand-label">Design, Arts & Media Collective</span>
-                    <span class="hover-expand-desc">— DSLR Cameras, Drawing Tablets, Microphones, Tripods</span>
-                  </div>
-                  <span class="hover-expand-sublabel">ART · 640 MEMBERS</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 04: Business & Economics Forum -->
-            <div class="hover-expand-item" data-name="Business & Economics Forum" data-desc="Financial Calculators, Case Studies, Suit/Attire for Interviews" onclick="promptJoinCommunity('Business & Economics Forum', 'BIZ', 'Financial Calculators')">
-              <div class="hover-expand-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" alt="Business Economics" />
-                <div class="hover-expand-overlay"></div>
-              </div>
-              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Business & Economics Forum', 'BIZ')"><i class="fas fa-plus"></i> Join Community</button>
-              <div class="hover-expand-content">
-                <div class="hover-expand-row">
-                  <div class="hover-expand-left">
-                    <span class="hover-expand-num">04</span>
-                    <span class="hover-expand-label">Business & Economics Forum</span>
-                    <span class="hover-expand-desc">— Financial Calculators, Case Studies, Suit/Attire for Interviews</span>
-                  </div>
-                  <span class="hover-expand-sublabel">BIZ · 910 MEMBERS</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 05: Gaming & Dorm Life Society -->
-            <div class="hover-expand-item" data-name="Gaming & Dorm Life Society" data-desc="Console Controllers, VR Headsets, Mini Fridges, Projectors" onclick="promptJoinCommunity('Gaming & Dorm Life Society', 'DORM', 'Console Controllers, VR Headsets')">
-              <div class="hover-expand-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1200&auto=format&fit=crop" alt="Gaming Dorm" />
-                <div class="hover-expand-overlay"></div>
-              </div>
-              <button class="btn-join-comm" onclick="event.stopPropagation(); promptJoinCommunity('Gaming & Dorm Life Society', 'DORM')"><i class="fas fa-plus"></i> Join Community</button>
-              <div class="hover-expand-content">
-                <div class="hover-expand-row">
-                  <div class="hover-expand-left">
-                    <span class="hover-expand-num">05</span>
-                    <span class="hover-expand-label">Gaming & Dorm Life Society</span>
-                    <span class="hover-expand-desc">— Console Controllers, VR Headsets, Mini Fridges, Projectors</span>
-                  </div>
-                  <span class="hover-expand-sublabel">DORM · 1.5K MEMBERS</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- STAGE B: ACTIVE COMMUNITY DISCORD CHAT & MARKETPLACE VIEW -->
-        <div id="discordActiveRoomView" style="display:none;">
-          
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-            <div>
-              <h3 style="font-size:1.3rem; font-weight:800; color:var(--text);" id="discordRoomTitle">#general-chat · Engineering & Tech Hub</h3>
-              <p style="font-size:0.8rem; color:var(--text-secondary);" id="discordRoomTopic">Welcome to the official Engineering channel. Discuss equipment requests and peer lending.</p>
-            </div>
-            <button onclick="shareActiveCommunity()" style="background:#EFF6FF; color:var(--secondary); border:1px solid #BFDBFE; padding:7px 16px; border-radius:30px; font-weight:700; font-size:0.8rem; cursor:pointer;">
-              <i class="fas fa-share-nodes"></i> Share Link
-            </button>
-          </div>
-
-          <!-- Chat Stage -->
-          <div id="discordChatStage">
-            <div class="chat-container">
-              <div class="chat-messages" id="chatMessageList">
-                <div class="chat-msg-row">
-                  <div class="chat-avatar">JS</div>
-                  <div class="chat-bubble">
-                    <div class="chat-user-name">
-                      <span>Jordan Smith <span class="chat-user-tag">Junior · Electrical</span></span>
-                      <button class="btn-report-chat" onclick="openReportModal('Jordan Smith', 'Arduino Uno request')" title="Report message"><i class="far fa-flag"></i> Report</button>
-                    </div>
-                    <div class="chat-text">Hey everyone! Anyone got an Arduino Uno & breadboard I can borrow for the weekend lab project? Will return by Monday morning!</div>
-                  </div>
-                </div>
-                <div class="chat-msg-row">
-                  <div class="chat-avatar">AC</div>
-                  <div class="chat-bubble">
-                    <div class="chat-user-name">
-                      <span>Alex Chen <span class="chat-user-tag">Lender</span></span>
-                      <button class="btn-report-chat" onclick="openReportModal('Alex Chen', 'Arduino starter kit listing')" title="Report message"><i class="far fa-flag"></i> Report</button>
-                    </div>
-                    <div class="chat-text">I have an extra Arduino starter kit available! Just listed it in the specialized marketplace tab above.</div>
-                  </div>
-                </div>
-              </div>
-
-              <form onsubmit="postChatMessage(event)" class="chat-input-bar">
-                <input type="text" id="chatInputText" placeholder="Send message in #general-chat..." required />
-                <button type="submit" class="btn-send-chat"><i class="fas fa-paper-plane"></i> Send</button>
-              </form>
-            </div>
-          </div>
-
-          <!-- Specialized Marketplace Stage -->
-          <div id="discordMarketStage" style="display:none;">
-            <div class="showcase-header">
-              <i class="fas fa-tag" style="color:var(--primary);"></i> Specialized Gear in <span id="specializedCommName">Engineering & Tech Hub</span>
-            </div>
-            <div class="recent-list">
-              <div id="specializedItemList"></div>
-            </div>
-          </div>
-
-        </div>
-
+      <div class="kpi-card">
+        <div class="kpi-label">Total Escrow Hold</div>
+        <div class="kpi-num" id="kpiEscrowHold">$120.00</div>
       </div>
-
+      <div class="kpi-card">
+        <div class="kpi-label">Platform Fees (2%)</div>
+        <div class="kpi-num" id="kpiPlatformFees">$8.40</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Reported Disputes</div>
+        <div class="kpi-num" id="kpiDisputesCount" style="color:var(--error);">1</div>
+      </div>
     </div>
 
+    <!-- Admin Nav Tabs with Exchange ID Search Bar -->
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #E2E8F0; margin-bottom: 1.5rem; flex-wrap:wrap; gap:10px;">
+      <div class="admin-nav-tabs" style="border-bottom:none; margin-bottom:0;">
+        <button class="admin-tab active" onclick="switchAdminTab('overview', this)"><i class="fas fa-chart-pie"></i> Overview</button>
+        <button class="admin-tab" onclick="switchAdminTab('borrowNeeds', this)"><i class="fas fa-bullhorn"></i> Needs Queue (<span id="adminBadgeNeeds">3</span>)</button>
+        <button class="admin-tab" onclick="switchAdminTab('lenderPosts', this)"><i class="fas fa-box"></i> Listing Approvals (<span id="adminBadgeListings">6</span>)</button>
+        <button class="admin-tab" onclick="switchAdminTab('exchanges', this)"><i class="fas fa-arrows-rotate"></i> Lifecycle Monitor (<span id="adminBadgeExchanges">4</span>)</button>
+        <button class="admin-tab" onclick="switchAdminTab('disputes', this)"><i class="fas fa-triangle-exclamation"></i> Damage & Settlement Disputes (<span id="adminBadgeDisputes" style="color:var(--error); font-weight:800;">1</span>)</button>
+        <button class="admin-tab" onclick="switchAdminTab('userInspector', this)"><i class="fas fa-user-shield"></i> Trust Moderation & Bans</button>
+        <button class="admin-tab" onclick="switchAdminTab('events', this)"><i class="fas fa-calendar-days"></i> Event Spotlight Studio</button>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; padding-bottom:6px;">
+        <i class="fas fa-search" style="color:var(--text-secondary); font-size:0.85rem;"></i>
+        <input type="text" id="adminExchangeSearch" placeholder="Search Exchange ID..." oninput="renderAllAdminTabs()" style="padding:6px 12px; border-radius:8px; border:1px solid var(--border-color); font-size:0.8rem; outline:none; width:180px;" />
+      </div>
+    </div>
+
+    <!-- TAB 1: OVERVIEW -->
+    <div id="adminTabOverview" class="admin-tab-content">
+      <div id="adminSearchInspectorBox" style="display:none; margin-bottom:1rem;"></div>
+      <div style="display:grid; grid-template-columns: 1.3fr 0.8fr; gap:16px;">
+        <div class="admin-table-container">
+          <div class="table-toolbar">
+            <div class="table-title"><i class="fas fa-arrows-rotate" style="color:var(--secondary);"></i> Live Lifecycles Overview</div>
+          </div>
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th>Exchange ID</th>
+                <th>Resource</th>
+                <th>Lender</th>
+                <th>Borrower</th>
+                <th>Stage</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="overviewExchangesTableBody">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <!-- Dispute Resolution Alert -->
+          <div style="background:#FFFBEB; border:1px solid #FCD34D; border-radius:18px; padding:1.2rem;">
+            <div style="font-weight:800; color:#B45309; font-size:0.85rem;"><i class="fas fa-circle-exclamation"></i> Action Required: Damage Claim Dispute</div>
+            <p style="font-size:0.75rem; color:#92400E; margin-top:4px; line-height:1.4;">
+              A dispute is active: <strong>Priya Sharma</strong> claims <strong>James Miller</strong> returned a borrowed item with minor damages. Action required to settle deposits.
+            </p>
+            <button class="btn-action-sm" onclick="switchAdminTab('disputes')" style="background:#B45309; color:white; border:none; margin-top:8px; font-weight:700;">Arbitrate Dispute</button>
+          </div>
+
+          <!-- Escrow Metrics Box -->
+          <div style="background:white; border:1px solid var(--border-color); border-radius:18px; padding:1.2rem;">
+            <div style="font-weight:800; font-size:0.85rem; margin-bottom:8px;"><i class="fas fa-vault" style="color:var(--primary);"></i> Escrow & Platform Fee Registry</div>
+            <div style="display:flex; flex-direction:column; gap:6px; font-size:0.78rem;">
+              <div style="display:flex; justify-content:space-between;"><span>Active Deposits Escrow:</span><strong>$120.00</strong></div>
+              <div style="display:flex; justify-content:space-between;"><span>Total Platform Service Fees:</span><strong style="color:var(--accent-dark); font-size:0.84rem;">$8.40</strong></div>
+              <div style="display:flex; justify-content:space-between;"><span>Average Swap Duration:</span><strong>6.2 Days</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: BORROW NEEDS -->
+    <div id="adminTabBorrowNeeds" class="admin-tab-content" style="display:none;">
+      <div class="admin-table-container">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>Needed Resource</th>
+              <th>Requested By</th>
+              <th>Urgency</th>
+              <th>Duration</th>
+              <th>Lender Match</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminBorrowNeedsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: LENDER POSTS -->
+    <div id="adminTabLenderPosts" class="admin-tab-content" style="display:none;">
+      <div class="admin-table-container">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>Resource Info</th>
+              <th>Lender</th>
+              <th>Borrow Model</th>
+              <th>Upfront Deposit</th>
+              <th>Location Hub</th>
+              <th>Approval</th>
+            </tr>
+          </thead>
+          <tbody id="adminLenderPostsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 4: EXCHANGE LIFECYCLE MONITOR -->
+    <div id="adminTabExchanges" class="admin-tab-content" style="display:none;">
+      <div class="admin-table-container">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>Exchange ID</th>
+              <th>Resource</th>
+              <th>Lender & Borrower</th>
+              <th>Charges Breakdown</th>
+              <th>Lifecycle Stage</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminExchangesTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 5: DISPUTE SETTLEMENT CONSOLE -->
+    <div id="adminTabDisputes" class="admin-tab-content" style="display:none;">
+      <div class="admin-table-container">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>Dispute ID</th>
+              <th>Exchange ID</th>
+              <th>Resource Info</th>
+              <th>Claimant / Lender</th>
+              <th>Borrower</th>
+              <th>Dispute Case & Evidence</th>
+              <th>Escrow Settlement</th>
+              <th>Resolution Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminDisputesTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 6: TRUST MODERATION & BANS -->
+    <div id="adminTabUserInspector" class="admin-tab-content" style="display:none;">
+      <!-- Pairwise Direct Lookup -->
+      <div class="pairwise-inspector-card" style="background:#F8FAFC; border:1px solid #C7D2FE; border-radius:18px; padding:1.2rem; margin-bottom:1.2rem;">
+        <div style="font-weight:800; font-size:0.88rem; color:var(--primary); margin-bottom:4px;"><i class="fas fa-people-arrows"></i> Direct User-to-User Mutual Exchange Lookup</div>
+        <p style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:10px;">Select two students to inspect exchange history.</p>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <select id="pairwiseUserA" style="padding:6px 12px; border-radius:8px; border:1px solid var(--border-color); font-size:0.8rem;" onchange="inspectPairwise()"></select>
+          <span style="font-weight:800; color:var(--text-secondary);">&harr;</span>
+          <select id="pairwiseUserB" style="padding:6px 12px; border-radius:8px; border:1px solid var(--border-color); font-size:0.8rem;" onchange="inspectPairwise()"></select>
+        </div>
+        <div id="pairwiseResultContainer" style="margin-top:12px;"></div>
+      </div>
+
+      <div class="admin-table-container">
+        <table class="admin-data-table">
+          <thead>
+            <tr>
+              <th>Student Member</th>
+              <th>Department</th>
+              <th>Trust Score</th>
+              <th>Account Status</th>
+              <th>Action Controls</th>
+            </tr>
+          </thead>
+          <tbody id="adminUserDirectoryTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 7: EVENT SPOTLIGHT STUDIO -->
+    <div id="adminTabEvents" class="admin-tab-content" style="display:none;">
+      <div style="display:grid; grid-template-columns: 1.1fr 1fr; gap:20px;">
+        <div style="border:1px solid var(--border-color); border-radius:18px; padding:1.2rem; background:white;">
+          <h4 style="font-weight:800; font-size:0.9rem; margin-bottom:10px;"><i class="fas fa-wand-magic-sparkles" style="color:var(--highlight-dark);"></i> Apply Daily Event Preset Template</h4>
+          <div style="display:flex; flex-direction:column; gap:8px;" id="eventTemplateList">
+            <!-- Dynamic presets -->
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border-color); border-radius:18px; padding:1.2rem; background:white;">
+          <h4 style="font-weight:800; font-size:0.9rem; margin-bottom:10px;"><i class="fas fa-plus" style="color:var(--primary);"></i> Custom Event Spotlight Designer</h4>
+          <form onsubmit="handleCustomEventSubmit(event)">
+            <div class="form-group"><label>Event Title</label><input type="text" id="customEventTitle" required /></div>
+            <div class="form-group"><label>Time Frame</label><input type="text" id="customEventTime" placeholder="e.g. Today ┬À 10 AM - 4 PM" required /></div>
+            <div class="form-group"><label>Location Hub</label><input type="text" id="customEventLoc" placeholder="e.g. Quad Pavilion" required /></div>
+            <div class="form-group"><label>Event Highlight Description</label><textarea id="customEventDesc" required></textarea></div>
+            <button type="submit" class="btn-submit" style="background:var(--highlight); color:#1E1B4B; font-weight:800;"><i class="fas fa-star"></i> Apply to Homepage Spotlight</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Footer -->
-  <div class="campus-note">
-    <i class="fas fa-rotate-left"></i> 4000+ items shared · serial#8-301 · rev.a
-    <span style="margin-left:12px; letter-spacing:1px; font-weight:400; opacity:0.7;">01001000</span>
-  </div>
 </div>
 
-<!-- AUTH / LOGIN MODAL -->
-<div class="modal-overlay" id="authModal">
-  <div class="modal-card">
+<!-- =========================================================================
+     MODALS
+     ========================================================================= -->
+
+
+  </div>
+
+</div>
+
+
+<!-- MODAL 1: BROWSE & BORROW COMPILATION (SMART MATCH & ALTERNATIVES) -->
+<div class="modal-overlay" id="borrowBrowseModal">
+  <div class="modal-card modal-lg">
     <div class="modal-header">
-      <h3><i class="fas fa-key" style="color:var(--primary);"></i> Access Campus Portal</h3>
-      <button class="close-modal" onclick="closeModal('authModal')"><i class="fas fa-xmark"></i></button>
+      <h3><i class="fas fa-magnifying-glass"></i> Browse Resources & Smart Match Alternatives</h3>
+      <button class="close-modal" onclick="closeModal('borrowBrowseModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div style="display:flex; gap:10px; margin-bottom:12px;">
+      <input type="text" id="browseSearchInput" placeholder="Enter keyword to inspect..." style="flex:1; padding:8px 14px; border:1px solid var(--border-color); border-radius:8px;" />
+      <button class="btn-action-sm" onclick="runSmartMatch()" style="background:var(--primary); color:white;">Smart Match & Rank</button>
     </div>
 
-    <!-- Login Mode Switcher -->
-    <div class="login-toggle" style="margin-bottom:1.2rem; width:100%;">
-      <button id="toggleUserBtn" class="active" onclick="switchLoginTab('user')" style="flex:1; justify-content:center;"><i class="fas fa-user"></i> Student User</button>
-      <button id="toggleAdminBtn" onclick="switchLoginTab('admin')" style="flex:1; justify-content:center;"><i class="fas fa-user-shield"></i> Admin Staff</button>
-    </div>
-
-    <!-- Student Form -->
-    <div id="modalUserCard">
-      <form onsubmit="handleUserLogin(event)">
-        <div class="login-input-group">
-          <div class="input-row"><i class="fas fa-envelope"></i><input type="email" id="userEmail" value="alex.c@university.edu" required /></div>
-          <div class="input-row"><i class="fas fa-lock"></i><input type="password" id="userPass" value="••••••••" required /></div>
-          <button type="submit" class="login-btn" style="background:var(--primary);"><i class="fas fa-arrow-right-to-bracket"></i> Sign In as Student</button>
-        </div>
-      </form>
-      <button class="quick-demo-btn" onclick="quickFillUser()"><i class="fas fa-bolt" style="color:var(--primary);"></i> One-Click Demo Student Sign In</button>
-    </div>
-
-    <!-- Admin Form -->
-    <div id="modalAdminCard" style="display:none;">
-      <form onsubmit="handleAdminLogin(event)">
-        <div class="login-input-group">
-          <div class="input-row"><i class="fas fa-id-badge"></i><input type="text" id="adminId" value="admin · 08" required /></div>
-          <div class="input-row"><i class="fas fa-lock"></i><input type="password" id="adminPass" value="••••••••" required /></div>
-          <button type="submit" class="login-btn" style="background:var(--highlight);"><i class="fas fa-user-shield"></i> Sign In as Admin</button>
-        </div>
-      </form>
-      <button class="quick-demo-btn" onclick="quickFillAdmin()"><i class="fas fa-shield-halved" style="color:var(--highlight);"></i> One-Click Demo Admin Sign In</button>
+    <!-- Match Results -->
+    <div id="smartMatchResults">
+      <!-- Populated on search -->
     </div>
   </div>
 </div>
 
-<!-- COMMUNITY RULES & CODE OF CONDUCT MODAL -->
-<div class="modal-overlay" id="rulesModal">
-  <div class="modal-card">
+<!-- MODAL 2: DETAIL RESOURCE COMPARATOR -->
+<div class="modal-overlay" id="comparatorModal">
+  <div class="modal-card modal-lg">
     <div class="modal-header">
-      <h3 id="rulesModalTitle"><i class="fas fa-shield-halved" style="color:var(--primary);"></i> Community Rules & Guidelines</h3>
-      <button class="close-modal" onclick="closeModal('rulesModal')"><i class="fas fa-xmark"></i></button>
+      <h3><i class="fas fa-arrows-left-right"></i> Side-by-Side Resource Comparator</h3>
+      <button class="close-modal" onclick="closeModal('comparatorModal')"><i class="fas fa-xmark"></i></button>
     </div>
-    
-    <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:1.2rem; line-height:1.45;">
-      Before joining <strong id="rulesCommName">Engineering & Tech Hub</strong>, please read and agree to our student trust & safety code:
-    </p>
-
-    <div class="rules-box">
-      <div class="rules-item">
-        <i class="fas fa-circle-check"></i>
-        <div><strong>Care & Integrity:</strong> Treat all peer gear, textbooks, and lab equipment with extreme care.</div>
-      </div>
-      <div class="rules-item">
-        <i class="fas fa-circle-check"></i>
-        <div><strong>Punctual Returns:</strong> Always agree on return dates before pickup and return gear on time.</div>
-      </div>
-      <div class="rules-item">
-        <i class="fas fa-circle-check"></i>
-        <div><strong>Verified Campus Identity:</strong> Maintain respectful communication and honor your university trust rating.</div>
-      </div>
+    <div id="comparatorContent">
+      <!-- Generated dynamically -->
     </div>
-
-    <button class="btn-submit" onclick="confirmAcceptRules()"><i class="fas fa-check"></i> Agree & Join Community</button>
   </div>
 </div>
 
-<!-- REPORT CHAT MODAL -->
-<div class="modal-overlay" id="reportModal">
+<!-- MODAL 3: BORROW AGREEMENT CONTRACT -->
+<div class="modal-overlay" id="borrowAgreementModal">
   <div class="modal-card">
     <div class="modal-header">
-      <h3><i class="fas fa-flag" style="color:var(--error);"></i> Report Message / User</h3>
-      <button class="close-modal" onclick="closeModal('reportModal')"><i class="fas fa-xmark"></i></button>
+      <h3><i class="fas fa-file-signature"></i> Peer Borrowing Agreement</h3>
+      <button class="close-modal" onclick="closeModal('borrowAgreementModal')"><i class="fas fa-xmark"></i></button>
     </div>
-    <form onsubmit="submitChatReport(event)">
-      <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:1.2rem;" id="reportTargetText">
-        Report inappropriate behavior or unsafe item listings to campus governance.
-      </p>
-      <div class="form-group" style="margin-bottom:1.2rem;">
-        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:6px;">Select Reason</label>
-        <select id="reportReasonSelect" required style="width:100%; padding:12px; border-radius:14px; border:1px solid #ddd; font-family:inherit;">
-          <option value="Spam / Unsolicited message">Spam or Unsolicited messages</option>
-          <option value="Inappropriate or disrespectful behavior">Inappropriate or disrespectful behavior</option>
-          <option value="Unsafe or suspicious item listing">Unsafe or suspicious item listing</option>
-          <option value="Other Policy Violation">Other Policy Violation</option>
-        </select>
+    <div id="agreementDetails">
+      <!-- Item and owner summary -->
+    </div>
+    <form onsubmit="confirmBorrowAgreement(event)" style="margin-top:12px;">
+      <div style="background:#F8FAFC; border:1px solid var(--border-color); border-radius:12px; padding:10px; font-size:0.75rem; color:var(--text-secondary); line-height:1.4; margin-bottom:12px;">
+        <strong>Campus Safety Rules:</strong><br/>
+        ÔÇó You must return this resource in the same condition as handover.<br/>
+        ÔÇó Late returns deduct trust score and trigger <strong>$2/day late fees</strong>.<br/>
+        ÔÇó Damages are deducted from your security deposit by Admin arbitration.
       </div>
-      <div class="form-group" style="margin-bottom:1.2rem;">
-        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:6px;">Additional Details (Optional)</label>
-        <input type="text" id="reportDetailsInput" placeholder="Briefly describe the issue..." style="width:100%; padding:12px; border-radius:14px; border:1px solid #ddd; font-family:inherit;" />
+      <div class="form-group" style="display:flex; align-items:center; gap:8px;">
+        <input type="checkbox" id="agreeConsentCheck" required style="width:auto; cursor:pointer;" />
+        <label for="agreeConsentCheck" style="margin:0; font-size:0.78rem; font-weight:700;">I agree to the loan terms and authorize the deposit hold.</label>
       </div>
-      <button type="submit" class="btn-submit" style="background:var(--error);"><i class="fas fa-paper-plane"></i> Submit Report to Admins</button>
+      <div class="form-group">
+        <label>Verify Electronic Signature (Type Your Full Name)</label>
+        <input type="text" id="agreeSignature" required placeholder="e.g. Alex Chen" />
+      </div>
+      <button type="submit" class="btn-submit"><i class="fas fa-check-double"></i> Sign & Authorize Escrow</button>
     </form>
   </div>
 </div>
 
-<!-- LEND MODAL -->
+<!-- MODAL 4: HANDOVER / RETURN INSPECTION PREVIEW -->
+<div class="modal-overlay" id="inspectionModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3><i class="fas fa-clipboard-check"></i> Before & After Condition Inspection</h3>
+      <button class="close-modal" onclick="closeModal('inspectionModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div id="inspectionModalContent"></div>
+  </div>
+</div>
+
+<!-- MODAL 5: SUBMIT DAMAGE DISPUTE EVIDENCE -->
+<div class="modal-overlay" id="damageDisputeModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3><i class="fas fa-triangle-exclamation" style="color:var(--error);"></i> File Damage Dispute Claim</h3>
+      <button class="close-modal" onclick="closeModal('damageDisputeModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <form onsubmit="handleDamageDisputeSubmit(event)">
+      <input type="hidden" id="disputeExchangeId" />
+      <div class="form-group">
+        <label>Damage Severity & Repair Charge</label>
+        <select id="disputeSeverity" required>
+          <option value="Minor" selected>Minor Defect (Deduct $5.00)</option>
+          <option value="Moderate">Moderate Defect (Deduct $15.00)</option>
+          <option value="Major">Major Defect (Deduct $30.00)</option>
+          <option value="Total">Total Loss / Unreturned (Deduct Full Deposit)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Evidence Description & Lender Statement</label>
+        <textarea id="disputeDescription" placeholder="Explain the damage or unreturned accessories..." required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Evidence Photo Upload Simulator</label>
+        <div style="border:2px dashed var(--border-color); border-radius:12px; padding:15px; text-align:center; font-size:0.78rem; color:var(--text-secondary); cursor:pointer;" onclick="simulateEvidenceUpload()">
+          <i class="fas fa-camera" style="font-size:1.5rem; margin-bottom:5px;"></i><br/>
+          <span id="evidenceUploadStatus">Simulate Click to Upload Photo Proof</span>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" style="background:var(--error);"><i class="fas fa-gavel"></i> Broadcast Dispute to Admin</button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL 6: LEND MODAL -->
 <div class="modal-overlay" id="lendModal">
   <div class="modal-card">
     <div class="modal-header">
-      <h3><i class="fas fa-hand-holding-heart" style="color:var(--accent);"></i> List an Item to Lend</h3>
+      <h3><i class="fas fa-hand-holding-heart"></i> List a Resource</h3>
       <button class="close-modal" onclick="closeModal('lendModal')"><i class="fas fa-xmark"></i></button>
     </div>
     <form onsubmit="handleLendSubmit(event)">
-      <div class="form-group" style="margin-bottom:1.2rem;">
-        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px;">Item Name</label>
-        <input type="text" id="lendTitle" placeholder="e.g. TI-84 Plus CE Calculator" required style="width:100%; padding:12px; border-radius:14px; border:1px solid #ddd;" />
+      <div class="form-group">
+        <label>Resource Title</label>
+        <input type="text" id="lendTitle" required placeholder="e.g. TI-84 CE Calculator" />
       </div>
-      <div class="form-group" style="margin-bottom:1.2rem;">
-        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px;">Category</label>
-        <select id="lendCategory" required style="width:100%; padding:12px; border-radius:14px; border:1px solid #ddd;">
+      <div class="form-group">
+        <label>Category</label>
+        <select id="lendCategory" required>
           <option value="Textbooks">Textbooks</option>
           <option value="Electronics">Electronics</option>
           <option value="Gear & Supplies">Gear & Supplies</option>
         </select>
       </div>
-      <button type="submit" class="btn-submit" style="background:var(--accent);">Publish Listing</button>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div class="form-group">
+          <label>Borrow Fee Rate ($/day)</label>
+          <input type="number" id="lendRate" required value="4" />
+        </div>
+        <div class="form-group">
+          <label>Required Refundable Deposit ($)</label>
+          <input type="number" id="lendDeposit" required value="20" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Designated Pickup Location Hub</label>
+        <input type="text" id="lendLocation" required placeholder="e.g. Science Hub Lockers" />
+      </div>
+      <button type="submit" class="btn-submit">Publish Resource</button>
     </form>
   </div>
 </div>
 
-<!-- BORROW MODAL -->
-<div class="modal-overlay" id="borrowModal">
+<!-- MODAL 7: BROADCAST BORROW NEED -->
+<div class="modal-overlay" id="borrowRequestModal">
   <div class="modal-card">
     <div class="modal-header">
-      <h3><i class="fas fa-handshake" style="color:var(--secondary);"></i> Borrow Request</h3>
-      <button class="close-modal" onclick="closeModal('borrowModal')"><i class="fas fa-xmark"></i></button>
+      <h3><i class="fas fa-bullhorn"></i> Broadcast Borrow Request</h3>
+      <button class="close-modal" onclick="closeModal('borrowRequestModal')"><i class="fas fa-xmark"></i></button>
     </div>
-    <div id="borrowModalContent"></div>
+    <form onsubmit="handleBorrowRequestSubmit(event)">
+      <div class="form-group">
+        <label>Resource Needed</label>
+        <input type="text" id="needTitle" required placeholder="e.g. Molecular Model Kit" />
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="needCategory" required>
+          <option value="Textbooks">Textbooks</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Gear & Supplies">Gear & Supplies</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-submit" style="background:var(--purple);">Broadcast Request</button>
+    </form>
   </div>
 </div>
 
-<!-- CART MODAL -->
-<div class="modal-overlay" id="cartModal">
+<!-- MODAL 8: ADMIN BAN AUTHORIZATION -->
+<div class="modal-overlay" id="adminBanAuthModal">
   <div class="modal-card">
     <div class="modal-header">
-      <h3><i class="fas fa-basket-shopping" style="color:var(--secondary);"></i> Your Borrow Cart</h3>
-      <button class="close-modal" onclick="closeModal('cartModal')"><i class="fas fa-xmark"></i></button>
+      <h3 style="color:var(--error);"><i class="fas fa-gavel"></i> Admin Ban Authorization</h3>
+      <button class="close-modal" onclick="closeModal('adminBanAuthModal')"><i class="fas fa-xmark"></i></button>
     </div>
-    <div id="cartModalContent"></div>
+    <form onsubmit="executeAdminTemporaryBan(event)">
+      <input type="hidden" id="banTargetUserId" />
+      <div id="banTargetDetails"></div>
+      <div class="form-group">
+        <label>Reason for Ban</label>
+        <select id="banReasonSelect">
+          <option value="Damaged Resource on Return">Damaged Resource on Return</option>
+          <option value="Critical Low Trust Score & Late Returns">Critical Low Trust Score & Late Returns</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Admin passcode key</label>
+        <input type="password" id="banAdminSecurityKey" value="admin123" required />
+      </div>
+      <button type="submit" class="btn-submit" style="background:var(--error);">Confirm Ban</button>
+    </form>
   </div>
 </div>
 
-<!-- Toast -->
-<div class="toast" id="toastNotification">
-  <i class="fas fa-check-circle" style="color:var(--accent); font-size:1.1rem;"></i>
-  <span id="toastMessage">Action completed!</span>
+<!-- MODAL 9: ADMIN UNBAN AUTHORIZATION -->
+<div class="modal-overlay" id="adminUnbanAuthModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 style="color:var(--accent-dark);"><i class="fas fa-unlock"></i> Admin Unban Authorization</h3>
+      <button class="close-modal" onclick="closeModal('adminUnbanAuthModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <form onsubmit="executeAdminUnban(event)">
+      <input type="hidden" id="unbanTargetUserId" />
+      <div id="unbanTargetDetails"></div>
+      <div class="form-group">
+        <label>Reinstatement Action</label>
+        <select id="unbanReasonSelect">
+          <option value="Damages Paid and Returned">Damages Paid and Returned</option>
+          <option value="Appeal approved by board">Appeal approved by board</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Restored Trust Score Baseline</label>
+        <select id="unbanTrustScoreSelect">
+          <option value="75">Reset to Baseline Safe (75%)</option>
+          <option value="85">Reset to Good Standing (85%)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Admin passcode key</label>
+        <input type="password" id="unbanAdminSecurityKey" value="admin123" required />
+      </div>
+      <button type="submit" class="btn-submit" style="background:var(--accent-dark);">Lift Ban</button>
+    </form>
+  </div>
 </div>
+
+
 
 <script>
-  function escapeHtml(str) {
-    if (!str) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
+
+
+  // 1. Initial State Data Models
+  let users = [
+    { id: 1, name: "Alex Chen", email: "alex.c@university.edu", dept: "Computer Science", trustScore: 99, swapsCompleted: 14, donatedCount: 4, avatar: "AC", status: "Active", badge: "Platinum Peer" },
+    { id: 2, name: "Emma Watson", email: "emma.w@university.edu", dept: "Mathematics", trustScore: 100, swapsCompleted: 22, donatedCount: 7, avatar: "EW", status: "Active", badge: "Community Hero" },
+    { id: 3, name: "James Miller", email: "james.m@university.edu", dept: "Mechanical Eng", trustScore: 98, swapsCompleted: 11, donatedCount: 2, avatar: "JM", status: "Active", badge: "Gold Peer" },
+    { id: 4, name: "Priya Sharma", email: "priya.s@university.edu", dept: "Electrical Eng", trustScore: 99, swapsCompleted: 18, donatedCount: 5, avatar: "PS", status: "Active", badge: "Gold Peer" },
+    { id: 5, name: "David Kim", email: "david.k@university.edu", dept: "Biochemistry", trustScore: 96, swapsCompleted: 8, donatedCount: 1, avatar: "DK", status: "Active", badge: "Verified Student" },
+    { id: 6, name: "Sarah Jenkins", email: "sarah.j@university.edu", dept: "Psychology", trustScore: 97, swapsCompleted: 12, donatedCount: 3, avatar: "SJ", status: "Active", badge: "Gold Peer" },
+    { id: 7, name: "Marcus Vance", email: "marcus.v@university.edu", dept: "Architecture", trustScore: 98, swapsCompleted: 15, donatedCount: 6, avatar: "MV", status: "Active", badge: "Platinum Peer" },
+    { id: 8, name: "Tyler Reed", email: "tyler.r@university.edu", dept: "Economics", trustScore: 54, swapsCompleted: 3, donatedCount: 0, avatar: "TR", status: "Temporarily Banned (7 Days)", badge: "­ƒö┤ Banned (7 Days)", banReason: "Critically Low Trust Score (54%) & 3 Overdue Items (Authorized by Campus Admin #08)" },
+    { id: 9, name: "Chloe Bennett", email: "chloe.b@university.edu", dept: "Business Admin", trustScore: 68, swapsCompleted: 4, donatedCount: 0, avatar: "CB", status: "Active", badge: "ÔÜá´©Å At Risk (68%)", banReason: "Unreturned textbook dispute pending review" },
+    { id: 10, name: "Campus Admin", email: "admin@university.edu", dept: "Student Affairs", trustScore: 100, swapsCompleted: 0, donatedCount: 0, avatar: "AD", status: "Admin Staff", badge: "Staff Moderator" }
+  ];
+
+  let items = [
+    {
+      id: 101,
+      title: "Calculus II Textbook (Stewart 9th Ed)",
+      owner: "Emma Watson",
+      ownerId: 2,
+      category: "Textbooks",
+      rate: 3, // $3/day
+      deposit: 15, // Refundable deposit
+      minCharge: 5,
+      location: "Math Dept Lounge Hub",
+      distance: 0.2, // km
+      conditionGrade: 5,
+      conditionDetails: ["Flawless cover", "No highlighted text", "No missing pages", "Mint binding"],
+      time: "2h ago",
+      status: "available",
+      icon: "fa-book"
+    },
+    {
+      id: 102,
+      title: "Sony WH-1000XM4 Noise Canceling",
+      owner: "James Miller",
+      ownerId: 3,
+      category: "Electronics",
+      rate: 5,
+      deposit: 40,
+      minCharge: 8,
+      location: "Engineering Library Hub Desk",
+      distance: 0.6,
+      conditionGrade: 4,
+      conditionDetails: ["Minor scuffs", "ANC functional", "Original pads", "Case included"],
+      time: "due 09/04",
+      status: "pending",
+      icon: "fa-headphones"
+    },
+    {
+      id: 103,
+      title: "Apple 96W USB-C Power Adapter",
+      owner: "Priya Sharma",
+      ownerId: 4,
+      category: "Electronics",
+      rate: 2,
+      deposit: 20,
+      minCharge: 4,
+      location: "Science Hub Desk #1",
+      distance: 0.8,
+      conditionGrade: 5,
+      conditionDetails: ["No cable wear", "Fast-charge working", "Cosmetically flawless"],
+      time: "1d ago",
+      status: "available",
+      icon: "fa-laptop"
+    },
+    {
+      id: 104,
+      title: "Organic Chemistry 3D Model Kit",
+      owner: "David Kim",
+      ownerId: 5,
+      category: "Gear & Supplies",
+      rate: 1,
+      deposit: 10,
+      minCharge: 2,
+      location: "Chemistry Lab 3B Lounge",
+      distance: 1.1,
+      conditionGrade: 3,
+      conditionDetails: ["Box slightly worn", "Some carbon links missing", "Guidebook stained"],
+      time: "3h ago",
+      status: "available",
+      icon: "fa-flask"
+    },
+    {
+      id: 105,
+      title: "iClicker 2 Student Remote",
+      owner: "Sarah Jenkins",
+      ownerId: 6,
+      category: "Electronics",
+      rate: 2,
+      deposit: 15,
+      minCharge: 3,
+      location: "Student Union Desk Hub",
+      distance: 0.4,
+      conditionGrade: 4,
+      conditionDetails: ["Screen working", "Battery clean", "Flawless buttons"],
+      time: "5h ago",
+      status: "available",
+      icon: "fa-gamepad"
+    },
+    {
+      id: 106,
+      title: "Architect Ergonomic Drafting Lamp",
+      owner: "Marcus Vance",
+      ownerId: 7,
+      category: "Gear & Supplies",
+      rate: 3,
+      deposit: 25,
+      minCharge: 6,
+      location: "Design Studio Hub #4",
+      distance: 1.4,
+      conditionGrade: 5,
+      conditionDetails: ["Adjustable clamp perfect", "LED bulb included", "No cord wear"],
+      time: "2d ago",
+      status: "available",
+      icon: "fa-lightbulb"
+    }
+  ];
+
+  let borrowRequests = [
+    { id: 201, title: "TI-84 Plus Graphing Calculator", requester: "Alex Chen", requesterId: 1, category: "Electronics", urgency: "High", duration: "2 days", notes: "Urgent need for STATS 201 Midterm", status: "Open" },
+    { id: 202, title: "Biology 101 Lab Coat & Safety Goggles", requester: "David Kim", requesterId: 5, category: "Gear & Supplies", urgency: "High", duration: "Friday Session", notes: "Need Size M coat", status: "Open" },
+    { id: 203, title: "Physics Vol 1 Textbook", requester: "James Miller", requesterId: 3, category: "Textbooks", urgency: "Medium", duration: "2 weeks", notes: "To complete homework assignments", status: "Matched" }
+  ];
+
+  let exchanges = [
+    {
+      id: "EX-901",
+      itemId: 102,
+      itemTitle: "Sony WH-1000XM4 Noise Canceling",
+      lender: "James Miller",
+      borrower: "Priya Sharma",
+      baseRate: 5,
+      durationDays: 3,
+      platformFee: 0.30,
+      securityDeposit: 40,
+      escrowTotal: 55.30,
+      startDate: "2026-08-25",
+      dueDate: "2026-08-28",
+      hub: "Engineering Library Desk",
+      lifecycleStage: 6, // Borrowed (active)
+      disputeState: "None",
+      preInspection: { grade: 4, checklist: ["ANC functional", "Case included"] },
+      postInspection: null
+    },
+    {
+      id: "EX-902",
+      itemId: 103,
+      itemTitle: "Apple 96W USB-C Power Adapter",
+      lender: "Priya Sharma",
+      borrower: "Alex Chen",
+      baseRate: 2,
+      durationDays: 2,
+      platformFee: 0.08,
+      securityDeposit: 20,
+      escrowTotal: 24.08,
+      startDate: "2026-08-20",
+      dueDate: "2026-08-22",
+      hub: "Science Hub Desk #1",
+      lifecycleStage: 8, // Returned
+      disputeState: "Resolved",
+      preInspection: { grade: 5, checklist: ["No cable wear", "Cosmetically flawless"] },
+      postInspection: { grade: 5, checklist: ["No cable wear", "Cosmetically flawless"] }
+    },
+    {
+      id: "EX-903",
+      itemId: 101,
+      itemTitle: "Calculus II Textbook (Stewart 9th Ed)",
+      lender: "Emma Watson",
+      borrower: "David Kim",
+      baseRate: 3,
+      durationDays: 10,
+      platformFee: 0.60,
+      securityDeposit: 15,
+      escrowTotal: 45.60,
+      startDate: "2026-08-26",
+      dueDate: "2026-09-05",
+      hub: "Math Dept Lounge Hub",
+      lifecycleStage: 2, // Inspection phase
+      disputeState: "None",
+      preInspection: { grade: 5, checklist: ["Flawless cover", "No highlighted text"] },
+      postInspection: null
+    }
+  ];
+
+  let disputes = [
+    {
+      id: "DIS-401",
+      exchangeId: "EX-901",
+      itemTitle: "Sony WH-1000XM4 Noise Canceling",
+      claimant: "James Miller",
+      defendant: "Priya Sharma",
+      severity: "Minor",
+      lenderStatement: "Left earpad cushion returned with minor tear and scuff mark.",
+      evidenceImg: "evidence_scuff_proof.jpg",
+      escrowHeld: 40.00,
+      proposedDeduction: 15.00,
+      status: "Arbitration Pending"
+    }
+  ];
+
+  let eventTemplates = [
+    { id: 1, title: "Midterm Tech & Textbook Swap Fair", desc: "Free graphing calculators, lab manuals & study monitors available for checkout.", loc: "Central Library Hub", time: "Today ┬À 10 AM - 4 PM", attendees: 84 },
+    { id: 2, title: "Engineering Hardware Loan Derby", desc: "Digital multimeters, lab scopes, and Arduino kits available with $0 platform fees.", loc: "Engineering Atrium", time: "Thursday ┬À 1 PM - 5 PM", attendees: 52 },
+    { id: 3, title: "Dorm Move-Out Sustainable Gear Drive", desc: "Reclaim study lamps, monitors, and textbooks. 100% free peer reuse depot.", loc: "Quad Pavilion", time: "Saturday ┬À 9 AM - 3 PM", attendees: 118 }
+  ];
+
+  let currentUser = null;
+  let currentCategory = 'all';
+  let currentCatalogTab = 'listings';
+  let showAll = false;
+  let activeView = 'student';
+  let activeAdminTab = 'overview';
+  let comparisonBasket = [];
+
+  // =========================================================================
+  // LIFE CYCLE STAGES DEFINITION
+  // =========================================================================
+  const STAGES = [
+    "Available", "Requested", "Inspection", "Settlement", "Accepted",
+    "Handover", "Borrowed", "Return Due", "Returned", "Rated"
+  ];
+
+  // =========================================================================
+  // VIEW MANAGER
+  // =========================================================================
+  function switchView(view) {
+    activeView = view;
+    const studentContainer = document.getElementById('studentViewContainer');
+    const adminHub = document.getElementById('adminGovernanceHub');
+    const adminBtn = document.getElementById('adminPortalBtn');
+    const adminBtnText = document.getElementById('adminPortalBtnText');
+
+    if (view === 'admin') {
+      studentContainer.style.display = 'none';
+      adminHub.style.display = 'block';
+      adminBtn.classList.add('active-portal');
+      adminBtnText.innerText = "Exit Admin Hub";
+      renderAllAdminTabs();
+      showToast('Entered Admin Governance console.');
+    } else {
+      studentContainer.style.display = 'block';
+      adminHub.style.display = 'none';
+      adminBtn.classList.remove('active-portal');
+      adminBtnText.innerText = "Admin Governance";
+      renderCatalog();
+    }
   }
 
+  function toggleAdminPortal() {
+    if (activeView === 'admin') switchView('student');
+    else switchView('admin');
+  }
+
+  // =========================================================================
+  // STUDENT VIEW: RENDER CATALOG & SUSTAINABILITY DASHBOARD
+  // =========================================================================
+  function renderCatalog() {
+    const container = document.getElementById('catalogFeedContainer');
+    const searchVal = document.getElementById('searchInput').value.toLowerCase();
+
+    if (currentCatalogTab === 'listings') {
+      let filtered = items.filter(i => {
+        const matchCat = currentCategory === 'all' || i.category === currentCategory;
+        const matchSearch = i.title.toLowerCase().includes(searchVal) || i.owner.toLowerCase().includes(searchVal);
+        return matchCat && matchSearch;
+      });
+
+      document.getElementById('listingsCountBadge').innerText = items.length;
+      document.getElementById('activeItemsSummary').innerText = `${items.filter(i=>i.status==='available').length} resources available`;
+
+      const displayList = showAll ? filtered : filtered.slice(0, 5);
+
+      if (displayList.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:2rem; color:var(--text-secondary);">No matching listings.</div>`;
+        return;
+      }
+
+      container.innerHTML = displayList.map(item => {
+        const isInBasket = comparisonBasket.some(c => c.id === item.id);
+        return `
+          <div class="list-item" style="border: 1px solid var(--border-color); border-radius: 16px; padding: 10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; gap:12px; align-items:center;">
+              <div class="item-avatar"><i class="fas ${item.icon}"></i></div>
+              <div>
+                <div style="font-weight:700; display:flex; align-items:center; gap:8px;">
+                  ${escapeHtml(item.title)}
+                  <span class="badge-type type-price">$${item.rate}/day</span>
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-secondary); margin-top:2px;">
+                  Owner: <strong>${escapeHtml(item.owner)}</strong> ┬À Deposit: <strong>$${item.deposit}</strong> ┬À Hub: <strong>${escapeHtml(item.location)} (${item.distance}km)</strong>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-action-sm" onclick="toggleCompareBasket(${item.id})">
+                <i class="fas ${isInBasket ? 'fa-minus-circle' : 'fa-arrows-left-right'}"></i> ${isInBasket ? 'Remove Compare' : 'Compare'}
+              </button>
+              <button class="item-status status-available" onclick="initiateBorrowAgreement(${item.id})">Request Swap</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    } else {
+      let filtered = borrowRequests.filter(b => {
+        const matchCat = currentCategory === 'all' || b.category === currentCategory;
+        const matchSearch = b.title.toLowerCase().includes(searchVal) || b.requester.toLowerCase().includes(searchVal);
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:2rem; color:var(--text-secondary);">No current borrow needs.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(b => `
+        <div class="list-item" style="border: 1px solid var(--border-color); border-radius: 16px; padding: 10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-weight:700;">${escapeHtml(b.title)}</div>
+            <div style="font-size:0.75rem; color:var(--text-secondary); margin-top:2px;">
+              Requested by: <strong>${escapeHtml(b.requester)}</strong> ┬À Durations: ${escapeHtml(b.duration)} ┬À "${escapeHtml(b.notes)}"
+            </div>
+          </div>
+          <button class="btn-action-sm" onclick="matchNeedPost(${b.id})" style="background:var(--purple); color:white; border:none;"><i class="fas fa-handshake"></i> Fulfill Need</button>
+        </div>
+      `).join('');
+    }
+
+    renderMiniLeaderboard();
+    renderStudentActiveSwaps();
+  }
+
+  function setCategoryFilter(cat, btn) {
+    currentCategory = cat;
+    document.querySelectorAll('.cat-pill, .btn-action-sm').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderCatalog();
+  }
+
+  function switchCatalogTab(tab) {
+    currentCatalogTab = tab;
+    document.getElementById('tabListingsBtn').classList.toggle('active', tab === 'listings');
+    document.getElementById('tabNeedsBtn').classList.toggle('active', tab === 'needs');
+    renderCatalog();
+  }
+
+  function toggleViewAll(e) {
+    e.preventDefault();
+    showAll = !showAll;
+    document.getElementById('viewAllBtn').innerText = showAll ? "Show Top" : "See All";
+    renderCatalog();
+  }
+
+  // =========================================================================
+  // SMART MATCHING & RESOURCE COMPARISON BASKET
+  // =========================================================================
+  function toggleCompareBasket(itemId) {
+    const item = items.find(i => i.id === itemId);
+    const idx = comparisonBasket.findIndex(c => c.id === itemId);
+    if (idx > -1) {
+      comparisonBasket.splice(idx, 1);
+      showToast('Removed item from comparison basket');
+    } else {
+      if (comparisonBasket.length >= 3) {
+        showToast('You can compare a maximum of 3 resources at once!');
+        return;
+      }
+      comparisonBasket.push(item);
+      showToast('Added item to comparison basket');
+    }
+    renderCatalog();
+    if (comparisonBasket.length >= 2) {
+      renderComparisonDrawer();
+    }
+  }
+
+  function renderComparisonDrawer() {
+    const content = document.getElementById('comparatorContent');
+    content.innerHTML = `
+      <div style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:12px;">Comparing suitability, condition, charges, deposits, and distances.</div>
+      <div class="comparison-grid">
+        ${comparisonBasket.map(item => `
+          <div class="comparison-column ${item.conditionGrade === 5 ? 'highlighted' : ''}">
+            <div class="comparison-header"><i class="fas ${item.icon}"></i> ${escapeHtml(item.title)}</div>
+            <p><strong>Lender:</strong> ${escapeHtml(item.owner)}</p>
+            <p><strong>Suitability:</strong> ${item.conditionGrade}Ôÿà Condition</p>
+            <p><strong>Distance:</strong> ${item.distance} km</p>
+            <p><strong>Daily Charge:</strong> $${item.rate}</p>
+            <p><strong>Security Deposit:</strong> $${item.deposit}</p>
+            <p><strong>Min Charge:</strong> $${item.minCharge}</p>
+            <p style="margin-top:8px;"><strong>Checklist:</strong></p>
+            <ul style="padding-left:14px; font-size:0.7rem;">
+              ${item.conditionDetails.map(d=>`<li>${escapeHtml(d)}</li>`).join('')}
+            </ul>
+            <button class="btn-submit" onclick="closeModal('comparatorModal'); initiateBorrowAgreement(${item.id})" style="margin-top:12px; font-size:0.74rem; padding:6px;">Select & Request</button>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    document.getElementById('comparatorModal').style.display = 'flex';
+  }
+
+  function openBorrowBrowseModal() {
+    runSmartMatch();
+    document.getElementById('borrowBrowseModal').style.display = 'flex';
+  }
+
+  function runSmartMatch() {
+    const query = document.getElementById('browseSearchInput').value.toLowerCase();
+    const resultsContainer = document.getElementById('smartMatchResults');
+
+    // Filter and score resources
+    let scoredItems = items.map(item => {
+      let score = 0;
+      if (item.title.toLowerCase().includes(query)) score += 50;
+      score += (10 - item.distance * 5); // closer is better
+      score += (item.conditionGrade * 5); // higher condition is better
+      return { item, score };
+    }).sort((a, b) => b.score - a.score);
+
+    resultsContainer.innerHTML = `
+      <div style="font-weight:800; font-size:0.88rem; margin-bottom:10px;">Smart Ranked Campus Alternatives:</div>
+      ${scoredItems.map(wrapper => {
+        const item = wrapper.item;
+        return `
+          <div style="border:1px solid var(--border-color); border-radius:12px; padding:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong style="color:var(--primary);">${escapeHtml(item.title)}</strong> 
+              <span style="font-size:0.72rem; color:var(--text-secondary); margin-left:8px;">Suitability Score: ${Math.round(wrapper.score)} pts</span>
+              <div style="font-size:0.74rem; color:var(--text-secondary); margin-top:2px;">
+                Owner: ${escapeHtml(item.owner)} ┬À Distance: ${item.distance}km ┬À Condition: ${item.conditionGrade}Ôÿà ┬À Charge: $${item.rate}/day ┬À Deposit: $${item.deposit}
+              </div>
+            </div>
+            <button class="btn-action-sm" onclick="closeModal('borrowBrowseModal'); initiateBorrowAgreement(${item.id})">Request Swap</button>
+          </div>
+        `;
+      }).join('')}
+    `;
+  }
+
+  // =========================================================================
+  // FLEXIBLE CHARGES, Platform Fee & Digital Agreement
+  // =========================================================================
+  let activeAgreementItem = null;
+
+  function initiateBorrowAgreement(itemId) {
+    const item = items.find(i => i.id === itemId);
+    if (!item) return;
+
+    activeAgreementItem = item;
+    const platformFee = (item.rate * 3 * 0.02).toFixed(2); // 2% platform fee simulated for 3 days
+    const totalUpfront = (parseFloat(item.rate * 3) + parseFloat(platformFee) + parseFloat(item.deposit)).toFixed(2);
+
+    document.getElementById('agreementDetails').innerHTML = `
+      <div style="border:1.5px solid var(--primary); border-radius:18px; padding:12px; background:#EEF2FF;">
+        <div style="font-weight:800; color:var(--primary); font-size:0.95rem;"><i class="fas ${item.icon}"></i> ${escapeHtml(item.title)}</div>
+        <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px;">
+          Lender: <strong>${escapeHtml(item.owner)}</strong> (Trust Score: 98%)<br/>
+          Pickup Hub: <strong>${escapeHtml(item.location)}</strong> ┬À Pre-Condition: <strong>${item.conditionGrade}Ôÿà Great</strong>
+        </div>
+      </div>
+      <div class="escrow-breakdown-box">
+        <div class="escrow-row"><span>Base Borrow Charge (3 Days):</span><span>$${item.rate * 3}.00</span></div>
+        <div class="escrow-row"><span>Platform Service Fee (2%):</span><span>$${platformFee}</span></div>
+        <div class="escrow-row"><span>Refundable Security Deposit:</span><span>$${item.deposit}.00</span></div>
+        <div class="escrow-row total"><span>Total Upfront Hold Amount:</span><span>$${totalUpfront}</span></div>
+      </div>
+    `;
+
+    document.getElementById('borrowAgreementModal').style.display = 'flex';
+  }
+
+  function confirmBorrowAgreement(e) {
+    e.preventDefault();
+    const signature = document.getElementById('agreeSignature').value;
+    if (!signature) return;
+
+    // Simulate requesting swap
+    activeAgreementItem.status = 'pending';
+    const newExchange = {
+      id: `EX-${Math.floor(100 + Math.random() * 900)}`,
+      itemId: activeAgreementItem.id,
+      itemTitle: activeAgreementItem.title,
+      lender: activeAgreementItem.owner,
+      borrower: currentUser ? currentUser.name : "Alex Chen",
+      baseRate: activeAgreementItem.rate,
+      durationDays: 3,
+      platformFee: parseFloat((activeAgreementItem.rate * 3 * 0.02).toFixed(2)),
+      securityDeposit: activeAgreementItem.deposit,
+      escrowTotal: parseFloat((activeAgreementItem.rate * 3 + (activeAgreementItem.rate * 3 * 0.02) + activeAgreementItem.deposit).toFixed(2)),
+      startDate: "2026-08-27",
+      dueDate: "2026-08-30",
+      hub: activeAgreementItem.location,
+      lifecycleStage: 1, // Requested
+      disputeState: "None",
+      preInspection: { grade: activeAgreementItem.conditionGrade, checklist: [...activeAgreementItem.conditionDetails] },
+      postInspection: null
+    };
+
+    exchanges.unshift(newExchange);
+    closeModal('borrowAgreementModal');
+    renderCatalog();
+    renderAllAdminTabs();
+    showToast(`Signed Agreement Contract ${newExchange.id} authorized by ${signature}!`);
+  }
+
+  // =========================================================================
+  // BEFORE & AFTER CONDITION VISUALIZER
+  // =========================================================================
+  function viewInspectionDetails(exchangeId) {
+    const ex = exchanges.find(e => e.id === exchangeId);
+    if (!ex) return;
+
+    const content = document.getElementById('inspectionModalContent');
+    content.innerHTML = `
+      <div style="font-weight:800; font-size:0.9rem; margin-bottom:8px;">Exchange ID: <code>${ex.id}</code></div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+        <!-- Pre Handover -->
+        <div style="background:#F8FAFC; border:1px solid var(--border-color); border-radius:14px; padding:12px;">
+          <strong style="color:var(--primary); font-size:0.82rem;"><i class="fas fa-hand-holding-box"></i> Pre-Borrow Handover Condition</strong>
+          <div style="font-size:0.95rem; font-weight:800; color:var(--text); margin-top:4px;">Grade: ${ex.preInspection.grade} / 5 Ôÿà</div>
+          <div class="inspection-checklist">
+            ${ex.preInspection.checklist.map(item => `<div class="checklist-item verified"><i class="fas fa-check-circle"></i> ${escapeHtml(item)}</div>`).join('')}
+          </div>
+        </div>
+
+        <!-- Post Return -->
+        <div style="background:#F8FAFC; border:1px solid var(--border-color); border-radius:14px; padding:12px;">
+          <strong style="color:var(--accent-dark); font-size:0.82rem;"><i class="fas fa-clipboard-check"></i> Post-Return Condition Verification</strong>
+          ${ex.postInspection ? `
+            <div style="font-size:0.95rem; font-weight:800; color:var(--text); margin-top:4px;">Grade: ${ex.postInspection.grade} / 5 Ôÿà</div>
+            <div class="inspection-checklist">
+              ${ex.postInspection.checklist.map(item => `<div class="checklist-item verified"><i class="fas fa-check-circle"></i> ${escapeHtml(item)}</div>`).join('')}
+            </div>
+            ${ex.preInspection.grade > ex.postInspection.grade ? `<div style="margin-top:10px; color:var(--error); font-weight:800; font-size:0.75rem;"><i class="fas fa-warning"></i> Damage Delta Score: -${ex.preInspection.grade - ex.postInspection.grade} Grade Point Drop</div>` : ''}
+          ` : `
+            <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:10px;">Inspection pending safe return of the resource.</p>
+          `}
+        </div>
+      </div>
+    `;
+
+    document.getElementById('inspectionModal').style.display = 'flex';
+  }
+
+  // =========================================================================
+  // SUBMIT DAMAGE EVIDENCE & ADMIN DISPUTE ARBITRATION
+  // =========================================================================
+  function initiateDamageDispute(exchangeId) {
+    document.getElementById('disputeExchangeId').value = exchangeId;
+    document.getElementById('damageDisputeModal').style.display = 'flex';
+  }
+
+  function simulateEvidenceUpload() {
+    document.getElementById('evidenceUploadStatus').innerText = "Ô£à Evidence Photo Simulated: scuff_marks.jpg uploaded";
+    showToast('Photo evidence uploaded simulator triggered.');
+  }
+
+  function handleDamageDisputeSubmit(e) {
+    e.preventDefault();
+    const exId = document.getElementById('disputeExchangeId').value;
+    const severity = document.getElementById('disputeSeverity').value;
+    const desc = document.getElementById('disputeDescription').value;
+
+    const ex = exchanges.find(ex => ex.id === exId);
+    if (!ex) return;
+
+    let deduction = 5.00;
+    if (severity === 'Moderate') deduction = 15.00;
+    if (severity === 'Major') deduction = 30.00;
+    if (severity === 'Total') deduction = ex.securityDeposit;
+
+    const newDispute = {
+      id: `DIS-${Math.floor(400 + Math.random() * 99)}`,
+      exchangeId: exId,
+      itemTitle: ex.itemTitle,
+      claimant: ex.lender,
+      defendant: ex.borrower,
+      severity: severity,
+      lenderStatement: desc,
+      evidenceImg: "scuff_marks.jpg",
+      escrowHeld: ex.securityDeposit,
+      proposedDeduction: deduction,
+      status: "Arbitration Pending"
+    };
+
+    disputes.unshift(newDispute);
+    ex.disputeState = "Claim Filed";
+    closeModal('damageDisputeModal');
+    renderAllAdminTabs();
+    renderCatalog();
+    showToast('Dispute case created! Sent to Administrator console.');
+  }
+
+  function settleDisputeAdmin(disputeId, action) {
+    const disp = disputes.find(d => d.id === disputeId);
+    if (!disp) return;
+
+    const ex = exchanges.find(e => e.id === disp.exchangeId);
+    if (!ex) return;
+
+    if (action === 'approve') {
+      // Deduct trust score of defendant (borrower)
+      const defendantUser = users.find(u => u.name.toLowerCase() === disp.defendant.toLowerCase());
+      if (defendantUser) {
+        defendantUser.trustScore = Math.max(0, defendantUser.trustScore - 15);
+        if (defendantUser.trustScore < 75) {
+          defendantUser.badge = `ÔÜá´©Å Low Trust (${defendantUser.trustScore}%)`;
+        }
+      }
+
+      disp.status = "Settled - Payout Approved";
+      ex.disputeState = "Settled";
+      ex.lifecycleStage = 8; // Returned
+      ex.postInspection = { grade: 2, checklist: ["Returned Damaged - Deposit Deducted"] };
+
+      showToast(`Arbitration Approved: $${disp.proposedDeduction} deducted from borrower's deposit and sent to lender.`);
+    } else {
+      disp.status = "Dismissed - Deposit Refunded";
+      ex.disputeState = "Resolved";
+      ex.lifecycleStage = 8; // Returned
+      ex.postInspection = { grade: ex.preInspection.grade, checklist: [...ex.preInspection.checklist] };
+      showToast('Arbitration Dismissed: Deposit refunded 100% to borrower.');
+    }
+
+    renderAllAdminTabs();
+    renderCatalog();
+  }
+
+  // =========================================================================
+  // ADMIN TAB 7: EVENT TEMPLATE STUDIO
+  // =========================================================================
+  function renderEventPresets() {
+    const list = document.getElementById('eventTemplateList');
+    list.innerHTML = eventTemplates.map(t => `
+      <div style="border:1px solid var(--border-color); border-radius:12px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <strong style="color:var(--primary); font-size:0.82rem;">${escapeHtml(t.title)}</strong>
+          <div style="font-size:0.7rem; color:var(--text-secondary); margin-top:2px;">
+            Loc: ${escapeHtml(t.loc)} ┬À Time: ${escapeHtml(t.time)}
+          </div>
+        </div>
+        <button class="btn-action-sm" onclick="applyEventTemplate(${t.id})" style="background:var(--accent-light); color:var(--accent-dark);"><i class="fas fa-check"></i> Apply</button>
+      </div>
+    `).join('');
+  }
+
+  function applyEventTemplate(id) {
+    const t = eventTemplates.find(preset => preset.id === id);
+    if (!t) return;
+
+    document.getElementById('spotlightTitle').innerText = t.title;
+    document.getElementById('spotlightDesc').innerText = t.desc;
+    document.getElementById('spotlightLoc').innerText = `${t.loc} ┬À ${t.time}`;
+    document.getElementById('spotlightAttending').innerText = `${t.attendees} students participating`;
+
+    showToast(`Spotlight Event template applied: ${t.title}`);
+  }
+
+  function handleCustomEventSubmit(e) {
+    e.preventDefault();
+    const title = document.getElementById('customEventTitle').value;
+    const time = document.getElementById('customEventTime').value;
+    const loc = document.getElementById('customEventLoc').value;
+    const desc = document.getElementById('customEventDesc').value;
+
+    const newTemplate = {
+      id: Date.now(),
+      title,
+      desc,
+      loc,
+      time,
+      attendees: 1
+    };
+
+    eventTemplates.unshift(newTemplate);
+    applyEventTemplate(newTemplate.id);
+    renderEventPresets();
+    closeModal('eventModal');
+  }
+
+  // =========================================================================
+  // TAB DATA RENDERING LOGICS
+  // =========================================================================
+  function switchAdminTab(tabName, el) {
+    activeAdminTab = tabName;
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    if (el) el.classList.add('active');
+
+    const tabs = ['overview', 'borrowNeeds', 'lenderPosts', 'exchanges', 'disputes', 'userInspector', 'events'];
+    tabs.forEach(t => {
+      document.getElementById(`adminTab${t.charAt(0).toUpperCase() + t.slice(1)}`).style.display = 'none';
+    });
+
+    document.getElementById(`adminTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`).style.display = 'block';
+
+    if (tabName === 'events') renderEventPresets();
+  }
+
+  function renderAllAdminTabs() {
+    updateAdminKPIs();
+    renderOverviewTab();
+    renderAdminNeedsTab();
+    renderAdminLenderPostsTab();
+    renderAdminExchangesTab();
+    renderAdminDisputesTab();
+    renderUserDirectoryTable();
+    populatePairwiseDropdowns();
+  }
+
+  function updateAdminKPIs() {
+    document.getElementById('kpiActiveSwaps').innerText = exchanges.filter(e => e.lifecycleStage >= 1 && e.lifecycleStage <= 7).length;
+    document.getElementById('kpiBorrowNeeds').innerText = borrowRequests.length;
+    document.getElementById('kpiDisputesCount').innerText = disputes.filter(d => d.status.includes('Pending')).length;
+
+    // Platform service fee sum
+    const totalFees = exchanges.reduce((acc, curr) => acc + curr.platformFee, 0).toFixed(2);
+    const totalEscrow = exchanges.reduce((acc, curr) => acc + (curr.lifecycleStage < 8 ? curr.securityDeposit : 0), 0).toFixed(2);
+
+    document.getElementById('kpiPlatformFees').innerText = `$${totalFees}`;
+    document.getElementById('kpiEscrowHold').innerText = `$${totalEscrow}`;
+
+    // Badges
+    document.getElementById('adminBadgeNeeds').innerText = borrowRequests.length;
+    document.getElementById('adminBadgeListings').innerText = items.length;
+    document.getElementById('adminBadgeExchanges').innerText = exchanges.length;
+    document.getElementById('adminBadgeDisputes').innerText = disputes.filter(d => d.status.includes('Pending')).length;
+  }
+
+  // Helper to mask email for standard users
+  function displayEmail(email) {
+    if (currentUser && currentUser.role === 'Admin') {
+      return email;
+    }
+    if (!email) return '';
+    const parts = email.split('@');
+    if (parts.length !== 2) return '***';
+    const name = parts[0];
+    const domain = parts[1];
+    const maskedName = name.length > 2 ? name[0] + '***' + name[name.length - 1] : '***';
+    return `${maskedName}@${domain[0]}***.${domain.split('.').slice(1).join('.')}`;
+  }
+
+  function renderOverviewTab() {
+    const tbody = document.getElementById('overviewExchangesTableBody');
+    const searchVal = document.getElementById('adminExchangeSearch') ? document.getElementById('adminExchangeSearch').value.trim().toUpperCase() : '';
+    
+    let filtered = exchanges;
+    if (searchVal) {
+      filtered = exchanges.filter(ex => ex.id.toUpperCase().includes(searchVal));
+    }
+
+    const inspectorBox = document.getElementById('adminSearchInspectorBox');
+    if (searchVal && filtered.length > 0) {
+      inspectorBox.style.display = 'block';
+      const match = filtered[0]; // best match
+      inspectorBox.innerHTML = `
+        <div style="background:linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 100%); border:1.5px solid var(--primary); border-radius:18px; padding:15px; margin-bottom:15px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:0.75rem; font-weight:800; color:var(--primary); text-transform:uppercase; letter-spacing:0.04em;"><i class="fas fa-search-dollar"></i> Exchange Inspector</span>
+            <span style="font-size:0.8rem; font-weight:800; background:var(--primary); color:white; padding:2px 8px; border-radius:30px;">ID: ${match.id}</span>
+          </div>
+          <h4 style="font-size:1.05rem; font-weight:800; color:var(--text); margin-bottom:4px;">Resource: ${escapeHtml(match.itemTitle)}</h4>
+          
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.78rem; margin:10px 0; background:white; padding:10px; border-radius:12px; border:1px solid var(--border-color);">
+            <div>
+              <strong>Lender (Owner):</strong> ${escapeHtml(match.lender)}<br/>
+              <strong>Borrower (Peer):</strong> ${escapeHtml(match.borrower)}<br/>
+              <strong>Designated Pickup Hub:</strong> ${escapeHtml(match.hub)}
+            </div>
+            <div>
+              <strong>Dates:</strong> ${match.startDate} &rarr; ${match.dueDate}<br/>
+              <strong>Financials:</strong> Fee: $${match.baseRate * match.durationDays} ┬À Deposit: $${match.securityDeposit} ┬À Platform Fee (2%): $${match.platformFee}<br/>
+              <strong>Escrow Hold Total:</strong> <span style="font-weight:800; color:var(--primary);">$${match.escrowTotal}</span>
+            </div>
+          </div>
+
+          <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:var(--text-secondary); margin-bottom:4px;">Lifecycle Stepper Phase:</div>
+          <div style="font-size:0.7rem; display:flex; gap:3px; flex-wrap:wrap; background:white; padding:8px; border-radius:10px; border:1px solid var(--border-color);">
+            ${STAGES.map((s, idx) => `
+              <span style="background:${idx === match.lifecycleStage ? 'var(--primary)' : '#E2E8F0'}; color:${idx === match.lifecycleStage ? 'white' : 'var(--text-secondary)'}; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.62rem;">
+                ${s}
+              </span>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else {
+      inspectorBox.style.display = 'none';
+      inspectorBox.innerHTML = '';
+    }
+    
+    tbody.innerHTML = filtered.map(ex => `
+      <tr>
+        <td><code>${ex.id}</code></td>
+        <td><strong>${escapeHtml(ex.itemTitle)}</strong></td>
+        <td>${escapeHtml(ex.lender)}</td>
+        <td>${escapeHtml(ex.borrower)}</td>
+        <td><span class="badge-type type-price">${STAGES[ex.lifecycleStage]}</span></td>
+        <td><button class="btn-action-sm" onclick="viewInspectionDetails('${ex.id}')">Inspection</button></td>
+      </tr>
+    `).join('');
+  }
+
+  function renderAdminNeedsTab() {
+    const tbody = document.getElementById('adminBorrowNeedsTableBody');
+    tbody.innerHTML = borrowRequests.map(b => `
+      <tr>
+        <td><strong>${escapeHtml(b.title)}</strong></td>
+        <td>${escapeHtml(b.requester)}</td>
+        <td><span class="badge-type type-urgency-high">${escapeHtml(b.urgency)}</span></td>
+        <td>${escapeHtml(b.duration)}</td>
+        <td>Verified Student</td>
+        <td>
+          <button class="btn-action-sm" onclick="matchNeedPost(${b.id})">Direct Match</button>
+          <button class="btn-action-sm btn-action-danger" onclick="deleteBorrowNeed(${b.id})"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function renderAdminLenderPostsTab() {
+    const tbody = document.getElementById('adminLenderPostsTableBody');
+    tbody.innerHTML = items.map(item => `
+      <tr>
+        <td><strong>${escapeHtml(item.title)}</strong><br/><span style="font-size:0.7rem; color:var(--text-secondary);">${escapeHtml(item.category)}</span></td>
+        <td>${escapeHtml(item.owner)}</td>
+        <td>$${item.rate}/day</td>
+        <td>$${item.deposit} Refundable</td>
+        <td>${escapeHtml(item.location)}</td>
+        <td><span class="badge-type type-free">APPROVED</span></td>
+      </tr>
+    `).join('');
+  }
+
+  function renderAdminExchangesTab() {
+    const tbody = document.getElementById('adminExchangesTableBody');
+    const searchVal = document.getElementById('adminExchangeSearch') ? document.getElementById('adminExchangeSearch').value.trim().toUpperCase() : '';
+    
+    let filtered = exchanges;
+    if (searchVal) {
+      filtered = exchanges.filter(ex => ex.id.toUpperCase().includes(searchVal));
+    }
+
+    tbody.innerHTML = filtered.map(ex => {
+      // visual stepper component embed
+      let stepper = `
+        <div style="font-size:0.7rem; display:flex; gap:3px; flex-wrap:wrap;">
+          ${STAGES.map((s, idx) => `
+            <span style="background:${idx === ex.lifecycleStage ? 'var(--primary)' : '#E2E8F0'}; color:${idx === ex.lifecycleStage ? 'white' : 'var(--text-secondary)'}; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.62rem;">
+              ${s}
+            </span>
+          `).join('')}
+        </div>
+      `;
+
+      return `
+        <tr>
+          <td><code>${ex.id}</code></td>
+          <td><strong>${escapeHtml(ex.itemTitle)}</strong></td>
+          <td>Lender: ${escapeHtml(ex.lender)}<br/>Borrower: ${escapeHtml(ex.borrower)}</td>
+          <td>
+            Charge (3 days): $${ex.baseRate * ex.durationDays}<br/>
+            Deposit: $${ex.securityDeposit}<br/>
+            <span style="color:var(--accent-dark); font-weight:800;">Platform Service Fee (2%): $${ex.platformFee}</span>
+          </td>
+          <td>${stepper}</td>
+          <td>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+              <button class="btn-action-sm" onclick="advanceStage('${ex.id}')"><i class="fas fa-play"></i> Advance Stage</button>
+              <button class="btn-action-sm" onclick="viewInspectionDetails('${ex.id}')"><i class="fas fa-clipboard-check"></i> Compare Visuals</button>
+              ${ex.lifecycleStage === 6 ? `<button class="btn-action-sm btn-action-danger" onclick="initiateDamageDispute('${ex.id}')"><i class="fas fa-triangle-exclamation"></i> Raise Dispute</button>` : ''}
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function renderAdminDisputesTab() {
+    const tbody = document.getElementById('adminDisputesTableBody');
+    tbody.innerHTML = disputes.map(d => `
+      <tr>
+        <td><code>${d.id}</code></td>
+        <td><code>${d.exchangeId}</code></td>
+        <td><strong>${escapeHtml(d.itemTitle)}</strong></td>
+        <td><strong>${escapeHtml(d.claimant)}</strong></td>
+        <td><strong>${escapeHtml(d.defendant)}</strong></td>
+        <td style="max-width:200px; font-size:0.75rem;">
+          <strong>Severity:</strong> <span class="badge-type type-banned">${d.severity}</span><br/>
+          "${escapeHtml(d.lenderStatement)}"
+        </td>
+        <td>
+          Hold Escrow: $${d.escrowHeld}.00<br/>
+          <span style="color:var(--error); font-weight:800;">Proposed Claim: $${d.proposedDeduction}.00</span>
+        </td>
+        <td>
+          ${d.status.includes('Pending') ? `
+            <div style="display:flex; gap:4px;">
+              <button class="btn-action-sm" style="background:var(--accent); color:white;" onclick="settleDisputeAdmin('${d.id}', 'approve')">Approve Deduction</button>
+              <button class="btn-action-sm btn-action-danger" onclick="settleDisputeAdmin('${d.id}', 'dismiss')">Dismiss Claim</button>
+            </div>
+          ` : `<span style="font-weight:700; color:var(--text-secondary);">${d.status}</span>`}
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function renderUserDirectoryTable() {
+    const tbody = document.getElementById('adminUserDirectoryTableBody');
+    tbody.innerHTML = users.map(u => {
+      const isBanned = u.status.includes('Banned');
+      return `
+        <tr>
+          <td><strong>${escapeHtml(u.name)}</strong><br/><span style="font-size:0.7rem; color:var(--text-secondary);">${escapeHtml(displayEmail(u.email))}</span></td>
+          <td>${escapeHtml(u.dept)}</td>
+          <td><span style="font-weight:800; color:${u.trustScore < 70 ? 'var(--error)' : 'var(--accent-dark)'};">${u.trustScore}%</span></td>
+          <td>${escapeHtml(u.status)}</td>
+          <td>
+            ${isBanned ? `
+              <button class="btn-action-sm btn-action-unban" onclick="openAdminUnbanModal(${u.id})"><i class="fas fa-unlock"></i> Unban User</button>
+            ` : `
+              <button class="btn-action-sm btn-action-ban" onclick="openAdminBanModal(${u.id})"><i class="fas fa-ban"></i> Ban User</button>
+            `}
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function populatePairwiseDropdowns() {
+    const selA = document.getElementById('pairwiseUserA');
+    const selB = document.getElementById('pairwiseUserB');
+    if (!selA || !selB) return;
+
+    const opts = users.map(u=>`<option value="${escapeHtml(u.name)}">${escapeHtml(u.name)}</option>`).join('');
+    selA.innerHTML = opts;
+    selB.innerHTML = opts;
+
+    if (users.length >= 2) {
+      selA.selectedIndex = 0;
+      selB.selectedIndex = 3;
+    }
+    inspectPairwise();
+  }
+
+  function inspectPairwise() {
+    const uA = document.getElementById('pairwiseUserA').value;
+    const uB = document.getElementById('pairwiseUserB').value;
+    const results = document.getElementById('pairwiseResultContainer');
+
+    const mutual = exchanges.filter(ex => 
+      (ex.lender.toLowerCase() === uA.toLowerCase() && ex.borrower.toLowerCase() === uB.toLowerCase()) ||
+      (ex.lender.toLowerCase() === uB.toLowerCase() && ex.borrower.toLowerCase() === uA.toLowerCase())
+    );
+
+    if (mutual.length === 0) {
+      results.innerHTML = `<div style="font-size:0.75rem; color:var(--text-secondary);">No mutual exchanges between ${escapeHtml(uA)} and ${escapeHtml(uB)}.</div>`;
+      return;
+    }
+
+    results.innerHTML = `
+      <table class="admin-data-table" style="font-size:0.75rem; margin-top:8px;">
+        <thead>
+          <tr>
+            <th>Ex ID</th>
+            <th>Item</th>
+            <th>Lender</th>
+            <th>Borrower</th>
+            <th>Stage</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${mutual.map(ex => `
+            <tr>
+              <td><code>${ex.id}</code></td>
+              <td>${escapeHtml(ex.itemTitle)}</td>
+              <td>${escapeHtml(ex.lender)}</td>
+              <td>${escapeHtml(ex.borrower)}</td>
+              <td>${STAGES[ex.lifecycleStage]}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  }
+
+  // =========================================================================
+  // ACTIONS EXECUTION
+  // =========================================================================
+  function advanceStage(exchangeId) {
+    const ex = exchanges.find(e => e.id === exchangeId);
+    if (!ex) return;
+
+    if (ex.lifecycleStage < 9) {
+      ex.lifecycleStage += 1;
+      
+      // Automatic return condition verification delta checks
+      if (ex.lifecycleStage === 8) {
+        ex.postInspection = { grade: ex.preInspection.grade, checklist: [...ex.preInspection.checklist] };
+        // Reset item status back to available
+        const item = items.find(i=>i.id===ex.itemId);
+        if(item) item.status = 'available';
+      }
+
+      renderAllAdminTabs();
+      renderCatalog();
+      showToast(`Exchange ${exchangeId} advanced to stage: ${STAGES[ex.lifecycleStage]}`);
+    }
+  }
+
+  function matchNeedPost(needId) {
+    const req = borrowRequests.find(r => r.id === needId);
+    if (req) {
+      req.status = "Matched";
+      showToast(`Fulfillment offered for need: ${req.title}`);
+      renderCatalog();
+      renderAllAdminTabs();
+    }
+  }
+
+  function deleteBorrowNeed(id) {
+    borrowRequests = borrowRequests.filter(r => r.id !== id);
+    renderAllAdminTabs();
+    renderCatalog();
+    showToast('Need post removed.');
+  }
+
+  // =========================================================================
+  // ACTIVE EXCHANGE TRACKER FOR STUDENTS (LOGGED IN SWAP DETAILS)
+  // =========================================================================
+  function renderStudentActiveSwaps() {
+    const box = document.getElementById('studentSwapsTrackerBox');
+    const list = document.getElementById('studentActiveSwapsList');
+    if (!box || !list) return;
+
+    if (!currentUser) {
+      box.style.display = 'none';
+      return;
+    }
+
+    const mySwaps = exchanges.filter(ex => 
+      ex.lender.toLowerCase() === currentUser.name.toLowerCase() || 
+      ex.borrower.toLowerCase() === currentUser.name.toLowerCase()
+    );
+
+    if (mySwaps.length === 0) {
+      box.style.display = 'none';
+      return;
+    }
+
+    box.style.display = 'block';
+    list.innerHTML = mySwaps.map(ex => {
+      const isLender = ex.lender.toLowerCase() === currentUser.name.toLowerCase();
+      const oppParty = isLender ? ex.borrower : ex.lender;
+      const roleLabel = isLender ? "Lending" : "Borrowing";
+
+      return `
+        <div style="background:white; border:1px solid var(--border-color); border-radius:12px; padding:8px; font-size:0.75rem;">
+          <div style="font-weight:700; color:var(--primary);">${escapeHtml(ex.itemTitle)}</div>
+          <div style="color:var(--text-secondary); margin-top:2px;">
+            <strong>Exchange ID:</strong> <code>${ex.id}</code><br/>
+            ${roleLabel} ${isLender ? 'to' : 'from'} <strong>${escapeHtml(oppParty)}</strong><br/>
+            Current Phase: <strong>${STAGES[ex.lifecycleStage]}</strong>
+          </div>
+          <div style="margin-top:6px; display:flex; gap:4px;">
+            <button class="btn-action-sm" style="font-size:0.65rem; padding:3px 8px;" onclick="viewInspectionDetails('${ex.id}')">View Condition Specs</button>
+            ${!isLender && ex.lifecycleStage === 6 ? `<button class="btn-action-sm btn-action-danger" style="font-size:0.65rem; padding:3px 8px;" onclick="initiateDamageDispute('${ex.id}')">Report Damage</button>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // =========================================================================
+  // SECURITY MODERATION (BAN / UNBAN EXECUTION)
+  // =========================================================================
+  function openAdminBanModal(userId) {
+    const user = users.find(u => u.id === userId);
+    if (!user) return;
+    document.getElementById('banTargetUserId').value = user.id;
+    document.getElementById('banTargetDetails').innerHTML = `
+      <div style="font-size:0.8rem; background:#FEF2F2; padding:10px; border-radius:8px; margin-bottom:8px;">
+        Student Target: <strong>${escapeHtml(user.name)}</strong> (${escapeHtml(displayEmail(user.email))})
+      </div>
+    `;
+    document.getElementById('adminBanAuthModal').style.display = 'flex';
+  }
+
+  function executeAdminTemporaryBan(e) {
+    e.preventDefault();
+    const id = parseInt(document.getElementById('banTargetUserId').value);
+    const reason = document.getElementById('banReasonSelect').value;
+    const key = document.getElementById('banAdminSecurityKey').value;
+
+    if (key !== 'admin123') {
+      showToast('Invalid security authentication passcode!');
+      return;
+    }
+
+    const u = users.find(user => user.id === id);
+    if (u) {
+      u.status = "Banned";
+      u.banReason = reason;
+      u.badge = "­ƒö┤ Account Frozen";
+      closeModal('adminBanAuthModal');
+      renderAllAdminTabs();
+      renderCatalog();
+      showToast(`Student ${u.name} successfully temporarily banned.`);
+    }
+  }
+
+  function openAdminUnbanModal(userId) {
+    const user = users.find(u => u.id === userId);
+    if (!user) return;
+    document.getElementById('unbanTargetUserId').value = user.id;
+    document.getElementById('unbanTargetDetails').innerHTML = `
+      <div style="font-size:0.8rem; background:#ECFDF5; padding:10px; border-radius:8px; margin-bottom:8px;">
+        Restoring Student: <strong>${escapeHtml(user.name)}</strong> (${escapeHtml(displayEmail(user.email))})
+      </div>
+    `;
+    document.getElementById('adminUnbanAuthModal').style.display = 'flex';
+  }
+
+  function executeAdminUnban(e) {
+    e.preventDefault();
+    const id = parseInt(document.getElementById('unbanTargetUserId').value);
+    const score = parseInt(document.getElementById('unbanTrustScoreSelect').value);
+    const key = document.getElementById('unbanAdminSecurityKey').value;
+
+    if (key !== 'admin123') {
+      showToast('Invalid security authentication passcode!');
+      return;
+    }
+
+    const u = users.find(user => user.id === id);
+    if (u) {
+      u.status = "Active";
+      u.trustScore = score;
+      u.badge = "Verified Student";
+      closeModal('adminUnbanAuthModal');
+      renderAllAdminTabs();
+      renderCatalog();
+      showToast(`Student ${u.name} restored to Active good standing.`);
+    }
+  }
+
+  // =========================================================================
+  // DEMO AUTH FUNCTIONS
+  // =========================================================================
+  function switchLoginTab(type) {
+    const userBtn = document.getElementById('toggleUserBtn');
+    const adminBtn = document.getElementById('toggleAdminBtn');
+    if (type === 'user') {
+      userBtn.classList.add('active');
+      adminBtn.classList.remove('active');
+    } else {
+      adminBtn.classList.add('active');
+      userBtn.classList.remove('active');
+    }
+  }
+
+  function handleUserLogin() {
+    currentUser = { id: 1, name: "Alex Chen", avatar: "AC", role: "Student" };
+    updateAuthUI();
+    showToast('Signed in as student Alex Chen.');
+  }
+
+  function handleAdminLogin() {
+    currentUser = { id: 10, name: "Campus Admin", avatar: "AD", role: "Admin" };
+    updateAuthUI();
+    switchView('admin');
+    showToast('Campus admin authorized.');
+  }
+
+  function logout() {
+    currentUser = null;
+    updateAuthUI();
+    switchView('student');
+  }
+
+  function updateAuthUI() {
+    const toggle = document.getElementById('loginToggleContainer');
+    const pill = document.getElementById('userProfilePill');
+    if (currentUser) {
+      toggle.style.display = 'none';
+      pill.style.display = 'flex';
+      document.getElementById('userAvatar').innerText = currentUser.avatar;
+      document.getElementById('userName').innerText = currentUser.name;
+    } else {
+      toggle.style.display = 'flex';
+      pill.style.display = 'none';
+    }
+    renderCatalog();
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toastNotification');
+    document.getElementById('toastMessage').innerText = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function exportAuditLog() {
+    showToast('Audit CSV download simulation triggered.');
+  }
+
+  // Load Initial Catalog
+  renderCatalog();
+  renderAllAdminTabs();
+
+
+
+  // 3D Curved Arch Orbital Carousel Logic & Data
   const recentProducts = [
     { id: 101, title: "TI-84 Plus CE Graphing Calculator", owner: "Alex Chen", category: "Electronics", img: "https://images.unsplash.com/photo-1611125832047-1d7ad1e8e48a?q=80&w=600&auto=format&fit=crop" },
     { id: 102, title: "Sony WH-1000XM4 Noise Canceling Headphones", owner: "James Wilson", category: "Electronics", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop" },
@@ -1964,494 +5462,6 @@
     { id: 115, title: "Campbell Biology 12th Edition Hardcover", owner: "Isabella Cruz", category: "Textbooks", img: "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop" }
   ];
 
-  let items = recentProducts.map(p => ({
-    id: p.id,
-    title: p.title,
-    owner: p.owner,
-    time: "Available now",
-    status: "available",
-    category: p.category,
-    icon: p.category === 'Textbooks' ? 'fa-book' : (p.category === 'Electronics' ? 'fa-microchip' : 'fa-box'),
-    subText: `lent by ${p.owner} · Available now`,
-    community: p.category === 'Electronics' ? 'Engineering & Tech Hub' : (p.category === 'Textbooks' ? 'Business & Economics Forum' : 'Gaming & Dorm Life Society')
-  }));
-
-  let joinedCommunities = [
-    { name: "Engineering & Tech Hub", tag: "ENG", icon: "⚙️" },
-    { name: "Med & Bio Sciences Guild", tag: "MED", icon: "🩺" },
-    { name: "Design, Arts & Media Collective", tag: "ART", icon: "🎨" }
-  ];
-
-  let pendingJoinTarget = null;
-  let activeCommunity = "Engineering & Tech Hub";
-  let activeChannel = "general";
-  let cart = [];
-  let currentUser = null;
-  let currentCategory = 'all';
-
-  // Switch Page
-  function switchPage(page) {
-    document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
-    document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
-
-    if (page === 'marketplace') {
-      document.getElementById('marketplaceView').classList.add('active-view');
-      document.getElementById('viewBtnMarketplace').classList.add('active');
-    } else {
-      document.getElementById('communityView').classList.add('active-view');
-      document.getElementById('viewBtnCommunity').classList.add('active');
-      renderJoinedServerSidebar();
-    }
-  }
-
-  // Discord Sidebar Joined Server Rendering
-  function renderJoinedServerSidebar() {
-    const container = document.getElementById('joinedServerIconsContainer');
-    document.getElementById('joinedCountBadge').innerText = `${joinedCommunities.length} Joined`;
-
-    container.innerHTML = joinedCommunities.map(comm => {
-      const isActive = comm.name === activeCommunity;
-      return `
-        <div class="server-icon ${isActive ? 'active' : ''}" onclick="openDiscordServer('${comm.name}')" title="${escapeHtml(comm.name)}">
-          ${comm.icon}
-          <span class="server-badge-count">●</span>
-        </div>
-      `;
-    }).join('');
-  }
-
-  // Open Discord Server / Switch Community
-  function openDiscordServer(name) {
-    const discoverIcon = document.getElementById('serverIconDiscover');
-    
-    if (name === 'discover') {
-      discoverIcon.classList.add('active');
-      document.getElementById('discordDiscoveryView').style.display = 'block';
-      document.getElementById('discordActiveRoomView').style.display = 'none';
-      document.getElementById('sidebarCommTitle').innerText = "Discover Hubs";
-      renderJoinedServerSidebar();
-      return;
-    }
-
-    discoverIcon.classList.remove('active');
-    activeCommunity = name;
-    renderJoinedServerSidebar();
-
-    document.getElementById('discordDiscoveryView').style.display = 'none';
-    document.getElementById('discordActiveRoomView').style.display = 'block';
-
-    document.getElementById('sidebarCommTitle').innerText = name;
-    document.getElementById('specializedCommName').innerText = name;
-    
-    switchChannel('general');
-  }
-
-  const communityChatsData = {
-    "Engineering & Tech Hub": {
-      "general": [
-        { name: "Jordan Smith", tag: "Junior · Electrical", avatar: "JS", text: "Hey everyone! Anyone got an Arduino Uno & breadboard I can borrow for the weekend lab project? Will return by Monday morning!" },
-        { name: "Alex Chen", tag: "Lender", avatar: "AC", text: "I have an extra Arduino starter kit available! Just listed it in the specialized marketplace tab above." },
-        { name: "Maya Lin", tag: "Senior · CS", avatar: "ML", text: "Does anyone have a spare USB-C 96W MacBook charger near the engineering library?" }
-      ],
-      "requests": [
-        { name: "Ethan Hunt", tag: "Sophomore", avatar: "EH", text: "REQUEST: Need a TI-84 Plus CE Calculator for the Physics II exam tomorrow at 2 PM!" },
-        { name: "Sophia Zhang", tag: "Junior", avatar: "SZ", text: "REQUEST: Looking for a Hakko soldering iron for 3 hours to fix a PCB." }
-      ],
-      "lending": [
-        { name: "Marcus Vance", tag: "Graduate Student", avatar: "MV", text: "OFFER: Free lending Sony Alpha DSLR Camera for media/project work. DM me!" },
-        { name: "David Kim", tag: "Senior", avatar: "DK", text: "OFFER: Raspberry Pi 4 (8GB RAM) available for 1-week loan." }
-      ]
-    },
-    "Med & Bio Sciences Guild": {
-      "general": [
-        { name: "Dr. Maya Lin", tag: "Med Student · Year 2", avatar: "ML", text: "Welcome Med & Bio folks! Remember to disinfect all shared stethoscopes and bio kits before return." },
-        { name: "Camila Allen", tag: "Pre-Med", avatar: "CA", text: "Anyone currently studying for MCAT? Want to share prep books or flashcards?" }
-      ],
-      "requests": [
-        { name: "Alexander Young", tag: "Bio Major", avatar: "AY", text: "REQUEST: In urgent need of a unisex Large White Lab Coat for today's 3 PM Anatomy lab!" }
-      ],
-      "lending": [
-        { name: "Isabella Cruz", tag: "Senior Bio", avatar: "IC", text: "OFFER: Campbell Biology 12th Ed Hardcover available for semester loan!" }
-      ]
-    },
-    "Design, Arts & Media Collective": {
-      "general": [
-        { name: "Leo Rivera", tag: "Graphic Design", avatar: "LR", text: "Hey artists! If anyone needs a Wacom tablet or camera tripod for shoot week, check the catalog." },
-        { name: "Chloe Turner", tag: "Film Major", avatar: "CT", text: "Looking for a boom mic for a 2-day short film shoot on quad!" }
-      ],
-      "requests": [
-        { name: "Evelyn White", tag: "Arts Junior", avatar: "EW", text: "REQUEST: Heavy Duty Camera Tripod needed for sunset photography assignment." }
-      ],
-      "lending": [
-        { name: "Hazel Morris", tag: "Design Lead", avatar: "HM", text: "OFFER: Fujifilm Instax Mini camera available! Just bring your own instant film." }
-      ]
-    },
-    "Business & Economics Forum": {
-      "general": [
-        { name: "Benjamin Taylor", tag: "Finance · Senior", avatar: "BT", text: "Welcome to Biz & Econ! Great place to swap financial calculators and case study textbooks." },
-        { name: "Sophia Zhang", tag: "Econ Junior", avatar: "SZ", text: "Anyone have HP 10bII+ Financial Calculator for the Corporate Finance midterm?" }
-      ],
-      "requests": [
-        { name: "Liam Nelson", tag: "Accounting", avatar: "LN", text: "REQUEST: Microeconomics Mankiw 9th Ed textbook for weekend homework." }
-      ],
-      "lending": [
-        { name: "Audrey Cox", tag: "MBA Candidate", avatar: "AC", text: "OFFER: TI BA II Plus Professional Financial Calculator listed in marketplace." }
-      ]
-    },
-    "Gaming & Dorm Life Society": {
-      "general": [
-        { name: "Aria Gonzalez", tag: "Dorm Rep · Quad", avatar: "AG", text: "Gaming night in dorm lounge tonight at 8 PM! We're swapping Switch games & VR headsets." },
-        { name: "Matthew Nelson", tag: "Junior", avatar: "MN", text: "Who has an extra PS5 DualSense controller for FIFA tournament?" }
-      ],
-      "requests": [
-        { name: "Daniel Baker", tag: "Dorm 3B", avatar: "DB", text: "REQUEST: Mini projector for outdoor movie night behind North Quad." }
-      ],
-      "lending": [
-        { name: "Abigail King", tag: "Sophomore", avatar: "AK", text: "OFFER: Meta Quest 2 VR Headset available for weekend loan." }
-      ]
-    }
-  };
-
-  function renderCommunityChats(commName, channel) {
-    const list = document.getElementById('chatMessageList');
-    if (!list) return;
-
-    const commData = communityChatsData[commName] || communityChatsData["Engineering & Tech Hub"];
-    const msgs = commData[channel] || commData["general"] || [];
-
-    list.innerHTML = msgs.map(m => `
-      <div class="chat-msg-row">
-        <div class="chat-avatar">${m.avatar}</div>
-        <div class="chat-bubble">
-          <div class="chat-user-name">
-            <span>${escapeHtml(m.name)} <span class="chat-user-tag">${escapeHtml(m.tag)}</span></span>
-            <button class="btn-report-chat" onclick="openReportModal('${escapeHtml(m.name)}', '${escapeHtml(m.text)}')" title="Report message"><i class="far fa-flag"></i> Report</button>
-          </div>
-          <div class="chat-text">${escapeHtml(m.text)}</div>
-        </div>
-      </div>
-    `).join('');
-
-    list.scrollTop = list.scrollHeight;
-  }
-
-  // Discord Channel Switcher
-  function switchChannel(channel) {
-    activeChannel = channel;
-
-    // Switch out of Discovery View into Active Room View
-    const discView = document.getElementById('discordDiscoveryView');
-    const roomView = document.getElementById('discordActiveRoomView');
-    const discIcon = document.getElementById('serverIconDiscover');
-
-    if (discView) discView.style.display = 'none';
-    if (roomView) roomView.style.display = 'block';
-    if (discIcon) discIcon.classList.remove('active');
-
-    document.querySelectorAll('.channel-item').forEach(el => el.classList.remove('active'));
-
-    const chanKey = channel.charAt(0).toUpperCase() + channel.slice(1);
-    const targetEl = document.getElementById(`chan${chanKey}`);
-    if (targetEl) targetEl.classList.add('active');
-
-    const titleEl = document.getElementById('discordRoomTitle');
-    const topicEl = document.getElementById('discordRoomTopic');
-    const chatStage = document.getElementById('discordChatStage');
-    const marketStage = document.getElementById('discordMarketStage');
-
-    if (channel === 'market') {
-      if (chatStage) chatStage.style.display = 'none';
-      if (marketStage) marketStage.style.display = 'block';
-      if (titleEl) titleEl.innerHTML = `<i class="fas fa-store"></i> #specialized-catalog · ${activeCommunity}`;
-      if (topicEl) topicEl.innerText = `Exclusive items listed by verified ${activeCommunity} members.`;
-      renderSpecializedMarketplace(activeCommunity);
-    } else {
-      if (chatStage) chatStage.style.display = 'block';
-      if (marketStage) marketStage.style.display = 'none';
-      if (titleEl) titleEl.innerHTML = `<i class="fas fa-hashtag"></i> #${channel}-chat · ${activeCommunity}`;
-      if (topicEl) topicEl.innerText = `Official ${channel} channel for ${activeCommunity}. Ask for gear or chat with peers.`;
-      renderCommunityChats(activeCommunity, channel);
-    }
-  }
-
-  // Search Communities in Discovery
-  function filterCommunitiesDiscovery() {
-    const val = document.getElementById('commSearchInput').value.toLowerCase();
-    const items = document.querySelectorAll('#hoverExpandList .hover-expand-item');
-
-    items.forEach(item => {
-      const name = item.getAttribute('data-name').toLowerCase();
-      const desc = item.getAttribute('data-desc').toLowerCase();
-      if (name.includes(val) || desc.includes(val)) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  }
-
-  function focusCommunitySearch() {
-    openDiscordServer('discover');
-    document.getElementById('commSearchInput').focus();
-  }
-
-  // Rules & Regulations Join Prompt
-  function promptJoinCommunity(name, tag) {
-    const exists = joinedCommunities.some(c => c.name === name);
-    if (exists) {
-      openDiscordServer(name);
-      showToast(`Switched to ${name}`);
-      return;
-    }
-
-    pendingJoinTarget = { 
-      name: name, 
-      tag: tag || 'CAMPUS', 
-      icon: name.includes('Eng') ? '⚙️' : (name.includes('Med') ? '🩺' : (name.includes('Art') ? '🎨' : (name.includes('Biz') ? '📈' : '🎮'))) 
-    };
-
-    joinedCommunities.push(pendingJoinTarget);
-    document.getElementById('rulesCommName').innerText = name;
-    document.getElementById('rulesModal').style.display = 'flex';
-    openDiscordServer(name);
-    showToast(`Joined ${name}! 🎉 Review rules & guidelines.`);
-  }
-
-  function confirmAcceptRules() {
-    if (!pendingJoinTarget && joinedCommunities.length > 0) {
-      pendingJoinTarget = joinedCommunities[joinedCommunities.length - 1];
-    }
-    const targetName = pendingJoinTarget ? pendingJoinTarget.name : activeCommunity;
-    pendingJoinTarget = null;
-    closeModal('rulesModal');
-    showToast(`Rules accepted! Welcome to ${targetName} 🎉`);
-    openDiscordServer(targetName);
-  }
-
-  // Share Community Feature
-  function shareActiveCommunity() {
-    const url = window.location.href;
-    const shareText = `Join the ${activeCommunity} on swap campus to borrow and lend gear! ${url}#community=${encodeURIComponent(activeCommunity)}`;
-    
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(shareText);
-    }
-    showToast(`🔗 Community invite link copied to clipboard! Share with your classmates.`);
-  }
-
-  // Leave Community Feature
-  function leaveActiveCommunity() {
-    if (!activeCommunity) return;
-    const target = activeCommunity;
-    joinedCommunities = joinedCommunities.filter(c => c.name !== target);
-    showToast(`You left ${target}`);
-    openDiscordServer('discover');
-  }
-
-  // Report Chat Message Feature
-  let reportingTarget = null;
-  function openReportModal(username, text) {
-    reportingTarget = { username, text };
-    document.getElementById('reportTargetText').innerText = `Report message by ${username}: "${text}"`;
-    document.getElementById('reportModal').style.display = 'flex';
-  }
-
-  function submitChatReport(e) {
-    if(e) e.preventDefault();
-    const reason = document.getElementById('reportReasonSelect').value;
-    closeModal('reportModal');
-    showToast(`🚩 Report submitted to Campus Governance Admins (${reason}). Thank you!`);
-    reportingTarget = null;
-  }
-
-  // Post Chat Message
-  function postChatMessage(e) {
-    e.preventDefault();
-    const input = document.getElementById('chatInputText');
-    const val = input.value.trim();
-    if (!val) return;
-
-    const authorName = currentUser ? currentUser.name : 'Guest Student';
-    const list = document.getElementById('chatMessageList');
-    const msgHtml = `
-      <div class="chat-msg-row">
-        <div class="chat-avatar">${currentUser ? currentUser.avatar : 'ME'}</div>
-        <div class="chat-bubble">
-          <div class="chat-user-name">
-            <span>${authorName} <span class="chat-user-tag">Member</span></span>
-            <button class="btn-report-chat" onclick="openReportModal('${authorName}', '${escapeHtml(val)}')" title="Report message"><i class="far fa-flag"></i> Report</button>
-          </div>
-          <div class="chat-text">${escapeHtml(val)}</div>
-        </div>
-      </div>
-    `;
-    list.insertAdjacentHTML('beforeend', msgHtml);
-    list.scrollTop = list.scrollHeight;
-    input.value = '';
-    showToast('Message sent in community channel!');
-  }
-
-  // Render Specialized Marketplace
-  function renderSpecializedMarketplace(commName) {
-    const list = document.getElementById('specializedItemList');
-    const commItems = items.filter(i => i.community === commName || i.category === 'Electronics');
-
-    if (commItems.length === 0) {
-      list.innerHTML = `<div style="padding:1.5rem; text-align:center; color:var(--text-secondary);">No specialized items listed in this community yet. Be the first to lend!</div>`;
-      return;
-    }
-
-    list.innerHTML = commItems.map(item => `
-      <div class="list-item">
-        <div class="item-info">
-          <div class="item-avatar"><i class="fas ${item.icon}"></i></div>
-          <div class="item-details">
-            <div class="title">${escapeHtml(item.title)}</div>
-            <div class="sub">${escapeHtml(item.subText)} · Verified Member Item</div>
-          </div>
-        </div>
-        <button class="btn-add-cart" onclick="addToCart(${item.id})"><i class="fas fa-plus"></i> Borrow Item</button>
-      </div>
-    `).join('');
-  }
-
-  // Typewriter
-  const typewriterPhrases = ["TI-84 Graphing Calculator?", "Sony Noise-Canceling Headphones?", "MacBook USB-C Charger?", "Organic Chemistry Model Kit?"];
-  let phraseIdx = 0, charIdx = 0, isDeleting = false;
-  const typewriterEl = document.getElementById('typewriterText');
-
-  function typeEffect() {
-    if (!typewriterEl) return;
-    const currentPhrase = typewriterPhrases[phraseIdx];
-    if (isDeleting) { charIdx--; typewriterEl.innerText = currentPhrase.substring(0, charIdx); }
-    else { charIdx++; typewriterEl.innerText = currentPhrase.substring(0, charIdx); }
-    let typeSpeed = isDeleting ? 40 : 80;
-    if (!isDeleting && charIdx === currentPhrase.length) { typeSpeed = 2000; isDeleting = true; }
-    else if (isDeleting && charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % typewriterPhrases.length; typeSpeed = 400; }
-    setTimeout(typeEffect, typeSpeed);
-  }
-
-  // Render Marketplace Catalog
-  function renderItems() {
-    const container = document.getElementById('activityContainer');
-    const searchVal = document.getElementById('searchInput').value.toLowerCase();
-
-    let filtered = items.filter(item => {
-      const matchCat = currentCategory === 'all' || item.category === currentCategory;
-      const matchSearch = item.title.toLowerCase().includes(searchVal) || item.owner.toLowerCase().includes(searchVal);
-      return matchCat && matchSearch;
-    });
-
-    document.getElementById('itemCountNum').innerText = items.filter(i => i.status === 'available').length;
-    document.getElementById('totalItemsCount').innerText = items.length;
-
-    container.innerHTML = filtered.map(item => `
-      <div class="list-item">
-        <div class="item-info">
-          <div class="item-avatar"><i class="fas ${item.icon}"></i></div>
-          <div class="item-details">
-            <div class="title">${escapeHtml(item.title)}</div>
-            <div class="sub">${escapeHtml(item.subText)}</div>
-          </div>
-        </div>
-        <button class="btn-add-cart" onclick="addToCart(${item.id})"><i class="fas fa-plus"></i> Add to Cart</button>
-      </div>
-    `).join('');
-  }
-
-  function escapeHtml(str) { return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-  function filterItems() { renderItems(); }
-  function setCategoryFilter(category, el) {
-    currentCategory = category;
-    document.querySelectorAll('.cat-pill').forEach(pill => pill.classList.remove('active'));
-    if (el) el.classList.add('active');
-    renderItems();
-  }
-
-  function addToCart(id) {
-    const item = items.find(i => i.id === id);
-    if (item && !cart.some(c => c.id === item.id)) {
-      cart.push(item);
-      document.getElementById('cartCountBadge').innerText = cart.length;
-      showToast(`Added ${item.title} to Borrow Cart! 🛒`);
-    }
-  }
-
-  function openCartModal() {
-    const content = document.getElementById('cartModalContent');
-    content.innerHTML = cart.length === 0 ? `<p style="padding:1.5rem; text-align:center;">Cart is empty!</p>` : cart.map(i => `<p>● ${escapeHtml(i.title)}</p>`).join('') + `<button class="btn-submit" onclick="closeModal('cartModal'); showToast('Borrow request confirmed!');" style="margin-top:1rem;">Submit Request</button>`;
-    document.getElementById('cartModal').style.display = 'flex';
-  }
-
-  // Auth Modal & Logic
-  function openAuthModal() {
-    document.getElementById('authModal').style.display = 'flex';
-  }
-
-  function switchLoginTab(type) {
-    const userBtn = document.getElementById('toggleUserBtn'), adminBtn = document.getElementById('toggleAdminBtn');
-    const userCard = document.getElementById('modalUserCard'), adminCard = document.getElementById('modalAdminCard');
-    if (type === 'user') {
-      userBtn.classList.add('active'); adminBtn.classList.remove('active');
-      userCard.style.display = 'block'; adminCard.style.display = 'none';
-    } else {
-      adminBtn.classList.add('active'); userBtn.classList.remove('active');
-      adminCard.style.display = 'block'; userCard.style.display = 'none';
-    }
-  }
-
-  function handleUserLogin(e) {
-    if(e) e.preventDefault();
-    currentUser = { role: 'user', name: 'Alex Chen', email: 'alex.c@university.edu', avatar: 'AC' };
-    updateAuthUI();
-    showToast('Signed in as Alex Chen');
-  }
-
-  function handleAdminLogin(e) {
-    if(e) e.preventDefault();
-    currentUser = { role: 'admin', name: 'Campus Admin', email: 'admin@university.edu', avatar: 'AD' };
-    updateAuthUI();
-    showToast('Authenticated as Campus Admin');
-  }
-
-  function quickFillUser() { document.getElementById('userEmail').value = "alex.c@university.edu"; handleUserLogin(); }
-  function quickFillAdmin() { document.getElementById('adminId').value = "admin · 08"; handleAdminLogin(); }
-
-  function updateAuthUI() {
-    const userProfilePill = document.getElementById('userProfilePill');
-    const navLoginBtn = document.getElementById('navLoginBtn');
-    if (currentUser) {
-      if (navLoginBtn) navLoginBtn.style.display = 'none';
-      if (userProfilePill) userProfilePill.style.display = 'flex';
-      document.getElementById('userName').innerText = currentUser.name;
-      closeModal('authModal');
-    } else {
-      if (navLoginBtn) navLoginBtn.style.display = 'flex';
-      if (userProfilePill) userProfilePill.style.display = 'none';
-    }
-  }
-
-  function logout() { currentUser = null; updateAuthUI(); showToast('Signed out'); }
-  function openLendModal() { if (!currentUser) { showToast('⚠️ Please sign in to list an item!'); return; } document.getElementById('lendModal').style.display = 'flex'; }
-  function openBorrowModal() { switchPage('marketplace'); }
-  function handleLendSubmit(e) {
-    e.preventDefault();
-    const title = document.getElementById('lendTitle').value, category = document.getElementById('lendCategory').value;
-    items.unshift({ id: Date.now(), title, owner: currentUser ? currentUser.name : "Alex", time: "Just now", status: "available", category, icon: "fa-box", subText: `lent by ${currentUser ? currentUser.name : "Alex"} · Just now`, community: activeCommunity });
-    renderItems();
-    closeModal('lendModal');
-    showToast(`Successfully listed ${title}! 🎉`);
-  }
-
-  function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-  function showToast(msg) {
-    const toast = document.getElementById('toastNotification');
-    document.getElementById('toastMessage').innerText = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3200);
-  }
-
-  // 3D Curved Arch Orbital Carousel
   let orbitalAngle = 0;
   let orbitalTargetAngle = 0;
   let isDraggingOrbital = false;
@@ -2485,9 +5495,6 @@
 
     const cards = Array.from(wheel.querySelectorAll('.orbital-card'));
     const total = cards.length;
-    const radius = 640;
-    const topAnchor = -Math.PI / 2;
-    const arcSpread = 0.28;
 
     wrapper.addEventListener('mousemove', (e) => {
       if (isDraggingOrbital) return;
@@ -2566,10 +5573,36 @@
     requestAnimationFrame(updateWheelLoop);
   }
 
-  typeEffect();
-  renderItems();
-  renderOrbitalCarousel();
-  openDiscordServer('discover');
+
+// Combined Navigation Page View Switcher
+function switchPage(page) {
+  document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
+  document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+
+  if (page === 'marketplace') {
+    document.getElementById('marketplaceView').classList.add('active-view');
+    document.getElementById('viewBtnMarketplace').classList.add('active');
+  } else if (page === 'community') {
+    document.getElementById('communityView').classList.add('active-view');
+    document.getElementById('viewBtnCommunity').classList.add('active');
+    if (typeof renderJoinedServerSidebar === 'function') renderJoinedServerSidebar();
+  } else if (page === 'admin') {
+    document.getElementById('adminView').classList.add('active-view');
+    document.getElementById('viewBtnAdmin').classList.add('active');
+    if (typeof renderAllAdminTabs === 'function') renderAllAdminTabs();
+  }
+}
+
+// Master Initialization
+window.addEventListener('DOMContentLoaded', () => {
+  if (typeof typeEffect === 'function') typeEffect();
+  if (typeof renderCatalog === 'function') renderCatalog();
+  if (typeof renderItems === 'function') renderItems();
+  if (typeof renderOrbitalCarousel === 'function') renderOrbitalCarousel();
+  if (typeof openDiscordServer === 'function') openDiscordServer('discover');
+  if (typeof renderAllAdminTabs === 'function') renderAllAdminTabs();
+});
+
 </script>
 </body>
 </html>
