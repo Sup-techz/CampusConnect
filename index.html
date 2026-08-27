@@ -5,25 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Campus Circular — Borrow smarter. Share more.</title>
   
-  <!-- Fonts & Icons -->
+  <!-- Fonts & Icon System -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     /* ======================================================== */
-    /* 1. GLOBAL BRAND TOKENS (Shared Brand Identity)           */
+    /* 1. BRAND DESIGN SYSTEM & SEMANTIC COLOR PALETTE          */
     /* ======================================================== */
     :root {
-      --primary: #2563EB;          /* Trust Blue / Indigo */
+      --primary: #2563EB;          /* Trust Blue */
       --primary-hover: #1D4ED8;
-      --primary-glow: rgba(37, 99, 235, 0.18);
+      --primary-glow: rgba(37, 99, 235, 0.2);
       
-      --dark: #0F172A;             /* Slate Navy */
-      --bg: #F8FAFC;               /* Main Clean Background */
-      --text: #0F172A;
-      --text-muted: #64748B;
+      --indigo: #4F46E5;
+      --ai-purple: #7C3AED;        /* AI Engine */
+      --ai-purple-light: #F5F3FF;
+
+      --dark: #0F172A;             /* Slate Navy Primary Text */
+      --text-muted: #475569;       /* Secondary Text */
+      --bg: #F8FAFC;               /* Page Background */
+      --surface: #FFFFFF;          /* Elevated Surface */
+      --surface-subtle: #EFF6FF;   /* Soft Blue Surface */
       --border: #E2E8F0;
       
       --success: #10B981;          /* Available / Verified */
@@ -37,17 +42,14 @@
       --danger: #EF4444;           /* Dispute / Issue */
       --danger-light: #FEF2F2;
       --danger-dark: #991B1B;
-
-      --ai-purple: #8B5CF6;        /* AI Smart Feature */
-      --ai-purple-light: #F5F3FF;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg);
-      color: var(--text);
+      color: var(--dark);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -58,8 +60,7 @@
     h1, h2, h3, h4, h5 {
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: var(--dark);
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
     }
 
     .container {
@@ -72,17 +73,17 @@
     /* Shared Primitives */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
-      cursor: pointer; border: 1px solid transparent; transition: all 0.2s ease;
+      padding: 9px 18px; border-radius: 8px; font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; border: 1px solid transparent; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       font-family: inherit; text-decoration: none;
     }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: var(--primary-hover); box-shadow: 0 4px 12px var(--primary-glow); }
-    .btn-secondary { background: white; color: var(--dark); border-color: var(--border); }
-    .btn-secondary:hover { background: #F1F5F9; border-color: #CBD5E1; }
-    .btn-ai { background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); color: white; box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3); }
+    .btn-primary { background: var(--primary); color: white; box-shadow: 0 2px 8px var(--primary-glow); }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .btn-secondary { background: white; color: var(--dark); border-color: var(--border); box-shadow: 0 2px 4px rgba(15,23,42,0.03); }
+    .btn-secondary:hover { background: #F8FAFC; border-color: #CBD5E1; }
+    .btn-ai { background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%); color: white; box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3); }
     .btn-ai:hover { opacity: 0.95; transform: translateY(-1px); }
-    .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
 
     .badge {
       display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px;
@@ -94,42 +95,42 @@
     .badge-ai { background: var(--ai-purple-light); color: var(--ai-purple); }
     .badge-info { background: #EFF6FF; color: var(--primary); }
 
-    /* NAVBAR HEADER */
+    /* GLOBAL NAVBAR */
     .navbar {
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 100; padding: 0.85rem 0;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100; padding: 0.75rem 0;
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; }
     .brand-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
     .brand-icon {
-      width: 36px; height: 36px; background: var(--primary); color: white; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800;
+      width: 34px; height: 34px; background: var(--primary); color: white; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 800;
     }
-    .brand-title { font-size: 1.25rem; font-weight: 800; color: var(--dark); letter-spacing: -0.03em; }
+    .brand-title { font-size: 1.2rem; font-weight: 800; color: var(--dark); letter-spacing: -0.03em; }
 
     .nav-links { display: flex; align-items: center; gap: 1.6rem; list-style: none; }
     .nav-link {
-      font-size: 0.9rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: color 0.2s;
+      font-size: 0.88rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: color 0.2s;
       display: flex; align-items: center; gap: 6px; text-decoration: none;
     }
     .nav-link:hover, .nav-link.active { color: var(--primary); font-weight: 600; }
 
     .nav-right { display: flex; align-items: center; gap: 0.8rem; }
     .demo-role-pill {
-      background: #F1F5F9; border: 1px solid var(--border); border-radius: 30px; padding: 3px 6px;
-      display: flex; align-items: center; gap: 4px; font-size: 0.76rem; font-weight: 600;
+      background: #F1F5F9; border: 1px solid var(--border); border-radius: 30px; padding: 3px;
+      display: flex; align-items: center; gap: 2px; font-size: 0.76rem;
     }
-    .role-btn { padding: 3px 10px; border-radius: 20px; cursor: pointer; color: var(--text-muted); transition: all 0.2s; }
+    .role-btn { padding: 3px 10px; border-radius: 20px; cursor: pointer; color: var(--text-muted); transition: all 0.2s; font-weight: 500; }
     .role-btn.active { background: white; color: var(--primary); font-weight: 700; box-shadow: 0 2px 6px rgba(15,23,42,0.06); }
 
     .user-pill {
-      display: flex; align-items: center; gap: 8px; background: white; padding: 4px 10px 4px 5px;
+      display: flex; align-items: center; gap: 8px; background: white; padding: 3px 10px 3px 4px;
       border-radius: 50px; border: 1px solid var(--border); cursor: pointer;
     }
     .user-avatar {
-      width: 28px; height: 28px; background: var(--primary); color: white; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;
+      width: 26px; height: 26px; background: var(--primary); color: white; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;
     }
 
     .mobile-bottom-nav {
@@ -144,95 +145,94 @@
     .page-view.active-view { display: block; }
 
     /* ======================================================== */
-    /* 6. HOME PAGE — EDITORIAL / STARTUP STYLE                 */
+    /* 6. HOME PAGE — STARTUP EDITORIAL STYLE                   */
     /* ======================================================== */
-    .home-hero { text-align: center; padding: 2.5rem 0 1.5rem 0; }
-    .home-hero h1 { font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 800; color: var(--dark); line-height: 1.15; margin-bottom: 0.8rem; }
-    .home-hero p { font-size: clamp(1.05rem, 1.8vw, 1.25rem); color: var(--text-muted); max-width: 640px; margin: 0 auto 2.5rem auto; }
+    .page-home .home-hero { text-align: center; padding: 3rem 0 1.8rem 0; }
+    .page-home .home-hero h1 { font-size: clamp(2.6rem, 4.5vw, 3.8rem); font-weight: 800; color: var(--dark); line-height: 1.12; margin-bottom: 0.8rem; }
+    .page-home .home-hero p { font-size: clamp(1.05rem, 1.8vw, 1.25rem); color: var(--text-muted); max-width: 640px; margin: 0 auto 2.5rem auto; }
 
-    /* 7. CURVED CAROUSEL (Home Only Signature Interaction) */
-    .home-carousel-section { margin-bottom: 3.5rem; position: relative; }
-    .home-carousel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
-    .home-carousel-wrapper {
-      position: relative; width: 100%; height: 380px; background: white; border-radius: 28px;
-      border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(15,23,42,0.04); overflow: hidden; cursor: crosshair; user-select: none;
+    .page-home .home-carousel-section { margin-bottom: 3.5rem; position: relative; }
+    .page-home .home-carousel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+    .page-home .home-carousel-wrapper {
+      position: relative; width: 100%; height: 380px; background: white; border-radius: 24px;
+      border: 1px solid var(--border); box-shadow: 0 6px 24px -4px rgba(15,23,42,0.04); overflow: hidden; cursor: crosshair; user-select: none;
     }
-    .home-carousel-track { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-    .home-carousel-card {
+    .page-home .home-carousel-track { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+    .page-home .home-carousel-card {
       position: absolute; top: 0; left: 0; width: 220px; height: 300px; margin-left: -110px; margin-top: -150px;
-      background: white; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 10px 25px -5px rgba(15,23,42,0.08);
+      background: white; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 12px 28px -6px rgba(15,23,42,0.08);
       overflow: hidden; display: flex; flex-direction: column; pointer-events: auto; will-change: transform, opacity; transition: border-color 0.2s; cursor: pointer;
     }
-    .home-carousel-card:hover { border-color: var(--primary); }
+    .page-home .home-carousel-card:hover { border-color: var(--primary); }
 
-    .home-ai-card {
-      background: white; border-radius: 24px; padding: 2.2rem; border: 1px solid var(--border);
-      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06); margin-bottom: 3.5rem;
+    .page-home .home-ai-card {
+      background: white; border-radius: 20px; padding: 2.2rem; border: 1px solid var(--border);
+      box-shadow: 0 12px 32px -8px rgba(15, 23, 42, 0.05); margin-bottom: 3.5rem;
     }
 
-    .home-steps-grid {
+    .page-home .home-steps-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem; margin-top: 1.8rem;
     }
-    .home-step-card {
-      background: white; border-radius: 16px; padding: 1.4rem; border: 1px solid var(--border);
+    .page-home .home-step-card {
+      background: white; border-radius: 14px; padding: 1.4rem; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(15,23,42,0.02);
     }
 
     /* ======================================================== */
-    /* 8. MARKETPLACE — PRODUCT DISCOVERY DENSE GRID UI        */
+    /* 8. MARKETPLACE — DENSE PRODUCT DISCOVERY UI              */
     /* ======================================================== */
-    .mkt-filter-bar {
-      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.8rem; align-items: center;
+    .page-marketplace .mkt-filter-bar {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.8rem; align-items: center;
     }
-    .mkt-filter-pill {
-      background: white; border: 1px solid var(--border); padding: 6px 16px; border-radius: 30px;
-      font-size: 0.82rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.2s;
+    .page-marketplace .mkt-filter-pill {
+      background: white; border: 1px solid var(--border); padding: 6px 14px; border-radius: 30px;
+      font-size: 0.82rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.2s;
     }
-    .mkt-filter-pill.active, .mkt-filter-pill:hover { background: var(--primary); color: white; border-color: var(--primary); }
+    .page-marketplace .mkt-filter-pill.active, .page-marketplace .mkt-filter-pill:hover { background: var(--primary); color: white; border-color: var(--primary); font-weight: 600; }
 
-    .mkt-resource-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.4rem;
+    .page-marketplace .mkt-resource-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.4rem;
     }
-    .mkt-card {
+    .page-marketplace .mkt-card {
       background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden;
-      display: flex; flex-direction: column; transition: all 0.2s; box-shadow: 0 2px 6px rgba(15,23,42,0.03);
+      display: flex; flex-direction: column; transition: all 0.2s ease; box-shadow: 0 2px 6px rgba(15,23,42,0.03);
     }
-    .mkt-card:hover { transform: translateY(-2px); border-color: var(--primary); box-shadow: 0 8px 20px -4px rgba(15,23,42,0.08); }
-    .mkt-card-head { position: relative; height: 170px; }
-    .mkt-card-head img { width: 100%; height: 100%; object-fit: cover; }
-    .mkt-card-body { padding: 1rem; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+    .page-marketplace .mkt-card:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 10px 24px -6px rgba(15,23,42,0.08); }
+    .page-marketplace .mkt-card-head { position: relative; height: 165px; }
+    .page-marketplace .mkt-card-head img { width: 100%; height: 100%; object-fit: cover; }
+    .page-marketplace .mkt-card-body { padding: 1rem; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
 
     /* ======================================================== */
-    /* 10 & 11. COMMUNITY DISCOVERY & DISCORD WORKSPACE UI     */
+    /* 11. COMMUNITY DISCOVERY & DISCORD WORKSPACE UI           */
     /* ======================================================== */
-    .comm-hover-container { display: flex; flex-direction: column; gap: 10px; margin-top: 1.5rem; }
-    .comm-hover-row {
-      position: relative; height: 68px; background: white; border-radius: 16px; border: 1px solid var(--border);
+    .page-community .comm-hover-container { display: flex; flex-direction: column; gap: 10px; margin-top: 1.5rem; }
+    .page-community .comm-hover-row {
+      position: relative; height: 68px; background: white; border-radius: 14px; border: 1px solid var(--border);
       overflow: hidden; cursor: pointer; transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
       display: flex; align-items: center; padding: 0 1.5rem;
     }
-    .comm-hover-row:hover { height: 280px; border-color: var(--primary); box-shadow: 0 12px 32px -8px rgba(15,23,42,0.12); }
-    .comm-hover-bg {
+    .page-community .comm-hover-row:hover { height: 280px; border-color: var(--primary); box-shadow: 0 14px 36px -8px rgba(15,23,42,0.12); }
+    .page-community .comm-hover-bg {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
-      opacity: 0; transform: scale(1.06); transition: all 0.4s ease; filter: brightness(0.7);
+      opacity: 0; transform: scale(1.06); transition: all 0.4s ease; filter: brightness(0.68);
     }
-    .comm-hover-row:hover .comm-hover-bg { opacity: 1; transform: scale(1); }
-    .comm-hover-overlay {
+    .page-community .comm-hover-row:hover .comm-hover-bg { opacity: 1; transform: scale(1); }
+    .page-community .comm-hover-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       background: linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.85) 100%); opacity: 0; transition: opacity 0.35s ease;
     }
-    .comm-hover-row:hover .comm-hover-overlay { opacity: 1; }
+    .page-community .comm-hover-row:hover .comm-hover-overlay { opacity: 1; }
 
-    .comm-row-collapsed { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; width: 100%; }
-    .comm-hover-row:hover .comm-row-collapsed { opacity: 0; pointer-events: none; }
-    .comm-row-expanded {
+    .page-community .comm-row-collapsed { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .page-community .comm-hover-row:hover .comm-row-collapsed { opacity: 0; pointer-events: none; }
+    .page-community .comm-row-expanded {
       position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; z-index: 3; color: white;
       opacity: 0; transform: translateY(10px); transition: all 0.35s ease;
     }
-    .comm-hover-row:hover .comm-row-expanded { opacity: 1; transform: translateY(0); }
+    .page-community .comm-hover-row:hover .comm-row-expanded { opacity: 1; transform: translateY(0); }
 
-    /* Discord Workspace UI */
+    /* 12 & 13. Discord-Inspired Workspace UI */
     .discord-workspace {
-      display: flex; height: 78vh; min-height: 580px; border-radius: 20px; border: 1px solid var(--border);
+      display: flex; height: 78vh; min-height: 580px; border-radius: 18px; border: 1px solid var(--border);
       overflow: hidden; background: #F1F5F9; box-shadow: 0 14px 40px -10px rgba(15,23,42,0.1);
     }
     .discord-switcher {
@@ -240,68 +240,85 @@
       display: flex; flex-direction: column; align-items: center; padding: 14px 0; gap: 12px;
     }
     .discord-circle-icon {
-      width: 44px; height: 44px; border-radius: 50%; background: #F1F5F9; color: var(--text);
-      display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer;
-      position: relative; transition: all 0.2s; border: 2px solid transparent;
+      width: 44px; height: 44px; border-radius: 12px; background: #F1F5F9; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; cursor: pointer;
+      position: relative; transition: all 0.2s; border: 1.5px solid transparent;
     }
-    .discord-circle-icon:hover, .discord-circle-icon.active { background: #EFF6FF; color: var(--primary); border-radius: 14px; border-color: var(--primary); }
+    .discord-circle-icon:hover, .discord-circle-icon.active { background: #EFF6FF; color: var(--primary); border-color: var(--primary); }
+    .discord-active-bar {
+      position: absolute; left: -14px; top: 10px; bottom: 10px; width: 3px; background: var(--primary);
+      border-radius: 0 3px 3px 0; display: none;
+    }
+    .discord-circle-icon.active .discord-active-bar { display: block; }
 
     .discord-sidebar {
       width: 240px; background: white; border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 1rem; gap: 1rem; overflow-y: auto;
     }
+    .discord-channel-title { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 6px; }
     .discord-channel {
-      display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 600; color: var(--text-muted);
-      padding: 7px 10px; border-radius: 8px; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 500; color: var(--text-muted);
+      padding: 7px 10px; border-radius: 6px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent;
     }
-    .discord-channel:hover, .discord-channel.active { background: #EFF6FF; color: var(--primary); }
+    .discord-channel:hover, .discord-channel.active { background: #E8F0FE; color: var(--primary-hover); font-weight: 600; border-left-color: var(--primary); }
 
     .discord-stage { flex: 1; display: flex; flex-direction: column; background: #F8FAFC; overflow: hidden; }
+    .discord-stage-header { background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 12px 1.2rem; display: flex; justify-content: space-between; align-items: center; }
     .discord-members { width: 220px; background: white; border-left: 1px solid var(--border); padding: 1rem; display: flex; flex-direction: column; gap: 10px; }
 
     .chat-resource-embed {
-      background: white; border: 1.5px solid #BFDBFE; border-radius: 12px; padding: 12px; margin-top: 8px; max-width: 320px;
+      background: white; border: 1px solid var(--border); border-left: 4px solid var(--primary);
+      border-radius: 10px; padding: 12px; margin-top: 8px; max-width: 320px; box-shadow: 0 2px 6px rgba(15,23,42,0.03);
     }
+
+    /* Segmented Control for Chat ↔ Marketplace */
+    .segmented-control {
+      background: #F1F5F9; padding: 3px; border-radius: 8px; display: inline-flex; gap: 2px; border: 1px solid var(--border);
+    }
+    .segmented-btn {
+      padding: 5px 14px; font-size: 0.8rem; font-weight: 600; border-radius: 6px; cursor: pointer; color: var(--text-muted); transition: all 0.2s;
+    }
+    .segmented-btn.active { background: var(--primary); color: white; shadow: 0 2px 4px rgba(37,99,235,0.2); }
 
     /* ======================================================== */
     /* 15. USER DASHBOARD — PERSONAL INSIGHT UI                 */
     /* ======================================================== */
-    .dash-summary-grid {
+    .page-dashboard .dash-summary-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.2rem; margin-bottom: 2rem;
     }
-    .dash-card {
-      background: white; border-radius: 16px; padding: 1.4rem; border: 1px solid var(--border); box-shadow: 0 2px 6px rgba(15,23,42,0.03);
+    .page-dashboard .dash-card {
+      background: white; border-radius: 14px; padding: 1.4rem; border: 1px solid var(--border); box-shadow: 0 2px 6px rgba(15,23,42,0.03);
     }
-    .dash-card .val { font-size: 1.8rem; font-weight: 800; color: var(--dark); margin-top: 4px; }
-    .dash-card .trend { font-size: 0.75rem; font-weight: 700; color: var(--success-dark); margin-top: 4px; }
+    .page-dashboard .dash-card .val { font-size: 1.8rem; font-weight: 800; color: var(--dark); margin-top: 4px; }
+    .page-dashboard .dash-card .trend { font-size: 0.75rem; font-weight: 700; color: var(--success-dark); margin-top: 4px; }
 
-    .dash-charts-grid {
+    .page-dashboard .dash-charts-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;
     }
-    .dash-chart-box {
-      background: white; border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border);
+    .page-dashboard .dash-chart-box {
+      background: white; border-radius: 14px; padding: 1.5rem; border: 1px solid var(--border);
     }
-    .dash-bar-visual {
+    .page-dashboard .dash-bar-visual {
       display: flex; align-items: flex-end; gap: 14px; height: 140px; margin-top: 1.2rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);
     }
-    .dash-bar-col {
-      flex: 1; background: var(--primary); border-radius: 6px 6px 0 0; position: relative;
+    .page-dashboard .dash-bar-col {
+      flex: 1; background: var(--primary); border-radius: 4px 4px 0 0; position: relative;
     }
-    .dash-bar-col label { position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 0.72rem; color: var(--text-muted); }
+    .page-dashboard .dash-bar-col label { position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 0.72rem; color: var(--text-muted); }
 
     /* ======================================================== */
     /* 16. ADMIN DASHBOARD — HIGH-DENSITY COMMAND CENTER UI    */
     /* ======================================================== */
-    .admin-metrics-grid {
+    .page-admin .admin-metrics-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.8rem;
     }
-    .admin-kpi-card {
-      background: white; border-radius: 10px; padding: 1rem; border: 1px solid var(--border);
+    .page-admin .admin-kpi-card {
+      background: white; border-radius: 8px; padding: 1rem; border: 1px solid var(--border);
     }
-    .admin-kpi-card h5 { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
-    .admin-kpi-card .val { font-size: 1.5rem; font-weight: 800; color: var(--dark); }
+    .page-admin .admin-kpi-card h5 { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+    .page-admin .admin-kpi-card .val { font-size: 1.5rem; font-weight: 800; color: var(--dark); }
 
-    .admin-table-box {
-      background: white; border-radius: 10px; border: 1px solid var(--border); overflow-x: auto;
+    .page-admin .admin-table-box {
+      background: white; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto;
     }
     table.admin-table {
       width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;
@@ -311,25 +328,21 @@
 
     /* FLOATING AI ASSISTANT & MODALS */
     .ai-fab {
-      position: fixed; bottom: 24px; right: 24px; background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
-      color: white; padding: 12px 20px; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
-      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4); cursor: pointer; z-index: 900; display: flex; align-items: center; gap: 8px;
+      position: fixed; bottom: 24px; right: 24px; background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+      color: white; padding: 12px 20px; border-radius: 50px; font-weight: 700; font-size: 0.88rem;
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4); cursor: pointer; z-index: 900; display: flex; align-items: center; gap: 8px;
     }
     .ai-chat-drawer {
       display: none; position: fixed; bottom: 84px; right: 24px; width: 360px; height: 480px;
-      background: white; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 20px 40px -10px rgba(15,23,42,0.1);
+      background: white; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 20px 40px -10px rgba(15,23,42,0.1);
       z-index: 950; flex-direction: column; overflow: hidden;
     }
-    .chat-bubble { max-width: 82%; padding: 10px 14px; border-radius: 16px; font-size: 0.85rem; }
-    .chat-bubble.ai { background: white; border: 1px solid var(--border); align-self: flex-start; color: var(--dark); }
-    .chat-bubble.user { background: var(--primary); color: white; align-self: flex-end; }
-
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6);
       backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 1.5rem;
     }
     .modal-card {
-      background: white; border-radius: 20px; width: 100%; max-width: 580px; max-height: 90vh;
+      background: white; border-radius: 18px; width: 100%; max-width: 580px; max-height: 90vh;
       overflow-y: auto; padding: 2rem; box-shadow: 0 20px 40px -10px rgba(15,23,42,0.1); position: relative;
     }
     .toast {
@@ -350,7 +363,7 @@
 </head>
 <body>
 
-  <!-- NAVBAR HEADER -->
+  <!-- GLOBAL NAVBAR HEADER -->
   <header class="navbar">
     <div class="container nav-inner">
       <a class="brand-logo" onclick="switchView('home')">
@@ -359,11 +372,11 @@
       </a>
 
       <ul class="nav-links">
-        <li><a class="nav-link active" id="nLinkHome" onclick="switchView('home')"><i class="fas fa-house"></i> Home</a></li>
-        <li><a class="nav-link" id="nLinkExplore" onclick="switchView('explore')"><i class="fas fa-compass"></i> Explore</a></li>
+        <li><a class="nav-link active" id="nLinkHome" onclick="switchView('home')"><i class="fas fa-house"></i> Discover</a></li>
+        <li><a class="nav-link" id="nLinkExplore" onclick="switchView('explore')"><i class="fas fa-compass"></i> Marketplace</a></li>
+        <li><a class="nav-link" id="nLinkCommunities" onclick="switchView('communities')"><i class="fas fa-users"></i> Communities</a></li>
         <li><a class="nav-link" id="nLinkDashboard" onclick="switchView('dashboard')"><i class="fas fa-chart-pie"></i> Insights</a></li>
-        <li><a class="nav-link" id="nLinkCommunities" onclick="switchView('communities')"><i class="fas fa-users"></i> Workspace</a></li>
-        <li><a class="nav-link" id="nLinkBorrowings" onclick="switchView('borrowings')"><i class="fas fa-box-open"></i> My Borrowings</a></li>
+        <li><a class="nav-link" id="nLinkBorrowings" onclick="switchView('borrowings')"><i class="fas fa-box-open"></i> Borrowings</a></li>
         <li><a class="nav-link" id="nLinkAdmin" onclick="switchView('admin')"><i class="fas fa-shield-halved"></i> Admin</a></li>
       </ul>
 
@@ -400,15 +413,15 @@
   <main class="container">
 
     <!-- ======================================================== -->
-    <!-- VIEW 1: HOME PAGE (Editorial Startup Style)              -->
+    <!-- VIEW 1: HOME PAGE (Modern Startup Editorial Style)       -->
     <!-- ======================================================== -->
-    <div class="page-view active-view" id="homeView">
+    <div class="page-view page-home active-view" id="homeView">
       <section class="home-hero">
-        <h1>Borrow smarter. Share more.</h1>
-        <p>Why buy what someone nearby already has? Find trusted cameras, calculators, tools, and gear from verified students around your campus.</p>
+        <h1>Borrow less. Share more.</h1>
+        <p>Everything your campus already has, now within reach. Find trusted cameras, calculators, laptops, and gear from students around you.</p>
       </section>
 
-      <!-- 7. CURVED CAROUSEL (Home Only Signature Component) -->
+      <!-- 8. CURVED CAROUSEL (Home Only Signature Interaction) -->
       <section class="home-carousel-section">
         <div class="home-carousel-header">
           <div>
@@ -426,12 +439,12 @@
         </div>
       </section>
 
-      <!-- HOME AI SEARCH -->
+      <!-- 7. HOME SEARCH (Centerpiece AI Input) -->
       <section class="home-ai-card">
         <div style="margin-bottom:1.2rem;">
-          <h3 style="display:flex; align-items:center; gap:8px;"><i class="fas fa-wand-magic-sparkles" style="color:var(--ai-purple);"></i> What do you need today?</h3>
+          <h3 style="display:flex; align-items:center; gap:8px;"><i class="fas fa-wand-magic-sparkles" style="color:var(--ai-purple);"></i> ✨ What do you need for your next project?</h3>
         </div>
-        <textarea style="width:100%; height:90px; padding:1rem; border-radius:14px; border:1px solid var(--border); font-family:inherit; font-size:0.95rem; outline:none; background:#F8FAFC;" id="aiSearchInput" placeholder="Describe what you're working on in natural language... (e.g. 'I need a camera, tripod and microphone for my college cultural event tomorrow')"></textarea>
+        <textarea style="width:100%; height:90px; padding:1rem; border-radius:12px; border:1px solid var(--border); font-family:inherit; font-size:0.95rem; outline:none; background:#F8FAFC;" id="aiSearchInput" placeholder="Describe what you need in natural language... (e.g. 'Camera for tomorrow's event', 'DSLR & Tripod', 'Arduino kit under ₹100/day')"></textarea>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; flex-wrap:wrap; gap:1rem;">
           <div style="display:flex; gap:8px;">
             <span style="font-size:0.76rem; background:#F1F5F9; color:var(--text-muted); padding:5px 12px; border-radius:30px; cursor:pointer;" onclick="fillPrompt('Need a TI-84 calculator for exam tomorrow')">TI-84 Calculator</span>
@@ -441,7 +454,7 @@
         </div>
       </section>
 
-      <div id="aiAnalysisBox" style="display:none; background:var(--ai-purple-light); border:1px solid rgba(139,92,246,0.25); border-radius:16px; padding:1.5rem; margin-bottom:2rem;">
+      <div id="aiAnalysisBox" style="display:none; background:var(--ai-purple-light); border:1px solid rgba(124,58,237,0.2); border-radius:16px; padding:1.5rem; margin-bottom:2rem;">
         <h4 style="color:var(--ai-purple);"><i class="fas fa-circle-check"></i> We understood your request</h4>
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:1rem; margin-top:1rem;">
           <div><h5 style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted);">Purpose</h5><p style="font-weight:700;">College Event</p></div>
@@ -455,7 +468,6 @@
         <div class="mkt-resource-grid" id="aiMatchGrid" style="margin-top:1.2rem;"></div>
       </div>
 
-      <!-- HOW IT WORKS WORKFLOW -->
       <section style="margin-top: 3.5rem;">
         <h2>How Campus Circular Works</h2>
         <p style="color:var(--text-muted); font-size:0.9rem;">Simple, transparent, and secure peer borrowing flow</p>
@@ -471,7 +483,7 @@
     <!-- ======================================================== -->
     <!-- VIEW 2: MARKETPLACE — PRODUCT DISCOVERY DENSE GRID UI    -->
     <!-- ======================================================== -->
-    <div class="page-view" id="exploreView">
+    <div class="page-view page-marketplace" id="exploreView">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
         <div>
           <h2>Explore Campus Resources</h2>
@@ -481,10 +493,10 @@
 
       <div class="mkt-filter-bar">
         <span class="mkt-filter-pill active" onclick="filterCategory('All', this)">All Items</span>
-        <span class="mkt-filter-pill" onclick="filterCategory('Photography', this)">📷 Photography</span>
-        <span class="mkt-filter-pill" onclick="filterCategory('Electronics', this)">💻 Electronics</span>
-        <span class="mkt-filter-pill" onclick="filterCategory('Calculators', this)">📐 Calculators</span>
-        <span class="mkt-filter-pill" onclick="filterCategory('Sports', this)">⚽ Sports</span>
+        <span class="mkt-filter-pill" onclick="filterCategory('Photography', this)"><i class="fas fa-camera"></i> Photography</span>
+        <span class="mkt-filter-pill" onclick="filterCategory('Electronics', this)"><i class="fas fa-laptop"></i> Electronics</span>
+        <span class="mkt-filter-pill" onclick="filterCategory('Calculators', this)"><i class="fas fa-calculator"></i> Calculators</span>
+        <span class="mkt-filter-pill" onclick="filterCategory('Sports', this)"><i class="fas fa-basketball"></i> Sports</span>
       </div>
 
       <div class="mkt-resource-grid" id="exploreResourceGrid"></div>
@@ -493,13 +505,13 @@
     <!-- ======================================================== -->
     <!-- VIEW 3: USER DASHBOARD — PERSONAL INSIGHT UI             -->
     <!-- ======================================================== -->
-    <div class="page-view" id="dashboardView">
+    <div class="page-view page-dashboard" id="dashboardView">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
         <div>
-          <h2>Your Campus Circular</h2>
+          <h2>Good morning, Rahul 👋</h2>
           <p style="color:var(--text-muted); font-size:0.9rem;">Your sharing, borrowing and campus impact at a glance</p>
         </div>
-        <span class="badge badge-success">⭐ Trust Score: 94/100</span>
+        <span class="badge badge-success"><i class="fas fa-shield-check"></i> Trust Score: 94/100</span>
       </div>
 
       <div class="dash-summary-grid">
@@ -534,9 +546,9 @@
     </div>
 
     <!-- ======================================================== -->
-    <!-- VIEW 4: COMMUNITIES DISCOVERY & WORKSPACE                 -->
+    <!-- VIEW 4: COMMUNITIES DISCOVERY & WORKSPACE                -->
     <!-- ======================================================== -->
-    <div class="page-view" id="communitiesView">
+    <div class="page-view page-community" id="communitiesView">
       
       <!-- Experience A: Discovery (Hover-Expand Accordion) -->
       <div id="commDiscoverySection">
@@ -553,59 +565,77 @@
         <div class="comm-hover-container" id="hoverExpandContainer"></div>
       </div>
 
-      <!-- Experience B: Discord-Inspired Workspace -->
+      <!-- Experience B: 12. Discord-Inspired Campus Workspace -->
       <div id="commWorkspaceSection" style="display:none;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
           <button class="btn btn-secondary btn-sm" onclick="closeWorkspace()"><i class="fas fa-arrow-left"></i> Back to Discovery</button>
-          <span class="badge badge-ai">✨ Discord Workspace Active</span>
+          <span class="badge badge-ai"><i class="fas fa-sparkles"></i> Discord Workspace Active</span>
         </div>
 
         <div class="discord-workspace">
+          <!-- Column 1: Left Rail (72px) -->
           <div class="discord-switcher">
-            <div class="discord-circle-icon" onclick="closeWorkspace()"><i class="fas fa-compass"></i></div>
-            <div style="width:30px; height:1px; background:var(--border);"></div>
-            <div class="discord-circle-icon active" id="wsIconPhoto" onclick="switchWorkspaceComm('Photography')">📷</div>
-            <div class="discord-circle-icon" id="wsIconGaming" onclick="switchWorkspaceComm('Gaming')">🎮</div>
-            <div class="discord-circle-icon" id="wsIconCoding" onclick="switchWorkspaceComm('Coding')">💻</div>
+            <div class="discord-circle-icon" onclick="closeWorkspace()" title="Discover Communities"><i class="fas fa-compass"></i></div>
+            <div style="width:24px; height:1px; background:var(--border);"></div>
+            <div class="discord-circle-icon active" id="wsIconPhoto" onclick="switchWorkspaceComm('Photography')">
+              <span class="discord-active-bar"></span><i class="fas fa-camera"></i>
+            </div>
+            <div class="discord-circle-icon" id="wsIconGaming" onclick="switchWorkspaceComm('Gaming')">
+              <span class="discord-active-bar"></span><i class="fas fa-gamepad"></i>
+            </div>
+            <div class="discord-circle-icon" id="wsIconCoding" onclick="switchWorkspaceComm('Coding')">
+              <span class="discord-active-bar"></span><i class="fas fa-code"></i>
+            </div>
           </div>
 
+          <!-- Column 2: Channel Sidebar (240px) -->
           <div class="discord-sidebar">
             <div style="font-weight:800; font-size:1.1rem; color:var(--dark);" id="wsSidebarTitle">📷 Photography</div>
             <div style="font-size:0.78rem; color:var(--text-muted);" id="wsSidebarMeta">1,248 members · 342 resources</div>
+            
             <div style="margin-top:1rem;">
-              <div style="font-size:0.72rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">Channels</div>
+              <div class="discord-channel-title">Discussion</div>
               <div class="discord-channel active" id="chanGeneral" onclick="switchWorkspaceChannel('general')"><i class="fas fa-hashtag"></i> general</div>
               <div class="discord-channel" id="chanEquipment" onclick="switchWorkspaceChannel('equipment')"><i class="fas fa-hashtag"></i> equipment-talk</div>
             </div>
+            
             <div style="margin-top:1rem;">
-              <div style="font-size:0.72rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">Marketplace</div>
+              <div class="discord-channel-title">Community Marketplace</div>
               <div class="discord-channel" id="chanMarketplace" onclick="switchWorkspaceMode('marketplace')"><i class="fas fa-basket-shopping"></i> 🛒 Marketplace</div>
             </div>
           </div>
 
+          <!-- Column 3: Main Central Stage -->
           <div class="discord-stage">
-            <div style="background:white; border-bottom:1px solid var(--border); padding:12px 1.2rem; display:flex; justify-content:space-between; align-items:center;">
-              <div style="font-weight:700;" id="wsStageHeader"># general</div>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-secondary btn-sm" onclick="switchWorkspaceMode('chat')">Chat</button>
-                <button class="btn btn-primary btn-sm" onclick="switchWorkspaceMode('marketplace')">Marketplace</button>
+            <div class="discord-stage-header">
+              <div style="font-weight:700; font-size:0.95rem;" id="wsStageHeader"># general</div>
+              
+              <!-- 21. Segmented Control Toggle -->
+              <div class="segmented-control">
+                <span class="segmented-btn active" id="segBtnChat" onclick="switchWorkspaceMode('chat')"><i class="fas fa-comments"></i> Chat</span>
+                <span class="segmented-btn" id="segBtnMkt" onclick="switchWorkspaceMode('marketplace')"><i class="fas fa-store"></i> Marketplace</span>
               </div>
             </div>
 
             <div style="flex:1; overflow-y:auto; padding:1.2rem; display:flex; flex-direction:column; gap:12px;" id="wsChatStage">
               <div id="wsMessageFeed"></div>
-              <div style="padding:10px; background:white; border-top:1px solid var(--border); display:flex; gap:8px;">
-                <input type="text" style="flex:1; padding:8px 12px; border-radius:8px; border:1px solid var(--border); outline:none;" id="wsChatInput" placeholder="Message channel..." onkeydown="if(event.key==='Enter') postWorkspaceChatMessage()" />
+              
+              <!-- 20. Elevated Chat Composer -->
+              <div style="padding:10px; background:white; border-top:1px solid var(--border); display:flex; gap:8px; align-items:center;">
+                <button class="btn btn-secondary btn-sm" onclick="showToast('Attach resource embed')"><i class="fas fa-plus"></i></button>
+                <input type="text" style="flex:1; padding:8px 12px; border-radius:8px; border:1px solid var(--border); outline:none; font-family:inherit;" id="wsChatInput" placeholder="Message #general..." onkeydown="if(event.key==='Enter') postWorkspaceChatMessage()" />
                 <button class="btn btn-primary btn-sm" onclick="postWorkspaceChatMessage()"><i class="fas fa-paper-plane"></i></button>
               </div>
             </div>
 
             <div style="flex:1; overflow-y:auto; padding:1.2rem; display:none; background:white;" id="wsMarketplaceStage">
               <h3>Community Marketplace</h3>
-              <div class="mkt-resource-grid" id="wsMarketplaceGrid" style="margin-top:1rem;"></div>
+              <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:1rem;">Resources shared exclusively by verified members of this community</p>
+              <div class="mkt-resource-grid" id="wsMarketplaceGrid"></div>
             </div>
           </div>
 
+          <!-- Column 4: Right Members Panel (220px) -->
           <div class="discord-members">
             <div style="font-size:0.72rem; font-weight:800; text-transform:uppercase; color:var(--text-muted);">Online (3)</div>
             <div style="font-size:0.84rem; font-weight:600;"><span style="color:var(--success);">🟢</span> Rahul (Trust 94)</div>
@@ -624,7 +654,7 @@
         <p style="color:var(--text-muted); font-size:0.9rem;">Track active exchanges, return timelines, and 1-to-1 secure lender chat</p>
       </div>
 
-      <div style="background:white; border-radius:20px; padding:1.8rem; border:1px solid var(--border); box-shadow:0 4px 16px rgba(15,23,42,0.04);">
+      <div style="background:white; border-radius:18px; padding:1.8rem; border:1px solid var(--border); box-shadow:0 4px 16px rgba(15,23,42,0.04);">
         <div style="display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
           <div>
             <span class="badge badge-success">🟢 Active Borrowing</span>
@@ -652,13 +682,13 @@
     <!-- ======================================================== -->
     <!-- VIEW 6: ADMIN DASHBOARD — HIGH DENSITY COMMAND CENTER    -->
     <!-- ======================================================== -->
-    <div class="page-view" id="adminView">
+    <div class="page-view page-admin" id="adminView">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
         <div>
           <h2>Admin Command Center</h2>
           <p style="color:var(--text-muted); font-size:0.9rem;">Platform oversight, trust score moderation, and live activity stream</p>
         </div>
-        <span class="badge badge-info">🛡️ Admin Verified</span>
+        <span class="badge badge-info"><i class="fas fa-shield-check"></i> Admin Verified</span>
       </div>
 
       <div class="admin-metrics-grid">
@@ -776,1687 +806,11 @@
 
   <script>
     const initialResources = [
-  {
-    "id": 1,
-    "title": "Canon EOS 200D II DSLR Camera",
-    "category": "Photography",
-    "fee": 350,
-    "deposit": 2500,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "0.2 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 98
-  },
-  {
-    "id": 2,
-    "title": "Sony Alpha A7 III 4K Mirrorless Camera",
-    "category": "Photography",
-    "fee": 550,
-    "deposit": 4500,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "0.3 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 97
-  },
-  {
-    "id": 3,
-    "title": "Heavy-Duty Aluminium Fluid Tripod",
-    "category": "Photography",
-    "fee": 60,
-    "deposit": 300,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "0.4 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 96
-  },
-  {
-    "id": 4,
-    "title": "Rode Wireless GO II Compact Mic System",
-    "category": "Photography",
-    "fee": 180,
-    "deposit": 800,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "0.5 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 95
-  },
-  {
-    "id": 5,
-    "title": "DJI Ronin SC 3-Axis Gimbal Stabilizer",
-    "category": "Photography",
-    "fee": 280,
-    "deposit": 1500,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "0.6 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 94
-  },
-  {
-    "id": 6,
-    "title": "Godox SL60W LED Video Light Studio Kit",
-    "category": "Photography",
-    "fee": 150,
-    "deposit": 900,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "0.7 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 93
-  },
-  {
-    "id": 7,
-    "title": "Sigma 18-35mm f/1.8 DC HSM Lens",
-    "category": "Photography",
-    "fee": 220,
-    "deposit": 1800,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "0.8 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 92
-  },
-  {
-    "id": 8,
-    "title": "GoPro HERO 10 Black 4K Action Cam",
-    "category": "Photography",
-    "fee": 250,
-    "deposit": 1200,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "0.9 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 91
-  },
-  {
-    "id": 9,
-    "title": "Neewer Portable Collapsible Green Screen",
-    "category": "Photography",
-    "fee": 50,
-    "deposit": 200,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "1.0 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 90
-  },
-  {
-    "id": 10,
-    "title": "Manfrotto Compact Action Tripod",
-    "category": "Photography",
-    "fee": 40,
-    "deposit": 200,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "1.1 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 89
-  },
-  {
-    "id": 11,
-    "title": "MacBook Pro M1 16GB 512GB SSD",
-    "category": "Technology",
-    "fee": 450,
-    "deposit": 5000,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "1.2 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 88
-  },
-  {
-    "id": 12,
-    "title": "Dell UltraSharp 27-inch 4K Monitor",
-    "category": "Technology",
-    "fee": 200,
-    "deposit": 1500,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "1.3 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 87
-  },
-  {
-    "id": 13,
-    "title": "Logitech MX Master 3S Wireless Mouse",
-    "category": "Technology",
-    "fee": 45,
-    "deposit": 250,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "1.4 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 86
-  },
-  {
-    "id": 14,
-    "title": "Keychron K2 Wireless Mechanical Keyboard",
-    "category": "Technology",
-    "fee": 55,
-    "deposit": 300,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "1.5 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 85
-  },
-  {
-    "id": 15,
-    "title": "Anker 7-in-1 USB-C Multiport Adapter Hub",
-    "category": "Technology",
-    "fee": 25,
-    "deposit": 100,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "1.6 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 84
-  },
-  {
-    "id": 16,
-    "title": "Anker PowerCore 26800mAh Power Bank",
-    "category": "Technology",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "1.7 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1609592424089-9a74ee794f0e?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 98
-  },
-  {
-    "id": 17,
-    "title": "SanDisk Extreme 1TB Portable External SSD",
-    "category": "Technology",
-    "fee": 70,
-    "deposit": 400,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "1.8 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 97
-  },
-  {
-    "id": 18,
-    "title": "Logitech C920 HD Pro Webcam 1080p",
-    "category": "Technology",
-    "fee": 40,
-    "deposit": 200,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "1.9 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 96
-  },
-  {
-    "id": 19,
-    "title": "Ergonomic Aluminium Laptop Cooling Stand",
-    "category": "Technology",
-    "fee": 20,
-    "deposit": 100,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "2.0 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 95
-  },
-  {
-    "id": 20,
-    "title": "Raspberry Pi 4 Model B (8GB RAM Kit)",
-    "category": "Technology",
-    "fee": 80,
-    "deposit": 500,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "2.1 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 94
-  },
-  {
-    "id": 21,
-    "title": "TI-84 Plus CE Graphing Calculator",
-    "category": "Calculators",
-    "fee": 50,
-    "deposit": 200,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "2.2 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1611125832047-1d7ad1e8e48a?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 93
-  },
-  {
-    "id": 22,
-    "title": "Casio fx-991EX ClassWiz Scientific Calculator",
-    "category": "Calculators",
-    "fee": 25,
-    "deposit": 100,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "2.3 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 92
-  },
-  {
-    "id": 23,
-    "title": "HP 10bII+ Financial Calculator",
-    "category": "Calculators",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "2.4 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 91
-  },
-  {
-    "id": 24,
-    "title": "A2 Size Portable Engineering Drawing Board",
-    "category": "Academic",
-    "fee": 40,
-    "deposit": 200,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "2.5 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 90
-  },
-  {
-    "id": 25,
-    "title": "Rotring Professional Engineering Compass Set",
-    "category": "Academic",
-    "fee": 20,
-    "deposit": 80,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "2.6 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 89
-  },
-  {
-    "id": 26,
-    "title": "Organic Chemistry 3D Molecular Model Kit",
-    "category": "Academic",
-    "fee": 30,
-    "deposit": 100,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "0.2 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 88
-  },
-  {
-    "id": 27,
-    "title": "Littmann Classic III Clinical Stethoscope",
-    "category": "Academic",
-    "fee": 60,
-    "deposit": 300,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "0.3 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 87
-  },
-  {
-    "id": 28,
-    "title": "Campbell Biology 12th Edition Hardcover Book",
-    "category": "Academic",
-    "fee": 30,
-    "deposit": 150,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "0.4 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 86
-  },
-  {
-    "id": 29,
-    "title": "Yamaha FG800 Acoustic Guitar + Gig Bag",
-    "category": "Music",
-    "fee": 120,
-    "deposit": 600,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "0.5 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 85
-  },
-  {
-    "id": 30,
-    "title": "Fender Squier Stratocaster Electric Guitar",
-    "category": "Music",
-    "fee": 180,
-    "deposit": 900,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "0.6 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 84
-  },
-  {
-    "id": 31,
-    "title": "Focusrite Scarlett 2i2 USB Audio Interface",
-    "category": "Music",
-    "fee": 90,
-    "deposit": 500,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "0.7 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 98
-  },
-  {
-    "id": 32,
-    "title": "Shure SM58 Dynamic Vocal Microphone",
-    "category": "Music",
-    "fee": 65,
-    "deposit": 300,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "0.8 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 97
-  },
-  {
-    "id": 33,
-    "title": "Akai Professional MPK Mini MK3 MIDI Keyboard",
-    "category": "Music",
-    "fee": 80,
-    "deposit": 400,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "0.9 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 96
-  },
-  {
-    "id": 34,
-    "title": "Sony PlayStation 5 DualSense Wireless Controller",
-    "category": "Gaming",
-    "fee": 70,
-    "deposit": 350,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "1.0 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 95
-  },
-  {
-    "id": 35,
-    "title": "Meta / Oculus Quest 2 128GB VR Headset",
-    "category": "Gaming",
-    "fee": 280,
-    "deposit": 2000,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "1.1 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1622979135225-d2ba269bc1bd?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 94
-  },
-  {
-    "id": 36,
-    "title": "Logitech G Pro X Gaming Headset 7.1",
-    "category": "Gaming",
-    "fee": 60,
-    "deposit": 300,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "1.2 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 93
-  },
-  {
-    "id": 37,
-    "title": "Wilson Evolution Official Game Basketball",
-    "category": "Sports",
-    "fee": 30,
-    "deposit": 100,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "1.3 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 92
-  },
-  {
-    "id": 38,
-    "title": "Yonex Muscle Power 29 Badminton Racquet Set",
-    "category": "Sports",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "1.4 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 91
-  },
-  {
-    "id": 39,
-    "title": "Decathlon 3-Person Waterproof Camping Tent",
-    "category": "Outdoor & Travel",
-    "fee": 120,
-    "deposit": 600,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "1.5 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 90
-  },
-  {
-    "id": 40,
-    "title": "Epson 1080p Full HD Portable Cinema Projector",
-    "category": "Events",
-    "fee": 320,
-    "deposit": 2000,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "1.6 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 89
-  },
-  {
-    "id": 41,
-    "title": "JBL PartyBox 110 Bluetooth Speaker 160W",
-    "category": "Events",
-    "fee": 250,
-    "deposit": 1500,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "1.7 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 88
-  },
-  {
-    "id": 42,
-    "title": "Arduino Uno Ultimate Starter Kit + Sensors",
-    "category": "DIY & Electronics",
-    "fee": 45,
-    "deposit": 200,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "1.8 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 87
-  },
-  {
-    "id": 43,
-    "title": "Weller 60W Digital Temperature Soldering Station",
-    "category": "DIY & Electronics",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "1.9 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 86
-  },
-  {
-    "id": 44,
-    "title": "Canon EOS 200D II DSLR Camera (Unit #2)",
-    "category": "Photography",
-    "fee": 350,
-    "deposit": 2500,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "2.0 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 85
-  },
-  {
-    "id": 45,
-    "title": "Sony Alpha A7 III 4K Mirrorless Camera (Unit #2)",
-    "category": "Photography",
-    "fee": 550,
-    "deposit": 4500,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "2.1 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 84
-  },
-  {
-    "id": 46,
-    "title": "Heavy-Duty Aluminium Fluid Tripod (Unit #2)",
-    "category": "Photography",
-    "fee": 60,
-    "deposit": 300,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "2.2 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 98
-  },
-  {
-    "id": 47,
-    "title": "Rode Wireless GO II Compact Mic System (Unit #2)",
-    "category": "Photography",
-    "fee": 180,
-    "deposit": 800,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "2.3 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 97
-  },
-  {
-    "id": 48,
-    "title": "DJI Ronin SC 3-Axis Gimbal Stabilizer (Unit #2)",
-    "category": "Photography",
-    "fee": 280,
-    "deposit": 1500,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "2.4 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 96
-  },
-  {
-    "id": 49,
-    "title": "Godox SL60W LED Video Light Studio Kit (Unit #2)",
-    "category": "Photography",
-    "fee": 150,
-    "deposit": 900,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "2.5 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 95
-  },
-  {
-    "id": 50,
-    "title": "Sigma 18-35mm f/1.8 DC HSM Lens (Unit #2)",
-    "category": "Photography",
-    "fee": 220,
-    "deposit": 1800,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "2.6 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 94
-  },
-  {
-    "id": 51,
-    "title": "GoPro HERO 10 Black 4K Action Cam (Unit #2)",
-    "category": "Photography",
-    "fee": 250,
-    "deposit": 1200,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "0.2 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 93
-  },
-  {
-    "id": 52,
-    "title": "Neewer Portable Collapsible Green Screen (Unit #2)",
-    "category": "Photography",
-    "fee": 50,
-    "deposit": 200,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "0.3 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 92
-  },
-  {
-    "id": 53,
-    "title": "Manfrotto Compact Action Tripod (Unit #2)",
-    "category": "Photography",
-    "fee": 40,
-    "deposit": 200,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "0.4 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 91
-  },
-  {
-    "id": 54,
-    "title": "MacBook Pro M1 16GB 512GB SSD (Unit #2)",
-    "category": "Technology",
-    "fee": 450,
-    "deposit": 5000,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "0.5 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 90
-  },
-  {
-    "id": 55,
-    "title": "Dell UltraSharp 27-inch 4K Monitor (Unit #2)",
-    "category": "Technology",
-    "fee": 200,
-    "deposit": 1500,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "0.6 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 89
-  },
-  {
-    "id": 56,
-    "title": "Logitech MX Master 3S Wireless Mouse (Unit #2)",
-    "category": "Technology",
-    "fee": 45,
-    "deposit": 250,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "0.7 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 88
-  },
-  {
-    "id": 57,
-    "title": "Keychron K2 Wireless Mechanical Keyboard (Unit #2)",
-    "category": "Technology",
-    "fee": 55,
-    "deposit": 300,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "0.8 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 87
-  },
-  {
-    "id": 58,
-    "title": "Anker 7-in-1 USB-C Multiport Adapter Hub (Unit #2)",
-    "category": "Technology",
-    "fee": 25,
-    "deposit": 100,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "0.9 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 86
-  },
-  {
-    "id": 59,
-    "title": "Anker PowerCore 26800mAh Power Bank (Unit #2)",
-    "category": "Technology",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "1.0 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1609592424089-9a74ee794f0e?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 85
-  },
-  {
-    "id": 60,
-    "title": "SanDisk Extreme 1TB Portable External SSD (Unit #2)",
-    "category": "Technology",
-    "fee": 70,
-    "deposit": 400,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "1.1 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 84
-  },
-  {
-    "id": 61,
-    "title": "Logitech C920 HD Pro Webcam 1080p (Unit #2)",
-    "category": "Technology",
-    "fee": 40,
-    "deposit": 200,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "1.2 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 98
-  },
-  {
-    "id": 62,
-    "title": "Ergonomic Aluminium Laptop Cooling Stand (Unit #2)",
-    "category": "Technology",
-    "fee": 20,
-    "deposit": 100,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "1.3 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 97
-  },
-  {
-    "id": 63,
-    "title": "Raspberry Pi 4 Model B (8GB RAM Kit) (Unit #2)",
-    "category": "Technology",
-    "fee": 80,
-    "deposit": 500,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "1.4 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 96
-  },
-  {
-    "id": 64,
-    "title": "TI-84 Plus CE Graphing Calculator (Unit #2)",
-    "category": "Calculators",
-    "fee": 50,
-    "deposit": 200,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "1.5 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1611125832047-1d7ad1e8e48a?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 95
-  },
-  {
-    "id": 65,
-    "title": "Casio fx-991EX ClassWiz Scientific Calculator (Unit #2)",
-    "category": "Calculators",
-    "fee": 25,
-    "deposit": 100,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "1.6 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 94
-  },
-  {
-    "id": 66,
-    "title": "HP 10bII+ Financial Calculator (Unit #2)",
-    "category": "Calculators",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "1.7 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 93
-  },
-  {
-    "id": 67,
-    "title": "A2 Size Portable Engineering Drawing Board (Unit #2)",
-    "category": "Academic",
-    "fee": 40,
-    "deposit": 200,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "1.8 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 92
-  },
-  {
-    "id": 68,
-    "title": "Rotring Professional Engineering Compass Set (Unit #2)",
-    "category": "Academic",
-    "fee": 20,
-    "deposit": 80,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "1.9 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 91
-  },
-  {
-    "id": 69,
-    "title": "Organic Chemistry 3D Molecular Model Kit (Unit #2)",
-    "category": "Academic",
-    "fee": 30,
-    "deposit": 100,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "2.0 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 90
-  },
-  {
-    "id": 70,
-    "title": "Littmann Classic III Clinical Stethoscope (Unit #2)",
-    "category": "Academic",
-    "fee": 60,
-    "deposit": 300,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "2.1 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 89
-  },
-  {
-    "id": 71,
-    "title": "Campbell Biology 12th Edition Hardcover Book (Unit #2)",
-    "category": "Academic",
-    "fee": 30,
-    "deposit": 150,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "2.2 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 88
-  },
-  {
-    "id": 72,
-    "title": "Yamaha FG800 Acoustic Guitar + Gig Bag (Unit #2)",
-    "category": "Music",
-    "fee": 120,
-    "deposit": 600,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "2.3 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 87
-  },
-  {
-    "id": 73,
-    "title": "Fender Squier Stratocaster Electric Guitar (Unit #2)",
-    "category": "Music",
-    "fee": 180,
-    "deposit": 900,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "2.4 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 86
-  },
-  {
-    "id": 74,
-    "title": "Focusrite Scarlett 2i2 USB Audio Interface (Unit #2)",
-    "category": "Music",
-    "fee": 90,
-    "deposit": 500,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "2.5 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 85
-  },
-  {
-    "id": 75,
-    "title": "Shure SM58 Dynamic Vocal Microphone (Unit #2)",
-    "category": "Music",
-    "fee": 65,
-    "deposit": 300,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "2.6 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 84
-  },
-  {
-    "id": 76,
-    "title": "Akai Professional MPK Mini MK3 MIDI Keyboard (Unit #2)",
-    "category": "Music",
-    "fee": 80,
-    "deposit": 400,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "0.2 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 98
-  },
-  {
-    "id": 77,
-    "title": "Sony PlayStation 5 DualSense Wireless Controller (Unit #2)",
-    "category": "Gaming",
-    "fee": 70,
-    "deposit": 350,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "0.3 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 97
-  },
-  {
-    "id": 78,
-    "title": "Meta / Oculus Quest 2 128GB VR Headset (Unit #2)",
-    "category": "Gaming",
-    "fee": 280,
-    "deposit": 2000,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "0.4 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1622979135225-d2ba269bc1bd?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 96
-  },
-  {
-    "id": 79,
-    "title": "Logitech G Pro X Gaming Headset 7.1 (Unit #2)",
-    "category": "Gaming",
-    "fee": 60,
-    "deposit": 300,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "0.5 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 95
-  },
-  {
-    "id": 80,
-    "title": "Wilson Evolution Official Game Basketball (Unit #2)",
-    "category": "Sports",
-    "fee": 30,
-    "deposit": 100,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "0.6 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 94
-  },
-  {
-    "id": 81,
-    "title": "Yonex Muscle Power 29 Badminton Racquet Set (Unit #2)",
-    "category": "Sports",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "0.7 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 93
-  },
-  {
-    "id": 82,
-    "title": "Decathlon 3-Person Waterproof Camping Tent (Unit #2)",
-    "category": "Outdoor & Travel",
-    "fee": 120,
-    "deposit": 600,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "0.8 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 92
-  },
-  {
-    "id": 83,
-    "title": "Epson 1080p Full HD Portable Cinema Projector (Unit #2)",
-    "category": "Events",
-    "fee": 320,
-    "deposit": 2000,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "0.9 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 91
-  },
-  {
-    "id": 84,
-    "title": "JBL PartyBox 110 Bluetooth Speaker 160W (Unit #2)",
-    "category": "Events",
-    "fee": 250,
-    "deposit": 1500,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "1.0 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 90
-  },
-  {
-    "id": 85,
-    "title": "Arduino Uno Ultimate Starter Kit + Sensors (Unit #2)",
-    "category": "DIY & Electronics",
-    "fee": 45,
-    "deposit": 200,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "1.1 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 89
-  },
-  {
-    "id": 86,
-    "title": "Weller 60W Digital Temperature Soldering Station (Unit #2)",
-    "category": "DIY & Electronics",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "1.2 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 88
-  },
-  {
-    "id": 87,
-    "title": "Canon EOS 200D II DSLR Camera (Unit #3)",
-    "category": "Photography",
-    "fee": 350,
-    "deposit": 2500,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "1.3 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 87
-  },
-  {
-    "id": 88,
-    "title": "Sony Alpha A7 III 4K Mirrorless Camera (Unit #3)",
-    "category": "Photography",
-    "fee": 550,
-    "deposit": 4500,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "1.4 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 86
-  },
-  {
-    "id": 89,
-    "title": "Heavy-Duty Aluminium Fluid Tripod (Unit #3)",
-    "category": "Photography",
-    "fee": 60,
-    "deposit": 300,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "1.5 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 85
-  },
-  {
-    "id": 90,
-    "title": "Rode Wireless GO II Compact Mic System (Unit #3)",
-    "category": "Photography",
-    "fee": 180,
-    "deposit": 800,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "1.6 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 84
-  },
-  {
-    "id": 91,
-    "title": "DJI Ronin SC 3-Axis Gimbal Stabilizer (Unit #3)",
-    "category": "Photography",
-    "fee": 280,
-    "deposit": 1500,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "1.7 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 98
-  },
-  {
-    "id": 92,
-    "title": "Godox SL60W LED Video Light Studio Kit (Unit #3)",
-    "category": "Photography",
-    "fee": 150,
-    "deposit": 900,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "1.8 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 97
-  },
-  {
-    "id": 93,
-    "title": "Sigma 18-35mm f/1.8 DC HSM Lens (Unit #3)",
-    "category": "Photography",
-    "fee": 220,
-    "deposit": 1800,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "1.9 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 96
-  },
-  {
-    "id": 94,
-    "title": "GoPro HERO 10 Black 4K Action Cam (Unit #3)",
-    "category": "Photography",
-    "fee": 250,
-    "deposit": 1200,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "2.0 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 95
-  },
-  {
-    "id": 95,
-    "title": "Neewer Portable Collapsible Green Screen (Unit #3)",
-    "category": "Photography",
-    "fee": 50,
-    "deposit": 200,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "2.1 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 94
-  },
-  {
-    "id": 96,
-    "title": "Manfrotto Compact Action Tripod (Unit #3)",
-    "category": "Photography",
-    "fee": 40,
-    "deposit": 200,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "2.2 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 93
-  },
-  {
-    "id": 97,
-    "title": "MacBook Pro M1 16GB 512GB SSD (Unit #3)",
-    "category": "Technology",
-    "fee": 450,
-    "deposit": 5000,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "2.3 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 92
-  },
-  {
-    "id": 98,
-    "title": "Dell UltraSharp 27-inch 4K Monitor (Unit #3)",
-    "category": "Technology",
-    "fee": 200,
-    "deposit": 1500,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "2.4 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 91
-  },
-  {
-    "id": 99,
-    "title": "Logitech MX Master 3S Wireless Mouse (Unit #3)",
-    "category": "Technology",
-    "fee": 45,
-    "deposit": 250,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "2.5 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 90
-  },
-  {
-    "id": 100,
-    "title": "Keychron K2 Wireless Mechanical Keyboard (Unit #3)",
-    "category": "Technology",
-    "fee": 55,
-    "deposit": 300,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "2.6 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 89
-  },
-  {
-    "id": 101,
-    "title": "Anker 7-in-1 USB-C Multiport Adapter Hub (Unit #3)",
-    "category": "Technology",
-    "fee": 25,
-    "deposit": 100,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "0.2 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 88
-  },
-  {
-    "id": 102,
-    "title": "Anker PowerCore 26800mAh Power Bank (Unit #3)",
-    "category": "Technology",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "0.3 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1609592424089-9a74ee794f0e?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 87
-  },
-  {
-    "id": 103,
-    "title": "SanDisk Extreme 1TB Portable External SSD (Unit #3)",
-    "category": "Technology",
-    "fee": 70,
-    "deposit": 400,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "0.4 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 86
-  },
-  {
-    "id": 104,
-    "title": "Logitech C920 HD Pro Webcam 1080p (Unit #3)",
-    "category": "Technology",
-    "fee": 40,
-    "deposit": 200,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "0.5 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 85
-  },
-  {
-    "id": 105,
-    "title": "Ergonomic Aluminium Laptop Cooling Stand (Unit #3)",
-    "category": "Technology",
-    "fee": 20,
-    "deposit": 100,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "0.6 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 84
-  },
-  {
-    "id": 106,
-    "title": "Raspberry Pi 4 Model B (8GB RAM Kit) (Unit #3)",
-    "category": "Technology",
-    "fee": 80,
-    "deposit": 500,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "0.7 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 98
-  },
-  {
-    "id": 107,
-    "title": "TI-84 Plus CE Graphing Calculator (Unit #3)",
-    "category": "Calculators",
-    "fee": 50,
-    "deposit": 200,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "0.8 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1611125832047-1d7ad1e8e48a?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 97
-  },
-  {
-    "id": 108,
-    "title": "Casio fx-991EX ClassWiz Scientific Calculator (Unit #3)",
-    "category": "Calculators",
-    "fee": 25,
-    "deposit": 100,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "0.9 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 96
-  },
-  {
-    "id": 109,
-    "title": "HP 10bII+ Financial Calculator (Unit #3)",
-    "category": "Calculators",
-    "fee": 35,
-    "deposit": 150,
-    "owner": "Rahul Sharma",
-    "trust": 94,
-    "distance": "1.0 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 95
-  },
-  {
-    "id": 110,
-    "title": "A2 Size Portable Engineering Drawing Board (Unit #3)",
-    "category": "Academic",
-    "fee": 40,
-    "deposit": 200,
-    "owner": "Priya Mehta",
-    "trust": 98,
-    "distance": "1.1 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 94
-  },
-  {
-    "id": 111,
-    "title": "Rotring Professional Engineering Compass Set (Unit #3)",
-    "category": "Academic",
-    "fee": 20,
-    "deposit": 80,
-    "owner": "Aarav Patel",
-    "trust": 91,
-    "distance": "1.2 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 93
-  },
-  {
-    "id": 112,
-    "title": "Organic Chemistry 3D Molecular Model Kit (Unit #3)",
-    "category": "Academic",
-    "fee": 30,
-    "deposit": 100,
-    "owner": "Sneha Nair",
-    "trust": 96,
-    "distance": "1.3 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 92
-  },
-  {
-    "id": 113,
-    "title": "Littmann Classic III Clinical Stethoscope (Unit #3)",
-    "category": "Academic",
-    "fee": 60,
-    "deposit": 300,
-    "owner": "David Kim",
-    "trust": 90,
-    "distance": "1.4 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 91
-  },
-  {
-    "id": 114,
-    "title": "Campbell Biology 12th Edition Hardcover Book (Unit #3)",
-    "category": "Academic",
-    "fee": 30,
-    "deposit": 150,
-    "owner": "Ananya Joshi",
-    "trust": 95,
-    "distance": "1.5 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 90
-  },
-  {
-    "id": 115,
-    "title": "Yamaha FG800 Acoustic Guitar + Gig Bag (Unit #3)",
-    "category": "Music",
-    "fee": 120,
-    "deposit": 600,
-    "owner": "Rohan Kulkarni",
-    "trust": 88,
-    "distance": "1.6 km",
-    "rating": "4.5",
-    "img": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=600&auto=format&fit=crop",
-    "condition": "Good",
-    "matchScore": 89
-  },
-  {
-    "id": 116,
-    "title": "Fender Squier Stratocaster Electric Guitar (Unit #3)",
-    "category": "Music",
-    "fee": 180,
-    "deposit": 900,
-    "owner": "Ishita Rao",
-    "trust": 97,
-    "distance": "1.7 km",
-    "rating": "4.6",
-    "img": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 88
-  },
-  {
-    "id": 117,
-    "title": "Focusrite Scarlett 2i2 USB Audio Interface (Unit #3)",
-    "category": "Music",
-    "fee": 90,
-    "deposit": 500,
-    "owner": "Kabir Singh",
-    "trust": 93,
-    "distance": "1.8 km",
-    "rating": "4.7",
-    "img": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 87
-  },
-  {
-    "id": 118,
-    "title": "Shure SM58 Dynamic Vocal Microphone (Unit #3)",
-    "category": "Music",
-    "fee": 65,
-    "deposit": 300,
-    "owner": "Yash Patil",
-    "trust": 89,
-    "distance": "1.9 km",
-    "rating": "4.8",
-    "img": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 86
-  },
-  {
-    "id": 119,
-    "title": "Akai Professional MPK Mini MK3 MIDI Keyboard (Unit #3)",
-    "category": "Music",
-    "fee": 80,
-    "deposit": 400,
-    "owner": "Riya Kapoor",
-    "trust": 96,
-    "distance": "2.0 km",
-    "rating": "4.9",
-    "img": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&auto=format&fit=crop",
-    "condition": "Excellent",
-    "matchScore": 85
-  },
-  {
-    "id": 120,
-    "title": "Sony PlayStation 5 DualSense Wireless Controller (Unit #3)",
-    "category": "Gaming",
-    "fee": 70,
-    "deposit": 350,
-    "owner": "Aditya Deshmukh",
-    "trust": 92,
-    "distance": "2.1 km",
-    "rating": "5.0",
-    "img": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=600&auto=format&fit=crop",
-    "condition": "Like New",
-    "matchScore": 84
-  }
-];
+      { id: 1, title: "Sony Alpha A7 III Camera", category: "Photography", fee: 150, deposit: 500, owner: "Rahul", trust: 94, distance: "0.8 km", rating: 4.9, img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop", condition: "Excellent", matchScore: 96 },
+      { id: 2, title: "TI-84 Plus CE Calculator", category: "Calculators", fee: 50, deposit: 200, owner: "Priya", trust: 98, distance: "0.3 km", rating: 5.0, img: "https://images.unsplash.com/photo-1611125832047-1d7ad1e8e48a?q=80&w=600&auto=format&fit=crop", condition: "Like New", matchScore: 94 },
+      { id: 3, title: "MacBook Pro 96W Adapter", category: "Electronics", fee: 40, deposit: 150, owner: "Alex", trust: 92, distance: "0.5 km", rating: 4.8, img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=600&auto=format&fit=crop", condition: "Good", matchScore: 91 },
+      { id: 4, title: "Heavy-Duty Heavy Tripod", category: "Photography", fee: 60, deposit: 200, owner: "David", trust: 90, distance: "1.1 km", rating: 4.7, img: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop", condition: "Excellent", matchScore: 89 }
+    ];
 
     const communitiesData = [
       { id: 'Photography', num: '01', name: 'Photography', tag: 'CREATIVE', desc: 'Share cameras, lenses, lighting equipment and learn from fellow campus creators.', members: 1248, resources: 342, activeNow: 87, img: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop' },
@@ -2537,12 +891,19 @@
     function switchWorkspaceMode(mode) {
       document.getElementById('wsChatStage').style.display = mode === 'chat' ? 'flex' : 'none';
       document.getElementById('wsMarketplaceStage').style.display = mode === 'marketplace' ? 'flex' : 'none';
+      
+      const btnChat = document.getElementById('segBtnChat');
+      const btnMkt = document.getElementById('segBtnMkt');
+      if (btnChat && btnMkt) {
+        btnChat.classList.toggle('active', mode === 'chat');
+        btnMkt.classList.toggle('active', mode === 'marketplace');
+      }
     }
 
     function renderWorkspaceChat() {
       document.getElementById('wsMessageFeed').innerHTML = `
         <div style="background:white; border-radius:12px; padding:1.2rem; border:1px solid var(--border);">
-          <div style="font-weight:700;">Sneha Kapoor</div>
+          <div style="font-weight:700;">Sneha Kapoor <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal;">· 11:42 AM</span></div>
           <p style="margin-top:4px; font-size:0.92rem;">Does anyone have a tripod available for tomorrow evening's college event?</p>
           <div class="chat-resource-embed">
             <div style="font-weight:700; font-size:0.88rem;">📷 Heavy-Duty Tripod</div>
@@ -2559,7 +920,7 @@
       if (!text) return;
       document.getElementById('wsMessageFeed').innerHTML += `
         <div style="background:white; border-radius:12px; padding:1.2rem; border:1px solid var(--border);">
-          <div style="font-weight:700;">Rahul (You)</div>
+          <div style="font-weight:700;">Rahul (You) <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal;">· Just now</span></div>
           <p style="margin-top:4px; font-size:0.92rem;">${escapeHtml(text)}</p>
         </div>
       `;
