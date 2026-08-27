@@ -1843,6 +1843,16 @@
 </div>
 
 <script>
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   const recentProducts = [
     { id: 101, title: "TI-84 Plus CE Graphing Calculator", owner: "Alex Chen", category: "Electronics", img: "https://images.unsplash.com/photo-1611125832047-1d7ad1e8e48a?q=80&w=600&auto=format&fit=crop" },
     { id: 102, title: "Sony WH-1000XM4 Noise Canceling Headphones", owner: "James Wilson", category: "Electronics", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop" },
