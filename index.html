@@ -587,7 +587,7 @@
     .status-pending { background: var(--highlight-light); color: var(--highlight-dark); border: 1px solid #FDE68A; }
     .status-returned { background: #F1F5F9; color: var(--text-secondary); border: 1px solid var(--border-color); }
 
-    /* Orbital Carousel Section (30-40-30 Mouse Steering) */
+    /* Orbital Carousel Section */
     .orbital-carousel-section {
       margin-top: 1.4rem;
       margin-bottom: 2rem;
@@ -597,8 +597,8 @@
     .orbital-wrapper {
       position: relative;
       width: 100%;
-      height: 250px;
-      border-radius: 26px;
+      height: 390px;
+      border-radius: 28px;
       background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
       border: 1px solid var(--border-color);
       overflow: hidden;
@@ -610,72 +610,21 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .zone-indicator {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      pointer-events: none;
-      z-index: 10;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: opacity 0.2s, background 0.2s;
-      opacity: 0.35;
-    }
-
-    .zone-left {
-      left: 0;
-      width: 30%;
-      background: linear-gradient(90deg, rgba(79, 70, 229, 0.1) 0%, rgba(79, 70, 229, 0) 100%);
-      color: var(--primary);
-      justify-content: flex-start;
-      padding-left: 1rem;
-    }
-
-    .zone-center {
-      left: 30%;
-      width: 40%;
-      color: var(--text-secondary);
-      justify-content: center;
-    }
-
-    .zone-right {
-      right: 0;
-      width: 30%;
-      background: linear-gradient(-90deg, rgba(79, 70, 229, 0.1) 0%, rgba(79, 70, 229, 0) 100%);
-      color: var(--primary);
-      justify-content: flex-end;
-      padding-right: 1rem;
-    }
-
-    .orbital-wrapper:hover .zone-left.active-zone {
-      opacity: 1;
-      background: linear-gradient(90deg, rgba(79, 70, 229, 0.2) 0%, rgba(79, 70, 229, 0) 100%);
-    }
-
-    .orbital-wrapper:hover .zone-right.active-zone {
-      opacity: 1;
-      background: linear-gradient(-90deg, rgba(79, 70, 229, 0.2) 0%, rgba(79, 70, 229, 0) 100%);
-    }
-
     .orbital-track {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       position: absolute;
       left: 50%;
       will-change: transform;
-      transition: transform 0.1s ease-out;
+      transition: transform 0.12s ease-out;
       padding: 0 40px;
     }
 
     .orbital-card {
-      width: 180px;
-      height: 210px;
+      width: 220px;
+      height: 330px;
       background: white;
-      border-radius: 20px;
+      border-radius: 24px;
       border: 1px solid var(--border-color);
       box-shadow: var(--shadow-sm);
       overflow: hidden;
@@ -687,20 +636,20 @@
     }
 
     .orbital-card:hover {
-      transform: scale(1.06) translateY(-4px);
+      transform: scale(1.05) translateY(-6px);
       border-color: var(--primary);
-      box-shadow: 0 14px 28px -6px var(--primary-glow);
+      box-shadow: 0 16px 32px -8px var(--primary-glow);
     }
 
     .orbital-img {
-      height: 108px;
+      height: 200px;
       width: 100%;
       object-fit: cover;
       background: #F1F5F9;
     }
 
     .orbital-card-body {
-      padding: 10px 12px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -1468,19 +1417,13 @@
           </div>
         </div>
 
-        <!-- RECENTLY ADDED PRODUCTS ORBITAL CAROUSEL (30-40-30 MOUSE STEERING) -->
+        <!-- RECENTLY ADDED PRODUCTS ORBITAL CAROUSEL -->
         <div class="orbital-carousel-section">
-          <div class="showcase-header" style="justify-content:space-between;">
+          <div class="showcase-header">
             <span><i class="fas fa-sparkles" style="color:var(--primary);"></i> Recently Added Products</span>
-            <span style="font-size:0.75rem; font-weight:600; color:var(--text-secondary);"><i class="fas fa-arrows-left-right"></i> Move cursor left (30%) or right (30%) to orbit</span>
           </div>
 
           <div class="orbital-wrapper" id="orbitalWrapper">
-            <!-- 30-40-30 Steering Zones -->
-            <div class="zone-indicator zone-left" id="zoneLeft"><i class="fas fa-chevron-left" style="margin-right:6px;"></i> 30% Orbit Left</div>
-            <div class="zone-indicator zone-center" id="zoneCenter"><span>40% Focus Zone</span></div>
-            <div class="zone-indicator zone-right" id="zoneRight">30% Orbit Right <i class="fas fa-chevron-right" style="margin-left:6px;"></i></div>
-
             <!-- Orbital Track -->
             <div class="orbital-track" id="orbitalTrack">
               <!-- Dynamically populated -->
@@ -2405,8 +2348,6 @@
   function setupOrbitalSteering() {
     const wrapper = document.getElementById('orbitalWrapper');
     const track = document.getElementById('orbitalTrack');
-    const zoneLeft = document.getElementById('zoneLeft');
-    const zoneRight = document.getElementById('zoneRight');
 
     if (!wrapper || !track) return;
 
@@ -2416,29 +2357,21 @@
       const ratio = mouseX / rect.width;
 
       if (ratio < 0.3) {
-        // Left 30% -> Orbit Left (show earlier products)
+        // Left 30% -> Orbit Left
         const intensity = (0.3 - ratio) / 0.3;
-        orbitalVelocity = 5 * intensity;
-        zoneLeft.classList.add('active-zone');
-        zoneRight.classList.remove('active-zone');
+        orbitalVelocity = 6 * intensity;
       } else if (ratio > 0.7) {
-        // Right 30% -> Orbit Right (show later products)
+        // Right 30% -> Orbit Right
         const intensity = (ratio - 0.7) / 0.3;
-        orbitalVelocity = -5 * intensity;
-        zoneRight.classList.add('active-zone');
-        zoneLeft.classList.remove('active-zone');
+        orbitalVelocity = -6 * intensity;
       } else {
-        // Center 40% -> Focus zone (stationary)
+        // Center 40% -> Focus zone
         orbitalVelocity = 0;
-        zoneLeft.classList.remove('active-zone');
-        zoneRight.classList.remove('active-zone');
       }
     });
 
     wrapper.addEventListener('mouseleave', () => {
       orbitalVelocity = 0;
-      if (zoneLeft) zoneLeft.classList.remove('active-zone');
-      if (zoneRight) zoneRight.classList.remove('active-zone');
     });
 
     function updateOrbitalLoop() {
