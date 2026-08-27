@@ -1408,6 +1408,9 @@
     </div>
 
     <div class="nav-actions">
+      <button class="btn-cart" onclick="openLendModal()" style="background:var(--accent-light); color:var(--accent-dark); border:1px solid #A7F3D0;">
+        <i class="fas fa-plus"></i> Lend Item
+      </button>
       <button class="btn-cart" onclick="openCartModal()">
         <i class="fas fa-basket-shopping"></i> Borrow Cart <span class="cart-badge" id="cartCountBadge">0</span>
       </button>
@@ -1452,24 +1455,6 @@
     <!-- Dashboard Grid -->
     <div class="dashboard-grid">
       <div class="action-section">
-        <h2><i class="fas fa-handshake" style="color:var(--secondary);"></i> borrow · lend</h2>
-
-        <div class="card-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:2rem;">
-          <div class="action-card borrow-card" onclick="openBorrowModal()">
-            <div class="icon-bg"><i class="fas fa-book-open"></i></div>
-            <h3>borrow</h3>
-            <p>Textbooks, gear, notes — request directly from campus peers.</p>
-            <span class="card-tag"><i class="far fa-clock"></i> <span id="itemCountNum">6</span> items available</span>
-          </div>
-
-          <div class="action-card lend-card" onclick="openLendModal()">
-            <div class="icon-bg"><i class="fas fa-hand-holding-heart"></i></div>
-            <h3>lend</h3>
-            <p>List your unused stuff, set return terms, build trust score.</p>
-            <span class="card-tag"><i class="fas fa-plus-circle"></i> list an item</span>
-          </div>
-        </div>
-
         <div class="catalog-search-bar">
           <div class="search-input-wrapper">
             <i class="fas fa-magnifying-glass"></i>
