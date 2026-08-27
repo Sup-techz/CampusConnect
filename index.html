@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>swap · campus borrow & lend</title>
+  <title>CampusConnect · Peer Borrow, Lend, Donate & Admin Hub</title>
   <!-- Fonts & Font Awesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +15,7 @@
     :root {
       --primary: #4F46E5;          /* Deep Indigo */
       --primary-hover: #4338CA;
-      --primary-glow: rgba(79, 70, 229, 0.25);
+      --primary-glow: rgba(79, 70, 229, 0.22);
       
       --secondary: #2563EB;        /* Electric Blue */
       --secondary-hover: #1D4ED8;
@@ -24,11 +24,15 @@
       --accent: #10B981;           /* Mint Green */
       --accent-light: #ECFDF5;
       --accent-dark: #047857;
-      --accent-glow: rgba(16, 185, 129, 0.25);
+      --accent-glow: rgba(16, 185, 129, 0.2);
 
       --highlight: #F59E0B;        /* Amber */
       --highlight-light: #FEF3C7;
       --highlight-dark: #B45309;
+
+      --purple: #8B5CF6;
+      --purple-light: #F5F3FF;
+      --purple-dark: #6D28D9;
 
       --bg: #F8FAFC;               /* Soft White */
       --card-bg: #FFFFFF;          /* White */
@@ -36,10 +40,11 @@
       --text-secondary: #64748B;   /* Slate */
       --border-color: #E2E8F0;     /* Border Slate */
       --error: #EF4444;            /* Coral Red */
+      --error-light: #FEF2F2;
 
       --radius-sm: 12px;
       --radius-md: 20px;
-      --radius-lg: 32px;
+      --radius-lg: 30px;
       --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.03);
       --shadow-md: 0 12px 32px -8px rgba(15, 23, 42, 0.08);
       --shadow-lg: 0 24px 48px -12px rgba(15, 23, 42, 0.12);
@@ -59,21 +64,21 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 2rem 1.5rem;
+      justify-content: flex-start;
+      padding: 1.5rem 1rem 3rem;
       position: relative;
       overflow-x: hidden;
     }
 
-    /* Ambient background blobs for depth */
+    /* Ambient background blooms */
     body::before {
       content: '';
       position: fixed;
-      top: -10%;
-      left: -5%;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(79, 70, 229, 0.07) 0%, rgba(248, 250, 252, 0) 70%);
+      top: -12%;
+      left: -6%;
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, rgba(248, 250, 252, 0) 70%);
       border-radius: 50%;
       z-index: 0;
       pointer-events: none;
@@ -82,25 +87,25 @@
     body::after {
       content: '';
       position: fixed;
-      bottom: -10%;
-      right: -5%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, rgba(248, 250, 252, 0) 70%);
+      bottom: -12%;
+      right: -6%;
+      width: 620px;
+      height: 620px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.07) 0%, rgba(248, 250, 252, 0) 70%);
       border-radius: 50%;
       z-index: 0;
       pointer-events: none;
     }
 
-    /* Main Card Container */
+    /* Main Container */
     .app {
-      max-width: 1320px;
+      max-width: 1340px;
       width: 100%;
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-lg);
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      padding: 2.5rem 3rem;
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      padding: 2.2rem 2.8rem;
       position: relative;
       z-index: 1;
       backdrop-filter: blur(12px);
@@ -112,14 +117,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: linear-gradient(90deg, #EEF2FF 0%, #EFF6FF 100%);
+      background: linear-gradient(90deg, #EEF2FF 0%, #EFF6FF 50%, #F5F3FF 100%);
       border: 1px solid #C7D2FE;
       border-radius: 50px;
-      padding: 6px 18px;
-      font-size: 0.78rem;
+      padding: 8px 20px;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--primary);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .ticker-item {
@@ -129,8 +136,8 @@
     }
 
     .pulse-dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       background: var(--accent);
       border-radius: 50%;
       box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
@@ -143,13 +150,84 @@
       100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
 
+    /* Event of the Day Spotlight Banner */
+    .event-spotlight-card {
+      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
+      color: white;
+      border-radius: 22px;
+      padding: 1.2rem 1.6rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 25px -5px rgba(67, 56, 202, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-spotlight-card::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .event-tag {
+      background: rgba(245, 158, 11, 0.25);
+      color: #FDE68A;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .event-details h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .event-details p {
+      font-size: 0.84rem;
+      color: #E0E7FF;
+      margin-top: 4px;
+    }
+
+    .event-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: #CBD5E1;
+    }
+
+    .event-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
     /* Navbar Header */
     .navbar {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 2.2rem;
+      margin-bottom: 2rem;
       gap: 1rem;
     }
 
@@ -182,7 +260,7 @@
 
     .logo-text {
       font-weight: 800;
-      font-size: 1.8rem;
+      font-size: 1.75rem;
       letter-spacing: -0.04em;
       color: var(--text);
     }
@@ -195,12 +273,41 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-admin-portal {
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+    }
+
+    .btn-admin-portal:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn-admin-portal.active-portal {
+      background: var(--text);
+      color: white;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
     }
 
     .badge-campus {
       background: var(--bg);
-      padding: 9px 20px;
+      padding: 9px 18px;
       border-radius: 50px;
       font-size: 0.82rem;
       font-weight: 600;
@@ -225,16 +332,15 @@
       padding: 5px;
       border-radius: 50px;
       border: 1px solid var(--border-color);
-      position: relative;
     }
 
     .login-toggle button {
       border: none;
       background: transparent;
-      padding: 8px 22px;
+      padding: 8px 18px;
       border-radius: 40px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -250,18 +356,13 @@
       box-shadow: 0 4px 14px var(--primary-glow);
     }
 
-    .login-toggle button:not(.active):hover {
-      color: var(--text);
-      background: rgba(226, 232, 240, 0.6);
-    }
-
     /* User Profile Pill */
     .user-profile-pill {
       display: none;
       align-items: center;
       gap: 12px;
       background: #EEF2FF;
-      padding: 6px 18px 6px 8px;
+      padding: 5px 16px 5px 6px;
       border-radius: 50px;
       border: 1px solid #C7D2FE;
       box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
@@ -288,12 +389,12 @@
 
     .user-profile-pill .user-name {
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: var(--text);
     }
 
     .user-profile-pill .user-role {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--text-secondary);
     }
 
@@ -312,15 +413,22 @@
       color: var(--error);
     }
 
-    /* Dashboard Layout */
-    .dashboard-grid {
+    /* ==========================================================================
+       VIEW CONTAINER (STUDENT VIEW vs ADMIN VIEW)
+       ========================================================================== */
+    .view-container {
+      width: 100%;
+    }
+
+    /* Student Dashboard Layout */
+    .student-dashboard-grid {
       display: grid;
       grid-template-columns: 1.35fr 0.9fr;
-      gap: 2.8rem;
+      gap: 2.5rem;
       margin-top: 0.5rem;
     }
 
-    /* Left Column — Action Cards */
+    /* Action Cards Grid */
     .action-section h2 {
       font-size: 1.15rem;
       font-weight: 700;
@@ -329,30 +437,28 @@
       margin-bottom: 1.2rem;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
     }
 
-    .action-section h2 i {
-      color: var(--secondary);
-      font-size: 1.25rem;
-    }
-
-    .card-grid {
+    .card-grid-triple {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 1.8rem;
     }
 
     .action-card {
       background: var(--card-bg);
-      border-radius: 24px;
-      padding: 1.6rem 1.4rem;
+      border-radius: 22px;
+      padding: 1.4rem 1.2rem;
       border: 1px solid var(--border-color);
       transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       cursor: pointer;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .action-card::before {
@@ -368,6 +474,7 @@
 
     .borrow-card::before { background: var(--secondary); }
     .lend-card::before { background: var(--accent); }
+    .request-card::before { background: var(--purple); }
 
     .action-card:hover {
       border-color: rgba(79, 70, 229, 0.3);
@@ -376,14 +483,14 @@
     }
 
     .action-card .icon-bg {
-      width: 50px;
-      height: 50px;
-      border-radius: 16px;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.1rem;
-      font-size: 1.45rem;
+      margin-bottom: 1rem;
+      font-size: 1.35rem;
       transition: transform 0.25s ease;
     }
 
@@ -403,30 +510,37 @@
       box-shadow: 0 6px 16px var(--accent-glow);
     }
 
+    .request-card .icon-bg {
+      background: var(--purple-light);
+      color: var(--purple);
+      box-shadow: 0 6px 16px rgba(139, 92, 246, 0.2);
+    }
+
     .action-card h3 {
       font-weight: 700;
-      font-size: 1.25rem;
-      margin-bottom: 0.35rem;
+      font-size: 1.15rem;
+      margin-bottom: 0.3rem;
       color: var(--text);
     }
 
     .action-card p {
-      font-size: 0.86rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
-      line-height: 1.45;
-      margin-bottom: 1.3rem;
+      line-height: 1.4;
+      margin-bottom: 1.1rem;
     }
 
     .card-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      padding: 5px 14px;
+      padding: 4px 12px;
       border-radius: 40px;
+      align-self: flex-start;
     }
 
     .borrow-card .card-tag {
@@ -441,23 +555,78 @@
       border: 1px solid #A7F3D0;
     }
 
+    .request-card .card-tag {
+      background: var(--purple-light);
+      color: var(--purple-dark);
+      border: 1px solid #DDD6FE;
+    }
+
+    /* Listing Type Badges */
+    .badge-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .type-free {
+      background: #ECFDF5;
+      color: #047857;
+      border: 1px solid #A7F3D0;
+    }
+
+    .type-price {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #BFDBFE;
+    }
+
+    .type-donate {
+      background: #FEF3C7;
+      color: #B45309;
+      border: 1px solid #FDE68A;
+    }
+
+    .type-sell {
+      background: #F5F3FF;
+      color: #6D28D9;
+      border: 1px solid #DDD6FE;
+    }
+
+    .type-urgency-high {
+      background: #FEF2F2;
+      color: #B91C1C;
+      border: 1px solid #FECACA;
+    }
+
+    .type-urgency-med {
+      background: #FFFBEB;
+      color: #B45309;
+      border: 1px solid #FDE68A;
+    }
+
     /* Catalog Search & Category Filters */
     .catalog-search-bar {
       display: flex;
-      gap: 12px;
-      margin-bottom: 1.4rem;
+      gap: 10px;
+      margin-bottom: 1.2rem;
       flex-wrap: wrap;
     }
 
     .search-input-wrapper {
       flex: 1;
-      min-width: 220px;
+      min-width: 200px;
       display: flex;
       align-items: center;
       background: #F8FAFC;
       border: 1px solid var(--border-color);
       border-radius: 50px;
-      padding: 10px 20px;
+      padding: 8px 18px;
       transition: all 0.2s ease;
     }
 
@@ -469,8 +638,8 @@
 
     .search-input-wrapper i {
       color: var(--text-secondary);
-      margin-right: 12px;
-      font-size: 0.95rem;
+      margin-right: 10px;
+      font-size: 0.9rem;
     }
 
     .search-input-wrapper input {
@@ -478,14 +647,14 @@
       background: transparent;
       outline: none;
       width: 100%;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-family: inherit;
       color: var(--text);
     }
 
     .category-pills {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
       padding-bottom: 4px;
     }
@@ -493,9 +662,9 @@
     .cat-pill {
       background: #F1F5F9;
       border: 1px solid var(--border-color);
-      padding: 8px 16px;
+      padding: 7px 14px;
       border-radius: 40px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: var(--text-secondary);
       cursor: pointer;
@@ -503,7 +672,7 @@
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .cat-pill.active, .cat-pill:hover {
@@ -513,58 +682,65 @@
       box-shadow: 0 4px 12px var(--primary-glow);
     }
 
-    /* Activity List Container */
-    .recent-list {
-      background: var(--card-bg);
-      border-radius: 28px;
-      padding: 1.6rem 1.6rem;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .recent-list .list-header {
+    /* Toggle Sub-tabs (Available Listings vs Borrow Needs) */
+    .tab-switch-row {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
     }
 
-    .recent-list .list-header h4 {
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--text);
+    .tab-pills-group {
       display: flex;
-      align-items: center;
       gap: 8px;
     }
 
-    .recent-list .list-header a {
-      font-size: 0.82rem;
-      color: var(--secondary);
+    .tab-pill-btn {
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 0.88rem;
       font-weight: 700;
-      text-decoration: none;
+      color: var(--text-secondary);
       cursor: pointer;
-      transition: color 0.15s;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .recent-list .list-header a:hover {
-      color: var(--secondary-hover);
-      text-decoration: underline;
+    .tab-pill-btn.active {
+      color: var(--primary);
+      background: #EEF2FF;
+    }
+
+    /* Activity List Container */
+    .recent-list {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 1.4rem;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
     }
 
     .list-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.95rem 0.8rem;
+      padding: 0.9rem 0.8rem;
       border-bottom: 1px solid #F1F5F9;
       border-radius: 16px;
       transition: all 0.2s ease;
+      gap: 12px;
     }
 
     .list-item:hover {
       background: #F8FAFC;
-      transform: translateX(4px);
+      transform: translateX(3px);
     }
 
     .list-item:last-child {
@@ -574,20 +750,21 @@
     .item-info {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
+      flex: 1;
     }
 
     .item-avatar {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       background: #EFF6FF;
-      border-radius: 16px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
       color: var(--secondary);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       flex-shrink: 0;
       box-shadow: 0 4px 10px rgba(37, 99, 235, 0.1);
     }
@@ -598,24 +775,36 @@
 
     .item-details .title {
       font-weight: 700;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .item-details .sub {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--text-secondary);
+      margin-top: 3px;
+    }
+
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .item-status {
       font-size: 0.72rem;
       font-weight: 700;
-      padding: 6px 16px;
+      padding: 6px 14px;
       border-radius: 60px;
       cursor: pointer;
       border: none;
       transition: all 0.2s ease;
       font-family: inherit;
+      white-space: nowrap;
     }
 
     .item-status:hover {
@@ -640,102 +829,81 @@
       border: 1px solid var(--border-color);
     }
 
-    /* Right Column — Login & Access Panels */
+    /* Right Column (User & Quick Portals) */
     .login-panel {
       background: #FAFCFF;
-      border-radius: 32px;
-      padding: 2rem 2rem 2.2rem;
+      border-radius: 28px;
+      padding: 1.8rem;
       border: 1px solid var(--border-color);
       box-shadow: var(--shadow-sm);
     }
 
     .login-panel .panel-title {
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: var(--text);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .login-panel .panel-title i {
-      color: var(--primary);
+      gap: 8px;
     }
 
     .login-panel .subhead {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--text-secondary);
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.4rem;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.9rem;
+      padding-bottom: 0.8rem;
     }
 
     .login-options {
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 18px;
     }
 
     .login-card {
       background: var(--card-bg);
-      border-radius: 26px;
-      padding: 1.6rem 1.4rem;
+      border-radius: 22px;
+      padding: 1.4rem 1.2rem;
       border: 1px solid var(--border-color);
-      transition: all 0.2s ease;
       box-shadow: var(--shadow-sm);
     }
 
-    .login-card.user-card {
-      border-left: 6px solid var(--primary);
-    }
-
-    .login-card.admin-card {
-      border-left: 6px solid var(--highlight);
-    }
+    .login-card.user-card { border-left: 5px solid var(--primary); }
+    .login-card.admin-card { border-left: 5px solid var(--highlight); }
 
     .login-card .login-label {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 1.1rem;
+      margin-bottom: 1rem;
     }
 
     .login-card .login-label span {
       font-weight: 800;
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       color: var(--text);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .login-card .login-badge {
-      font-size: 0.68rem;
+    .login-badge {
+      font-size: 0.65rem;
       font-weight: 700;
-      padding: 5px 14px;
+      padding: 4px 10px;
       border-radius: 40px;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
     }
 
-    .user-card .login-badge {
-      background: #EEF2FF;
-      color: var(--primary);
-      border: 1px solid #C7D2FE;
-    }
-
-    .admin-card .login-badge {
-      background: var(--highlight-light);
-      color: var(--highlight-dark);
-      border: 1px solid #FDE68A;
-    }
+    .user-card .login-badge { background: #EEF2FF; color: var(--primary); border: 1px solid #C7D2FE; }
+    .admin-card .login-badge { background: var(--highlight-light); color: var(--highlight-dark); border: 1px solid #FDE68A; }
 
     .login-input-group {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 6px;
+      gap: 10px;
     }
 
     .login-input-group .input-row {
@@ -743,7 +911,7 @@
       align-items: center;
       background: #F8FAFC;
       border-radius: 50px;
-      padding: 3px 8px 3px 20px;
+      padding: 2px 6px 2px 18px;
       border: 1px solid var(--border-color);
       transition: all 0.2s ease;
     }
@@ -754,26 +922,20 @@
       box-shadow: 0 0 0 3px var(--primary-glow);
     }
 
-    .admin-card .login-input-group .input-row:focus-within {
-      border-color: var(--highlight);
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
-    }
-
     .login-input-group .input-row i {
       color: var(--text-secondary);
-      font-size: 0.92rem;
-      margin-right: 10px;
+      font-size: 0.88rem;
+      margin-right: 8px;
     }
 
     .login-input-group .input-row input {
       border: none;
       background: transparent;
-      padding: 12px 0;
-      font-size: 0.9rem;
+      padding: 10px 0;
+      font-size: 0.86rem;
       width: 100%;
       outline: none;
       font-family: inherit;
-      font-weight: 500;
       color: var(--text);
     }
 
@@ -781,47 +943,33 @@
       border: none;
       color: white;
       font-weight: 700;
-      font-size: 0.92rem;
-      padding: 14px 0;
+      font-size: 0.88rem;
+      padding: 12px 0;
       border-radius: 50px;
-      margin-top: 8px;
+      margin-top: 6px;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       font-family: inherit;
       width: 100%;
     }
 
-    .user-card .login-btn {
-      background: var(--primary);
-      box-shadow: 0 6px 18px var(--primary-glow);
-    }
+    .user-card .login-btn { background: var(--primary); box-shadow: 0 4px 14px var(--primary-glow); }
+    .user-card .login-btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
 
-    .user-card .login-btn:hover {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
-    }
-
-    .admin-card .login-btn {
-      background: var(--highlight);
-      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.3);
-    }
-
-    .admin-card .login-btn:hover {
-      background: #D97706;
-      transform: translateY(-1px);
-    }
+    .admin-card .login-btn { background: var(--highlight); box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3); }
+    .admin-card .login-btn:hover { background: #D97706; transform: translateY(-1px); }
 
     .quick-demo-btn {
       background: transparent;
       border: 1px dashed var(--border-color);
       color: var(--text-secondary);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 600;
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: 30px;
       cursor: pointer;
       margin-top: 8px;
@@ -835,78 +983,420 @@
       border-color: var(--text-secondary);
     }
 
-    .login-divider {
+    /* Leaderboard Mini Widget */
+    .leaderboard-widget {
+      background: white;
+      border-radius: 20px;
+      padding: 1.2rem;
+      border: 1px solid var(--border-color);
+      margin-top: 14px;
+    }
+
+    .leaderboard-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      color: var(--text-secondary);
-      font-size: 0.72rem;
-      font-weight: 600;
-      margin: 4px 0;
-    }
-
-    .login-divider hr {
-      flex: 1;
-      border: none;
-      border-top: 1.5px dashed var(--border-color);
-    }
-
-    /* Admin View Panel */
-    .admin-view-panel {
-      display: none;
-      background: #FFFBEB;
-      border-radius: 28px;
-      padding: 1.6rem;
-      border: 1px solid #FDE68A;
-      animation: fadeIn 0.3s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .admin-stat-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 1.2rem;
-    }
-
-    .stat-card {
-      background: white;
-      padding: 1.1rem;
-      border-radius: 20px;
-      border: 1px solid #FDE68A;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .stat-card .num {
-      font-size: 1.6rem;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 0.88rem;
       font-weight: 800;
-      color: var(--highlight-dark);
+      color: var(--text);
     }
 
-    .stat-card .label {
-      font-size: 0.76rem;
-      font-weight: 600;
-      color: var(--text-secondary);
+    .top-user-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed #F1F5F9;
+      font-size: 0.8rem;
     }
 
-    /* Progress bar in admin panel */
-    .progress-bar-bg {
-      background: #F1F5F9;
-      height: 8px;
-      border-radius: 10px;
-      margin-top: 1rem;
+    .top-user-item:last-child { border-bottom: none; }
+
+    .user-rank-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rank-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.7rem;
+    }
+
+    .rank-1 { background: #FEF3C7; color: #B45309; }
+    .rank-2 { background: #F1F5F9; color: #475569; }
+    .rank-3 { background: #FFEDD5; color: #C2410C; }
+
+    .score-badge {
+      font-weight: 700;
+      color: var(--accent-dark);
+      background: var(--accent-light);
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+    }
+
+    /* ==========================================================================
+       ADMIN PANEL FULL DASHBOARD (GOVERNANCE SUITE)
+       ========================================================================== */
+    .admin-governance-hub {
+      display: none; /* Toggled when in admin mode */
+      animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .admin-top-banner {
+      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #1E293B 100%);
+      color: white;
+      border-radius: 24px;
+      padding: 1.8rem 2.2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: var(--shadow-md);
+      position: relative;
       overflow: hidden;
     }
 
-    .progress-bar-fill {
-      height: 100%;
-      width: 88%;
-      background: linear-gradient(90deg, var(--highlight) 0%, #D97706 100%);
+    .admin-title-area h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-title-area p {
+      font-size: 0.86rem;
+      color: #CBD5E1;
+      margin-top: 4px;
+    }
+
+    .admin-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .admin-action-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .admin-action-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-1px);
+    }
+
+    /* Admin Nav Tabs */
+    .admin-nav-tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid #E2E8F0;
+      margin-bottom: 1.8rem;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .admin-tab {
+      background: transparent;
+      border: none;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .admin-tab:hover {
+      color: var(--primary);
+      background: rgba(79, 70, 229, 0.04);
+    }
+
+    .admin-tab.active {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .admin-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    .tab-badge {
+      background: #EEF2FF;
+      color: var(--primary);
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 20px;
+    }
+
+    /* KPI Stats Bar */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 1.8rem;
+    }
+
+    .kpi-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.2rem 1.1rem;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .kpi-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .kpi-icon {
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    .kpi-num {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .kpi-label {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* Admin Data Tables */
+    .admin-table-container {
+      background: white;
+      border-radius: 22px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .table-toolbar {
+      padding: 1.2rem 1.4rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #F8FAFC;
+    }
+
+    .table-title {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .table-search {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      outline: none;
+      width: 220px;
+      font-family: inherit;
+    }
+
+    .table-filter-select {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      outline: none;
+      font-family: inherit;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .admin-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.84rem;
+    }
+
+    .admin-data-table th {
+      background: #F1F5F9;
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .admin-data-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid #F1F5F9;
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .admin-data-table tr:hover td {
+      background: #F8FAFC;
+    }
+
+    .admin-data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table-user-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .table-user-cell:hover .user-name-link {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .mini-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #EEF2FF;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .btn-action-sm {
+      background: #F1F5F9;
+      border: 1px solid var(--border-color);
+      color: var(--text);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .btn-action-sm:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-action-danger {
+      color: var(--error);
+    }
+
+    .btn-action-danger:hover {
+      background: var(--error);
+      color: white;
+      border-color: var(--error);
+    }
+
+    /* Pairwise Exchange Inspector Box */
+    .pairwise-inspector-card {
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+      border: 1px solid #C7D2FE;
+      border-radius: 20px;
+      padding: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pairwise-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .pairwise-select {
+      flex: 1;
+      min-width: 180px;
+      background: white;
+      border: 1px solid var(--border-color);
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.85rem;
+      outline: none;
     }
 
     /* Modals */
@@ -916,24 +1406,30 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(15, 23, 42, 0.65);
       backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      padding: 1rem;
+      padding: 1.2rem;
     }
 
     .modal-card {
       background: white;
-      border-radius: 32px;
+      border-radius: 28px;
       width: 100%;
-      max-width: 520px;
-      padding: 2.2rem;
+      max-width: 540px;
+      padding: 2rem;
       box-shadow: var(--shadow-lg);
       position: relative;
       animation: modalSlideUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-card.modal-lg {
+      max-width: 780px;
     }
 
     @keyframes modalSlideUp {
@@ -945,11 +1441,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
     }
 
     .modal-header h3 {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 800;
       color: var(--text);
       display: flex;
@@ -960,8 +1456,8 @@
     .close-modal {
       background: #F1F5F9;
       border: none;
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       cursor: pointer;
       color: var(--text-secondary);
@@ -978,31 +1474,36 @@
     }
 
     .form-group {
-      margin-bottom: 1.3rem;
+      margin-bottom: 1.1rem;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--text);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
-    .form-group input, .form-group select {
+    .form-group input, .form-group select, .form-group textarea {
       width: 100%;
-      padding: 13px 18px;
-      border-radius: 16px;
+      padding: 11px 16px;
+      border-radius: 14px;
       border: 1px solid var(--border-color);
       background: #F8FAFC;
       font-family: inherit;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: var(--text);
       outline: none;
       transition: all 0.2s;
     }
 
-    .form-group input:focus, .form-group select:focus {
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
       border-color: var(--primary);
       background: white;
       box-shadow: 0 0 0 4px var(--primary-glow);
@@ -1013,14 +1514,18 @@
       background: var(--primary);
       color: white;
       border: none;
-      padding: 15px;
+      padding: 13px;
       border-radius: 50px;
       font-weight: 700;
-      font-size: 0.96rem;
+      font-size: 0.92rem;
       cursor: pointer;
       transition: all 0.2s;
       font-family: inherit;
       box-shadow: 0 6px 18px var(--primary-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .btn-submit:hover {
@@ -1028,20 +1533,52 @@
       transform: translateY(-1px);
     }
 
+    /* Post Type Selector Pills in Lend Modal */
+    .post-type-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .post-type-btn {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px 6px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .post-type-btn.active {
+      background: #EEF2FF;
+      color: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px var(--primary-glow);
+    }
+
     /* Toast Notification */
     .toast {
       position: fixed;
       bottom: 28px;
       right: 28px;
-      background: var(--text);
+      background: #0F172A;
       color: white;
-      padding: 14px 26px;
+      padding: 12px 22px;
       border-radius: 50px;
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       box-shadow: 0 16px 36px rgba(15, 23, 42, 0.25);
       transform: translateY(100px);
       opacity: 0;
@@ -1056,56 +1593,80 @@
 
     /* Campus Note Footer */
     .campus-note {
-      margin-top: 2.2rem;
+      margin-top: 2rem;
       font-size: 0.78rem;
       color: var(--text-secondary);
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       gap: 8px;
       border-top: 1px solid var(--border-color);
-      padding-top: 1.5rem;
+      padding-top: 1.4rem;
+      flex-wrap: wrap;
     }
 
-    /* Responsiveness */
-    @media (max-width: 960px) {
-      .app {
-        padding: 2rem 1.4rem;
-      }
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 2.2rem;
-      }
+    /* User Profile Inspector Card in Modal */
+    .inspector-profile-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1.2rem;
     }
 
-    @media (max-width: 580px) {
-      .navbar {
-        flex-direction: column;
-        align-items: start;
-      }
-      .nav-actions {
-        width: 100%;
-        flex-wrap: wrap;
-      }
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-      .login-toggle {
-        width: 100%;
-      }
-      .login-toggle button {
-        flex: 1;
-        justify-content: center;
-      }
-      .badge-campus {
-        width: 100%;
-        justify-content: center;
-      }
-      .campus-ticker-bar {
-        flex-direction: column;
-        gap: 6px;
-        align-items: flex-start;
-      }
+    .inspector-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, #3730A3 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    .inspector-meta h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .inspector-meta p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .trust-score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ECFDF5;
+      color: #047857;
+      border: 1px solid #A7F3D0;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      margin-top: 4px;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 1080px) {
+      .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+      .student-dashboard-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      .app { padding: 1.6rem 1.2rem; }
+      .card-grid-triple { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .navbar { flex-direction: column; align-items: stretch; }
+      .nav-actions { justify-content: space-between; }
+      .event-spotlight-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .admin-top-banner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -1113,29 +1674,53 @@
 
 <div class="app">
 
-  <!-- Top Campus Ticker -->
+  <!-- Live Top Ticker Bar -->
   <div class="campus-ticker-bar">
     <div class="ticker-item">
-      <span class="pulse-dot"></span> <strong>Campus Live:</strong> 14 items borrowed today in Science Library Hub
+      <span class="pulse-dot"></span> <strong>Campus Live:</strong> <span id="tickerText">18 peer swaps active across Engineering & Science Libraries</span>
     </div>
-    <div class="ticker-item">
-      <i class="fas fa-shield-halved" style="color:var(--accent);"></i> 99.4% Student Trust Rating
+    <div class="ticker-item" style="display:flex; gap:16px;">
+      <span><i class="fas fa-shield-halved" style="color:var(--accent);"></i> 99.6% Student Trust Rating</span>
+      <span id="campusTimeDisplay"><i class="far fa-clock"></i> Fall Semester 2026</span>
+    </div>
+  </div>
+
+  <!-- Event of the Day Spotlight Banner -->
+  <div class="event-spotlight-card" id="eventSpotlightBanner">
+    <div class="event-details">
+      <span class="event-tag"><i class="fas fa-star"></i> Event of the Day</span>
+      <h3 id="spotlightTitle">Midterm Tech & Textbook Swap Fair</h3>
+      <p id="spotlightDesc">Free graphing calculators, lab manuals & study monitors available for checkout at the Central Quad Pavilion.</p>
+      <div class="event-meta">
+        <span><i class="fas fa-location-dot" style="color:#F59E0B;"></i> <span id="spotlightLoc">Central Library Hub · 10 AM - 4 PM</span></span>
+        <span><i class="fas fa-users" style="color:#60A5FA;"></i> <span id="spotlightAttending">84 students participating</span></span>
+      </div>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button class="admin-action-btn" onclick="openEventModal()" style="background:white; color:#1E1B4B; font-weight:800;">
+        <i class="fas fa-calendar-check"></i> Event Details
+      </button>
     </div>
   </div>
 
   <!-- Header / Navigation -->
   <nav class="navbar">
-    <div class="logo-area" id="logoClick" onclick="showToast('swap · campus peer borrow & lend network')">
+    <div class="logo-area" id="logoClick" onclick="switchView('student')">
       <div class="logo-icon"><i class="fas fa-arrows-rotate"></i></div>
-      <div class="logo-text">swap<span> · campus</span></div>
+      <div class="logo-text">CampusConnect<span> · peer swap</span></div>
     </div>
 
     <div class="nav-actions">
+      <!-- Admin Portal Toggle Button -->
+      <button class="btn-admin-portal" id="adminPortalBtn" onclick="toggleAdminPortal()">
+        <i class="fas fa-shield-halved"></i> <span id="adminPortalBtnText">Admin Governance</span>
+      </button>
+
       <div class="badge-campus">
-        <i class="fas fa-graduation-cap"></i> student hub · fall 2026
+        <i class="fas fa-graduation-cap"></i> Verified Student Hub
       </div>
       
-      <!-- Login Toggle Button Group -->
+      <!-- Login Toggle (User / Admin) -->
       <div class="login-toggle" id="loginToggleContainer">
         <button id="toggleUserBtn" class="active" onclick="switchLoginTab('user')">
           <i class="fas fa-user"></i> User
@@ -1150,213 +1735,689 @@
         <div class="avatar" id="userAvatar">AC</div>
         <div class="user-info">
           <span class="user-name" id="userName">Alex Chen</span>
-          <span class="user-role" id="userRole">Student · verified</span>
+          <span class="user-role" id="userRole">Student · Verified</span>
         </div>
         <button class="btn-logout" onclick="logout()" title="Sign Out"><i class="fas fa-right-from-bracket"></i></button>
       </div>
     </div>
   </nav>
 
-  <!-- Main Dashboard Grid -->
-  <div class="dashboard-grid">
+  <!-- =========================================================================
+       1. STUDENT / PEER PORTAL VIEW
+       ========================================================================= -->
+  <div class="view-container" id="studentViewContainer">
+    <div class="student-dashboard-grid">
 
-    <!-- Left Column: Borrow & Lend Actions + Campus Activity -->
-    <div class="action-section">
-      <h2><i class="fas fa-handshake"></i> borrow · lend</h2>
+      <!-- Left Column: Actions, Search, and Catalog Feed -->
+      <div class="action-section">
+        <h2>
+          <span><i class="fas fa-handshake" style="color:var(--secondary); margin-right:8px;"></i> campus exchange center</span>
+          <span style="font-size:0.75rem; font-weight:600; color:var(--text-secondary);" id="activeItemsSummary">6 items available · 3 requests open</span>
+        </h2>
 
-      <div class="card-grid">
-        <!-- Borrow Card -->
-        <div class="action-card borrow-card" onclick="openBorrowModal()">
-          <div class="icon-bg"><i class="fas fa-book-open"></i></div>
-          <h3>borrow</h3>
-          <p>Textbooks, gear, notes — request directly from campus peers.</p>
-          <span class="card-tag" id="availItemsTag"><i class="far fa-clock"></i> <span id="itemCountNum">6</span> items available</span>
+        <!-- Action Cards: Borrow, Lend/Sell/Donate, Post Request -->
+        <div class="card-grid-triple">
+          <!-- Browse & Borrow Card -->
+          <div class="action-card borrow-card" onclick="openBorrowBrowseModal()">
+            <div>
+              <div class="icon-bg"><i class="fas fa-book-open"></i></div>
+              <h3>borrow</h3>
+              <p>Borrow textbooks, calculators, electronics from students.</p>
+            </div>
+            <span class="card-tag"><i class="far fa-clock"></i> browse items</span>
+          </div>
+
+          <!-- Lend, Sell or Donate Card -->
+          <div class="action-card lend-card" onclick="openLendModal()">
+            <div>
+              <div class="icon-bg"><i class="fas fa-hand-holding-heart"></i></div>
+              <h3>lend / sell / donate</h3>
+              <p>List item for free borrow, set price rate, sell, or donate.</p>
+            </div>
+            <span class="card-tag"><i class="fas fa-plus-circle"></i> create listing</span>
+          </div>
+
+          <!-- Borrow Request ("I Need") Card -->
+          <div class="action-card request-card" onclick="openBorrowRequestModal()">
+            <div>
+              <div class="icon-bg"><i class="fas fa-bullhorn"></i></div>
+              <h3>request need</h3>
+              <p>Looking for something urgent? Post a request to peers.</p>
+            </div>
+            <span class="card-tag"><i class="fas fa-paper-plane"></i> post need</span>
+          </div>
         </div>
 
-        <!-- Lend Card -->
-        <div class="action-card lend-card" onclick="openLendModal()">
-          <div class="icon-bg"><i class="fas fa-hand-holding-heart"></i></div>
-          <h3>lend</h3>
-          <p>List your unused stuff, set return terms, build trust score.</p>
-          <span class="card-tag"><i class="fas fa-plus-circle"></i> list an item</span>
-        </div>
-      </div>
-
-      <!-- Search & Category Filters -->
-      <div class="catalog-search-bar">
-        <div class="search-input-wrapper">
-          <i class="fas fa-magnifying-glass"></i>
-          <input type="text" id="searchInput" placeholder="Search textbooks, electronics, lab gear..." oninput="filterItems()" />
-        </div>
-        <div class="category-pills">
-          <span class="cat-pill active" onclick="setCategoryFilter('all', this)"><i class="fas fa-grid-2"></i> All</span>
-          <span class="cat-pill" onclick="setCategoryFilter('Textbooks', this)"><i class="fas fa-book"></i> Textbooks</span>
-          <span class="cat-pill" onclick="setCategoryFilter('Electronics', this)"><i class="fas fa-laptop"></i> Electronics</span>
-          <span class="cat-pill" onclick="setCategoryFilter('Gear & Supplies', this)"><i class="fas fa-flask"></i> Gear</span>
-        </div>
-      </div>
-
-      <!-- Recent Activity List -->
-      <div class="recent-list">
-        <div class="list-header">
-          <h4><i class="fas fa-bolt" style="color:var(--secondary);"></i> campus activity</h4>
-          <a href="#" onclick="toggleViewAllItems(event)" id="viewAllBtn">see all (<span id="totalItemsCount">6</span>)</a>
+        <!-- Search Bar & Category Filters -->
+        <div class="catalog-search-bar">
+          <div class="search-input-wrapper">
+            <i class="fas fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search textbooks, Sony headphones, chargers, kits..." oninput="filterCatalog()" />
+          </div>
+          <div class="category-pills">
+            <span class="cat-pill active" onclick="setCategoryFilter('all', this)"><i class="fas fa-grid-2"></i> All</span>
+            <span class="cat-pill" onclick="setCategoryFilter('Textbooks', this)"><i class="fas fa-book"></i> Textbooks</span>
+            <span class="cat-pill" onclick="setCategoryFilter('Electronics', this)"><i class="fas fa-laptop"></i> Electronics</span>
+            <span class="cat-pill" onclick="setCategoryFilter('Gear & Supplies', this)"><i class="fas fa-flask"></i> Lab Gear</span>
+          </div>
         </div>
 
-        <div id="activityContainer">
+        <!-- Tab Selector: Listings vs Borrow Needs -->
+        <div class="tab-switch-row">
+          <div class="tab-pills-group">
+            <button class="tab-pill-btn active" id="tabListingsBtn" onclick="switchCatalogTab('listings')">
+              <i class="fas fa-box-open"></i> Available Listings (<span id="listingsCountBadge">6</span>)
+            </button>
+            <button class="tab-pill-btn" id="tabNeedsBtn" onclick="switchCatalogTab('needs')">
+              <i class="fas fa-hands-helping"></i> Student Needs / Requests (<span id="needsCountBadge">3</span>)
+            </button>
+          </div>
+          <a href="#" onclick="toggleViewAll(event)" id="viewAllBtn" style="font-size:0.8rem; font-weight:700; color:var(--primary); text-decoration:none;">see all items</a>
+        </div>
+
+        <!-- Feed List Container -->
+        <div class="recent-list" id="catalogFeedContainer">
           <!-- Populated dynamically via JS -->
         </div>
       </div>
+
+      <!-- Right Column: Login Forms, Mini Leaderboard & Event of Day -->
+      <div class="login-panel" id="loginPanel">
+        <div class="panel-title"><i class="fas fa-key"></i> campus gateway</div>
+        <div class="subhead">Verified access for students and administrators</div>
+
+        <div class="login-options">
+          <!-- User Login Card -->
+          <div class="login-card user-card" id="userLoginCard">
+            <div class="login-label">
+              <span><i class="fas fa-user-circle" style="color:var(--primary);"></i> student portal</span>
+              <span class="login-badge"><i class="fas fa-check-circle"></i> active</span>
+            </div>
+            <form onsubmit="handleUserLogin(event)">
+              <div class="login-input-group">
+                <div class="input-row">
+                  <i class="fas fa-envelope"></i>
+                  <input type="email" id="userEmail" placeholder="college@edu" value="alex.c@university.edu" required />
+                </div>
+                <div class="input-row">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" id="userPass" placeholder="password" value="••••••••" required />
+                </div>
+                <button type="submit" class="login-btn"><i class="fas fa-arrow-right-to-bracket"></i> sign in as student</button>
+              </div>
+            </form>
+            <button class="quick-demo-btn" onclick="quickFillUser()"><i class="fas fa-bolt" style="color:var(--primary);"></i> One-Click Demo Student Sign In</button>
+          </div>
+
+          <!-- Admin Login Card -->
+          <div class="login-card admin-card" id="adminLoginCard">
+            <div class="login-label">
+              <span><i class="fas fa-user-shield" style="color:var(--highlight-dark);"></i> admin governance</span>
+              <span class="login-badge"><i class="fas fa-shield-alt"></i> staff</span>
+            </div>
+            <form onsubmit="handleAdminLogin(event)">
+              <div class="login-input-group">
+                <div class="input-row">
+                  <i class="fas fa-id-badge"></i>
+                  <input type="text" id="adminId" placeholder="admin ID" value="admin · 08" required />
+                </div>
+                <div class="input-row">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" id="adminPass" placeholder="secure key" value="••••••••" required />
+                </div>
+                <button type="submit" class="login-btn"><i class="fas fa-shield-halved"></i> admin console sign in</button>
+              </div>
+            </form>
+            <button class="quick-demo-btn" onclick="quickFillAdmin()"><i class="fas fa-shield-halved" style="color:var(--highlight);"></i> One-Click Demo Admin Sign In</button>
+          </div>
+
+          <!-- Mini Campus Leaderboard Widget -->
+          <div class="leaderboard-widget">
+            <div class="leaderboard-header">
+              <span><i class="fas fa-trophy" style="color:#F59E0B;"></i> Top Trust Score Peers</span>
+              <span style="font-size:0.72rem; color:var(--text-secondary); cursor:pointer;" onclick="switchToAdminTab('leaderboard')">Full Board &rarr;</span>
+            </div>
+            <div id="miniLeaderboardList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. ADMIN PANEL / GOVERNANCE SUITE VIEW
+       ========================================================================= -->
+  <div class="view-container admin-governance-hub" id="adminGovernanceHub">
+    <!-- Admin Top Banner -->
+    <div class="admin-top-banner">
+      <div class="admin-title-area">
+        <h2><i class="fas fa-shield-halved" style="color:#F59E0B;"></i> Campus Governance & Admin Suite</h2>
+        <p>Comprehensive monitoring of student borrow requests, lender listings, peer exchanges, reputation scores & campus events.</p>
+      </div>
+      <div class="admin-header-actions">
+        <button class="admin-action-btn" onclick="openNewEventModal()">
+          <i class="fas fa-plus"></i> Set Event of Day
+        </button>
+        <button class="admin-action-btn" onclick="exportAuditLog()">
+          <i class="fas fa-download"></i> Export Audit Log
+        </button>
+        <button class="admin-action-btn" onclick="switchView('student')" style="background:rgba(255,255,255,0.25);">
+          <i class="fas fa-arrow-left"></i> Student View
+        </button>
+      </div>
     </div>
 
-    <!-- Right Column: Login Panels (User & Admin Portals Separated) -->
-    <div class="login-panel" id="loginPanel">
-      <div class="panel-title"><i class="fas fa-key"></i> access · swap</div>
-      <div class="subhead"><i class="fas fa-chevron-right" style="font-size:0.6rem; margin-right:6px; color:var(--primary);"></i> user & admin portals separated</div>
+    <!-- Admin KPI Stats Grid -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <span class="kpi-label">Active Swaps</span>
+          <div class="kpi-icon" style="background:#EFF6FF; color:var(--secondary);"><i class="fas fa-arrows-rotate"></i></div>
+        </div>
+        <div class="kpi-num" id="kpiActiveSwaps">4</div>
+        <span style="font-size:0.7rem; color:var(--accent-dark); font-weight:700;"><i class="fas fa-arrow-trend-up"></i> 100% on schedule</span>
+      </div>
 
-      <div class="login-options">
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <span class="kpi-label">Borrow Needs</span>
+          <div class="kpi-icon" style="background:#F5F3FF; color:var(--purple);"><i class="fas fa-bullhorn"></i></div>
+        </div>
+        <div class="kpi-num" id="kpiBorrowNeeds">3</div>
+        <span style="font-size:0.7rem; color:var(--purple-dark); font-weight:700;">2 urgent requests</span>
+      </div>
 
-        <!-- User Login Card -->
-        <div class="login-card user-card" id="userLoginCard">
-          <div class="login-label">
-            <span><i class="fas fa-user-circle" style="color:var(--primary);"></i> student user</span>
-            <span class="login-badge"><i class="fas fa-check-circle"></i> active</span>
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <span class="kpi-label">Lender Listings</span>
+          <div class="kpi-icon" style="background:var(--accent-light); color:var(--accent-dark);"><i class="fas fa-box"></i></div>
+        </div>
+        <div class="kpi-num" id="kpiLenderListings">6</div>
+        <span style="font-size:0.7rem; color:var(--text-secondary);">Priced, Donate & Free</span>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <span class="kpi-label">Verified Students</span>
+          <div class="kpi-icon" style="background:#FEF3C7; color:var(--highlight-dark);"><i class="fas fa-users"></i></div>
+        </div>
+        <div class="kpi-num" id="kpiTotalUsers">8</div>
+        <span style="font-size:0.7rem; color:var(--accent-dark); font-weight:700;">Average 98.4 score</span>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-top">
+          <span class="kpi-label">Successful Returns</span>
+          <div class="kpi-icon" style="background:#ECFDF5; color:var(--accent);"><i class="fas fa-circle-check"></i></div>
+        </div>
+        <div class="kpi-num">99.6%</div>
+        <span style="font-size:0.7rem; color:var(--accent-dark); font-weight:700;">0 disputed cases</span>
+      </div>
+    </div>
+
+    <!-- Admin Navigation Tabs -->
+    <div class="admin-nav-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('overview', this)">
+        <i class="fas fa-chart-pie"></i> Overview
+      </button>
+      <button class="admin-tab" onclick="switchAdminTab('borrowNeeds', this)">
+        <i class="fas fa-bullhorn"></i> Borrow Needs <span class="tab-badge" id="tabBadgeNeeds">3</span>
+      </button>
+      <button class="admin-tab" onclick="switchAdminTab('lenderPosts', this)">
+        <i class="fas fa-hand-holding-heart"></i> Lender Posts (Priced/Donate/Sell) <span class="tab-badge" id="tabBadgeListings">6</span>
+      </button>
+      <button class="admin-tab" onclick="switchAdminTab('exchanges', this)">
+        <i class="fas fa-arrows-rotate"></i> Live Exchanges <span class="tab-badge" id="tabBadgeExchanges">4</span>
+      </button>
+      <button class="admin-tab" onclick="switchAdminTab('userInspector', this)">
+        <i class="fas fa-user-astronaut"></i> User Profile & Direct Exchange Inspector
+      </button>
+      <button class="admin-tab" onclick="switchAdminTab('leaderboard', this)">
+        <i class="fas fa-trophy"></i> Top Users Leaderboard
+      </button>
+      <button class="admin-tab" onclick="switchAdminTab('events', this)">
+        <i class="fas fa-calendar-star"></i> Event of the Day Manager
+      </button>
+    </div>
+
+    <!-- TAB 1: OVERVIEW -->
+    <div id="adminTabOverview" class="admin-tab-content">
+      <div style="display:grid; grid-template-columns: 1.3fr 0.9fr; gap:20px; margin-bottom:20px;">
+        <!-- Live Exchanges Snapshot -->
+        <div class="admin-table-container">
+          <div class="table-toolbar">
+            <div class="table-title"><i class="fas fa-arrows-rotate" style="color:var(--secondary);"></i> Live Campus Exchanges Overview</div>
+            <button class="btn-action-sm" onclick="switchAdminTab('exchanges')">View All Exchanges &rarr;</button>
           </div>
-          <form onsubmit="handleUserLogin(event)">
-            <div class="login-input-group">
-              <div class="input-row">
-                <i class="fas fa-envelope"></i>
-                <input type="email" id="userEmail" placeholder="college@edu" value="alex.c@university.edu" required />
-              </div>
-              <div class="input-row">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="userPass" placeholder="password" value="••••••••" required />
-              </div>
-              <button type="submit" class="login-btn"><i class="fas fa-arrow-right-to-bracket"></i> sign in as user</button>
-            </div>
-          </form>
-          <button class="quick-demo-btn" onclick="quickFillUser()"><i class="fas fa-bolt" style="color:var(--primary);"></i> One-Click Demo Student Sign In</button>
-          
-          <div style="margin-top:14px; font-size:0.75rem; color:var(--text-secondary); display:flex; justify-content:space-between;">
-            <a href="#" onclick="showToast('Viewing borrow history'); return false;" style="color:var(--text-secondary); text-decoration:none;"><i class="far fa-clock"></i> borrow history</a>
-            <a href="#" onclick="showToast('Viewing my listed items'); return false;" style="color:var(--text-secondary); text-decoration:none;"><i class="far fa-folder-open"></i> my items</a>
+          <div style="overflow-x:auto;">
+            <table class="admin-data-table">
+              <thead>
+                <tr>
+                  <th>Item & Type</th>
+                  <th>Lender</th>
+                  <th>Borrower</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="overviewExchangesTableBody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <!-- Divider -->
-        <div class="login-divider" id="loginDivider">
-          <hr /> <span>different access</span> <hr />
-        </div>
-
-        <!-- Admin Login Card -->
-        <div class="login-card admin-card" id="adminLoginCard">
-          <div class="login-label">
-            <span><i class="fas fa-user-tie" style="color:var(--highlight-dark);"></i> admin</span>
-            <span class="login-badge"><i class="fas fa-shield-alt"></i> staff</span>
-          </div>
-          <form onsubmit="handleAdminLogin(event)">
-            <div class="login-input-group">
-              <div class="input-row">
-                <i class="fas fa-id-badge"></i>
-                <input type="text" id="adminId" placeholder="admin ID" value="admin · 08" required />
-              </div>
-              <div class="input-row">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="adminPass" placeholder="secure key" value="••••••••" required />
-              </div>
-              <button type="submit" class="login-btn"><i class="fas fa-user-shield"></i> admin sign in</button>
+        <!-- Campus Event of the Day Card -->
+        <div style="background:white; border-radius:22px; padding:1.4rem; border:1px solid var(--border-color); box-shadow:var(--shadow-sm); display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-weight:800; font-size:1rem; color:var(--text);"><i class="fas fa-calendar-day" style="color:#F59E0B;"></i> Active Spotlight Event</span>
+              <button class="btn-action-sm" onclick="openNewEventModal()"><i class="fas fa-pen"></i> Edit</button>
             </div>
-          </form>
-          <button class="quick-demo-btn" onclick="quickFillAdmin()"><i class="fas fa-shield-halved" style="color:var(--highlight);"></i> One-Click Demo Admin Sign In</button>
+            <div style="background:#F8FAFC; border-radius:16px; padding:14px; border:1px solid var(--border-color);">
+              <h4 style="font-weight:800; color:var(--primary); font-size:1.05rem;" id="adminEventTitle">Midterm Tech & Textbook Swap Fair</h4>
+              <p style="font-size:0.82rem; color:var(--text-secondary); margin-top:4px;" id="adminEventDesc">Free graphing calculators, lab manuals & study monitors available for checkout at the Central Quad Pavilion.</p>
+              <div style="margin-top:10px; font-size:0.78rem; display:flex; flex-direction:column; gap:4px; color:var(--text);">
+                <span><i class="fas fa-map-pin" style="color:#EF4444; width:16px;"></i> <strong id="adminEventLoc">Central Library Hub</strong></span>
+                <span><i class="fas fa-clock" style="color:#F59E0B; width:16px;"></i> <strong id="adminEventTime">10:00 AM - 4:00 PM</strong></span>
+              </div>
+            </div>
+          </div>
 
-          <div style="margin-top:14px; font-size:0.75rem; color:var(--text-secondary); display:flex; justify-content:space-between;">
-            <a href="#" onclick="showToast('Navigating to Analytics'); return false;" style="color:var(--text-secondary); text-decoration:none;"><i class="fas fa-chart-simple"></i> analytics</a>
-            <a href="#" onclick="showToast('Navigating to User Management'); return false;" style="color:var(--text-secondary); text-decoration:none;"><i class="fas fa-users-cog"></i> manage users</a>
+          <div style="margin-top:16px; display:flex; gap:10px;">
+            <button class="btn-submit" style="background:var(--primary); font-size:0.82rem; padding:10px;" onclick="showToast('Campus broadcast push notification sent to 2,400 students!')">
+              <i class="fas fa-broadcast-tower"></i> Broadcast Notification
+            </button>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Admin Dashboard View (When Logged in as Admin) -->
-        <div class="admin-view-panel" id="adminDashboardView">
-          <div style="font-weight:800; color:var(--highlight-dark); margin-bottom:1rem; display:flex; align-items:center; justify-content:space-between;">
-            <span><i class="fas fa-shield-halved"></i> Campus Governance</span>
-            <span style="font-size:0.72rem; background:var(--highlight-light); color:var(--highlight-dark); padding:3px 10px; border-radius:20px; font-weight:700;">Active Staff Session</span>
+    <!-- TAB 2: BORROW POSTS (WHAT USERS NEED) -->
+    <div id="adminTabBorrowNeeds" class="admin-tab-content" style="display:none;">
+      <div class="admin-table-container">
+        <div class="table-toolbar">
+          <div class="table-title">
+            <i class="fas fa-bullhorn" style="color:var(--purple);"></i> Student Borrow Requests ("What They Need")
           </div>
-          <div class="admin-stat-grid">
-            <div class="stat-card">
-              <div class="num" id="adminActiveSwaps">24</div>
-              <div class="label">Active Swaps</div>
-            </div>
-            <div class="stat-card">
-              <div class="num">99.4%</div>
-              <div class="label">Return Rate</div>
-            </div>
+          <div class="table-actions">
+            <input type="text" class="table-search" placeholder="Search borrow needs..." id="searchBorrowNeedsInput" oninput="renderAdminBorrowNeedsTable()" />
+            <select class="table-filter-select" id="filterBorrowUrgency" onchange="renderAdminBorrowNeedsTable()">
+              <option value="all">All Urgency</option>
+              <option value="High">Urgent Needs</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Flexible</option>
+            </select>
+            <button class="btn-action-sm" onclick="openBorrowRequestModal()"><i class="fas fa-plus"></i> Add Need Post</button>
           </div>
-          <div style="font-size:0.78rem; font-weight:700; color:var(--text); margin-top:0.4rem;">
-            Campus Capacity: 88%
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th>Item Needed</th>
+                <th>Requested By</th>
+                <th>Category</th>
+                <th>Urgency</th>
+                <th>Needed For</th>
+                <th>Reason / Notes</th>
+                <th>Status</th>
+                <th>Admin Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminBorrowNeedsTableBody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: LENDER POSTS (PRICED / DONATE / SELL / FREE) -->
+    <div id="adminTabLenderPosts" class="admin-tab-content" style="display:none;">
+      <div class="admin-table-container">
+        <div class="table-toolbar">
+          <div class="table-title">
+            <i class="fas fa-hand-holding-heart" style="color:var(--accent);"></i> Lender Posts & Student Offerings
           </div>
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill"></div>
+          <div class="table-actions">
+            <input type="text" class="table-search" placeholder="Search listings or owners..." id="searchLenderPostsInput" oninput="renderAdminLenderPostsTable()" />
+            <select class="table-filter-select" id="filterLenderType" onchange="renderAdminLenderPostsTable()">
+              <option value="all">All Offer Types</option>
+              <option value="lend_free">Free Lend (Borrow)</option>
+              <option value="lend_price">Lend at Price ($/Day)</option>
+              <option value="donate">Donation (Free permanent)</option>
+              <option value="sell">Sell (Secondhand price)</option>
+            </select>
+            <button class="btn-action-sm" onclick="openLendModal()"><i class="fas fa-plus"></i> New Listing</button>
           </div>
-          <button class="login-btn" style="background:var(--highlight); margin-top:14px;" onclick="showToast('Exporting Swap Audit Log PDF...')">
-            <i class="fas fa-download"></i> Export Swap Audit Log
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th>Item & Details</th>
+                <th>Owner / Lender</th>
+                <th>Offer Type</th>
+                <th>Price / Terms</th>
+                <th>Pickup Location</th>
+                <th>Status</th>
+                <th>Admin Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminLenderPostsTableBody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: LIVE EXCHANGES & TRANSACTIONS TRACKER -->
+    <div id="adminTabExchanges" class="admin-tab-content" style="display:none;">
+      <div class="admin-table-container">
+        <div class="table-toolbar">
+          <div class="table-title">
+            <i class="fas fa-arrows-rotate" style="color:var(--secondary);"></i> Live Campus Exchanges (Lender &harr; Borrower)
+          </div>
+          <div class="table-actions">
+            <input type="text" class="table-search" placeholder="Search exchange by user/item..." id="searchExchangesInput" oninput="renderAdminExchangesTable()" />
+            <select class="table-filter-select" id="filterExchangeStatus" onchange="renderAdminExchangesTable()">
+              <option value="all">All Exchange Statuses</option>
+              <option value="Active">Active (Ongoing)</option>
+              <option value="Returned">Returned / Completed</option>
+              <option value="Overdue">Overdue</option>
+              <option value="Disputed">Disputed</option>
+            </select>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th>Exchange ID</th>
+                <th>Item</th>
+                <th>Lender</th>
+                <th>Borrower</th>
+                <th>Type</th>
+                <th>Due / Return Date</th>
+                <th>Designated Hub</th>
+                <th>Status</th>
+                <th>Resolution Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminExchangesTableBody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: USER PROFILE & DIRECT USER-TO-USER EXCHANGE INSPECTOR -->
+    <div id="adminTabUserInspector" class="admin-tab-content" style="display:none;">
+      <!-- Direct Pairwise Exchange Lookup Card -->
+      <div class="pairwise-inspector-card">
+        <div style="font-weight:800; color:var(--primary); font-size:1rem; display:flex; align-items:center; gap:8px;">
+          <i class="fas fa-people-arrows"></i> Direct User-to-User Exchange Lookup
+        </div>
+        <p style="font-size:0.82rem; color:var(--text-secondary); margin-top:2px;">
+          Select any two campus users to immediately inspect all mutual borrowings, lendings, donations, or sales between them.
+        </p>
+        <div class="pairwise-controls">
+          <select id="pairwiseUserA" class="pairwise-select" onchange="inspectPairwiseExchanges()">
+            <!-- Populated via JS -->
+          </select>
+          <span style="font-weight:800; color:var(--text-secondary); font-size:1.1rem;">&harr;</span>
+          <select id="pairwiseUserB" class="pairwise-select" onchange="inspectPairwiseExchanges()">
+            <!-- Populated via JS -->
+          </select>
+          <button class="btn-action-sm" onclick="inspectPairwiseExchanges()" style="background:var(--primary); color:white; padding:8px 16px;">
+            <i class="fas fa-search"></i> Inspect Mutual History
           </button>
         </div>
 
-        <!-- Micro Message Footer -->
-        <div style="font-size:0.72rem; color:var(--text-secondary); margin-top:8px; background:#F1F5F9; padding:10px 14px; border-radius:50px; display:flex; gap:10px; align-items:center; border:1px solid var(--border-color);">
-          <i class="fas fa-graduation-cap" style="color:var(--primary); font-size:0.9rem;"></i> college-only · trust network
+        <div id="pairwiseResultContainer" style="margin-top:14px;">
+          <!-- Populated when pairwise is triggered -->
         </div>
+      </div>
 
+      <!-- General User Directory Table -->
+      <div class="admin-table-container">
+        <div class="table-toolbar">
+          <div class="table-title">
+            <i class="fas fa-users" style="color:var(--highlight-dark);"></i> Verified Campus Student Directory
+          </div>
+          <div class="table-actions">
+            <input type="text" class="table-search" placeholder="Search student by name/dept..." id="searchUserDirectoryInput" oninput="renderUserDirectoryTable()" />
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th>Student Member</th>
+                <th>Department</th>
+                <th>Trust Score</th>
+                <th>Active Lendings</th>
+                <th>Active Borrowings</th>
+                <th>Account Status</th>
+                <th>Profile & Moderation</th>
+              </tr>
+            </thead>
+            <tbody id="adminUserDirectoryTableBody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
+
+    <!-- TAB 6: TOP USERS LEADERBOARD -->
+    <div id="adminTabLeaderboard" class="admin-tab-content" style="display:none;">
+      <div class="admin-table-container">
+        <div class="table-toolbar">
+          <div class="table-title">
+            <i class="fas fa-trophy" style="color:#F59E0B;"></i> Campus Trust & Generosity Leaderboard
+          </div>
+          <span style="font-size:0.8rem; color:var(--text-secondary);">Calculated from 100% on-time returns, peer ratings & donation frequency</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Student</th>
+                <th>Department</th>
+                <th>Trust Score</th>
+                <th>Completed Swaps</th>
+                <th>Items Donated</th>
+                <th>Reputation Tier</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminLeaderboardTableBody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 7: EVENT OF THE DAY MANAGER -->
+    <div id="adminTabEvents" class="admin-tab-content" style="display:none;">
+      <div class="admin-table-container">
+        <div class="table-toolbar">
+          <div class="table-title">
+            <i class="fas fa-calendar-star" style="color:var(--primary);"></i> Campus Events & Daily Spotlight Manager
+          </div>
+          <button class="btn-action-sm" onclick="openNewEventModal()"><i class="fas fa-plus"></i> Create New Event</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-data-table">
+            <thead>
+              <tr>
+                <th>Event Title</th>
+                <th>Date & Time</th>
+                <th>Location / Hub</th>
+                <th>Description</th>
+                <th>Attendees</th>
+                <th>Spotlight Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="adminEventsTableBody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Footer -->
   <div class="campus-note">
-    <i class="fas fa-rotate-left"></i> 4000+ items shared · serial#8-301 · rev.a
-    <span style="margin-left:12px; letter-spacing:1px; font-weight:400; opacity:0.7;">01001000</span>
+    <div>
+      <i class="fas fa-shield-halved" style="color:var(--accent);"></i> Verified University Peer Network · End-to-End Exchange Protection
+    </div>
+    <div>
+      <span style="margin-right:12px;">4,200+ campus items shared</span>
+      <span style="letter-spacing:1px; font-weight:400; opacity:0.7;">REV-2026.08</span>
+    </div>
   </div>
+
 </div>
 
-<!-- LEND MODAL (List Item) -->
+<!-- =========================================================================
+     MODALS
+     ========================================================================= -->
+
+<!-- LEND / SELL / DONATE MODAL -->
 <div class="modal-overlay" id="lendModal">
   <div class="modal-card">
     <div class="modal-header">
-      <h3><i class="fas fa-hand-holding-heart" style="color:var(--accent);"></i> List an Item to Lend</h3>
+      <h3><i class="fas fa-hand-holding-heart" style="color:var(--accent);"></i> List an Item to Share / Sell / Donate</h3>
       <button class="close-modal" onclick="closeModal('lendModal')"><i class="fas fa-xmark"></i></button>
     </div>
     <form onsubmit="handleLendSubmit(event)">
+      <!-- Listing Type Selector -->
       <div class="form-group">
-        <label>Item Name</label>
-        <input type="text" id="lendTitle" placeholder="e.g. TI-84 Plus CE Calculator" required />
+        <label>Listing Purpose & Offer Type</label>
+        <div class="post-type-selector">
+          <div class="post-type-btn active" id="typeLendFree" onclick="selectPostType('lend_free')">
+            <i class="fas fa-handshake"></i> Free Lend
+          </div>
+          <div class="post-type-btn" id="typeLendPrice" onclick="selectPostType('lend_price')">
+            <i class="fas fa-tags"></i> Lend ($/Day)
+          </div>
+          <div class="post-type-btn" id="typeDonate" onclick="selectPostType('donate')">
+            <i class="fas fa-gift"></i> Donate ($0)
+          </div>
+          <div class="post-type-btn" id="typeSell" onclick="selectPostType('sell')">
+            <i class="fas fa-money-bill-wave"></i> Sell Item
+          </div>
+        </div>
       </div>
+
       <div class="form-group">
-        <label>Category</label>
-        <select id="lendCategory" required>
-          <option value="Textbooks">Textbooks</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Gear & Supplies">Gear & Supplies</option>
-          <option value="Other">Other</option>
-        </select>
+        <label>Item Name / Title</label>
+        <input type="text" id="lendTitle" placeholder="e.g. TI-84 Plus CE Graphing Calculator" required />
       </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-group">
+          <label>Category</label>
+          <select id="lendCategory" required>
+            <option value="Textbooks">Textbooks</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Gear & Supplies">Gear & Supplies</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="priceInputGroup" style="display:none;">
+          <label id="priceLabel">Price ($)</label>
+          <input type="text" id="lendPrice" placeholder="e.g. $5/day or $45" />
+        </div>
+      </div>
+
       <div class="form-group">
-        <label>Max Lending Duration</label>
-        <input type="text" id="lendDuration" placeholder="e.g. 7 days / 1 semester" required />
+        <label>Available Duration / Terms</label>
+        <input type="text" id="lendDuration" placeholder="e.g. 7 days / 1 semester / Permanent" required />
       </div>
+
       <div class="form-group">
         <label>Pickup Location / Campus Hub</label>
-        <input type="text" id="lendNotes" placeholder="e.g. Science Library Hub" required />
+        <input type="text" id="lendNotes" placeholder="e.g. Science Library Hub Desk #2" required />
       </div>
-      <button type="submit" class="btn-submit" style="background:var(--accent);">Publish Listing</button>
+
+      <button type="submit" class="btn-submit" style="background:var(--accent);">
+        <i class="fas fa-check-circle"></i> Publish Campus Listing
+      </button>
     </form>
   </div>
 </div>
 
-<!-- BORROW MODAL -->
+<!-- BORROW REQUEST ("I NEED") MODAL -->
+<div class="modal-overlay" id="borrowRequestModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3><i class="fas fa-bullhorn" style="color:var(--purple);"></i> Post a Borrow Need ("I Need This")</h3>
+      <button class="close-modal" onclick="closeModal('borrowRequestModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <form onsubmit="handleBorrowRequestSubmit(event)">
+      <div class="form-group">
+        <label>What item do you urgently or casually need?</label>
+        <input type="text" id="needTitle" placeholder="e.g. Organic Chemistry Molecular Model Kit" required />
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-group">
+          <label>Category</label>
+          <select id="needCategory" required>
+            <option value="Textbooks">Textbooks</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Gear & Supplies">Gear & Supplies</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Urgency Level</label>
+          <select id="needUrgency" required>
+            <option value="High">🔴 High (Exam / Lab this week)</option>
+            <option value="Medium" selected>🟡 Medium (Needed in 3-5 days)</option>
+            <option value="Low">🟢 Low (Casual / Flexible)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Needed Duration</label>
+        <input type="text" id="needDuration" placeholder="e.g. 3 days for Midterm Exam" required />
+      </div>
+
+      <div class="form-group">
+        <label>Reason / Note for peers</label>
+        <textarea id="needNotes" placeholder="Explain course code, exam timing or where you can meet..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit" style="background:var(--purple);">
+        <i class="fas fa-paper-plane"></i> Broadcast Need to Campus
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- BORROW ITEM DETAILS / CONFIRM MODAL -->
 <div class="modal-overlay" id="borrowModal">
   <div class="modal-card">
     <div class="modal-header">
-      <h3><i class="fas fa-handshake" style="color:var(--secondary);"></i> Borrow Request</h3>
+      <h3><i class="fas fa-handshake" style="color:var(--secondary);"></i> Request Borrow / Exchange</h3>
       <button class="close-modal" onclick="closeModal('borrowModal')"><i class="fas fa-xmark"></i></button>
     </div>
     <div id="borrowModalContent">
@@ -1365,149 +2426,1247 @@
   </div>
 </div>
 
-<!-- Toast Notification -->
+<!-- USER PROFILE DEEP INSPECTOR MODAL (ADMIN & USER) -->
+<div class="modal-overlay" id="userProfileModal">
+  <div class="modal-card modal-lg">
+    <div class="modal-header">
+      <h3><i class="fas fa-id-card" style="color:var(--primary);"></i> Campus Member Profile Inspector</h3>
+      <button class="close-modal" onclick="closeModal('userProfileModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div id="userProfileModalContent">
+      <!-- Populated via JS -->
+    </div>
+  </div>
+</div>
+
+<!-- EVENT OF THE DAY MODAL / EDITOR -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3><i class="fas fa-calendar-star" style="color:#F59E0B;"></i> Set / Edit Event of the Day</h3>
+      <button class="close-modal" onclick="closeModal('eventModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <form onsubmit="handleEventSubmit(event)">
+      <div class="form-group">
+        <label>Event Name</label>
+        <input type="text" id="formEventTitle" placeholder="e.g. End of Semester Book Swap & Dorm Move-Out" required />
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-group">
+          <label>Date & Time</label>
+          <input type="text" id="formEventTime" placeholder="e.g. Today · 10 AM - 4 PM" required />
+        </div>
+        <div class="form-group">
+          <label>Location / Pavilion</label>
+          <input type="text" id="formEventLoc" placeholder="e.g. Student Union Plaza" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Spotlight Announcement Description</label>
+        <textarea id="formEventDesc" placeholder="Describe items highlighted, drop-off bins, prizes..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit" style="background:#F59E0B; color:#1E1B4B; font-weight:800;">
+        <i class="fas fa-star"></i> Spotlight as Event of the Day
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
 <div class="toast" id="toastNotification">
   <i class="fas fa-check-circle" style="color:var(--accent); font-size:1.1rem;"></i>
   <span id="toastMessage">Action completed successfully!</span>
 </div>
 
+<!-- =========================================================================
+     JAVASCRIPT LOGIC & STATE
+     ========================================================================= -->
 <script>
-  // Initial Items Data
+  // 1. Initial State Data Models
+
+  // Campus Users
+  let users = [
+    { id: 1, name: "Alex Chen", email: "alex.c@university.edu", dept: "Computer Science", trustScore: 99, swapsCompleted: 14, donatedCount: 4, avatar: "AC", status: "Active", badge: "Platinum Peer" },
+    { id: 2, name: "Emma Watson", email: "emma.w@university.edu", dept: "Mathematics", trustScore: 100, swapsCompleted: 22, donatedCount: 7, avatar: "EW", status: "Active", badge: "Community Hero" },
+    { id: 3, name: "James Miller", email: "james.m@university.edu", dept: "Mechanical Eng", trustScore: 98, swapsCompleted: 11, donatedCount: 2, avatar: "JM", status: "Active", badge: "Gold Peer" },
+    { id: 4, name: "Priya Sharma", email: "priya.s@university.edu", dept: "Electrical Eng", trustScore: 99, swapsCompleted: 18, donatedCount: 5, avatar: "PS", status: "Active", badge: "Gold Peer" },
+    { id: 5, name: "David Kim", email: "david.k@university.edu", dept: "Biochemistry", trustScore: 96, swapsCompleted: 8, donatedCount: 1, avatar: "DK", status: "Active", badge: "Verified Student" },
+    { id: 6, name: "Sarah Jenkins", email: "sarah.j@university.edu", dept: "Psychology", trustScore: 97, swapsCompleted: 12, donatedCount: 3, avatar: "SJ", status: "Active", badge: "Gold Peer" },
+    { id: 7, name: "Marcus Vance", email: "marcus.v@university.edu", dept: "Architecture", trustScore: 98, swapsCompleted: 15, donatedCount: 6, avatar: "MV", status: "Active", badge: "Platinum Peer" },
+    { id: 8, name: "Campus Admin", email: "admin@university.edu", dept: "Student Affairs", trustScore: 100, swapsCompleted: 0, donatedCount: 0, avatar: "AD", status: "Admin Staff", badge: "Staff Moderator" }
+  ];
+
+  // Lender Listings (Priced, Donate, Sell, Free Lend)
   let items = [
     {
-      id: 1,
-      title: "Calculus II textbook",
-      owner: "Emma",
+      id: 101,
+      title: "Calculus II Textbook (Stewart 9th Ed)",
+      owner: "Emma Watson",
+      ownerId: 2,
+      category: "Textbooks",
+      type: "lend_free", // lend_free, lend_price, donate, sell
+      price: "$0 (Free Borrow)",
+      duration: "1 Semester",
+      location: "Math Dept Lounge",
       time: "2h ago",
       status: "available",
-      category: "Textbooks",
       icon: "fa-calculator",
-      subText: "lent by Emma · 2h ago"
+      subText: "Free lend by Emma · 2h ago"
     },
     {
-      id: 2,
-      title: "Sony WH-1000XM4",
-      owner: "James",
+      id: 102,
+      title: "Sony WH-1000XM4 Noise Canceling",
+      owner: "James Miller",
+      ownerId: 3,
+      category: "Electronics",
+      type: "lend_price",
+      price: "$4 / day",
+      duration: "Up to 5 days",
+      location: "Engineering Library Hub",
       time: "due 09/04",
       status: "pending",
-      category: "Electronics",
       icon: "fa-headphones",
-      subText: "borrowed by James · due 09/04"
+      subText: "Lent at $4/day to Priya · due 09/04"
     },
     {
-      id: 3,
-      title: "MacBook charger (USB-C)",
-      owner: "Priya",
+      id: 103,
+      title: "Apple 96W USB-C Power Adapter",
+      owner: "Priya Sharma",
+      ownerId: 4,
+      category: "Electronics",
+      type: "lend_free",
+      price: "$0 (Free)",
+      duration: "3 days",
+      location: "Science Hub Desk #1",
       time: "1d ago",
       status: "returned",
-      category: "Electronics",
       icon: "fa-laptop",
-      subText: "lent by Priya · 1d ago"
+      subText: "Free lend by Priya · Returned"
     },
     {
-      id: 4,
-      title: "Organic Chemistry Model Kit",
-      owner: "David",
+      id: 104,
+      title: "Organic Chemistry 3D Model Kit",
+      owner: "David Kim",
+      ownerId: 5,
+      category: "Gear & Supplies",
+      type: "donate",
+      price: "FREE (Donation)",
+      duration: "Permanent Donation",
+      location: "Chemistry Lab 3B",
       time: "3h ago",
       status: "available",
-      category: "Gear & Supplies",
       icon: "fa-flask",
-      subText: "lent by David · 3h ago"
+      subText: "Donation by David · 3h ago"
     },
     {
-      id: 5,
-      title: "iClicker Student Remote",
-      owner: "Sarah",
+      id: 105,
+      title: "iClicker 2 Student Remote",
+      owner: "Sarah Jenkins",
+      ownerId: 6,
+      category: "Electronics",
+      type: "sell",
+      price: "$18 (Selling)",
+      duration: "Secondhand Sale",
+      location: "Student Union Desk",
       time: "5h ago",
       status: "available",
-      category: "Electronics",
       icon: "fa-gamepad",
-      subText: "lent by Sarah · 5h ago"
+      subText: "For sale by Sarah · $18"
     },
     {
-      id: 6,
-      title: "Ergonomic Desk Lamp",
-      owner: "Marcus",
+      id: 106,
+      title: "Architect Ergonomic Drafting Lamp",
+      owner: "Marcus Vance",
+      ownerId: 7,
+      category: "Gear & Supplies",
+      type: "lend_price",
+      price: "$2 / week",
+      duration: "1 month",
+      location: "Design Studio Hub",
       time: "2d ago",
       status: "available",
-      category: "Gear & Supplies",
       icon: "fa-lightbulb",
-      subText: "lent by Marcus · 2d ago"
+      subText: "Lend by Marcus · $2/wk"
     }
   ];
 
-  let currentUser = null; 
-  let currentCategory = 'all';
-  let showAll = false;
-
-  function renderItems() {
-    const container = document.getElementById('activityContainer');
-    const searchVal = document.getElementById('searchInput').value.toLowerCase();
-
-    let filtered = items.filter(item => {
-      const matchCat = currentCategory === 'all' || item.category === currentCategory;
-      const matchSearch = item.title.toLowerCase().includes(searchVal) || item.owner.toLowerCase().includes(searchVal);
-      return matchCat && matchSearch;
-    });
-
-    const displayItems = showAll ? filtered : filtered.slice(0, 4);
-
-    document.getElementById('itemCountNum').innerText = items.filter(i => i.status === 'available').length;
-    document.getElementById('totalItemsCount').innerText = items.length;
-
-    if (displayItems.length === 0) {
-      container.innerHTML = `
-        <div style="text-align:center; padding:2rem; color:var(--text-secondary); font-size:0.85rem;">
-          <i class="fas fa-box-open" style="font-size:2rem; margin-bottom:0.5rem; opacity:0.5;"></i><br/>
-          No items match your search or filter.
-        </div>
-      `;
-      return;
+  // Borrow Needs ("What students need")
+  let borrowRequests = [
+    {
+      id: 201,
+      title: "TI-84 Plus Graphing Calculator for Stats Midterm",
+      requester: "Alex Chen",
+      requesterId: 1,
+      category: "Electronics",
+      urgency: "High",
+      duration: "2 days (Thursday Midterm)",
+      notes: "Urgent need for STATS 201 Exam in Hall B. Will return immediately with fresh batteries.",
+      status: "Open",
+      time: "1h ago"
+    },
+    {
+      id: 202,
+      title: "Biology 101 Lab Coat & Safety Goggles",
+      requester: "David Kim",
+      requesterId: 5,
+      category: "Gear & Supplies",
+      urgency: "High",
+      duration: "Friday Lab Session",
+      notes: "Need Size M coat for organic lab practical this Friday.",
+      status: "Open",
+      time: "4h ago"
+    },
+    {
+      id: 203,
+      title: "Physics for Scientists & Engineers (Volume 1)",
+      requester: "James Miller",
+      requesterId: 3,
+      category: "Textbooks",
+      urgency: "Medium",
+      duration: "2 weeks",
+      notes: "Need for chapters 4-8 problem sets. Happy to return anytime.",
+      status: "Matched",
+      time: "1d ago"
     }
+  ];
 
-    container.innerHTML = displayItems.map(item => {
-      let statusClass = "status-available";
-      let statusText = item.status;
-      if (item.status === 'pending') statusClass = "status-pending";
-      if (item.status === 'returned') statusClass = "status-returned";
+  // Live Exchanges Tracker (Lender <-> Borrower)
+  let exchanges = [
+    {
+      id: "EX-901",
+      itemId: 102,
+      itemTitle: "Sony WH-1000XM4 Noise Canceling",
+      lender: "James Miller",
+      borrower: "Priya Sharma",
+      type: "Lend ($4/day)",
+      startDate: "2026-08-25",
+      dueDate: "2026-09-04",
+      hub: "Engineering Library Desk",
+      status: "Active",
+      notes: "Study session borrow for GRE prep"
+    },
+    {
+      id: "EX-902",
+      itemId: 103,
+      itemTitle: "Apple 96W USB-C Power Adapter",
+      lender: "Priya Sharma",
+      borrower: "Alex Chen",
+      type: "Free Lend",
+      startDate: "2026-08-20",
+      dueDate: "2026-08-23",
+      hub: "Science Hub Desk #1",
+      status: "Returned",
+      notes: "Safely returned on time. Trust score boosted."
+    },
+    {
+      id: "EX-903",
+      itemId: 101,
+      itemTitle: "Calculus II Textbook (Stewart 9th Ed)",
+      lender: "Emma Watson",
+      borrower: "David Kim",
+      type: "Free Lend",
+      startDate: "2026-08-26",
+      dueDate: "2026-09-10",
+      hub: "Math Dept Lounge",
+      status: "Active",
+      notes: "Midterm chapter review"
+    },
+    {
+      id: "EX-904",
+      itemId: 106,
+      itemTitle: "Architect Ergonomic Drafting Lamp",
+      lender: "Marcus Vance",
+      borrower: "Sarah Jenkins",
+      type: "Lend ($2/wk)",
+      startDate: "2026-08-15",
+      dueDate: "2026-08-29",
+      hub: "Design Studio Hub",
+      status: "Active",
+      notes: "Studio final model prep"
+    }
+  ];
 
-      return `
-        <div class="list-item">
-          <div class="item-info">
-            <div class="item-avatar"><i class="fas ${item.icon || 'fa-box'}"></i></div>
-            <div class="item-details">
-              <div class="title">${escapeHtml(item.title)}</div>
-              <div class="sub">${escapeHtml(item.subText)}</div>
+  // Campus Events / Event of the Day
+  let campusEvents = [
+    {
+      id: 1,
+      title: "Midterm Tech & Textbook Swap Fair",
+      time: "Today · 10:00 AM - 4:00 PM",
+      loc: "Central Library Hub & Quad",
+      desc: "Free graphing calculators, lab manuals & study monitors available for checkout at the Central Quad Pavilion.",
+      attendees: 84,
+      isSpotlight: true
+    },
+    {
+      id: 2,
+      title: "Dorm Move-Out Free Gear & Electronics Drive",
+      time: "Saturday · 11:00 AM - 5:00 PM",
+      loc: "Student Union Courtyard",
+      desc: "Donate unused monitors, desk lamps, and textbook bundles to incoming freshmen.",
+      attendees: 142,
+      isSpotlight: false
+    },
+    {
+      id: 3,
+      title: "STEM Lab Equipment & Calculator Loan Workshop",
+      time: "Next Tuesday · 2:00 PM - 5:00 PM",
+      loc: "Engineering Building Atrium",
+      desc: "Free verification of multimeter tools, TI calculators, and lab kit exchanges.",
+      attendees: 65,
+      isSpotlight: false
+    }
+  ];
+
+  // App UI State
+  let currentUser = null;
+  let currentCategory = 'all';
+  let currentCatalogTab = 'listings'; // 'listings' or 'needs'
+  let currentSelectedPostType = 'lend_free';
+  let showAll = false;
+  let activeView = 'student'; // 'student' or 'admin'
+
+  // =========================================================================
+  // VIEW SWITCHER (Student vs Admin Portal)
+  // =========================================================================
+  function switchView(view) {
+    activeView = view;
+    const studentContainer = document.getElementById('studentViewContainer');
+    const adminHub = document.getElementById('adminGovernanceHub');
+    const adminBtn = document.getElementById('adminPortalBtn');
+    const adminBtnText = document.getElementById('adminPortalBtnText');
+
+    if (view === 'admin') {
+      studentContainer.style.display = 'none';
+      adminHub.style.display = 'block';
+      adminBtn.classList.add('active-portal');
+      adminBtnText.innerText = "Exit Admin Panel";
+      renderAllAdminTabs();
+      showToast('Switched to Campus Admin Governance Portal');
+    } else {
+      studentContainer.style.display = 'block';
+      adminHub.style.display = 'none';
+      adminBtn.classList.remove('active-portal');
+      adminBtnText.innerText = "Admin Governance";
+      renderCatalog();
+    }
+  }
+
+  function toggleAdminPortal() {
+    if (activeView === 'admin') {
+      switchView('student');
+    } else {
+      switchView('admin');
+    }
+  }
+
+  // =========================================================================
+  // CATALOG FEED RENDERING (STUDENT VIEW)
+  // =========================================================================
+  function renderCatalog() {
+    const container = document.getElementById('catalogFeedContainer');
+    const searchVal = (document.getElementById('searchInput').value || '').toLowerCase();
+
+    if (currentCatalogTab === 'listings') {
+      // Render Listings (Priced, Donate, Sell, Free)
+      let filtered = items.filter(item => {
+        const matchCat = currentCategory === 'all' || item.category === currentCategory;
+        const matchSearch = item.title.toLowerCase().includes(searchVal) || item.owner.toLowerCase().includes(searchVal);
+        return matchCat && matchSearch;
+      });
+
+      document.getElementById('listingsCountBadge').innerText = items.length;
+      document.getElementById('needsCountBadge').innerText = borrowRequests.length;
+      document.getElementById('activeItemsSummary').innerText = `${items.filter(i => i.status === 'available').length} items available · ${borrowRequests.length} requests open`;
+
+      const displayItems = showAll ? filtered : filtered.slice(0, 5);
+
+      if (displayItems.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:2.5rem; color:var(--text-secondary); font-size:0.86rem;">
+            <i class="fas fa-box-open" style="font-size:2.2rem; margin-bottom:0.5rem; opacity:0.4;"></i><br/>
+            No listings found matching your search.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = displayItems.map(item => {
+        let typeBadge = `<span class="badge-type type-free"><i class="fas fa-handshake"></i> Free Lend</span>`;
+        if (item.type === 'lend_price') typeBadge = `<span class="badge-type type-price"><i class="fas fa-tag"></i> ${escapeHtml(item.price)}</span>`;
+        if (item.type === 'donate') typeBadge = `<span class="badge-type type-donate"><i class="fas fa-gift"></i> Donation</span>`;
+        if (item.type === 'sell') typeBadge = `<span class="badge-type type-sell"><i class="fas fa-money-bill"></i> ${escapeHtml(item.price)}</span>`;
+
+        let statusClass = "status-available";
+        let statusText = item.status;
+        if (item.status === 'pending') statusClass = "status-pending";
+        if (item.status === 'returned') statusClass = "status-returned";
+
+        return `
+          <div class="list-item">
+            <div class="item-info">
+              <div class="item-avatar"><i class="fas ${item.icon || 'fa-box'}"></i></div>
+              <div class="item-details">
+                <div class="title">
+                  <span>${escapeHtml(item.title)}</span>
+                  ${typeBadge}
+                </div>
+                <div class="sub">
+                  <span onclick="inspectUserByName('${escapeHtml(item.owner)}')" style="cursor:pointer; color:var(--primary); font-weight:700;">${escapeHtml(item.owner)}</span> 
+                  · ${escapeHtml(item.location)} · <span style="color:var(--text-secondary);">${escapeHtml(item.duration)}</span>
+                </div>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="item-status ${statusClass}" onclick="handleItemClick(${item.id})">
+                ${escapeHtml(statusText)}
+              </button>
             </div>
           </div>
-          <button class="item-status ${statusClass}" onclick="handleItemClick(${item.id})">
-            ${escapeHtml(statusText)}
-          </button>
-        </div>
-      `;
-    }).join('');
+        `;
+      }).join('');
+
+    } else {
+      // Render Student Needs / Borrow Requests
+      let filtered = borrowRequests.filter(req => {
+        const matchCat = currentCategory === 'all' || req.category === currentCategory;
+        const matchSearch = req.title.toLowerCase().includes(searchVal) || req.requester.toLowerCase().includes(searchVal);
+        return matchCat && matchSearch;
+      });
+
+      document.getElementById('needsCountBadge').innerText = borrowRequests.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:2.5rem; color:var(--text-secondary); font-size:0.86rem;">
+            <i class="fas fa-bullhorn" style="font-size:2.2rem; margin-bottom:0.5rem; opacity:0.4;"></i><br/>
+            No student borrow requests open at this moment.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(req => {
+        let urgencyBadge = `<span class="badge-type type-urgency-high"><i class="fas fa-fire"></i> Urgent</span>`;
+        if (req.urgency === 'Medium') urgencyBadge = `<span class="badge-type type-urgency-med"><i class="fas fa-clock"></i> Medium</span>`;
+        if (req.urgency === 'Low') urgencyBadge = `<span class="badge-type type-free"><i class="fas fa-check"></i> Flexible</span>`;
+
+        return `
+          <div class="list-item">
+            <div class="item-info">
+              <div class="item-avatar" style="background:#F5F3FF; color:var(--purple);"><i class="fas fa-bullhorn"></i></div>
+              <div class="item-details">
+                <div class="title">
+                  <span>${escapeHtml(req.title)}</span>
+                  ${urgencyBadge}
+                </div>
+                <div class="sub">
+                  Needed by <strong onclick="inspectUserByName('${escapeHtml(req.requester)}')" style="cursor:pointer; color:var(--primary);">${escapeHtml(req.requester)}</strong> 
+                  · <em>${escapeHtml(req.duration)}</em> · "${escapeHtml(req.notes)}"
+                </div>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button class="btn-action-sm" style="background:var(--purple); color:white; border:none; padding:7px 14px; border-radius:30px;" onclick="offerItemToNeed(${req.id})">
+                <i class="fas fa-hand-holding-heart"></i> Fulfill Need
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    renderMiniLeaderboard();
   }
 
-  function escapeHtml(str) {
-    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
-
-  function filterItems() {
-    renderItems();
+  function filterCatalog() {
+    renderCatalog();
   }
 
   function setCategoryFilter(category, el) {
     currentCategory = category;
     document.querySelectorAll('.cat-pill').forEach(pill => pill.classList.remove('active'));
-    el.classList.add('active');
-    renderItems();
+    if (el) el.classList.add('active');
+    renderCatalog();
   }
 
-  function toggleViewAllItems(e) {
+  function switchCatalogTab(tab) {
+    currentCatalogTab = tab;
+    document.getElementById('tabListingsBtn').classList.toggle('active', tab === 'listings');
+    document.getElementById('tabNeedsBtn').classList.toggle('active', tab === 'needs');
+    renderCatalog();
+  }
+
+  function toggleViewAll(e) {
     if(e) e.preventDefault();
     showAll = !showAll;
-    document.getElementById('viewAllBtn').innerText = showAll ? "show top" : `see all (${items.length})`;
-    renderItems();
+    document.getElementById('viewAllBtn').innerText = showAll ? "show top items" : "see all items";
+    renderCatalog();
+  }
+
+  function renderMiniLeaderboard() {
+    const list = document.getElementById('miniLeaderboardList');
+    if (!list) return;
+    const sorted = [...users].filter(u => u.status === 'Active').sort((a, b) => b.trustScore - a.trustScore).slice(0, 3);
+
+    list.innerHTML = sorted.map((u, idx) => `
+      <div class="top-user-item" onclick="inspectUser(${u.id})" style="cursor:pointer;">
+        <div class="user-rank-info">
+          <span class="rank-badge rank-${idx + 1}">${idx + 1}</span>
+          <span style="font-weight:700; color:var(--text);">${escapeHtml(u.name)}</span>
+          <span style="font-size:0.68rem; color:var(--text-secondary);">(${escapeHtml(u.dept)})</span>
+        </div>
+        <span class="score-badge"><i class="fas fa-shield-halved"></i> ${u.trustScore}</span>
+      </div>
+    `).join('');
+  }
+
+  // =========================================================================
+  // ADMIN PANEL CONTROLLER & SUB-TABS
+  // =========================================================================
+  function renderAllAdminTabs() {
+    updateAdminKPIs();
+    renderAdminOverviewTable();
+    renderAdminBorrowNeedsTable();
+    renderAdminLenderPostsTable();
+    renderAdminExchangesTable();
+    renderUserDirectoryTable();
+    renderAdminLeaderboardTable();
+    renderAdminEventsTable();
+    populatePairwiseDropdowns();
+  }
+
+  function updateAdminKPIs() {
+    document.getElementById('kpiActiveSwaps').innerText = exchanges.filter(e => e.status === 'Active').length;
+    document.getElementById('kpiBorrowNeeds').innerText = borrowRequests.length;
+    document.getElementById('kpiLenderListings').innerText = items.length;
+    document.getElementById('kpiTotalUsers').innerText = users.length;
+    document.getElementById('tabBadgeNeeds').innerText = borrowRequests.length;
+    document.getElementById('tabBadgeListings').innerText = items.length;
+    document.getElementById('tabBadgeExchanges').innerText = exchanges.length;
+  }
+
+  function switchAdminTab(tabName, el) {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    if (el) el.classList.add('active');
+
+    const tabs = ['Overview', 'BorrowNeeds', 'LenderPosts', 'Exchanges', 'UserInspector', 'Leaderboard', 'Events'];
+    tabs.forEach(t => {
+      const tabEl = document.getElementById(`adminTab${t}`);
+      if (tabEl) tabEl.style.display = 'none';
+    });
+
+    const target = document.getElementById(`adminTab${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`);
+    if (target) target.style.display = 'block';
+
+    if (tabName === 'userInspector') populatePairwiseDropdowns();
+  }
+
+  function switchToAdminTab(tabName) {
+    switchView('admin');
+    const tabBtn = Array.from(document.querySelectorAll('.admin-tab')).find(b => b.innerText.toLowerCase().includes(tabName.toLowerCase()));
+    switchAdminTab(tabName, tabBtn);
+  }
+
+  // Admin Tab: Overview Table
+  function renderAdminOverviewTable() {
+    const tbody = document.getElementById('overviewExchangesTableBody');
+    if (!tbody) return;
+    tbody.innerHTML = exchanges.slice(0, 4).map(ex => `
+      <tr>
+        <td><strong>${escapeHtml(ex.itemTitle)}</strong><br/><span style="font-size:0.72rem; color:var(--text-secondary);">${escapeHtml(ex.type)}</span></td>
+        <td><span class="user-name-link" onclick="inspectUserByName('${escapeHtml(ex.lender)}')">${escapeHtml(ex.lender)}</span></td>
+        <td><span class="user-name-link" onclick="inspectUserByName('${escapeHtml(ex.borrower)}')">${escapeHtml(ex.borrower)}</span></td>
+        <td>${escapeHtml(ex.dueDate)}</td>
+        <td><span class="badge-type ${ex.status === 'Active' ? 'type-price' : 'type-free'}">${escapeHtml(ex.status)}</span></td>
+        <td><button class="btn-action-sm" onclick="markExchangeReturned('${ex.id}')">Return</button></td>
+      </tr>
+    `).join('');
+  }
+
+  // Admin Tab: Borrow Needs Table
+  function renderAdminBorrowNeedsTable() {
+    const tbody = document.getElementById('adminBorrowNeedsTableBody');
+    if (!tbody) return;
+    const search = (document.getElementById('searchBorrowNeedsInput')?.value || '').toLowerCase();
+    const urg = document.getElementById('filterBorrowUrgency')?.value || 'all';
+
+    const filtered = borrowRequests.filter(b => {
+      const matchSearch = b.title.toLowerCase().includes(search) || b.requester.toLowerCase().includes(search);
+      const matchUrg = urg === 'all' || b.urgency === urg;
+      return matchSearch && matchUrg;
+    });
+
+    tbody.innerHTML = filtered.map(b => `
+      <tr>
+        <td><strong>${escapeHtml(b.title)}</strong></td>
+        <td>
+          <div class="table-user-cell" onclick="inspectUserByName('${escapeHtml(b.requester)}')">
+            <div class="mini-avatar">${b.requester.split(' ').map(n=>n[0]).join('')}</div>
+            <span class="user-name-link">${escapeHtml(b.requester)}</span>
+          </div>
+        </td>
+        <td>${escapeHtml(b.category)}</td>
+        <td><span class="badge-type ${b.urgency === 'High' ? 'type-urgency-high' : 'type-urgency-med'}">${escapeHtml(b.urgency)}</span></td>
+        <td>${escapeHtml(b.duration)}</td>
+        <td style="max-width:240px; font-size:0.78rem; color:var(--text-secondary);">${escapeHtml(b.notes)}</td>
+        <td><span class="badge-type ${b.status === 'Open' ? 'type-price' : 'type-free'}">${escapeHtml(b.status)}</span></td>
+        <td>
+          <button class="btn-action-sm" onclick="matchBorrowerWithLender(${b.id})" title="Match with available lender"><i class="fas fa-link"></i> Match</button>
+          <button class="btn-action-sm btn-action-danger" onclick="deleteBorrowNeed(${b.id})" title="Delete post"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // Admin Tab: Lender Posts Table (Priced, Donate, Sell, Free)
+  function renderAdminLenderPostsTable() {
+    const tbody = document.getElementById('adminLenderPostsTableBody');
+    if (!tbody) return;
+    const search = (document.getElementById('searchLenderPostsInput')?.value || '').toLowerCase();
+    const typeFilter = document.getElementById('filterLenderType')?.value || 'all';
+
+    const filtered = items.filter(i => {
+      const matchSearch = i.title.toLowerCase().includes(search) || i.owner.toLowerCase().includes(search);
+      const matchType = typeFilter === 'all' || i.type === typeFilter;
+      return matchSearch && matchType;
+    });
+
+    tbody.innerHTML = filtered.map(i => {
+      let typeBadge = `<span class="badge-type type-free">Free Lend</span>`;
+      if (i.type === 'lend_price') typeBadge = `<span class="badge-type type-price">Priced Lend</span>`;
+      if (i.type === 'donate') typeBadge = `<span class="badge-type type-donate">Donation</span>`;
+      if (i.type === 'sell') typeBadge = `<span class="badge-type type-sell">Sale</span>`;
+
+      return `
+        <tr>
+          <td>
+            <strong>${escapeHtml(i.title)}</strong><br/>
+            <span style="font-size:0.74rem; color:var(--text-secondary);">${escapeHtml(i.category)}</span>
+          </td>
+          <td>
+            <div class="table-user-cell" onclick="inspectUserByName('${escapeHtml(i.owner)}')">
+              <div class="mini-avatar">${i.owner.split(' ').map(n=>n[0]).join('')}</div>
+              <span class="user-name-link">${escapeHtml(i.owner)}</span>
+            </div>
+          </td>
+          <td>${typeBadge}</td>
+          <td><strong>${escapeHtml(i.price)}</strong> (${escapeHtml(i.duration)})</td>
+          <td><i class="fas fa-location-dot" style="color:#EF4444; font-size:0.75rem;"></i> ${escapeHtml(i.location)}</td>
+          <td><span class="badge-type ${i.status === 'available' ? 'type-free' : 'type-urgency-med'}">${escapeHtml(i.status)}</span></td>
+          <td>
+            <button class="btn-action-sm" onclick="featureItem(${i.id})"><i class="fas fa-star"></i> Feature</button>
+            <button class="btn-action-sm btn-action-danger" onclick="deleteLenderPost(${i.id})"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // Admin Tab: Live Exchanges Table
+  function renderAdminExchangesTable() {
+    const tbody = document.getElementById('adminExchangesTableBody');
+    if (!tbody) return;
+    const search = (document.getElementById('searchExchangesInput')?.value || '').toLowerCase();
+    const stat = document.getElementById('filterExchangeStatus')?.value || 'all';
+
+    const filtered = exchanges.filter(ex => {
+      const matchSearch = ex.itemTitle.toLowerCase().includes(search) || ex.lender.toLowerCase().includes(search) || ex.borrower.toLowerCase().includes(search);
+      const matchStat = stat === 'all' || ex.status === stat;
+      return matchSearch && matchStat;
+    });
+
+    tbody.innerHTML = filtered.map(ex => `
+      <tr>
+        <td><code>${escapeHtml(ex.id)}</code></td>
+        <td><strong>${escapeHtml(ex.itemTitle)}</strong></td>
+        <td><span class="user-name-link" onclick="inspectUserByName('${escapeHtml(ex.lender)}')">${escapeHtml(ex.lender)}</span></td>
+        <td><span class="user-name-link" onclick="inspectUserByName('${escapeHtml(ex.borrower)}')">${escapeHtml(ex.borrower)}</span></td>
+        <td><span class="badge-type type-price">${escapeHtml(ex.type)}</span></td>
+        <td>${escapeHtml(ex.dueDate)}</td>
+        <td>${escapeHtml(ex.hub)}</td>
+        <td><span class="badge-type ${ex.status === 'Active' ? 'type-free' : (ex.status === 'Overdue' ? 'type-urgency-high' : 'type-donate')}">${escapeHtml(ex.status)}</span></td>
+        <td>
+          <button class="btn-action-sm" onclick="markExchangeReturned('${ex.id}')" title="Mark as safely returned"><i class="fas fa-check"></i> Return</button>
+          <button class="btn-action-sm" onclick="extendExchangeDate('${ex.id}')" title="Extend due date"><i class="fas fa-clock"></i> Extend</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // Admin Tab: User Directory Table
+  function renderUserDirectoryTable() {
+    const tbody = document.getElementById('adminUserDirectoryTableBody');
+    if (!tbody) return;
+    const search = (document.getElementById('searchUserDirectoryInput')?.value || '').toLowerCase();
+
+    const filtered = users.filter(u => u.name.toLowerCase().includes(search) || u.dept.toLowerCase().includes(search));
+
+    tbody.innerHTML = filtered.map(u => {
+      const activeLends = items.filter(i => i.owner.toLowerCase() === u.name.toLowerCase()).length;
+      const activeBorrows = exchanges.filter(e => e.borrower.toLowerCase() === u.name.toLowerCase() && e.status === 'Active').length;
+
+      return `
+        <tr>
+          <td>
+            <div class="table-user-cell" onclick="inspectUser(${u.id})">
+              <div class="mini-avatar" style="background:var(--primary); color:white;">${u.avatar}</div>
+              <div>
+                <strong class="user-name-link">${escapeHtml(u.name)}</strong><br/>
+                <span style="font-size:0.72rem; color:var(--text-secondary);">${escapeHtml(u.email)}</span>
+              </div>
+            </div>
+          </td>
+          <td>${escapeHtml(u.dept)}</td>
+          <td><span class="trust-score-badge"><i class="fas fa-shield-halved"></i> ${u.trustScore}/100</span></td>
+          <td><strong>${activeLends}</strong> items</td>
+          <td><strong>${activeBorrows}</strong> swaps</td>
+          <td><span class="badge-type ${u.status === 'Active' ? 'type-free' : 'type-donate'}">${escapeHtml(u.status)}</span></td>
+          <td>
+            <button class="btn-action-sm" onclick="inspectUser(${u.id})"><i class="fas fa-id-card"></i> Inspect Profile</button>
+            <button class="btn-action-sm btn-action-danger" onclick="toggleUserSuspension(${u.id})">${u.status === 'Active' ? 'Suspend' : 'Restore'}</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // Admin Tab: Leaderboard
+  function renderAdminLeaderboardTable() {
+    const tbody = document.getElementById('adminLeaderboardTableBody');
+    if (!tbody) return;
+    const sorted = [...users].filter(u => u.status === 'Active').sort((a, b) => b.trustScore - a.trustScore || b.swapsCompleted - a.swapsCompleted);
+
+    tbody.innerHTML = sorted.map((u, idx) => `
+      <tr>
+        <td><span class="rank-badge rank-${idx < 3 ? idx + 1 : '2'}">${idx + 1}</span></td>
+        <td>
+          <div class="table-user-cell" onclick="inspectUser(${u.id})">
+            <div class="mini-avatar" style="background:#EEF2FF; color:var(--primary);">${u.avatar}</div>
+            <span class="user-name-link">${escapeHtml(u.name)}</span>
+          </div>
+        </td>
+        <td>${escapeHtml(u.dept)}</td>
+        <td><strong style="color:var(--accent-dark); font-size:1rem;">${u.trustScore}%</strong></td>
+        <td><strong>${u.swapsCompleted}</strong> on-time returns</td>
+        <td><strong>${u.donatedCount}</strong> items donated</td>
+        <td><span class="badge-type type-sell"><i class="fas fa-medal"></i> ${escapeHtml(u.badge)}</span></td>
+        <td><button class="btn-action-sm" onclick="inspectUser(${u.id})">View History</button></td>
+      </tr>
+    `).join('');
+  }
+
+  // Admin Tab: Events Manager Table
+  function renderAdminEventsTable() {
+    const tbody = document.getElementById('adminEventsTableBody');
+    if (!tbody) return;
+
+    tbody.innerHTML = campusEvents.map(ev => `
+      <tr>
+        <td><strong>${escapeHtml(ev.title)}</strong></td>
+        <td>${escapeHtml(ev.time)}</td>
+        <td><i class="fas fa-map-pin" style="color:#EF4444;"></i> ${escapeHtml(ev.loc)}</td>
+        <td style="max-width:280px; font-size:0.78rem; color:var(--text-secondary);">${escapeHtml(ev.desc)}</td>
+        <td><strong>${ev.attendees}</strong> students</td>
+        <td>${ev.isSpotlight ? '<span class="badge-type type-donate"><i class="fas fa-star"></i> Active Spotlight</span>' : '<span style="color:var(--text-secondary); font-size:0.75rem;">Standard</span>'}</td>
+        <td>
+          <button class="btn-action-sm" onclick="setSpotlightEvent(${ev.id})" ${ev.isSpotlight ? 'disabled' : ''}><i class="fas fa-star"></i> Set as Spotlight</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // =========================================================================
+  // PAIRWISE USER-TO-USER EXCHANGE INSPECTOR
+  // =========================================================================
+  function populatePairwiseDropdowns() {
+    const selA = document.getElementById('pairwiseUserA');
+    const selB = document.getElementById('pairwiseUserB');
+    if (!selA || !selB) return;
+
+    const options = users.map(u => `<option value="${escapeHtml(u.name)}">${escapeHtml(u.name)} (${escapeHtml(u.dept)})</option>`).join('');
+    selA.innerHTML = options;
+    selB.innerHTML = options;
+
+    if (users.length >= 2) {
+      selA.selectedIndex = 0; // Alex Chen
+      selB.selectedIndex = 3; // Priya Sharma
+    }
+    inspectPairwiseExchanges();
+  }
+
+  function inspectPairwiseExchanges() {
+    const userA = document.getElementById('pairwiseUserA')?.value;
+    const userB = document.getElementById('pairwiseUserB')?.value;
+    const container = document.getElementById('pairwiseResultContainer');
+    if (!container || !userA || !userB) return;
+
+    if (userA === userB) {
+      container.innerHTML = `<div style="padding:10px; color:var(--error); font-size:0.84rem;">Please select two different campus users to compare mutual exchanges.</div>`;
+      return;
+    }
+
+    // Find all exchanges between userA and userB in both directions
+    const mutualExchanges = exchanges.filter(ex => 
+      (ex.lender.toLowerCase() === userA.toLowerCase() && ex.borrower.toLowerCase() === userB.toLowerCase()) ||
+      (ex.lender.toLowerCase() === userB.toLowerCase() && ex.borrower.toLowerCase() === userA.toLowerCase())
+    );
+
+    if (mutualExchanges.length === 0) {
+      container.innerHTML = `
+        <div style="background:white; border-radius:14px; padding:16px; border:1px solid var(--border-color); font-size:0.84rem; color:var(--text-secondary); text-align:center;">
+          <i class="fas fa-handshake-slash" style="font-size:1.4rem; opacity:0.5; margin-bottom:4px;"></i><br/>
+          No prior mutual peer exchanges recorded between <strong>${escapeHtml(userA)}</strong> and <strong>${escapeHtml(userB)}</strong>.
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = `
+      <div style="background:white; border-radius:14px; padding:14px; border:1px solid #C7D2FE;">
+        <div style="font-size:0.85rem; font-weight:800; color:var(--primary); margin-bottom:10px;">
+          <i class="fas fa-list-check"></i> Found ${mutualExchanges.length} mutual exchange(s) between ${escapeHtml(userA)} and ${escapeHtml(userB)}:
+        </div>
+        <table class="admin-data-table" style="font-size:0.8rem;">
+          <thead>
+            <tr>
+              <th>Exchange ID</th>
+              <th>Item</th>
+              <th>Lender</th>
+              <th>Borrower</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${mutualExchanges.map(ex => `
+              <tr>
+                <td><code>${escapeHtml(ex.id)}</code></td>
+                <td><strong>${escapeHtml(ex.itemTitle)}</strong></td>
+                <td><strong style="color:var(--secondary);">${escapeHtml(ex.lender)}</strong></td>
+                <td><strong style="color:var(--purple);">${escapeHtml(ex.borrower)}</strong></td>
+                <td>${escapeHtml(ex.type)}</td>
+                <td><span class="badge-type ${ex.status === 'Active' ? 'type-price' : 'type-free'}">${escapeHtml(ex.status)}</span></td>
+                <td>${escapeHtml(ex.dueDate)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  // =========================================================================
+  // USER PROFILE MODAL INSPECTOR
+  // =========================================================================
+  function inspectUserByName(userName) {
+    const user = users.find(u => u.name.toLowerCase() === userName.toLowerCase());
+    if (user) {
+      inspectUser(user.id);
+    } else {
+      showToast(`User profile for ${userName} located in verified directory`);
+    }
+  }
+
+  function inspectUser(userId) {
+    const user = users.find(u => u.id === userId);
+    if (!user) return;
+
+    // Items this user is lending/selling/donating
+    const userListings = items.filter(i => i.owner.toLowerCase() === user.name.toLowerCase());
+    // Items this user is currently borrowing
+    const userBorrowings = exchanges.filter(e => e.borrower.toLowerCase() === user.name.toLowerCase());
+    // Needs posted
+    const userNeeds = borrowRequests.filter(r => r.requester.toLowerCase() === user.name.toLowerCase());
+
+    const content = document.getElementById('userProfileModalContent');
+    content.innerHTML = `
+      <div class="inspector-profile-header">
+        <div class="inspector-avatar">${user.avatar}</div>
+        <div class="inspector-meta" style="flex:1;">
+          <h4>${escapeHtml(user.name)}</h4>
+          <p>${escapeHtml(user.email)} · <strong>${escapeHtml(user.dept)}</strong></p>
+          <div style="display:flex; gap:8px; align-items:center; margin-top:6px; flex-wrap:wrap;">
+            <span class="trust-score-badge"><i class="fas fa-shield-halved"></i> Trust Score: ${user.trustScore}/100</span>
+            <span class="badge-type type-sell"><i class="fas fa-medal"></i> ${escapeHtml(user.badge)}</span>
+            <span class="badge-type ${user.status === 'Active' ? 'type-free' : 'type-urgency-high'}">${escapeHtml(user.status)}</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <button class="btn-action-sm" onclick="boostTrustScore(${user.id})" style="background:var(--accent-light); color:var(--accent-dark);"><i class="fas fa-arrow-up"></i> +2 Trust Score</button>
+          <button class="btn-action-sm btn-action-danger" onclick="toggleUserSuspension(${user.id})"><i class="fas fa-ban"></i> ${user.status === 'Active' ? 'Suspend Member' : 'Activate Member'}</button>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:16px;">
+        <!-- Left: Lending & Donating -->
+        <div style="background:#F8FAFC; border-radius:16px; padding:14px; border:1px solid var(--border-color);">
+          <div style="font-weight:800; font-size:0.88rem; color:var(--text); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+            <i class="fas fa-hand-holding-heart" style="color:var(--accent);"></i> Items Lending / Donating (${userListings.length})
+          </div>
+          ${userListings.length === 0 ? '<p style="font-size:0.78rem; color:var(--text-secondary);">No active listings.</p>' : `
+            <ul style="list-style:none; font-size:0.8rem; display:flex; flex-direction:column; gap:6px;">
+              ${userListings.map(item => `
+                <li style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dashed #E2E8F0;">
+                  <span>${escapeHtml(item.title)}</span>
+                  <span class="badge-type type-price" style="font-size:0.65rem;">${escapeHtml(item.price)}</span>
+                </li>
+              `).join('')}
+            </ul>
+          `}
+        </div>
+
+        <!-- Right: Borrowing & Requests -->
+        <div style="background:#F8FAFC; border-radius:16px; padding:14px; border:1px solid var(--border-color);">
+          <div style="font-weight:800; font-size:0.88rem; color:var(--text); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+            <i class="fas fa-book-reader" style="color:var(--secondary);"></i> Active Swaps & Needs (${userBorrowings.length + userNeeds.length})
+          </div>
+          ${(userBorrowings.length === 0 && userNeeds.length === 0) ? '<p style="font-size:0.78rem; color:var(--text-secondary);">No active swaps.</p>' : `
+            <ul style="list-style:none; font-size:0.8rem; display:flex; flex-direction:column; gap:6px;">
+              ${userBorrowings.map(ex => `
+                <li style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dashed #E2E8F0;">
+                  <span>Borrowing: ${escapeHtml(ex.itemTitle)}</span>
+                  <span class="badge-type type-free" style="font-size:0.65rem;">${escapeHtml(ex.status)}</span>
+                </li>
+              `).join('')}
+              ${userNeeds.map(need => `
+                <li style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dashed #E2E8F0;">
+                  <span>Need: ${escapeHtml(need.title)}</span>
+                  <span class="badge-type type-urgency-high" style="font-size:0.65rem;">${escapeHtml(need.urgency)}</span>
+                </li>
+              `).join('')}
+            </ul>
+          `}
+        </div>
+      </div>
+
+      <div style="text-align:right;">
+        <button class="btn-submit" style="display:inline-flex; width:auto; padding:8px 20px; font-size:0.84rem;" onclick="closeModal('userProfileModal')">Done</button>
+      </div>
+    `;
+
+    document.getElementById('userProfileModal').style.display = 'flex';
+  }
+
+  // =========================================================================
+  // ACTIONS (CREATE LEND, BORROW NEED, MATCH, EVENT)
+  // =========================================================================
+  function selectPostType(type) {
+    currentSelectedPostType = type;
+    document.querySelectorAll('.post-type-btn').forEach(btn => btn.classList.remove('active'));
+    
+    if (type === 'lend_free') document.getElementById('typeLendFree').classList.add('active');
+    if (type === 'lend_price') document.getElementById('typeLendPrice').classList.add('active');
+    if (type === 'donate') document.getElementById('typeDonate').classList.add('active');
+    if (type === 'sell') document.getElementById('typeSell').classList.add('active');
+
+    const priceGroup = document.getElementById('priceInputGroup');
+    const priceLabel = document.getElementById('priceLabel');
+    if (type === 'lend_price') {
+      priceGroup.style.display = 'block';
+      priceLabel.innerText = "Lend Rate (e.g. $4/day or $15/semester)";
+    } else if (type === 'sell') {
+      priceGroup.style.display = 'block';
+      priceLabel.innerText = "Selling Price ($)";
+    } else {
+      priceGroup.style.display = 'none';
+    }
+  }
+
+  function handleLendSubmit(e) {
+    e.preventDefault();
+    const title = document.getElementById('lendTitle').value;
+    const category = document.getElementById('lendCategory').value;
+    const duration = document.getElementById('lendDuration').value;
+    const location = document.getElementById('lendNotes').value;
+    const rawPrice = document.getElementById('lendPrice')?.value || '';
+
+    let formattedPrice = "$0 (Free Borrow)";
+    if (currentSelectedPostType === 'lend_price') formattedPrice = rawPrice || "$3 / day";
+    if (currentSelectedPostType === 'donate') formattedPrice = "FREE (Donation)";
+    if (currentSelectedPostType === 'sell') formattedPrice = rawPrice.startsWith('$') ? rawPrice : `$${rawPrice || '20'}`;
+
+    const newItem = {
+      id: Date.now(),
+      title: title,
+      owner: currentUser ? currentUser.name : "Alex Chen",
+      ownerId: currentUser ? 1 : 1,
+      category: category,
+      type: currentSelectedPostType,
+      price: formattedPrice,
+      duration: duration,
+      location: location,
+      time: "Just now",
+      status: "available",
+      icon: category === "Textbooks" ? "fa-book" : (category === "Electronics" ? "fa-laptop" : "fa-flask"),
+      subText: `Listed by ${currentUser ? currentUser.name : "Alex Chen"} · Just now`
+    };
+
+    items.unshift(newItem);
+    renderCatalog();
+    renderAllAdminTabs();
+    closeModal('lendModal');
+    showToast(`Successfully published ${title}!`);
+
+    // Reset form
+    document.getElementById('lendTitle').value = '';
+    document.getElementById('lendNotes').value = '';
+  }
+
+  function handleBorrowRequestSubmit(e) {
+    e.preventDefault();
+    const title = document.getElementById('needTitle').value;
+    const category = document.getElementById('needCategory').value;
+    const urgency = document.getElementById('needUrgency').value;
+    const duration = document.getElementById('needDuration').value;
+    const notes = document.getElementById('needNotes').value;
+
+    const newRequest = {
+      id: Date.now(),
+      title: title,
+      requester: currentUser ? currentUser.name : "Alex Chen",
+      requesterId: 1,
+      category: category,
+      urgency: urgency,
+      duration: duration,
+      notes: notes,
+      status: "Open",
+      time: "Just now"
+    };
+
+    borrowRequests.unshift(newRequest);
+    switchCatalogTab('needs');
+    renderCatalog();
+    renderAllAdminTabs();
+    closeModal('borrowRequestModal');
+    showToast(`Posted borrow need for ${title}`);
+
+    document.getElementById('needTitle').value = '';
+    document.getElementById('needNotes').value = '';
+  }
+
+  function offerItemToNeed(needId) {
+    const req = borrowRequests.find(r => r.id === needId);
+    if (!req) return;
+    req.status = "Matched";
+    showToast(`You offered to fulfill ${req.requester}'s need! Notification sent.`);
+    renderCatalog();
+    renderAllAdminTabs();
+  }
+
+  function matchBorrowerWithLender(needId) {
+    const req = borrowRequests.find(r => r.id === needId);
+    if (!req) return;
+    req.status = "Matched";
+    showToast(`Matched ${req.requester} with available campus lender.`);
+    renderAllAdminTabs();
+  }
+
+  function deleteBorrowNeed(id) {
+    borrowRequests = borrowRequests.filter(r => r.id !== id);
+    renderAllAdminTabs();
+    renderCatalog();
+    showToast('Borrow need post removed.');
+  }
+
+  function deleteLenderPost(id) {
+    items = items.filter(i => i.id !== id);
+    renderAllAdminTabs();
+    renderCatalog();
+    showToast('Listing removed.');
+  }
+
+  function featureItem(id) {
+    const item = items.find(i => i.id === id);
+    if (item) {
+      showToast(`Featured "${item.title}" on homepage!`);
+    }
+  }
+
+  function markExchangeReturned(exId) {
+    const ex = exchanges.find(e => e.id === exId);
+    if (ex) {
+      ex.status = "Returned";
+      // Also update item status
+      const item = items.find(i => i.id === ex.itemId);
+      if (item) item.status = "available";
+      renderAllAdminTabs();
+      renderCatalog();
+      showToast(`Exchange ${exId} marked as safely returned!`);
+    }
+  }
+
+  function extendExchangeDate(exId) {
+    const ex = exchanges.find(e => e.id === exId);
+    if (ex) {
+      ex.dueDate = "2026-09-18 (Extended)";
+      renderAllAdminTabs();
+      showToast(`Due date extended for ${ex.itemTitle}`);
+    }
+  }
+
+  function boostTrustScore(userId) {
+    const u = users.find(user => user.id === userId);
+    if (u) {
+      u.trustScore = Math.min(100, u.trustScore + 2);
+      inspectUser(userId);
+      renderAllAdminTabs();
+      showToast(`Boosted trust score for ${u.name} to ${u.trustScore}`);
+    }
+  }
+
+  function toggleUserSuspension(userId) {
+    const u = users.find(user => user.id === userId);
+    if (u) {
+      u.status = u.status === 'Active' ? 'Suspended' : 'Active';
+      inspectUser(userId);
+      renderAllAdminTabs();
+      showToast(`Updated status for ${u.name} to ${u.status}`);
+    }
+  }
+
+  function setSpotlightEvent(eventId) {
+    campusEvents.forEach(e => e.isSpotlight = (e.id === eventId));
+    const active = campusEvents.find(e => e.id === eventId);
+    if (active) {
+      document.getElementById('spotlightTitle').innerText = active.title;
+      document.getElementById('spotlightDesc').innerText = active.desc;
+      document.getElementById('spotlightLoc').innerText = `${active.loc} · ${active.time}`;
+      document.getElementById('adminEventTitle').innerText = active.title;
+      document.getElementById('adminEventDesc').innerText = active.desc;
+      document.getElementById('adminEventLoc').innerText = active.loc;
+      document.getElementById('adminEventTime').innerText = active.time;
+      renderAdminEventsTable();
+      showToast(`Updated Event of the Day: "${active.title}"`);
+    }
+  }
+
+  function handleEventSubmit(e) {
+    e.preventDefault();
+    const title = document.getElementById('formEventTitle').value;
+    const time = document.getElementById('formEventTime').value;
+    const loc = document.getElementById('formEventLoc').value;
+    const desc = document.getElementById('formEventDesc').value;
+
+    const newEvent = {
+      id: Date.now(),
+      title: title,
+      time: time,
+      loc: loc,
+      desc: desc,
+      attendees: 1,
+      isSpotlight: true
+    };
+
+    campusEvents.forEach(ev => ev.isSpotlight = false);
+    campusEvents.unshift(newEvent);
+
+    document.getElementById('spotlightTitle').innerText = title;
+    document.getElementById('spotlightDesc').innerText = desc;
+    document.getElementById('spotlightLoc').innerText = `${loc} · ${time}`;
+    document.getElementById('adminEventTitle').innerText = title;
+    document.getElementById('adminEventDesc').innerText = desc;
+    document.getElementById('adminEventLoc').innerText = loc;
+    document.getElementById('adminEventTime').innerText = time;
+
+    renderAdminEventsTable();
+    closeModal('eventModal');
+    showToast(`New Event of the Day spotlight created!`);
+  }
+
+  function exportAuditLog() {
+    showToast('Exporting CampusConnect Governance Audit Log (CSV / PDF)...');
+  }
+
+  // =========================================================================
+  // MODAL CONTROLS & AUTH
+  // =========================================================================
+  function openLendModal() {
+    document.getElementById('lendModal').style.display = 'flex';
+  }
+
+  function openBorrowRequestModal() {
+    document.getElementById('borrowRequestModal').style.display = 'flex';
+  }
+
+  function openBorrowBrowseModal() {
+    switchCatalogTab('listings');
+    document.getElementById('searchInput').focus();
+    showToast('Browse available campus items in the catalog below');
+  }
+
+  function openEventModal() {
+    const active = campusEvents.find(e => e.isSpotlight) || campusEvents[0];
+    document.getElementById('formEventTitle').value = active.title;
+    document.getElementById('formEventTime').value = active.time;
+    document.getElementById('formEventLoc').value = active.loc;
+    document.getElementById('formEventDesc').value = active.desc;
+    document.getElementById('eventModal').style.display = 'flex';
+  }
+
+  function openNewEventModal() {
+    document.getElementById('formEventTitle').value = '';
+    document.getElementById('formEventTime').value = '';
+    document.getElementById('formEventLoc').value = '';
+    document.getElementById('formEventDesc').value = '';
+    document.getElementById('eventModal').style.display = 'flex';
+  }
+
+  function handleItemClick(id) {
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+
+    if (item.status === 'available') {
+      document.getElementById('borrowModalContent').innerHTML = `
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:1.2rem; background:#F8FAFC; padding:14px; border-radius:18px; border:1px solid var(--border-color);">
+          <div class="item-avatar"><i class="fas ${item.icon}"></i></div>
+          <div>
+            <div style="font-weight:700; color:var(--text); font-size:1rem;">${escapeHtml(item.title)}</div>
+            <div style="font-size:0.78rem; color:var(--text-secondary);">Owner: ${escapeHtml(item.owner)} · ${escapeHtml(item.category)}</div>
+            <div style="font-size:0.82rem; color:var(--primary); font-weight:700; margin-top:2px;">Offer: ${escapeHtml(item.price)} (${escapeHtml(item.duration)})</div>
+          </div>
+        </div>
+        <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:1.2rem; line-height:1.45;">
+          Ready to coordinate with <strong>${escapeHtml(item.owner)}</strong>? Designated pickup desk is at <strong>${escapeHtml(item.location)}</strong>.
+        </p>
+        <button class="btn-submit" onclick="requestBorrow(${item.id})">Confirm Peer Request</button>
+      `;
+      document.getElementById('borrowModal').style.display = 'flex';
+    } else {
+      showToast(`Item is currently ${item.status}.`);
+    }
+  }
+
+  function requestBorrow(id) {
+    const item = items.find(i => i.id === id);
+    if (item) {
+      item.status = 'pending';
+      item.subText = `Exchange pending with ${currentUser ? currentUser.name : "Alex Chen"}`;
+
+      // Create new live exchange
+      exchanges.unshift({
+        id: `EX-${Math.floor(100 + Math.random() * 900)}`,
+        itemId: item.id,
+        itemTitle: item.title,
+        lender: item.owner,
+        borrower: currentUser ? currentUser.name : "Alex Chen",
+        type: item.price,
+        startDate: "2026-08-27",
+        dueDate: "2026-09-03",
+        hub: item.location,
+        status: "Active",
+        notes: "Campus swap initiated"
+      });
+
+      renderCatalog();
+      renderAllAdminTabs();
+      closeModal('borrowModal');
+      showToast(`Borrow request sent to ${item.owner}!`);
+    }
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
   }
 
   function switchLoginTab(type) {
@@ -1531,48 +3690,30 @@
 
   function handleUserLogin(e) {
     if(e) e.preventDefault();
-    const email = document.getElementById('userEmail').value || "alex.c@university.edu";
-    currentUser = {
-      role: 'user',
-      name: 'Alex Chen',
-      email: email,
-      avatar: 'AC'
-    };
+    currentUser = { role: 'user', name: 'Alex Chen', email: 'alex.c@university.edu', avatar: 'AC' };
     updateAuthUI();
-    showToast('Signed in successfully as Alex Chen');
+    showToast('Signed in as Alex Chen (Student)');
   }
 
   function handleAdminLogin(e) {
     if(e) e.preventDefault();
-    currentUser = {
-      role: 'admin',
-      name: 'Campus Admin',
-      email: 'admin@university.edu',
-      avatar: 'AD'
-    };
+    currentUser = { role: 'admin', name: 'Campus Admin', email: 'admin@university.edu', avatar: 'AD' };
     updateAuthUI();
+    switchView('admin');
     showToast('Authenticated as Campus Administrator');
   }
 
   function quickFillUser() {
-    document.getElementById('userEmail').value = "alex.c@university.edu";
-    document.getElementById('userPass').value = "password123";
     handleUserLogin();
   }
 
   function quickFillAdmin() {
-    document.getElementById('adminId').value = "admin · 08";
-    document.getElementById('adminPass').value = "admin123";
     handleAdminLogin();
   }
 
   function updateAuthUI() {
     const loginToggleContainer = document.getElementById('loginToggleContainer');
     const userProfilePill = document.getElementById('userProfilePill');
-    const userLoginCard = document.getElementById('userLoginCard');
-    const adminLoginCard = document.getElementById('adminLoginCard');
-    const loginDivider = document.getElementById('loginDivider');
-    const adminDashboardView = document.getElementById('adminDashboardView');
 
     if (currentUser) {
       loginToggleContainer.style.display = 'none';
@@ -1580,121 +3721,17 @@
       document.getElementById('userName').innerText = currentUser.name;
       document.getElementById('userRole').innerText = currentUser.role === 'admin' ? 'Campus Admin · Staff' : 'Student · Verified';
       document.getElementById('userAvatar').innerText = currentUser.avatar;
-
-      if (currentUser.role === 'admin') {
-        userLoginCard.style.display = 'none';
-        adminLoginCard.style.display = 'none';
-        loginDivider.style.display = 'none';
-        adminDashboardView.style.display = 'block';
-      } else {
-        userLoginCard.style.display = 'block';
-        adminLoginCard.style.display = 'none';
-        loginDivider.style.display = 'none';
-        adminDashboardView.style.display = 'none';
-      }
     } else {
       loginToggleContainer.style.display = 'flex';
       userProfilePill.style.display = 'none';
-      userLoginCard.style.display = 'block';
-      adminLoginCard.style.display = 'block';
-      loginDivider.style.display = 'flex';
-      adminDashboardView.style.display = 'none';
-      switchLoginTab('user');
     }
   }
 
   function logout() {
     currentUser = null;
     updateAuthUI();
+    switchView('student');
     showToast('Signed out from campus portal');
-  }
-
-  function openLendModal() {
-    if (!currentUser) {
-      showToast('Please sign in to list an item!');
-      return;
-    }
-    document.getElementById('lendModal').style.display = 'flex';
-  }
-
-  function openBorrowModal() {
-    document.getElementById('borrowModalContent').innerHTML = `
-      <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:1.5rem; line-height:1.4;">
-        Select an available item from the campus activity list below or use the search bar to find textbooks, electronics, or lab gear.
-      </p>
-      <button class="btn-submit" onclick="closeModal('borrowModal')">Browse Campus Catalog</button>
-    `;
-    document.getElementById('borrowModal').style.display = 'flex';
-  }
-
-  function handleItemClick(id) {
-    const item = items.find(i => i.id === id);
-    if (!item) return;
-
-    if (item.status === 'available') {
-      document.getElementById('borrowModalContent').innerHTML = `
-        <div style="display:flex; align-items:center; gap:14px; margin-bottom:1.2rem; background:#F8FAFC; padding:14px; border-radius:18px; border:1px solid var(--border-color);">
-          <div class="item-avatar"><i class="fas ${item.icon}"></i></div>
-          <div>
-            <div style="font-weight:700; color:var(--text); font-size:1rem;">${escapeHtml(item.title)}</div>
-            <div style="font-size:0.78rem; color:var(--text-secondary);">Owner: ${escapeHtml(item.owner)} · ${escapeHtml(item.category)}</div>
-          </div>
-        </div>
-        <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1.4rem; line-height:1.45;">
-          Ready to borrow? Sending a request will notify ${escapeHtml(item.owner)} via university email to coordinate pickup location.
-        </p>
-        <button class="btn-submit" onclick="requestBorrow(${item.id})">Confirm Borrow Request</button>
-      `;
-      document.getElementById('borrowModal').style.display = 'flex';
-    } else if (item.status === 'pending') {
-      showToast(`Item is currently pending borrow request.`);
-    } else if (item.status === 'returned') {
-      showToast(`Item has been safely returned.`);
-    }
-  }
-
-  function requestBorrow(id) {
-    if (!currentUser) {
-      closeModal('borrowModal');
-      showToast('Please sign in to request an item!');
-      return;
-    }
-    const item = items.find(i => i.id === id);
-    if (item) {
-      item.status = 'pending';
-      item.subText = `borrowed by ${currentUser.name} · pending`;
-      renderItems();
-      closeModal('borrowModal');
-      showToast(`Borrow request sent for ${item.title}`);
-    }
-  }
-
-  function handleLendSubmit(e) {
-    e.preventDefault();
-    const title = document.getElementById('lendTitle').value;
-    const category = document.getElementById('lendCategory').value;
-
-    const newItem = {
-      id: Date.now(),
-      title: title,
-      owner: currentUser ? currentUser.name : "Alex",
-      time: "Just now",
-      status: "available",
-      category: category,
-      icon: category === "Textbooks" ? "fa-book" : (category === "Electronics" ? "fa-laptop" : "fa-flask"),
-      subText: `lent by ${currentUser ? currentUser.name : "Alex"} · Just now`
-    };
-
-    items.unshift(newItem);
-    renderItems();
-    closeModal('lendModal');
-    showToast(`Successfully listed ${title}!`);
-    document.getElementById('lendTitle').value = '';
-    document.getElementById('lendNotes').value = '';
-  }
-
-  function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
   }
 
   function showToast(msg) {
@@ -1706,7 +3743,14 @@
     }, 3200);
   }
 
-  renderItems();
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  // Initial Load
+  renderCatalog();
+  renderAllAdminTabs();
 </script>
 </body>
 </html>
