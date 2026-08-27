@@ -775,6 +775,49 @@
       color: white;
     }
 
+    .btn-leave-comm {
+      margin-top: 8px;
+      background: #FEF2F2;
+      color: var(--error);
+      border: 1px solid #FCA5A5;
+      padding: 9px 14px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-leave-comm:hover {
+      background: var(--error);
+      color: white;
+    }
+
+    .btn-report-chat {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.74rem;
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: all 0.15s;
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-report-chat:hover {
+      color: var(--error);
+      background: #FEF2F2;
+    }
+
     /* Main Right Content Panel */
     .discord-main-stage {
       padding: 1.5rem 1.8rem;
@@ -1392,6 +1435,11 @@
         <button class="btn-share-comm" onclick="shareActiveCommunity()">
           <i class="fas fa-share-nodes"></i> Share Community Link
         </button>
+
+        <!-- Leave Community Button -->
+        <button class="btn-leave-comm" onclick="leaveActiveCommunity()">
+          <i class="fas fa-right-from-bracket"></i> Leave Community
+        </button>
       </div>
 
       <!-- RIGHT COLUMN 3: MAIN DISCOVERY OR DISCORD CHAT FEED -->
@@ -1531,14 +1579,20 @@
                 <div class="chat-msg-row">
                   <div class="chat-avatar">JS</div>
                   <div class="chat-bubble">
-                    <div class="chat-user-name">Jordan Smith <span class="chat-user-tag">Junior · Electrical</span></div>
+                    <div class="chat-user-name">
+                      <span>Jordan Smith <span class="chat-user-tag">Junior · Electrical</span></span>
+                      <button class="btn-report-chat" onclick="openReportModal('Jordan Smith', 'Arduino Uno request')" title="Report message"><i class="far fa-flag"></i> Report</button>
+                    </div>
                     <div class="chat-text">Hey everyone! Anyone got an Arduino Uno & breadboard I can borrow for the weekend lab project? Will return by Monday morning!</div>
                   </div>
                 </div>
                 <div class="chat-msg-row">
                   <div class="chat-avatar">AC</div>
                   <div class="chat-bubble">
-                    <div class="chat-user-name">Alex Chen <span class="chat-user-tag">Lender</span></div>
+                    <div class="chat-user-name">
+                      <span>Alex Chen <span class="chat-user-tag">Lender</span></span>
+                      <button class="btn-report-chat" onclick="openReportModal('Alex Chen', 'Arduino starter kit listing')" title="Report message"><i class="far fa-flag"></i> Report</button>
+                    </div>
                     <div class="chat-text">I have an extra Arduino starter kit available! Just listed it in the specialized marketplace tab above.</div>
                   </div>
                 </div>
@@ -1604,6 +1658,35 @@
     </div>
 
     <button class="btn-submit" onclick="confirmAcceptRules()"><i class="fas fa-check"></i> Agree & Join Community</button>
+  </div>
+</div>
+
+<!-- REPORT CHAT MODAL -->
+<div class="modal-overlay" id="reportModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3><i class="fas fa-flag" style="color:var(--error);"></i> Report Message / User</h3>
+      <button class="close-modal" onclick="closeModal('reportModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <form onsubmit="submitChatReport(event)">
+      <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:1.2rem;" id="reportTargetText">
+        Report inappropriate behavior or unsafe item listings to campus governance.
+      </p>
+      <div class="form-group" style="margin-bottom:1.2rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:6px;">Select Reason</label>
+        <select id="reportReasonSelect" required style="width:100%; padding:12px; border-radius:14px; border:1px solid #ddd; font-family:inherit;">
+          <option value="Spam / Unsolicited message">Spam or Unsolicited messages</option>
+          <option value="Inappropriate or disrespectful behavior">Inappropriate or disrespectful behavior</option>
+          <option value="Unsafe or suspicious item listing">Unsafe or suspicious item listing</option>
+          <option value="Other Policy Violation">Other Policy Violation</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:1.2rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:6px;">Additional Details (Optional)</label>
+        <input type="text" id="reportDetailsInput" placeholder="Briefly describe the issue..." style="width:100%; padding:12px; border-radius:14px; border:1px solid #ddd; font-family:inherit;" />
+      </div>
+      <button type="submit" class="btn-submit" style="background:var(--error);"><i class="fas fa-paper-plane"></i> Submit Report to Admins</button>
+    </form>
   </div>
 </div>
 
@@ -1824,6 +1907,31 @@
     showToast(`🔗 Community invite link copied to clipboard! Share with your classmates.`);
   }
 
+  // Leave Community Feature
+  function leaveActiveCommunity() {
+    if (!activeCommunity) return;
+    const target = activeCommunity;
+    joinedCommunities = joinedCommunities.filter(c => c.name !== target);
+    showToast(`You left ${target}`);
+    openDiscordServer('discover');
+  }
+
+  // Report Chat Message Feature
+  let reportingTarget = null;
+  function openReportModal(username, text) {
+    reportingTarget = { username, text };
+    document.getElementById('reportTargetText').innerText = `Report message by ${username}: "${text}"`;
+    document.getElementById('reportModal').style.display = 'flex';
+  }
+
+  function submitChatReport(e) {
+    if(e) e.preventDefault();
+    const reason = document.getElementById('reportReasonSelect').value;
+    closeModal('reportModal');
+    showToast(`🚩 Report submitted to Campus Governance Admins (${reason}). Thank you!`);
+    reportingTarget = null;
+  }
+
   // Post Chat Message
   function postChatMessage(e) {
     e.preventDefault();
@@ -1831,12 +1939,16 @@
     const val = input.value.trim();
     if (!val) return;
 
+    const authorName = currentUser ? currentUser.name : 'Guest Student';
     const list = document.getElementById('chatMessageList');
     const msgHtml = `
       <div class="chat-msg-row">
         <div class="chat-avatar">${currentUser ? currentUser.avatar : 'ME'}</div>
         <div class="chat-bubble">
-          <div class="chat-user-name">${currentUser ? currentUser.name : 'Guest Student'} <span class="chat-user-tag">Member</span></div>
+          <div class="chat-user-name">
+            <span>${authorName} <span class="chat-user-tag">Member</span></span>
+            <button class="btn-report-chat" onclick="openReportModal('${authorName}', '${escapeHtml(val)}')" title="Report message"><i class="far fa-flag"></i> Report</button>
+          </div>
           <div class="chat-text">${escapeHtml(val)}</div>
         </div>
       </div>
