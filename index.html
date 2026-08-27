@@ -601,24 +601,27 @@
       border-radius: 28px;
       background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
       border: 1px solid var(--border-color);
-      overflow: hidden;
+      overflow-x: scroll;
+      overflow-y: hidden;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       cursor: crosshair;
       user-select: none;
       box-shadow: var(--shadow-sm);
-      padding: 0 20px;
+      padding: 20px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .orbital-wrapper::-webkit-scrollbar {
+      display: none;
     }
 
     .orbital-track {
       display: flex;
       gap: 20px;
-      position: relative;
-      left: 0;
-      top: 0;
-      will-change: transform;
-      transition: transform 0.12s ease-out;
+      align-items: center;
       padding-right: 40px;
     }
 
@@ -1428,7 +1431,156 @@
           <div class="orbital-wrapper" id="orbitalWrapper">
             <!-- Orbital Track -->
             <div class="orbital-track" id="orbitalTrack">
-              <!-- Dynamically populated -->
+              <div class="orbital-card" onclick="addToCart(101)">
+                <img src="https://images.unsplash.com/photo-1611125832047-1d7ad1e8e48a?q=80&w=600&auto=format&fit=crop" alt="TI-84 Plus CE Graphing Calculator" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">TI-84 Plus CE Graphing Calculator</div>
+                    <div class="orbital-card-sub">Lender: Alex Chen · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(102)">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop" alt="Sony WH-1000XM4 Noise Canceling Headphones" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Sony WH-1000XM4 Headphones</div>
+                    <div class="orbital-card-sub">Lender: James Wilson · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(103)">
+                <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?q=80&w=600&auto=format&fit=crop" alt="MacBook Pro 96W USB-C Power Adapter" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">MacBook Pro 96W USB-C Adapter</div>
+                    <div class="orbital-card-sub">Lender: Priya Patel · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(104)">
+                <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=600&auto=format&fit=crop" alt="Organic Chemistry 3D Molecular Model Kit" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Organic Chem Molecular Model Kit</div>
+                    <div class="orbital-card-sub">Lender: David Kim · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(105)">
+                <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop" alt="Sony Alpha a7 III Mirrorless 4K Camera" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Sony Alpha a7 III 4K Camera</div>
+                    <div class="orbital-card-sub">Lender: Marcus Vance · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(106)">
+                <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=600&auto=format&fit=crop" alt="iPad Air 5th Gen + Apple Pencil 2" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">iPad Air 5th Gen + Apple Pencil 2</div>
+                    <div class="orbital-card-sub">Lender: Sarah Jenkins · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(107)">
+                <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600&auto=format&fit=crop" alt="Minimalist LED Ergonomic Study Desk Lamp" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Minimalist LED Study Desk Lamp</div>
+                    <div class="orbital-card-sub">Lender: Emma Watson · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(108)">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600&auto=format&fit=crop" alt="Littmann Classic III Clinical Stethoscope" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Littmann Classic III Stethoscope</div>
+                    <div class="orbital-card-sub">Lender: Dr. Maya Lin · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(109)">
+                <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=600&auto=format&fit=crop" alt="Wacom Intuos Pro Creative Pen Tablet" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Wacom Intuos Pro Pen Tablet</div>
+                    <div class="orbital-card-sub">Lender: Leo Rivera · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(110)">
+                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop" alt="HP 10bII+ Financial Calculator" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">HP 10bII+ Financial Calculator</div>
+                    <div class="orbital-card-sub">Lender: Sophia Zhang · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(111)">
+                <img src="https://images.unsplash.com/photo-1609592424089-9a74ee794f0e?q=80&w=600&auto=format&fit=crop" alt="Anker PowerCore 26800mAh Portable Bank" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Anker 26800mAh Power Bank</div>
+                    <div class="orbital-card-sub">Lender: Ethan Hunt · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(112)">
+                <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?q=80&w=600&auto=format&fit=crop" alt="Logitech MX Master 3S Wireless Mouse" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Logitech MX Master 3S Mouse</div>
+                    <div class="orbital-card-sub">Lender: Olivia Wilde · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(113)">
+                <img src="https://images.unsplash.com/photo-1622979135225-d2ba269bc1bd?q=80&w=600&auto=format&fit=crop" alt="Oculus / Meta Quest 2 128GB VR Headset" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Meta Quest 2 128GB VR Headset</div>
+                    <div class="orbital-card-sub">Lender: Abigail King · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(114)">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" alt="Arduino Starter Kit Complete with Sensors" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Arduino Starter Kit + Sensors</div>
+                    <div class="orbital-card-sub">Lender: Henry Wright · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
+              <div class="orbital-card" onclick="addToCart(115)">
+                <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=600&auto=format&fit=crop" alt="Campbell Biology 12th Edition Hardcover" class="orbital-img" />
+                <div class="orbital-card-body">
+                  <div>
+                    <div class="orbital-card-title">Campbell Biology 12th Edition</div>
+                    <div class="orbital-card-sub">Lender: Isabella Cruz · FREE</div>
+                  </div>
+                  <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2363,32 +2515,12 @@
   let orbitalVelocity = 0;
 
   function renderOrbitalCarousel() {
-    const track = document.getElementById('orbitalTrack');
-    if (!track) return;
-
-    track.innerHTML = recentProducts.map(p => `
-      <div class="orbital-card" onclick="addToCart(${p.id})">
-        <img src="${p.img}" alt="${escapeHtml(p.title)}" class="orbital-img" />
-        <div class="orbital-card-body">
-          <div>
-            <div class="orbital-card-title">${escapeHtml(p.title)}</div>
-            <div class="orbital-card-sub">Lender: ${escapeHtml(p.owner)} · FREE</div>
-          </div>
-          <button class="btn-orbital-borrow"><i class="fas fa-plus"></i> Borrow Now</button>
-        </div>
-      </div>
-    `).join('');
-
-    track.style.transform = `translateX(0px)`;
-    orbitalX = 0;
     setupOrbitalSteering();
   }
 
   function setupOrbitalSteering() {
     const wrapper = document.getElementById('orbitalWrapper');
-    const track = document.getElementById('orbitalTrack');
-
-    if (!wrapper || !track) return;
+    if (!wrapper) return;
 
     wrapper.addEventListener('mousemove', (e) => {
       const rect = wrapper.getBoundingClientRect();
@@ -2398,11 +2530,11 @@
       if (ratio < 0.3) {
         // Left 30% -> Orbit Left
         const intensity = (0.3 - ratio) / 0.3;
-        orbitalVelocity = 6 * intensity;
+        orbitalVelocity = -8 * intensity;
       } else if (ratio > 0.7) {
         // Right 30% -> Orbit Right
         const intensity = (ratio - 0.7) / 0.3;
-        orbitalVelocity = -6 * intensity;
+        orbitalVelocity = 8 * intensity;
       } else {
         // Center 40% -> Focus zone
         orbitalVelocity = 0;
@@ -2415,11 +2547,7 @@
 
     function updateOrbitalLoop() {
       if (Math.abs(orbitalVelocity) > 0.02) {
-        orbitalX += orbitalVelocity;
-        const maxScroll = track.scrollWidth - wrapper.clientWidth + 160;
-        if (orbitalX > 0) orbitalX = 0;
-        if (orbitalX < -maxScroll) orbitalX = -maxScroll;
-        track.style.transform = `translateX(${orbitalX}px)`;
+        wrapper.scrollLeft += orbitalVelocity;
       }
       requestAnimationFrame(updateOrbitalLoop);
     }
