@@ -614,10 +614,11 @@
       display: flex;
       gap: 20px;
       position: absolute;
-      left: 50%;
+      left: 20px;
+      top: 30px;
       will-change: transform;
       transition: transform 0.12s ease-out;
-      padding: 0 40px;
+      padding-right: 40px;
     }
 
     .orbital-card {
@@ -2220,7 +2221,7 @@
   }
 
   // 30-40-30 Mouse Steering Orbital Carousel
-  let orbitalX = -100;
+  let orbitalX = 0;
   let orbitalVelocity = 0;
 
   const recentProducts = [
